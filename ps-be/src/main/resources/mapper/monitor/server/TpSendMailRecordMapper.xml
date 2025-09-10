@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.monitor.server.core.mapper.TpSendMailRecordMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.monitor.server.core.bean.entity.TpSendMailRecord" id="tpSendMailRecordMap">
+        <result property="recordId" column="record_id"/>
+        <result property="personName" column="person_name"/>
+        <result property="email" column="email"/>
+        <result property="sendTime" column="send_time"/>
+        <result property="message" column="message"/>
+        <result property="status" column="status"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="actived" column="actived"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updator" column="updator"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="extend01" column="extend01"/>
+        <result property="extend02" column="extend02"/>
+        <result property="extend03" column="extend03"/>
+        <result property="extend04" column="extend04"/>
+        <result property="extend05" column="extend05"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.monitor.server.core.bean.entity.TpSendMailRecord">
+        INSERT INTO tp_send_mail_record
+            (record_id, person_name, email, send_time, message, status, tenant_id, actived, creator, create_time, updator, update_time, extend01, extend02, extend03, extend04, extend05)
+        VALUES
+            (#{recordId}, #{personName}, #{email}, #{sendTime}, #{message}, #{status}, #{tenantId}, #{actived}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{extend01}, #{extend02}, #{extend03}, #{extend04}, #{extend05})
+    </insert>
+
+    <select id="getPage" parameterType="com.jiuxi.monitor.server.core.bean.query.TpSendMailRecordQuery" resultType="com.jiuxi.monitor.server.core.bean.vo.TpSendMailRecordVO">
+        SELECT
+          tsmr.record_id
+        , tsmr.person_name
+        , tsmr.email
+        , tsmr.send_time
+        , tsmr.message
+        , tsmr.status
+        , tsmr.tenant_id
+        , tsmr.actived
+        , tsmr.creator
+        , tsmr.create_time
+        , tsmr.updator
+        , tsmr.update_time
+        , tsmr.extend01
+        , tsmr.extend02
+        , tsmr.extend03
+        , tsmr.extend04
+        , tsmr.extend05
+        FROM tp_send_mail_record tsmr
+        WHERE
+        tsmr.ACTIVED = 1
+        <if test="query.personName != null and query.personName != ''">
+          and tsmr.person_name  like concat('%', #{query.personName}, '%')
+        </if>
+        <if test="query.email != null and query.email != ''">
+            and tsmr.email  like concat('%', #{query.email}, '%')
+        </if>
+        <if test="query.message != null and query.message != ''">
+            and tsmr.message  like concat('%', #{query.message}, '%')
+        </if>
+        <if test="query.status != null">
+            and tsmr.status = #{query.status}
+        </if>
+        <if test="query.sendTimeStart != null and query.sendTimeStart != ''">
+            and tsmr.send_time &gt;= #{query.sendTimeStart}
+        </if>
+        <if test="query.sendTimeEnd != null and query.sendTimeEnd != ''">
+            and tsmr.send_time &lt;= #{query.sendTimeEnd}
+        </if>
+        ORDER BY tsmr.CREATE_TIME desc
+    </select>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.monitor.server.core.bean.vo.TpSendMailRecordVO">
+        SELECT
+          tsmr.record_id
+        , tsmr.person_name
+        , tsmr.email
+        , tsmr.send_time
+        , tsmr.message
+        , tsmr.status
+        , tsmr.tenant_id
+        , tsmr.actived
+        , tsmr.creator
+        , tsmr.create_time
+        , tsmr.updator
+        , tsmr.update_time
+        , tsmr.extend01
+        , tsmr.extend02
+        , tsmr.extend03
+        , tsmr.extend04
+        , tsmr.extend05
+        FROM tp_send_mail_record tsmr
+        WHERE
+        tsmr.ACTIVED = 1
+        and
+        tsmr.record_id = #{recordId}
+    </select>
+
+    <update id="delete" parameterType="String" >
+        UPDATE tp_send_mail_record SET ACTIVED = 0, UPDATE_TIME = #{updateTime}, UPDATOR = #{updator} WHERE record_id = #{recordId}
+    </update>
+
+</mapper>

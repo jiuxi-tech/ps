@@ -1,0 +1,199 @@
+/*!
+* tag
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-tag {
+	box-sizing:            border-box;
+	font-size:             @--font-size-xs;
+	font-variant:          tabular-nums;
+	line-height:           22px;
+	list-style:            none;
+	font-feature-settings: "tnum";
+	height:                22px;
+	padding:               0 8px;
+	white-space:           nowrap;
+	border-radius:         4px;
+	cursor:                default;
+	opacity:               1;
+	transition:            all .3s cubic-bezier(.78, .14, .15, .86);
+
+	display:               inline-flex;
+	align-items:           center;
+
+	width:                 fit-content;
+
+	.@{prefix}-tag__icon {
+		margin-right: 4px;
+		cursor:      pointer;
+	}
+
+	.@{prefix}-tag__close {
+		font-size:   12px;
+		margin-left: 4px;
+		cursor:      pointer;
+	}
+
+	&--size-s {
+		height:    20px;
+		font-size: 12px;
+
+		&.@{prefix}-tag--round {
+			border-radius: 10px;
+		}
+	}
+
+	&--size-m {
+		height:    24px;
+		font-size: 12px;
+
+
+		&.@{prefix}-tag--round {
+			border-radius: 12px;
+		}
+	}
+
+	&--size-l {
+		height:    28px;
+		font-size: 14px;
+
+
+		&.@{prefix}-tag--round {
+			border-radius: 14px;
+		}
+	}
+
+	&--round {
+	}
+
+	/* type  @label-color, @light-background-color, @dark-background-color, @border-color */
+
+	&--primary {
+		.tag (@--color-blue-6, @--color-blue-1, @--color-blue-6, @--color-blue-4);
+	}
+
+	&--danger {
+		.tag (@--color-red-5, @--color-red-1, @--color-red-5, @--color-red-3);
+	}
+
+	&--warn, &--warning {
+		.tag (@--color-orange-6, @--color-orange-1, @--color-orange-6, @--color-orange-4);
+	}
+
+	&--success {
+		.tag (@--color-green-6, @--color-green-1, @--color-green-6, @--color-green-4);
+	}
+
+	&--info {
+		.tag (@--color-blue-6, @--color-blue-1, @--color-blue-6, @--color-blue-4);
+	}
+
+	&--default {
+		.tag (@--color-grey-9, @--color-grey-3, @--color-grey-9, @--color-grey-6);
+	}
+
+	&--red {
+		.tag (@--color-red-5, @--color-red-1, @--color-red-5, @--color-red-3);
+	}
+
+	&--tomato {
+		.tag (@--color-tomato-6, @--color-tomato-1, @--color-tomato-6, @--color-tomato-4);
+	}
+
+	&--carrot {
+		.tag (@--color-carrot-6, @--color-carrot-1, @--color-carrot-6, @--color-carrot-4);
+	}
+
+	&--orange {
+		.tag (@--color-orange-6, @--color-orange-1, @--color-orange-6, @--color-orange-4);
+	}
+
+	&--green {
+		.tag (@--color-green-6, @--color-green-1, @--color-green-6, @--color-green-4);
+	}
+
+	&--cyan {
+		.tag (@--color-cyan-6, @--color-cyan-1, @--color-cyan-6, @--color-cyan-4);
+	}
+
+	&--blue {
+		.tag (@--color-blue-6, @--color-blue-1, @--color-blue-6, @--color-blue-4);
+	}
+
+	&--ultramarine {
+		.tag (@--color-ultramarine-5, @--color-ultramarine-1, @--color-ultramarine-5, @--color-ultramarine-3);
+	}
+
+	&--purple {
+		.tag (@--color-purple-5, @--color-purple-1, @--color-purple-5, @--color-purple-3);
+	}
+
+	&--magenta {
+		.tag (@--color-magenta-5, @--color-magenta-1, @--color-magenta-5, @--color-magenta-3);
+	}
+
+	&--grey {
+		.tag (@--color-grey-9, @--color-grey-3, @--color-grey-9, @--color-grey-6);
+	}
+
+	/* type */
+
+}
+
+
+/**
+ * @param {string} @label-color 标签文本颜色
+ * @param {string} @light-background-color light 标签背景色
+ * @param {string} @dark-background-color dark 标签背景色
+ * @param {string} @border-color 标签边框颜色
+ */
+.tag(@label-color, @light-background-color, @dark-background-color, @border-color) {
+
+	border: 1px solid transparent;
+
+	&.@{prefix}-tag--light {
+		color:            @label-color;
+		background-color: @light-background-color;
+		border-color:     @light-background-color;
+	}
+	&.@{prefix}-tag--plain {
+		color:            @label-color;
+		background-color: transparent;
+		border-color:     @border-color;
+	}
+
+	&.@{prefix}-tag--dark {
+		color:            @--color-white;
+		background-color: @dark-background-color;
+		border-color:     @dark-background-color;
+	}
+
+	&.@{prefix}-tag--solid {
+		color:            @label-color;
+		background-color: @light-background-color;
+		border-color:     @border-color;
+	}
+
+}
+
+
+.@{prefix}-tags {
+
+	display:     inline-flex;
+	align-items: center;
+	gap:         8px;
+	flex-wrap:   wrap;
+
+
+	&--vertical {
+		flex-direction: column;
+		gap:            8px 0;
+		align-items:    flex-start;
+
+		.@{prefix}-tag {
+		}
+	}
+
+}

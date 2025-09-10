@@ -1,0 +1,254 @@
+@import "./common/var";
+
+
+.@{prefix}-input-number {
+	position: relative;
+	display: inline-block;
+	width: 180px;
+	line-height: 28px;
+
+
+	.@{prefix}-input-number__content {
+		margin: 0 auto;
+		width: calc(100% - 62px);
+
+		.@{prefix}-input,
+		.@{prefix}-input .@{prefix}-input__content {
+			font-size: inherit;
+		}
+
+		.@{prefix}-input__el {
+			-webkit-appearance: none;
+			padding-left: 5px;
+			padding-right: 5px;
+			text-align: center;
+			border-radius: 0px;
+		}
+
+		.@{prefix}-input .@{prefix}-input__prepend,
+		.@{prefix}-input .@{prefix}-input__append{
+			border-radius: 0px;
+		}
+	}
+
+
+	.@{prefix}-input-number__decrease,
+	.@{prefix}-input-number__increase {
+		position: absolute;
+		z-index: 1;
+		top: 0px;
+		width: 30px;
+		height: auto;
+		text-align: center;
+		background: #F5F7FA;
+		color: #606266;
+		cursor: pointer;
+		font-size: 13px
+	}
+
+	.@{prefix}-input-number__decrease:hover,
+	.@{prefix}-input-number__increase:hover {
+		color: #409EFF
+	}
+
+	.@{prefix}-input-number__decrease:hover:not(.is-disabled) ~ .@{prefix}-input .@{prefix}-input__el:not(.is-disabled),
+	.@{prefix}-input-number__increase:hover:not(.is-disabled) ~ .@{prefix}-input .@{prefix}-input__el:not(.is-disabled) {
+		border-color: #409EFF
+	}
+
+	.@{prefix}-input-number__decrease.is-disabled,
+	.@{prefix}-input-number__increase.is-disabled {
+		color: #C0C4CC;
+		cursor: not-allowed
+	}
+
+	.@{prefix}-input-number__increase {
+		right: 1px;
+		border-radius: 0 4px 4px 0;
+		border: 1px solid #DCDFE6;
+		border-left: none;
+	}
+
+	.@{prefix}-input-number__decrease {
+		left: 1px;
+		border-radius: 4px 0 0 4px;
+		border: 1px solid #DCDFE6;
+		border-right: none;
+	}
+
+	&.is-disabled .@{prefix}-input-number__decrease,
+	&.is-disabled .@{prefix}-input-number__increase {
+		border-color: #E4E7ED;
+		color: #E4E7ED
+	}
+
+	&.is-disabled .@{prefix}-input-number__decrease:hover,
+	&.is-disabled .@{prefix}-input-number__increase:hover {
+		color: #E4E7ED;
+		cursor: not-allowed
+	}
+
+	&.is-without-controls .@{prefix}-input__el {
+		padding-left: 15px;
+		padding-right: 15px
+	}
+
+	&.is-controls-right {
+		.@{prefix}-input-number__content {
+			width: 100%;
+			margin: 0;
+		}
+
+		.@{prefix}-input .@{prefix}-input__el {
+			padding-left: 15px;
+			padding-right: 36px;
+			text-align: left;
+			border-radius: 4px;
+		}
+	}
+
+	&.is-controls-right .@{prefix}-input-number__decrease,
+	&.is-controls-right .@{prefix}-input-number__increase {
+		opacity: 0;
+		height: auto;
+		line-height: 13px;
+		transition: all .3s;
+
+	}
+
+	&:hover {
+		&.is-controls-right .@{prefix}-input-number__decrease,
+		&.is-controls-right .@{prefix}-input-number__increase {
+			opacity: 1;
+		}
+	}
+
+	&.is-controls-right .@{prefix}-input-number__decrease [class*=icon],
+	&.is-controls-right .@{prefix}-input-number__increase [class*=icon] {
+		-webkit-transform: scale(.8);
+		transform: scale(.8)
+	}
+
+	&.is-controls-right .@{prefix}-input-number__increase {
+		top: 1px;
+		border-radius: 0 4px 0 0;
+		border: none;
+		border-bottom: 1px solid #DCDFE6
+	}
+
+	&.is-controls-right .@{prefix}-input-number__decrease {
+		right: 1px;
+		bottom: 1px;
+		top: auto;
+		left: auto;
+		border: none;
+		//border-right: 1px solid #DCDFE6;
+		border-radius: 0 0 4px;
+	}
+
+	&.is-controls-right[class*=medium] [class*=decrease],
+	&.is-controls-right[class*=medium] [class*=increase] {
+		line-height: 17px
+	}
+
+	&.is-controls-right[class*=small] [class*=decrease],
+	&.is-controls-right[class*=small] [class*=increase] {
+		line-height: 15px
+	}
+
+	&.is-controls-right[class*=mini] [class*=decrease],
+	&.is-controls-right[class*=mini] [class*=increase] {
+		line-height: 13px
+	}
+
+
+	// l 码
+	&.@{prefix}-input-number--l {
+		width: 200px;
+		line-height: 34px;
+
+		.@{prefix}-input-number__content {
+			margin: 0 auto;
+			width: calc(100% - 74px);
+		}
+		.@{prefix}-input-number__decrease,
+		.@{prefix}-input-number__increase {
+			width: 36px;
+		}
+
+		&.is-controls-right {
+			.@{prefix}-input-number__content {
+				width: 100%;
+				margin: 0;
+			}
+		}
+
+		&.is-controls-right .@{prefix}-input-number__decrease,
+		&.is-controls-right .@{prefix}-input-number__increase {
+			height: auto;
+			line-height: 17px;
+
+		}
+	}
+
+	// s 码
+	&.@{prefix}-input-number--s {
+		width: 130px;
+		line-height: 22px;
+
+		.@{prefix}-input-number__content {
+			margin: 0 auto;
+			width: calc(100% - 50px);
+		}
+		.@{prefix}-input-number__decrease,
+		.@{prefix}-input-number__increase {
+			width: 24px;
+			font-size: 13px
+		}
+
+		.@{prefix}-input-number__decrease [class*=icon],
+		.@{prefix}-input-number__increase [class*=icon] {
+			-webkit-transform: scale(.7);
+			transform: scale(.7)
+		}
+
+		&.is-controls-right {
+			.@{prefix}-input-number__content {
+				width: 100%;
+				margin: 0;
+			}
+		}
+
+		&.is-controls-right .@{prefix}-input-number__decrease,
+		&.is-controls-right .@{prefix}-input-number__increase {
+			height: 12.5px;
+		}
+	}
+}
+
+.@{prefix}-input-number--mini {
+	width: 130px;
+	line-height: 26px
+}
+
+.@{prefix}-input-number--mini .@{prefix}-input-number__decrease,
+.@{prefix}-input-number--mini .@{prefix}-input-number__increase {
+	width: 28px;
+	font-size: 12px
+}
+
+.@{prefix}-input-number--mini .@{prefix}-input-number__decrease [class*=el-icon],
+.@{prefix}-input-number--mini .@{prefix}-input-number__increase [class*=el-icon] {
+	-webkit-transform: scale(.8);
+	transform: scale(.8)
+}
+
+.@{prefix}-input-number--mini .@{prefix}-input__el {
+	padding-left: 35px;
+	padding-right: 35px
+}
+
+
+
+
+

@@ -1,0 +1,148 @@
+/*!
+* rate
+* (c) 2022 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-rate-wrapper {
+	box-sizing:     border-box;
+	display:        inline-block;
+	margin:         0;
+	padding:        0;
+	line-height:    unset;
+	outline:        none;
+	font-size:      16px;
+	transition:     all 0.4s;
+	vertical-align: middle;
+
+	&:hover {
+		.@{prefix}-rate-close {
+			transform:    scale(1);
+			opacity:      1;
+			width:        12px;
+			margin-right: 4px;
+		}
+	}
+}
+
+.@{prefix}-rate {
+	position:       relative;
+	display:        inline-block;
+	color:          inherit;
+	cursor:         pointer;
+	transition:     all .3s;
+	vertical-align: middle;
+
+	&:hover {
+		transform: scale(1.1);
+	}
+
+	&:not(:last-child) {
+		.@{prefix}-rate-star {
+
+			&__half {
+				width:        calc((100% - 10px) / 2);
+				margin-right: 10px;
+			}
+
+			&__full {
+				width:        100%;
+				margin-right: 10px;
+			}
+
+		}
+	}
+
+}
+
+.@{prefix}-rate-star {
+	position: relative;
+
+	&__half {
+		width:    50%;
+		overflow: hidden;
+		position: absolute;
+
+		.@{prefix}-rate-star-icon {
+			display:    block;
+			text-align: left;
+			transition: color 0.4s ease-in-out;
+		}
+
+		.@{prefix}-rate-star-slot-icon {
+			display:     block;
+			text-align:  left;
+			white-space: nowrap;
+			transition:  color 0.4s ease-in-out;
+		}
+
+		.@{prefix}-rate-star-label {
+			text-align: left;
+			display:    none;
+		}
+	}
+
+	&__full {
+		width: 100%;
+
+
+		.@{prefix}-rate-star-icon {
+			display:    block;
+			text-align: left;
+			transition: color 0.4s ease-in-out;
+		}
+
+		.@{prefix}-rate-star-slot-icon {
+			display:     block;
+			text-align:  left;
+			white-space: nowrap;
+			transition:  color 0.4s ease-in-out;
+		}
+
+		.@{prefix}-rate-star-label {
+			text-align: center;
+			display:    none;
+		}
+	}
+
+
+}
+
+
+.@{prefix}-rate-prepend {
+	font-size:      13px;
+	margin-right:   8px;
+	vertical-align: middle;
+}
+
+.@{prefix}-rate-append {
+	font-size:      13px;
+	margin-left:    8px;
+	vertical-align: middle;
+}
+
+
+.@{prefix}-rate-wrapper--focus {
+	//box-shadow:    @--box-shadow-base;
+	border-radius: 4px;
+	outline:       1px dashed #FADB14;
+	//transform: scale(1.1)
+}
+
+.@{prefix}-rate-desc {
+	color:          #313C47;
+	font-size:      14px;
+	vertical-align: middle;
+}
+
+.@{prefix}-rate-close {
+	color:          #BFBFBF;
+	font-size:      12px;
+	transform:      scale(0);
+	transition:     all 0.6s;
+	opacity:        0;
+	width:          0;
+	cursor:         pointer;
+	vertical-align: middle;
+}

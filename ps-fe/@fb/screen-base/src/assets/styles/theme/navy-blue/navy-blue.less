@@ -1,0 +1,129 @@
+/*!
+* theme-navy-blue 海军蓝
+*/
+@import "../fb-mixins";
+
+html.theme-navy-blue {
+	// 混入蓝色通用主题
+	.blue-theme();
+
+	// 大屏 壳子 面板== 样式
+	.screen-shell {
+		background:       url("../../../img/theme/navy-blue/wrapper-bg.png") no-repeat;
+		background-size:  100% 100%;
+
+		.header {
+			background: url("../../../img/theme/navy-blue/screen-header/header-logo.png") center no-repeat;
+		}
+		.header-menu-date {
+			top: 30px;
+			font-size: 18px;
+		}
+		.header-enter-admin {
+			top: 30px;
+		}
+		.header-menu-left {
+			display: none !important;
+		}
+
+		.header-menu-right {
+			display: none !important;
+		}
+
+	}
+
+	.screen-panel {
+		.screen-panel__wrapper {
+			background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 1) 100%) left top no-repeat,
+			linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%) right top no-repeat,
+			linear-gradient(270deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 1) 100%) right bottom no-repeat,
+			linear-gradient(360deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%) left bottom no-repeat;
+			background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%;
+
+			.screen-panel__wrapper__top {
+				display: none !important;
+			}
+
+			.screen-panel__wrapper__border {
+				display: none !important;
+			}
+
+			.screen-panel__wrapper__bottom {
+				display: none !important;
+			}
+		}
+
+		.screen-panel__header {
+			background: transparent;
+			text-align: left;
+
+			.screen-panel__title {
+				font-size: 18px;
+				font-family: MicrosoftYaHei-Bold, MicrosoftYaHei;
+				font-weight: bold;
+				color: #FFFFFF;
+				padding-left: 57px;
+				position: relative;
+
+				&:before, &:after {
+					content: '';
+					display: block;
+					width: 29px;
+					height: 24px;
+					position: absolute;
+					top: 7px;
+				}
+
+				&:before {
+					left: 16px;
+					background: url("../../../img/theme/navy-blue/screen-panel/panel-title-left.png") no-repeat;
+				}
+				&:after {
+					right: -40px;
+					background: url("../../../img/theme/navy-blue/screen-panel/panel-title-right.png") no-repeat;
+				}
+			}
+		}
+
+		&--no-header {
+			.screen-panel__wrapper {
+				border: none;
+				border-radius: 0px;
+			}
+		}
+	}
+
+
+	.jpx-dialog-header .jpx-dialog-header__actions > .jpx-icon {
+		background: rgba(0, 145, 255, 0.5);
+		border-radius: 3px;
+		border: 1px solid #0091FF;
+		font-size: 16px !important;
+		color: #fff;
+	}
+	.jpx-dialog {
+		position: absolute;
+		background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 1) 100%) left top no-repeat,
+		linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%) right top no-repeat,
+		linear-gradient(270deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 1) 100%) right bottom no-repeat,
+		linear-gradient(360deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3) 100%) left bottom no-repeat;
+		background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%;
+		background-color: #00175A;
+		border-radius: 0;
+		box-shadow: 0px 0px 24px 0px rgba(5, 17, 71, 0.2);
+	}
+	.jpx-dialog-header .jpx-dialog-header__title__main {
+		color: #fff;
+	}
+}
+
+
+
+
+body.dev {
+    .jpx-container {
+		&:hover {
+			outline: 1px dashed rgba(68, 255, 0, 0.48);
+		}
+    }
+}

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpAccountMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpAccount" id="tpAccountMap">
+        <result property="accountId" column="ACCOUNT_ID"/>
+        <result property="username" column="USERNAME"/>
+        <result property="userpwd" column="USERPWD"/>
+        <result property="phone" column="PHONE"/>
+        <result property="expiredTime" column="EXPIRED_TIME"/>
+        <result property="locked" column="LOCKED"/>
+        <result property="enabled" column="ENABLED"/>
+        <result property="personId" column="PERSON_ID"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="weixin" column="WEIXIN"/>
+        <result property="dingding" column="DINGDING"/>
+        <result property="threeId" column="THREE_ID"/>
+        <result property="verificationCode" column="VERIFICATION_CODE"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpAccount">
+        INSERT INTO tp_account
+            (ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+		VALUES
+			(#{accountId}, #{username}, #{userpwd}, #{phone}, #{expiredTime}, #{locked}, #{enabled}, #{personId}, #{tenantId}, #{weixin}, #{dingding}, #{threeId}, 1, #{createTime}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <select id="viewByPersonId" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_account
+        where PERSON_ID = #{personId}
+        and
+        ACTIVED = 1
+    </select>
+
+    <select id="selectByAccountId" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_account
+        where ACCOUNT_ID = #{accountId}
+        and
+        ACTIVED = 1
+    </select>
+
+    <select id="selectByPhone" resultType="com.jiuxi.admin.core.bean.entity.TpAccount">
+        select ta.ACCOUNT_ID, ta.VERIFICATION_CODE, ta.USERNAME, ta.PERSON_ID from tp_account ta where ta.ACTIVED = 1 and ta.ENABLED = 1 and ta.PHONE = #{phone}
+    </select>
+
+    <select id="selectByUsername" resultType="com.jiuxi.admin.core.bean.entity.TpAccount">
+        select ta.ACCOUNT_ID, ta.VERIFICATION_CODE, ta.USERNAME, ta.PERSON_ID from tp_account ta where ta.ACTIVED = 1 and ta.USERNAME = #{username} limit 1
+    </select>
+
+    <update id="update">
+        update tp_account
+        <if test="null != accountId and '' != accountId">
+            <set>
+                <if test="null != username and '' != username">USERNAME = #{username},</if>
+                <if test="null != userpwd and '' != userpwd">USERPWD = #{userpwd},</if>
+                <if test="null != phone">PHONE = #{phone},</if>
+                <if test="null != expiredTime">EXPIRED_TIME = #{expiredTime},</if>
+                <if test="null != locked">LOCKED = #{locked},</if>
+                <if test="null != enabled">ENABLED = #{enabled},</if>
+                <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+                <if test="null != weixin">WEIXIN = #{weixin},</if>
+                <if test="null != dingding">DINGDING = #{dingding},</if>
+                <if test="null != threeId">THREE_ID = #{threeId},</if>
+                <if test="null != verificationCode">VERIFICATION_CODE = #{verificationCode},</if>
+                <if test="null != actived">ACTIVED = #{actived},</if>
+                <if test="null != extend01">EXTEND01 = #{extend01},</if>
+                <if test="null != extend02">EXTEND02 = #{extend02},</if>
+                <if test="null != extend03">EXTEND03 = #{extend03},</if>
+                <if test="null != lastPasswordChangeTime">LAST_PASSWORD_CHANGE_TIME = #{lastPasswordChangeTime},</if>
+                UPDATE_TIME = #{updateTime}
+            </set>
+            <where>
+                ACTIVED = 1
+                and
+                ACCOUNT_ID = #{accountId}
+            </where>
+        </if>
+    </update>
+
+    <update id="updateByPersonId">
+        update tp_account
+        <if test="null != personId and '' != personId">
+            <set>
+                <if test="null != username and '' != username">USERNAME = #{username},</if>
+                <if test="null != userpwd and '' != userpwd">USERPWD = #{userpwd},</if>
+                <if test="null != phone and '' != phone">PHONE = #{phone},</if>
+                <if test="null != expiredTime">EXPIRED_TIME = #{expiredTime},</if>
+                <if test="null != locked">LOCKED = #{locked},</if>
+                <if test="null != enabled">ENABLED = #{enabled},</if>
+                <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+                <if test="null != weixin">WEIXIN = #{weixin},</if>
+                <if test="null != dingding">DINGDING = #{dingding},</if>
+                <if test="null != threeId">THREE_ID = #{threeId},</if>
+                <if test="null != actived">ACTIVED = #{actived},</if>
+                <if test="null != extend01">EXTEND01 = #{extend01},</if>
+                <if test="null != extend02">EXTEND02 = #{extend02},</if>
+                <if test="null != extend03">EXTEND03 = #{extend03},</if>
+                <if test="null != lastPasswordChangeTime">LAST_PASSWORD_CHANGE_TIME = #{lastPasswordChangeTime},</if>
+                UPDATE_TIME = #{updateTime}
+            </set>
+            <where>
+                ACTIVED = 1
+                and
+                PERSON_ID = #{personId}
+            </where>
+        </if>
+    </update>
+
+    <update id="deleteByPersonId">
+        update tp_account
+        set ACTIVED = 0,
+            UPDATE_TIME = #{updateTime},
+            PHONE = #{phone},
+            USERNAME = #{username}
+        where PERSON_ID = #{personId}
+          and ACTIVED = 1
+    </update>
+
+    <!-- 根据手机号查询账户信息 -->
+    <select id="getTpAccountByPhone"  parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_account
+        where PHONE = #{phone}
+          and ACTIVED = 1
+    </select>
+    <!-- 根据用户名查询账号信息 -->
+    <select id="getTpAccountByUsername" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO"
+            parameterType="java.lang.String">
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_account
+        where USERNAME = #{username}
+          and ACTIVED = 1
+    </select>
+
+    <!-- 根据邮箱查询账号信息 -->
+    <select id="getTpAccountByEmail" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
+        select ta.ACCOUNT_ID, ta.USERNAME, ta.USERPWD, ta.PHONE, ta.EXPIRED_TIME, ta.LOCKED, ta.ENABLED, ta.PERSON_ID, ta.TENANT_ID, ta.WEIXIN, ta.DINGDING, ta.THREE_ID, ta.ACTIVED, ta.CREATE_TIME, ta.UPDATE_TIME, ta.EXTEND01, ta.EXTEND02, ta.EXTEND03
+        from tp_account ta
+        inner join tp_person_basicinfo tpb on ta.PERSON_ID = tpb.PERSON_ID
+        where tpb.EMAIL = #{email}
+          and ta.ACTIVED = 1
+          and tpb.ACTIVED = 1
+    </select>
+
+    <select id="selectByEmail" resultType="com.jiuxi.admin.core.bean.entity.TpAccount">
+        select ta.*
+        from tp_account ta
+        inner join tp_person_basicinfo tpb on ta.PERSON_ID = tpb.PERSON_ID
+        where tpb.EMAIL = #{email}
+          and ta.ACTIVED = 1
+          and tpb.ACTIVED = 1
+    </select>
+
+    <!-- 更新账号的Keycloak ID -->
+    <update id="updateKeycloakId">
+        UPDATE tp_account
+        SET keycloak_id = #{keycloakId},
+            UPDATE_TIME = NOW()
+        WHERE ACCOUNT_ID = #{accountId}
+          AND ACTIVED = 1
+    </update>
+
+</mapper>

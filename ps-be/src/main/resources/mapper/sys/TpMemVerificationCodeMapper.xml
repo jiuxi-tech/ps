@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpMemVerificationCodeMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpMemVerificationCode"
+               id="tpMemVerificationCodeMap">
+        <result property="codeId" column="CODE_ID"/>
+        <result property="busType" column="BUS_TYPE"/>
+        <result property="verificationCode" column="VERIFICATION_CODE"/>
+        <result property="sendTimeStamp" column="SEND_TIME_STAMP"/>
+        <result property="phone" column="PHONE"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpMemVerificationCode">
+        INSERT INTO tp_mem_verification_code
+            (CODE_ID, BUS_TYPE, VERIFICATION_CODE, SEND_TIME_STAMP, PHONE, CREATE_TIME)
+        VALUES
+            (#{codeId}, #{busType}, #{verificationCode}, #{sendTimeStamp}, #{phone}, #{createTime})
+    </insert>
+
+    <update id="updateCodeByCodeId" parameterType="String">
+        update tp_mem_verification_code
+        set VERIFICATION_CODE = #{verificationCode}, SEND_TIME_STAMP = #{sendTimeStamp}
+        where CODE_ID = #{codeId}
+    </update>
+
+    <select id="select" resultType="com.jiuxi.admin.core.bean.entity.TpMemVerificationCode">
+        SELECT CODE_ID, BUS_TYPE, VERIFICATION_CODE, SEND_TIME_STAMP, PHONE, CREATE_TIME FROM tp_mem_verification_code
+        WHERE
+        PHONE = #{phone}
+        and
+        BUS_TYPE = #{busType} order by CREATE_TIME desc limit 1
+    </select>
+
+    <select id="selectByVcode" resultType="com.jiuxi.admin.core.bean.entity.TpMemVerificationCode">
+        SELECT CODE_ID, BUS_TYPE, VERIFICATION_CODE, SEND_TIME_STAMP, PHONE, CREATE_TIME FROM tp_mem_verification_code
+        WHERE
+        PHONE = #{phone}
+        and
+        BUS_TYPE = #{busType}
+        and
+        VERIFICATION_CODE = #{verificationCode}
+    </select>
+
+    <delete id="delete" parameterType="String">
+        delete from tp_mem_verification_code where CODE_ID = #{codeId}
+    </delete>
+
+</mapper>

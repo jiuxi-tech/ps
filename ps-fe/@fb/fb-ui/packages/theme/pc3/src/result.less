@@ -1,0 +1,63 @@
+/*!
+* result
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-result {
+
+	text-align: center;
+
+	&.@{prefix}-result-success {
+		.@{prefix}-result--icon {
+			background: @--color-success;
+		}
+	}
+
+	&.@{prefix}-result-error {
+		.@{prefix}-result--icon {
+			background: @--color-danger;
+		}
+	}
+
+	&.@{prefix}-result-img {
+		.@{prefix}-result--img{
+			margin: 0 auto;
+
+		}
+	}
+
+	&--icon {
+		width:         90px;
+		height:        90px;
+		margin:        0 auto;
+		background:    @--color-grey-8;
+		border-radius: 50%;
+		color:         #FFFFFF;
+
+		.@{prefix}-icon {
+			line-height: 90px;
+		}
+	}
+
+	&--message {
+		font-size:     24px;
+		font-weight:   bold;
+		color:         #313C47;
+		line-height:   32px;
+		margin-top:    24px;
+		margin-bottom: 8px;
+	}
+
+	&--describe {
+		font-size:   14px;
+		color:       @--color-grey-8;
+		line-height: 22px;
+
+		p {
+			margin: 0;
+		}
+	}
+
+}

@@ -1,0 +1,68 @@
+/*!
+* empty
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-empty {
+
+	margin:      0 8px;
+	font-size:   14px;
+	line-height: 22px;
+	text-align:  center;
+
+	.@{prefix}-empty__image {
+		height:              100px;
+		margin-bottom:       8px;
+		//background-size:     100% 100%;
+		background-repeat:   no-repeat;
+		background-position: center;
+
+	}
+
+	.@{prefix}-empty__text {
+		margin: 0;
+		color:  #BFBFBF;
+	}
+
+	&--data {
+		.@{prefix}-empty__image {
+			background-image: data-uri('assets/empty_data.svg');
+
+		}
+	}
+
+	&--notice {
+		.@{prefix}-empty__image {
+			background-image: data-uri('assets/empty_notice.svg');
+		}
+	}
+
+	&--todo {
+
+		.@{prefix}-empty__image {
+			height: 50px;
+			background-image: data-uri('assets/empty_todo.svg');
+		}
+	}
+
+
+	&--s {
+		margin: 8px 0;
+		font-size: @--font-size-xs;
+
+		.@{prefix}-empty__image {
+			height: 35px;
+			//background-size: 80% 80%;
+			background-size: contain;
+			margin-bottom: 2px;
+		}
+	}
+
+	&--m {
+		margin: 32px 0;
+	}
+
+
+}

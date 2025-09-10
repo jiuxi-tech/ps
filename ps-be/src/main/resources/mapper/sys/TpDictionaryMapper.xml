@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpDictionaryMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpDictionary" id="tpDictionaryMap">
+        <result property="dicId" column="DIC_ID"/>
+        <result property="dicCode" column="DIC_CODE"/>
+        <result property="dicName" column="DIC_NAME"/>
+        <result property="dicType" column="DIC_TYPE"/>
+        <result property="pdicid" column="PDIC_ID"/>
+        <result property="dicDesc" column="DIC_DESC"/>
+        <result property="orderIndex" column="ORDER_INDEX"/>
+        <result property="enabled" column="ENABLED"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="createor" column="CREATEOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateor" column="UPDATEOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <select id="selectTestAll" resultType="com.jiuxi.admin.core.bean.entity.TpDictionary">
+
+        select DIC_CODE, DIC_NAME, PDIC_ID,ORDER_INDEX,EXTEND01 from test_dictionary
+
+    </select>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpDictionaryQuery"
+            resultType="com.jiuxi.admin.core.bean.vo.TpDictionaryVO">
+        select DIC_ID, DIC_CODE, DIC_NAME, DIC_TYPE, PDIC_ID, DIC_DESC, ORDER_INDEX, ENABLED, ACTIVED, TENANT_ID,
+        CREATEOR,
+        CASE WHEN ENABLED = 1 THEN '启用' ELSE '禁用' END as extend03
+        from tp_dictionary
+        where
+        ACTIVED = 1
+        <if test="query.dicCode != null and query.dicCode != ''">
+            AND (DIC_CODE like CONCAT(#{query.dicCode}, '%') or DIC_NAME like CONCAT('%', #{query.dicName}, '%'))
+        </if>
+        <if test="query.pdicId != null and query.pdicId != ''">
+            and PDIC_ID = #{query.pdicId}
+        </if>
+        ORDER BY CREATE_TIME desc
+    </select>
+
+    <select id="tree" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpDictionaryVO">
+        select td.DIC_ID, td.DIC_CODE, td.DIC_NAME, td.DIC_TYPE, td.PDIC_ID, td.DIC_DESC, td.ORDER_INDEX, td.ENABLED,
+        td.ACTIVED, td.TENANT_ID, td.CREATEOR, td.CREATE_TIME, td.UPDATEOR, td.UPDATE_TIME, td.EXTEND01, td.EXTEND02,
+        td.EXTEND03
+        FROM tp_dictionary td
+        WHERE
+        td.ACTIVED = 1
+        AND
+        td.ENABLED = 1
+        <if test="dicCode != null and dicCode != ''">
+            AND td.DIC_CODE like CONCAT(#{dicCode}, '%')
+        </if>
+        ORDER BY td.ORDER_INDEX
+    </select>
+
+    <select id="manageTree" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpDictionaryVO">
+        select td.DIC_ID, td.DIC_CODE, td.DIC_NAME, td.DIC_TYPE, td.PDIC_ID, td.DIC_DESC, td.ORDER_INDEX, td.ENABLED,
+        td.ACTIVED, td.TENANT_ID, td.CREATEOR, td.CREATE_TIME, td.UPDATEOR, td.UPDATE_TIME, td.EXTEND01, td.EXTEND02,
+        td.EXTEND03
+        FROM tp_dictionary td
+        WHERE
+        td.ACTIVED = 1
+        <if test="dicCode != null and dicCode != ''">
+            AND td.DIC_CODE like CONCAT(#{dicCode}, '%')
+        </if>
+        ORDER BY td.ORDER_INDEX
+    </select>
+
+    <select id="select" parameterType="String" resultType="com.jiuxi.common.bean.TreeNode">
+        select td1.DIC_ID as id, td1.DIC_CODE as value, td1.DIC_NAME as label, td1.EXTEND01 as extend01, td1.EXTEND02 as extend02, td1.EXTEND03 as extend03
+        from tp_dictionary td1 left join tp_dictionary td2 on td1.PDIC_ID = td2.DIC_ID and td2.ACTIVED = 1 and td2.ENABLED = 1
+        where td1.ACTIVED = 1 and td1.ENABLED = 1 and td2.DIC_CODE = #{dicCode} ORDER BY td1.ORDER_INDEX;
+    </select>
+
+    <select id="count" parameterType="String" resultType="Integer">
+        select count(DIC_ID) from tp_dictionary where
+        ACTIVED = 1
+        AND
+        DIC_ID = #{dicId}
+    </select>
+
+    <select id="childrenCount" parameterType="String" resultType="Integer">
+        select count(DIC_ID) from tp_dictionary where
+            ACTIVED = 1
+            AND
+            ENABLED = 1
+            AND
+            PDIC_ID = #{pdicId}
+    </select>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpDictionary">
+        INSERT INTO tp_dictionary
+            (DIC_ID, DIC_CODE, DIC_NAME, DIC_TYPE, PDIC_ID, DIC_DESC, ORDER_INDEX, ENABLED, ACTIVED, TENANT_ID, CREATEOR, CREATE_TIME, UPDATEOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+		VALUES
+			(#{dicId}, #{dicCode}, #{dicName}, #{dicType}, #{pdicId}, #{dicDesc}, #{orderIndex}, #{enabled}, #{actived}, #{tenantId}, #{createor}, #{createTime}, #{updateor}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <update id="update">
+        update tp_dictionary
+        <if test="null != dicId and '' != dicId">
+            <set>
+                <if test="null != dicCode and '' != dicCode">DIC_CODE = #{dicCode},</if>
+                <if test="null != dicName and '' != dicName">DIC_NAME = #{dicName},</if>
+                <if test="null != dicType and '' != dicType">DIC_TYPE = #{dicType},</if>
+                <if test="null != pdicId and '' != pdicId">PDIC_ID = #{pdicId},</if>
+                <if test="null != dicDesc">DIC_DESC = #{dicDesc},</if>
+                <if test="null != orderIndex">ORDER_INDEX = #{orderIndex},</if>
+                <if test="null != enabled">ENABLED = #{enabled},</if>
+                <if test="null != actived">ACTIVED = #{actived},</if>
+                <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+                <if test="null != extend01">EXTEND01 = #{extend01},</if>
+                <if test="null != extend02">EXTEND02 = #{extend02},</if>
+                <if test="null != extend03">EXTEND03 = #{extend03},</if>
+                UPDATE_TIME = #{updateTime}
+            </set>
+            <where>
+                ACTIVED = 1
+                and
+                DIC_ID = #{dicId}
+            </where>
+        </if>
+    </update>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpDictionaryVO">
+        select DIC_ID, DIC_CODE, DIC_NAME, DIC_TYPE, CASE DIC_TYPE when -1 then '系统' else '业务' END as dicTypeName, PDIC_ID, DIC_DESC, ORDER_INDEX, ENABLED, ACTIVED, TENANT_ID, CREATEOR, CREATE_TIME, UPDATEOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_dictionary
+        where DIC_ID = #{dicId}
+        and
+        ACTIVED = 1
+    </select>
+
+    <select id="selectDicName" parameterType="String" resultType="String">
+        select DIC_NAME
+        from tp_dictionary
+        where DIC_CODE = #{dicCode}
+        and
+        ACTIVED = 1
+    </select>
+
+    <select id="selectBydicCode" parameterType="String"
+            resultType="com.jiuxi.admin.core.bean.vo.TpDictionaryVO">
+        select DIC_ID, DIC_CODE, DIC_NAME, DIC_TYPE, PDIC_ID, DIC_DESC, ORDER_INDEX, ENABLED, ACTIVED, TENANT_ID, CREATEOR, CREATE_TIME, UPDATEOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_dictionary
+        where
+        ACTIVED = 1
+        and
+        DIC_CODE = #{dicCode} limit 1
+    </select>
+
+    <select id="selectBydicCodes" parameterType="String"
+            resultType="com.jiuxi.admin.core.bean.vo.TpDictionaryVO">
+        select DIC_ID, DIC_CODE, DIC_NAME, DIC_TYPE, PDIC_ID, DIC_DESC, ORDER_INDEX, ENABLED, ACTIVED, TENANT_ID, CREATEOR, CREATE_TIME, UPDATEOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_dictionary
+        where
+            ACTIVED = 1
+          and
+            DIC_CODE  in
+            <foreach collection="dicCodes" item="dicCode" open="(" separator="," close=")">
+                #{dicCode}
+            </foreach>
+    </select>
+
+    <select id="selectBydicIdAndCode" parameterType="String"
+            resultType="com.jiuxi.admin.core.bean.vo.TpDictionaryVO">
+        select DIC_ID, DIC_CODE, DIC_NAME, DIC_TYPE, PDIC_ID, DIC_DESC, ORDER_INDEX, ENABLED, ACTIVED, TENANT_ID, CREATEOR, CREATE_TIME, UPDATEOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_dictionary
+        where
+        ACTIVED = 1
+        and
+        DIC_ID != #{dicId}
+        and
+        DIC_CODE = #{dicCode} limit 1
+    </select>
+    <select id="treeByDicCode" resultType="com.jiuxi.common.bean.TreeNode">
+        select td.DIC_ID as id,
+               td.DIC_CODE as value,
+               td.DIC_NAME as text,
+               td.DIC_NAME as label,
+               td.PDIC_ID as pid,
+               td.ORDER_INDEX as orderNo,
+               td.EXTEND01,
+               td.EXTEND02,
+               td.EXTEND03
+        FROM tp_dictionary td
+        WHERE td.ACTIVED = 1
+          AND td.ENABLED = 1
+          AND td.DIC_CODE like CONCAT(#{dicCode}, '%')
+        ORDER BY td.ORDER_INDEX
+    </select>
+
+    <update id="deleteBydicCode">
+        update tp_dictionary set ACTIVED = 0, UPDATEOR = #{updateor}, UPDATE_TIME = #{updateTime}, DIC_CODE = CONCAT(DIC_CODE, '#', #{updateTime}) where DIC_CODE like CONCAT(#{dicCode}, '%') and ACTIVED = 1
+    </update>
+
+</mapper>

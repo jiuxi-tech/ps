@@ -1,0 +1,353 @@
+/* 根据公司项目自定义 */
+
+.lmap-marker {
+	width: 18px;
+	height: 26px;
+	cursor: pointer;
+}
+
+/* 此种命名后期废弃 */
+.lmap-video-marker-green,
+.lmap-sense-marker-orange,
+.lmap-ent-marker-red,
+.lmap-ent-marker-orange,
+.lmap-ent-marker-yellow,
+.lmap-ent-marker-blue,
+.lmap-risk-marker-red,
+.lmap-risk-marker-orange,
+.lmap-risk-marker-yellow,
+.lmap-risk-marker-blue,
+.lmap-risk-marker-purple,
+.lmap-park-marker-red,
+.lmap-park-marker-orange,
+.lmap-park-marker-yellow,
+.lmap-park-marker-blue,
+.blue-scatter-marker {
+	width: 100%;
+	height: 100%;
+}
+
+/* 标记点命名 */
+.lmap-marker-video-green,
+.lmap-marker-sense-orange,
+.lmap-marker-ent-red,
+.lmap-marker-ent-orange,
+.lmap-marker-ent-yellow,
+.lmap-marker-ent-blue,
+.lmap-marker-risk-red,
+.lmap-marker-risk-orange,
+.lmap-marker-risk-yellow,
+.lmap-marker-risk-blue,
+.lmap-marker-risk-purple,
+.lmap-marker-park-red,
+.lmap-marker-park-orange,
+.lmap-marker-park-yellow,
+.lmap-marker-park-blue,
+.blue-marker-scatter {
+	width: 100%;
+	height: 100%;
+}
+
+/* 视频 + 传感 */
+.lmap-marker-video-green {
+	background: url("../img/marker/video-green.svg") no-repeat;
+	background-size: 100% 100%;
+}
+.lmap-marker-sense-orange {
+	background: url("../img/marker/sense-orange.svg") no-repeat;
+	background-size: 100% 100%;
+}
+/* 企业点 */
+.lmap-marker-ent-red {
+	background: url("../img/marker/ent-red.svg") no-repeat;
+	background-size: 100% 100%;
+}
+/*.lmap-marker-ent-orange {*/
+/*	background: url("../img/marker/ent-orange.svg") no-repeat;*/
+/*	background-size: 100% 100%;*/
+/*}*/
+/*.lmap-marker-ent-yellow {*/
+/*	background: url("../img/marker/ent-yellow.svg") no-repeat;*/
+/*	background-size: 100% 100%;*/
+/*}*/
+.lmap-marker-ent-blue {
+	background: url("../img/marker/ent-blue.svg") no-repeat;
+	background-size: 100% 100%;
+}
+/* 企业风险点 */
+.lmap-marker-risk-red,
+.lmap-risk-marker-red {
+	background: url("../img/marker/risk-ent-red.svg") no-repeat;
+	background-size: 100% 100%;
+}
+.lmap-marker-risk-orange,
+.lmap-risk-marker-orange {
+	background: url("../img/marker/risk-ent-orange.svg") no-repeat;
+	background-size: 100% 100%;
+}
+.lmap-marker-risk-yellow,
+.lmap-risk-marker-yellow {
+	background: url("../img/marker/risk-ent-yellow.svg") no-repeat;
+	background-size: 100% 100%;
+}
+.lmap-marker-risk-blue,
+.lmap-risk-marker-blue {
+	background: url("../img/marker/risk-ent-blue.svg") no-repeat;
+	background-size: 100% 100%;
+}
+.lmap-marker-risk-purple,
+.lmap-risk-marker-purple {
+	background: url("../img/marker/risk-ent-purple.svg") no-repeat;
+	background-size: 100% 100%;
+}
+/* 园区点 */
+.lmap-marker-park-red,
+.lmap-park-marker-red {
+	background: url("../img/marker/park-red.svg") no-repeat;
+	background-size: 100% 100%;
+}
+.lmap-marker-park-orange,
+.lmap-park-marker-orange {
+	background: url("../img/marker/park-orange.svg") no-repeat;
+	background-size: 100% 100%;
+}
+.lmap-marker-park-yellow,
+.lmap-park-marker-yellow {
+	background: url("../img/marker/park-yellow.svg") no-repeat;
+	background-size: 100% 100%;
+}
+.lmap-marker-park-blue,
+.lmap-park-marker-blue {
+	background: url("../img/marker/park-blue.svg") no-repeat;
+	background-size: 100% 100%;
+}
+.lmap-marker-blue-scatter,
+.lmap-blue-scatter-marker {
+	background: url("../img/marker/blue-scatter.png") no-repeat;
+	background-size: 100% 100%;
+	font-size: 12px;
+	color: #1E1BB6;
+	text-align: center;
+	padding-top: 9px;
+	line-height: 16px;
+	font-family: "DINPro-Bold";
+	text-shadow: 0 0 1px rgba(2, 132, 254, 0.25);
+}
+.lmap-marker-blue-scatter-2,
+.lmap-blue-scatter-marker-2 {
+	background: url("../img/marker/blue-scatter.png") no-repeat;
+	background-size: 100% 100%;
+	font-size: 16px;
+	color: #1E1BB6;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 2px;
+	line-height: 50px;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.lmap-marker-blue-scatter-2 .lmap-marker-blue-scatter_label,
+.lmap-blue-scatter-marker-2 .lmap-blue-scatter-marker_label {
+	font-size: 16px;
+	line-height: 16px;
+	color: #fff;
+	font-weight: 500;
+	background: #1E1BB6;
+	border-radius: 6px;
+	padding: 3px 4px;
+	position: absolute;
+	bottom: -6px;
+	right: 62%;
+	min-width: 58px;
+}
+.lmap-marker-map-together,
+.lmap-map-together-marker {
+	background: url("../img/marker/map-together.png") no-repeat;
+	background-size: 100% 100%;
+	font-size: 16px;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 2px;
+	line-height: 77px;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.lmap-marker-map-together .marker-blue-scatter_label,
+.lmap-map-together-marker .blue-scatter-marker_label {
+	font-size: 16px;
+	line-height: 16px;
+	color: #FFFFFF;
+	font-weight: 500;
+	background: rgba(30, 27, 182, 0.8);
+	border-radius: 6px;
+	padding: 6px 6px;
+	position: absolute;
+	bottom: -11px;
+	right: 16%;
+	min-width: 58px;
+	z-index: -1;
+	white-space: nowrap;
+}
+.leaflet-map-box {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1920px;
+	height: 1080px;
+	overflow: hidden;
+}
+.leaflet-map-box:after,
+.leaflet-map-box:before {
+	z-index: 1000;
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	width: 0;
+	height: 100%;
+}
+.leaflet-map-box:before {
+	left: 0;
+	box-shadow: 0 0 500px 350px #010528B8;
+}
+.leaflet-map-box:after {
+	right: 0;
+	box-shadow: 0 0 1000px 500px #010528B8;
+}
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	display: none !important;
+}
+.leaflet-div-icon {
+	background: transparent;
+	border: none;
+}
+/************ 控件类 *************/
+/************ 控件类-type *************/
+.leaflet-map-type-control-wrapper {
+	position: absolute;
+	z-index: 699;
+}
+.leaflet-map-type-control {
+	display: table;
+	position: relative;
+}
+.leaflet-map-type-control .leaflet-map-type-cell {
+	display: table-cell;
+	margin-bottom: 6px;
+	padding-left: 6px;
+}
+.leaflet-map-type-control .leaflet-map-type-cell-layer {
+	width: 87px;
+	height: 60px;
+	border-radius: 2px;
+	position: relative;
+	cursor: pointer;
+}
+.leaflet-map-type-control .leaflet-map-type-cell-layer.active {
+	border: 1px solid #0D80FE;
+}
+.leaflet-map-type-control .leaflet-map-type-cell-img {
+	width: 100%;
+	height: 100%;
+}
+.leaflet-map-type-control .leaflet-map-type-cell-text {
+	padding: 0 4px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 18px;
+	line-height: 18px;
+	font-size: 12px;
+	background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+	text-align: right;
+	z-index: 9;
+}
+.leaflet-map-type-control:after,
+.leaflet-map-type-control:before {
+	content: "";
+	display: block;
+	width: 89px;
+	height: 60px;
+	background: rgba(13, 128, 254, 0.4);
+	position: absolute;
+	top: 0;
+	right: 10px;
+	transition: all 0.3s;
+	z-index: -5;
+}
+.leaflet-map-type-control:after {
+	background: rgba(13, 128, 254, 0.2);
+	right: 20px;
+}
+.leaflet-map-type-control:hover:after,
+.leaflet-map-type-control:hover:before {
+	right: 100px;
+	background: transparent;
+}
+/************ 加载load-后期可通用组件 *************/
+.jpx-map-load {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.3);
+	width: 1920px;
+	height: 1080px;
+	z-index: 9999;
+	display: none;
+}
+.jpx-map-load .jpx-map-load-center {
+	width: 200px;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.jpx-map-load.show {
+	display: block;
+}
+/************ 弹窗 *************/
+.leaflet-custom-map-pop,
+.lmap-custom-map-pop {
+	position: relative;
+	top: 0;
+	left: 0;
+	background: rgba(9, 31, 124, 0.9);
+	border: 1px solid #00DAFD;
+	z-index: 999;
+	padding: 8px;
+	padding-bottom: 18px;
+	font-size: 16px;
+	text-align: left;
+}
+.leaflet-custom-map-pop:after,
+.lmap-custom-map-pop:after {
+	content: '';
+	position: absolute;
+	display: block;
+	width: 10px;
+	height: 10px;
+	background: #091f7c;
+	border: 1px solid #00DAFD;
+	border-top: none;
+	border-left: none;
+	transform: rotate(45deg);
+	bottom: -6px;
+	left: 50%;
+	margin-right: -5px;
+}
+
+.leaflet-custom-map-pop-close {
+	position: absolute;
+	top: 2px;
+	right: 10px;
+	cursor: pointer;
+}

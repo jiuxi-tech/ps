@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpMediorgMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpMediorg" id="tpMediorgMap">
+        <result property="mediorgId" column="MEDIORG_ID"/>
+        <result property="mediorgFullName" column="MEDIORG_FULL_NAME"/>
+        <result property="mediorgSimpleName" column="MEDIORG_SIMPLE_NAME"/>
+        <result property="mediorgType" column="MEDIORG_TYPE"/>
+        <result property="mediorgUnifiedCode" column="MEDIORG_UNIFIED_CODE"/>
+        <result property="cityCode" column="CITY_CODE"/>
+        <result property="regAddr" column="REG_ADDR"/>
+        <result property="orgAddr" column="ORG_ADDR"/>
+        <result property="establishTime" column="ESTABLISH_TIME"/>
+        <result property="mediorgDesc" column="MEDIORG_DESC"/>
+        <result property="legalRepr" column="LEGAL_REPR"/>
+        <result property="legalReprTel" column="LEGAL_REPR_TEL"/>
+        <result property="linkPsnName" column="LINK_PSN_NAME"/>
+        <result property="linkPsnTel" column="LINK_PSN_TEL"/>
+        <result property="regFund" column="REG_FUND"/>
+        <result property="longitude" column="LONGITUDE"/>
+        <result property="latitude" column="LATITUDE"/>
+        <result property="geoCode" column="GEO_CODE"/>
+        <result property="serviceArea" column="SERVICE_AREA"/>
+        <result property="serviceType" column="SERVICE_TYPE"/>
+        <result property="serviceIndustry" column="SERVICE_INDUSTRY"/>
+        <result property="informationPubWeb" column="INFORMATION_PUB_WEB"/>
+        <result property="scaleType" column="SCALE_TYPE"/>
+        <result property="enabled" column="ENABLED"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpMediorg">
+        INSERT INTO tp_mediorg
+            (MEDIORG_ID, MEDIORG_FULL_NAME, MEDIORG_SIMPLE_NAME, MEDIORG_TYPE, MEDIORG_UNIFIED_CODE, CITY_CODE, REG_ADDR, ORG_ADDR, ESTABLISH_TIME, MEDIORG_DESC, LEGAL_REPR, LEGAL_REPR_TEL, LINK_PSN_NAME, LINK_PSN_TEL, REG_FUND, LONGITUDE, LATITUDE, GEO_CODE, SERVICE_AREA, SERVICE_TYPE, SERVICE_INDUSTRY, INFORMATION_PUB_WEB, SCALE_TYPE, ENABLED, ACTIVED, TENANT_ID, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+        VALUES
+            (#{mediorgId}, #{mediorgFullName}, #{mediorgSimpleName}, #{mediorgType}, #{mediorgUnifiedCode}, #{cityCode}, #{regAddr}, #{orgAddr}, #{establishTime}, #{mediorgDesc}, #{legalRepr}, #{legalReprTel}, #{linkPsnName}, #{linkPsnTel}, #{regFund}, #{longitude}, #{latitude}, #{geoCode}, #{serviceArea}, #{serviceType}, #{serviceIndustry}, #{informationPubWeb}, #{scaleType}, #{enabled}, #{actived}, #{tenantId}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpMediorg">
+        UPDATE tp_mediorg
+        <set>
+            <if test="null != mediorgFullName">MEDIORG_FULL_NAME = #{mediorgFullName},</if>
+            <if test="null != mediorgSimpleName">MEDIORG_SIMPLE_NAME = #{mediorgSimpleName},</if>
+            <if test="null != mediorgType">MEDIORG_TYPE = #{mediorgType},</if>
+            <if test="null != mediorgUnifiedCode">MEDIORG_UNIFIED_CODE = #{mediorgUnifiedCode},</if>
+            <if test="null != cityCode">CITY_CODE = #{cityCode},</if>
+            <if test="null != regAddr">REG_ADDR = #{regAddr},</if>
+            <if test="null != orgAddr">ORG_ADDR = #{orgAddr},</if>
+            <if test="null != establishTime">ESTABLISH_TIME = #{establishTime},</if>
+            <if test="null != mediorgDesc">MEDIORG_DESC = #{mediorgDesc},</if>
+            <if test="null != legalRepr">LEGAL_REPR = #{legalRepr},</if>
+            <if test="null != legalReprTel">LEGAL_REPR_TEL = #{legalReprTel},</if>
+            <if test="null != linkPsnName">LINK_PSN_NAME = #{linkPsnName},</if>
+            <if test="null != linkPsnTel">LINK_PSN_TEL = #{linkPsnTel},</if>
+            <if test="null != regFund">REG_FUND = #{regFund},</if>
+            <if test="null != longitude">LONGITUDE = #{longitude},</if>
+            <if test="null != latitude">LATITUDE = #{latitude},</if>
+            <if test="null != geoCode">GEO_CODE = #{geoCode},</if>
+            <if test="null != serviceArea">SERVICE_AREA = #{serviceArea},</if>
+            <if test="null != serviceType">SERVICE_TYPE = #{serviceType},</if>
+            <if test="null != serviceIndustry">SERVICE_INDUSTRY = #{serviceIndustry},</if>
+            <if test="null != informationPubWeb">INFORMATION_PUB_WEB = #{informationPubWeb},</if>
+            <if test="null != scaleType">SCALE_TYPE = #{scaleType},</if>
+            <if test="null != enabled">ENABLED = #{enabled},</if>
+            <if test="null != actived">ACTIVED = #{actived},</if>
+            <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+            <if test="null != creator">CREATOR = #{creator},</if>
+            <if test="null != createTime">CREATE_TIME = #{createTime},</if>
+            <if test="null != updator">UPDATOR = #{updator},</if>
+            <if test="null != updateTime">UPDATE_TIME = #{updateTime},</if>
+            <if test="null != extend01">EXTEND01 = #{extend01},</if>
+            <if test="null != extend02">EXTEND02 = #{extend02},</if>
+            <if test="null != extend03">EXTEND03 = #{extend03},</if>
+        </set>
+        WHERE MEDIORG_ID = #{mediorgId}
+    </update>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpMediorgQuery" resultMap="tpMediorgMap">
+        SELECT MEDIORG_ID, MEDIORG_FULL_NAME, MEDIORG_SIMPLE_NAME, MEDIORG_TYPE, MEDIORG_UNIFIED_CODE, CITY_CODE, REG_ADDR, ORG_ADDR, ESTABLISH_TIME, MEDIORG_DESC, LEGAL_REPR, LEGAL_REPR_TEL, LINK_PSN_NAME, LINK_PSN_TEL, REG_FUND, LONGITUDE, LATITUDE, GEO_CODE, SERVICE_AREA, SERVICE_TYPE, SERVICE_INDUSTRY, INFORMATION_PUB_WEB, SCALE_TYPE, ENABLED, ACTIVED, TENANT_ID, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03 FROM tp_mediorg
+        WHERE
+        ACTIVED = 1
+        and
+        MEDIORG_FULL_NAME like CONCAT('%', #{query.mediorgFullName}, '%')
+        ORDER BY CREATE_TIME desc
+    </select>
+
+    <select id="selectByMediorgUnifiedCode" resultType="com.jiuxi.admin.core.bean.entity.TpMediorg">
+        SELECT MEDIORG_ID FROM tp_mediorg WHERE ACTIVED = 1 and MEDIORG_UNIFIED_CODE = #{mediorgUnifiedCode} LIMIT 1
+    </select>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpMediorgVO">
+        SELECT MEDIORG_ID, MEDIORG_FULL_NAME, MEDIORG_SIMPLE_NAME, MEDIORG_TYPE, MEDIORG_UNIFIED_CODE, CITY_CODE, REG_ADDR, ORG_ADDR, ESTABLISH_TIME, MEDIORG_DESC, LEGAL_REPR, LEGAL_REPR_TEL, LINK_PSN_NAME, LINK_PSN_TEL, REG_FUND, LONGITUDE, LATITUDE, GEO_CODE, SERVICE_AREA, SERVICE_TYPE, SERVICE_INDUSTRY, INFORMATION_PUB_WEB, SCALE_TYPE, ENABLED, ACTIVED, TENANT_ID, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03 FROM tp_mediorg
+        WHERE
+        ACTIVED = 1
+        and
+        MEDIORG_ID = #{mediorgId}
+    </select>
+
+    <select id="selectPersonIdByAscnId" parameterType="java.lang.String" resultType="java.lang.String">
+        select tpb.PERSON_ID from tp_person_basicinfo tpb WHERE tpb.PERSON_ID in (select tpd.PERSON_ID from tp_dept_basicinfo tdb left join tp_person_dept tpd on tdb.dept_id=tpd.DEPT_ID WHERE tdb.ASCN_ID = #{ascnId} and tpd.DEFAULT_DEPT=1 and tdb.ACTIVED = 1) and tpb.ACTIVED = 1;
+    </select>
+
+    <update id="delete" parameterType="String" >
+        UPDATE tp_mediorg SET ACTIVED = 0 WHERE MEDIORG_ID = #{mediorgId}
+    </update>
+
+</mapper>

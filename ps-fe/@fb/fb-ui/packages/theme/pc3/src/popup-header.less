@@ -1,0 +1,115 @@
+/*!
+* popup-header
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-popup-header {
+	position:  relative;
+	display:   inline-block;
+	font-size: 13px;
+	outline:   none;
+	cursor:    pointer;
+
+	.@{prefix}-popup-header__content {
+		font-variant:     tabular-nums;
+		box-sizing:       border-box;
+		margin:           0;
+		list-style:       none;
+		position:         relative;
+		display:          block;
+		padding:          0 35px 0 12px;
+		width:            100%;
+		height:           30px;
+		line-height:      30px;
+		text-overflow:    ellipsis;
+		white-space:      nowrap;
+		outline:          none;
+		//color:            #313C47;
+		color:            @--input-font-color;
+		background-color: #FFFFFF;
+		border:           1px solid @--color-grey-5;
+		border-radius:    4px;
+		transition:       all .2s ease-in-out;
+		overflow:         hidden;
+
+		&--placeholder {
+			//color: #8F8E94;
+			color:            @--input-placeholder-color;
+		}
+	}
+
+	> .@{prefix}-icon {
+		//color:       #999999;
+		color:            @--input-font-color;
+		position:    absolute;
+		top:         0;
+		right:       12px;
+		font-size:   12px;
+		height:      30px;
+		line-height: 30px;
+	}
+
+	&:hover,
+	&:focus {
+		.@{prefix}-popup-header__content {
+			border-color: @--color-brand;
+		}
+
+		> .@{prefix}-icon {
+			color: @--color-brand;
+		}
+	}
+
+	&:focus .@{prefix}-popup-header__content {
+		//box-shadow: 0 0 0 3px rgba(2, 132, 254, 0.25);
+	}
+
+	&.@{prefix}-popup-header--readonly {
+
+		.@{prefix}-popup-header__content {
+		}
+
+		&:hover,
+		&:focus {
+			.@{prefix}-popup-header__content {
+				border-color: #D3D3D3;
+			}
+		}
+	}
+
+	&.@{prefix}-popup-header--disabled {
+		cursor: not-allowed;
+
+		.@{prefix}-popup-header__content {
+			background-color: #F5F5F5;
+		}
+
+		&:hover, &:focus {
+			.@{prefix}-popup-header__content {
+				border-color: #D3D3D3;
+				box-shadow:   none;
+			}
+
+			> .@{prefix}-icon {
+				color: #BFBFBF;
+			}
+		}
+	}
+
+	&.@{prefix}-popup-header--multiple {
+
+		.@{prefix}-popup-header__content {
+			white-space: normal;
+			overflow:    visible;
+		}
+	}
+
+
+	&--no-icon {
+		.@{prefix}-popup-header__content {
+			padding-right: 12px;
+		}
+	}
+}

@@ -1,0 +1,64 @@
+{
+	"name": "@fb/schedule-ui",
+	"version": "1.1.4",
+	"main": "src/index.js",
+	"description": "定时任务",
+	"author": "lincong <lincong1987@gmail.com>",
+	"homepage": "",
+	"license": "ISC",
+	"files": [
+		"src/router",
+		"src/service",
+		"src/store",
+		"src/util",
+		"src/views",
+		"src/index.js",
+		"package.json",
+		"README.md"
+	],
+	"scripts": {
+		"test": "echo \"Error: run tests from root\" && exit 1",
+		"serve": "vue-cli-service serve --mode=local",
+		"serve-dev": "vue-cli-service serve --mode=dev",
+		"serve-local": "vue-cli-service serve --mode=local",
+		"eslint": "eslint -f ./.eslintrc/formatter.js --fix 'src/**' ",
+		"lint": "vue-cli-service lint",
+		"inspect": "vue-cli-service inspect",
+		"ui": "vue ui",
+		"link": "npm link fb-core && npm link fb-ui && npm link fb-theme && npm link fb-third && vue-cli-service serve --mode=dev"
+	},
+	"modules": [
+		"@fb"
+	],
+	"dependencies": {
+		"fb-assets": "^1.1.591",
+		"fb-core": "^1.1.645",
+		"fb-third": "^1.1.645",
+		"fb-ui": "^1.1.647",
+		"sm-crypto": "^0.2.7",
+		"vue": "2.6.12"
+	},
+	"devDependencies": {
+		"@babel/plugin-proposal-export-default-from": "^7.12.1",
+		"@fb/admin-base": "^1.0.19",
+		"@fb/form-designer": "^1.0.1",
+		"@vue/cli-plugin-babel": "~4.5.0",
+		"@vue/cli-service": "~4.5.0",
+		"babel-plugin-component": "^1.1.1",
+		"copy-webpack-plugin": "6.4.1",
+		"eslint-plugin-vue": "^9.3.0",
+		"less": "^3.12.2",
+		"less-loader": "^7.1.0",
+		"mockjs": "^1.1.0",
+		"vue-template-compiler": "2.6.12"
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead"
+	],
+	"linkDependencies": {
+		"fb-core": "global:"
+	},
+	"gitHead": "7cf0d9cc7d8ecfff277fae009e63f74aa8da16a8"
+}

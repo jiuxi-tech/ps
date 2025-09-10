@@ -1,0 +1,135 @@
+/*!
+* link
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-link-item {
+
+	.@{prefix}-link {
+
+		cursor:    pointer;
+		display:   inline-block;
+		color:     @--link-default-font-color;
+		font-size: @--font-size-m;
+
+		&:hover {
+			color: @--link-default-active-color;
+		}
+
+		&.@{prefix}-link--underline-on {
+			text-decoration: underline;
+		}
+
+		&.@{prefix}-link--underline-off {
+			text-decoration: none;
+		}
+
+		&.@{prefix}-link--underline-hover {
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		&.@{prefix}-link--primary {
+			color: @--link-color;
+
+			&:hover {
+				color: @--link-hover-color;
+			}
+		}
+
+		&.@{prefix}-link--danger {
+			color: @--link-danger-font-color;
+
+			&:hover {
+				color: @--link-danger-font-color;
+			}
+		}
+
+		&.@{prefix}-link--warn {
+			color: @--link-warning-font-color;
+
+			&:hover {
+				color: @--link-warning-font-color;
+			}
+		}
+
+		&.@{prefix}-link--success {
+			color: @--link-success-font-color;
+
+			&:hover {
+				color: @--link-success-font-color;
+			}
+		}
+
+		&.@{prefix}-link--disabled {
+			color: @--link-disabled-font-color;
+
+			&:hover {
+				color: @--link-disabled-font-color;
+			}
+		}
+
+		&--size-xs {
+			font-size: @--font-size-xs;
+		}
+
+		&--size-s {
+			font-size: @--font-size-s;
+		}
+
+		&--size-m {
+			font-size: @--font-size-m;
+		}
+
+		&--size-l {
+			font-size: @--font-size-l;
+		}
+
+		&--size-xl {
+			font-size: @--font-size-xl;
+		}
+
+		&--size-xxl {
+			font-size: @--font-size-xxl;
+		}
+
+	}
+
+	.@{prefix}-link-separator {
+		margin:    0 4px;
+		color:     @--color-grey-7;
+		font-size: @--font-size-m;
+	}
+
+	&:last-child {
+		.@{prefix}-link-separator {
+			display: none
+		}
+	}
+}
+
+
+.@{prefix}-link-group {
+
+	box-sizing:            border-box;
+	margin:                0;
+	padding:               0;
+	font-variant:          tabular-nums;
+	//line-height:           1.5;
+	list-style:            none;
+	font-feature-settings: "tnum";
+	color:                 @--color-text-secondary;
+	font-size:             0;
+
+	.@{prefix}-link:last-child {
+	}
+
+	.@{prefix}-link:first-child {
+	}
+
+}

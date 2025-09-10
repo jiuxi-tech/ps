@@ -1,0 +1,48 @@
+/*!
+* flip3D
+* (c) 2021 lincong1987
+*/
+
+
+/**************************************************************/
+/** 3D神奇效果 **/
+/**************************************************************/
+
+.flip3D-enter-active {
+    animation: flipIn3D 0.75s ease-in-out;
+}
+
+.flip3D-leave-active {
+    animation: flipOut3D 0.75s ease-in-out;
+}
+
+.flip3D-enter {
+    opacity: 1;
+}
+
+.flip3D-leave {
+    opacity: 1;
+}
+
+
+@keyframes flipOut3D {
+    0% {
+	opacity:   1;
+	transform: perspective(300px) rotateY(0deg)
+    }
+    to {
+	opacity:   0;
+	transform: perspective(300px) rotateY(-90deg)
+    }
+}
+
+@keyframes flipIn3D {
+    0% {
+	opacity:   0;
+	transform: perspective(300px) rotateY(90deg)
+    }
+    to {
+	opacity:   1;
+	transform: perspective(300px) rotateY(0deg)
+    }
+}

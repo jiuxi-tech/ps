@@ -1,0 +1,133 @@
+@import "common/var";
+
+.@{prefix}-cascader-panel {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	border-radius: 4px;
+	font-size: 13px;
+	color: #313C47;
+}
+
+.@{prefix}-cascader-panel.is-bordered {
+	//border: 1px solid #E4E7ED;
+	border-radius: 4px
+}
+
+.@{prefix}-cascader-menu {
+	overflow: auto;
+	overflow-x: hidden;
+	height: 180px;
+	min-width: 120px;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border-right: solid 1px #E4E7ED;
+	padding: 0;
+	margin: 0;
+}
+
+.@{prefix}-cascader-menu:last-child {
+	border-right: none
+}
+
+.@{prefix}-cascader-menu:last-child .@{prefix}-cascader-node {
+	padding-right: 20px
+}
+
+.@{prefix}-cascader-menu__wrap {
+	height: 204px
+}
+
+.@{prefix}-cascader-menu__list {
+	position: relative;
+	min-height: 100%;
+	margin: 0;
+	padding: 6px 0;
+	list-style: none;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+.@{prefix}-cascader-menu__hover-zone {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none
+}
+
+.@{prefix}-cascader-menu__empty-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: #C0C4CC
+}
+
+.@{prefix}-cascader-node {
+	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	padding: 0 30px 0 12px;
+	height: 30px;
+	line-height: 30px;
+	outline: 0;
+}
+
+.@{prefix}-cascader-node.is-selectable.in-active-path {
+	color: #606266
+}
+
+.@{prefix}-cascader-node.in-active-path,
+.@{prefix}-cascader-node.is-active,
+.@{prefix}-cascader-node.is-selectable.in-checked-path {
+	background: @--color-blue-1;
+
+	//color: #409EFF;
+	//font-weight: 700
+}
+
+.@{prefix}-cascader-node:not(.is-disabled) {
+	cursor: pointer
+}
+
+//.@{prefix}-cascader-node:not(.is-disabled):focus,
+.@{prefix}-cascader-node:not(.is-disabled):hover {
+	background: @--color-blue-1
+}
+
+.@{prefix}-cascader-node.is-disabled {
+	color: #C0C4CC;
+	cursor: not-allowed
+}
+
+.@{prefix}-cascader-node__prefix {
+	position: absolute;
+	left: 10px
+}
+
+.@{prefix}-cascader-node__postfix {
+	position: absolute;
+	right: 10px
+}
+
+.@{prefix}-cascader-node__label {
+	-webkit-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	//padding: 0 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis
+}
+
+.@{prefix}-cascader-node > .@{prefix}-radio .@{prefix}-radio__label {
+	padding-left: 0
+}

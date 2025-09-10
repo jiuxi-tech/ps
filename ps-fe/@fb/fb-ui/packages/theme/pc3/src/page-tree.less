@@ -1,0 +1,52 @@
+/*!
+* fb-page-tree
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-page-tree {
+
+	height:     100%;
+	width:      100%;
+	position:   relative;
+	background: #F0EFF5;
+	padding:    8px;
+
+
+	.@{prefix}-page-tree__tree-panel {
+		.@{prefix}-page-tree__tree-card {
+
+			.@{prefix}-card__body {
+				overflow: hidden;
+
+				&:hover {
+					overflow: auto;
+				}
+			}
+
+
+
+		}
+	}
+
+	.@{prefix}-page-tree__form-panel {
+
+		.@{prefix}-page-tree__form-card {
+			.@{prefix}-card__header {
+				.@{prefix}-card__header__actions {
+					right: auto;
+					left: 8px;
+
+					>.@{prefix}-button {
+						margin-right: 8px;
+					}
+
+				}
+			}
+
+		}
+
+	}
+
+}

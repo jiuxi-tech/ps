@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpDeptExinfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpDeptExinfo" id="tpDeptExinfoMap">
+        <result property="deptId" column="DEPT_ID"/>
+        <result property="supdeptId" column="SUPDEPT_ID"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="lineCode" column="LINE_CODE"/>
+        <result property="longitude" column="LONGITUDE"/>
+        <result property="latitude" column="LATITUDE"/>
+        <result property="geoCode" column="GEO_CODE"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="principalName" column="PRINCIPAL_NAME"/>
+        <result property="principalTel" column="PRINCIPAL_TEL"/>
+        <result property="email" column="EMAIL"/>
+        <result property="direinDustryCode" column="DIREIN_DUSTRY_CODE"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+        <result property="extend04" column="EXTEND04"/>
+        <result property="extend05" column="EXTEND05"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpDeptExinfo">
+        INSERT INTO tp_dept_exinfo
+            (DEPT_ID, SUPDEPT_ID, TENANT_ID, LINE_CODE, LONGITUDE, LATITUDE, GEO_CODE, ADDRESS, EMAIL, DIREIN_DUSTRY_CODE, DIREIN_DUSTRY_NAME, EXTEND01, EXTEND02, EXTEND03, EXTEND04, EXTEND05)
+		VALUES
+			(#{deptId}, #{supdeptId}, #{tenantId}, #{lineCode}, #{longitude}, #{latitude}, #{geoCode}, #{address}, #{email}, #{direinDustryCode}, #{direinDustryName}, #{extend01}, #{extend02}, #{extend03}, #{extend04}, #{extend05})
+    </insert>
+
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpDeptExinfoVO">
+        select tde.DEPT_ID, tde.SUPDEPT_ID, tde.TENANT_ID, tde.LINE_CODE, td.DIC_NAME as lineCodeName, tde.LONGITUDE, tde.LATITUDE, tde.GEO_CODE, tde.ADDRESS, tde.EMAIL, tde.DIREIN_DUSTRY_CODE, tde.DIREIN_DUSTRY_NAME, tde.EXTEND01, tde.EXTEND02, tde.EXTEND03, tde.EXTEND04, tde.EXTEND05
+        from tp_dept_exinfo tde left join tp_dictionary td on tde.LINE_CODE = td.DIC_CODE
+        where tde.DEPT_ID = #{deptId}
+    </select>
+
+    <select id="getLineCode" parameterType="String" resultType="String">
+        select tde.LINE_CODE from tp_dept_exinfo tde where tde.DEPT_ID = #{deptId}
+    </select>
+
+    <select id="count" parameterType="String" resultType="Integer">
+        select count(DEPT_ID) from tp_dept_exinfo where DEPT_ID = #{deptId}
+    </select>
+
+    <update id="update">
+        update tp_dept_exinfo
+        <if test="null != deptId and '' != deptId">
+            <set>
+                <if test="null != supdeptId">SUPDEPT_ID = #{supdeptId},</if>
+                <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+                <if test="null != lineCode">LINE_CODE = #{lineCode},</if>
+                <if test="null != longitude">LONGITUDE = #{longitude},</if>
+                <if test="null != latitude">LATITUDE = #{latitude},</if>
+                <if test="null != geoCode">GEO_CODE = #{geoCode},</if>
+                <if test="null != address">ADDRESS = #{address},</if>
+                <if test="null != email">EMAIL = #{email},</if>
+                <if test="null != direinDustryCode">DIREIN_DUSTRY_CODE = #{direinDustryCode},</if>
+                <if test="null != direinDustryName">DIREIN_DUSTRY_NAME = #{direinDustryName},</if>
+                <if test="null != extend01">EXTEND01 = #{extend01},</if>
+                <if test="null != extend02">EXTEND02 = #{extend02},</if>
+                <if test="null != extend03">EXTEND03 = #{extend03},</if>
+                <if test="null != extend04">EXTEND04 = #{extend04},</if>
+                <if test="null != extend05">EXTEND05 = #{extend05}</if>
+            </set>
+            <where>
+                DEPT_ID = #{deptId}
+            </where>
+        </if>
+    </update>
+
+</mapper>

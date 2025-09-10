@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpTraceMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpTrace" id="tpTraceMap">
+        <result property="id" column="ID"/>
+        <result property="moduleType" column="MODULE_TYPE"/>
+        <result property="recordId" column="RECORD_ID"/>
+        <result property="updateBefore" column="UPDATE_BEFORE"/>
+        <result property="updateAfter" column="UPDATE_AFTER"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="creatorName" column="CREATOR_NAME"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+    <sql id="baseSql">
+        SELECT ID, MODULE_TYPE, RECORD_ID, UPDATE_BEFORE, UPDATE_AFTER, ACTIVED, CREATOR, CREATOR_NAME, CREATE_TIME FROM tp_trace
+    </sql>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpTrace">
+        INSERT INTO tp_trace
+            (ID, MODULE_TYPE, RECORD_ID, UPDATE_BEFORE, UPDATE_AFTER, ACTIVED, CREATOR, CREATOR_NAME, CREATE_TIME)
+        VALUES
+            (#{id}, #{moduleType}, #{recordId},
+             #{updateBefore},
+             #{updateAfter},
+             #{actived}, #{creator}, #{creatorName}, #{createTime})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpTrace">
+        UPDATE tp_trace
+        <set>
+            <if test="null != moduleType">MODULE_TYPE = #{moduleType},</if>
+            <if test="null != recordId">RECORD_ID = #{recordId},</if>
+            <if test="null != updateBefore">UPDATE_BEFORE = #{updateBefore},</if>
+            <if test="null != updateAfter">UPDATE_AFTER = #{updateAfter},</if>
+            <if test="null != actived">ACTIVED = #{actived},</if>
+            <if test="null != creator">CREATOR = #{creator},</if>
+            <if test="null != creatorName">CREATOR_NAME = #{creatorName},</if>
+            <if test="null != createTime">CREATE_TIME = #{createTime},</if>
+        </set>
+        WHERE ID = #{id}
+    </update>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpTraceQuery"
+            resultType="com.jiuxi.admin.core.bean.vo.TpTraceVO">
+        <include refid="baseSql"/>
+        WHERE
+        ACTIVED = 1 and MODULE_TYPE = #{createTime} and RECORD_ID = = #{recordId}
+        ORDER BY ID desc
+    </select>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpTraceVO">
+        <include refid="baseSql"/>
+        WHERE
+        ACTIVED = 1 and ID = #{id}
+    </select>
+
+    <update id="delete">
+        <!-- TODO 删除逻辑，自己实现 -->
+    </update>
+
+</mapper>

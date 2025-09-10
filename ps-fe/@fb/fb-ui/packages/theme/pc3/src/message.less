@@ -1,0 +1,70 @@
+/*!
+* message
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-message-wrapper {
+	position:       fixed;
+	width:          100%;
+	left:           0;
+	pointer-events: none;
+	z-index:        @--index-message;
+	text-align:     center;
+
+	&.@{prefix}-message-wrapper--center {
+		top:       38.2%;
+		transform: translate(0, -50%);
+	}
+
+	&.@{prefix}-message-wrapper--top {
+		top: 20px;
+	}
+}
+
+.@{prefix}-message-container {
+	text-align: center;
+	margin:     12px auto;
+}
+
+.@{prefix}-message {
+	display:       inline-block;
+	font-size:     14px;
+	border-radius: 4px;
+	box-shadow:    @--box-shadow-base;
+	background:    @--color-white;
+	padding:       0 16px;
+	height:        40px;
+	line-height:   40px;
+
+
+	&--primary .@{prefix}-icon {
+		color: @--color-brand;
+	}
+
+	&--success .@{prefix}-icon {
+		color: @--color-success;
+	}
+
+	&--error .@{prefix}-icon,
+	&--danger .@{prefix}-icon {
+		color: @--color-danger;
+	}
+
+	&--warn .@{prefix}-icon {
+		color: @--color-warning;
+	}
+
+	&--info .@{prefix}-icon,
+	&--loading .@{prefix}-icon {
+		color: @--color-brand;
+	}
+
+	.@{prefix}-icon {
+		margin-right: 8px;
+		font-size:    16px;
+		top:          1px;
+		position:     relative;
+	}
+}

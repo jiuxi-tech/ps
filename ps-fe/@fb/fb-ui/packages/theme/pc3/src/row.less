@@ -1,0 +1,74 @@
+@import "common/var";
+
+.@{prefix}-row {
+	position:     relative;
+	display:      block;
+	clear:        both;
+	margin-left:  0;
+	margin-right: 0;
+	height:       auto;
+	zoom:         1;
+
+	&:before, &:after {
+		content: " ";
+		display: table;
+	}
+
+	&:after {
+		clear:      both;
+		visibility: hidden;
+		font-size:  0;
+		height:     0;
+	}
+
+
+	&.@{prefix}-row--flex {
+		display:   flex;
+		flex-flow: row wrap;
+
+		&:before,
+		&:after {
+			display: none;
+
+		}
+
+
+		&.@{prefix}-row--flex--start {
+			justify-content: flex-start
+		}
+
+		&.@{prefix}-row--flex--center {
+			justify-content: center
+		}
+
+		&.@{prefix}-row--flex--end {
+			justify-content: flex-end
+		}
+
+		&.@{prefix}-row--flex--space-between {
+			justify-content: space-between
+		}
+
+		&.@{prefix}-row--flex--space-around {
+			justify-content: space-around
+		}
+
+		&.@{prefix}-row--flex--top {
+			align-items: flex-start;
+		}
+
+		&.@{prefix}-row--flex--middle {
+			align-items: center
+		}
+
+		&.@{prefix}-row--flex--bottom {
+			align-items: flex-end
+		}
+
+
+	}
+
+
+}
+
+

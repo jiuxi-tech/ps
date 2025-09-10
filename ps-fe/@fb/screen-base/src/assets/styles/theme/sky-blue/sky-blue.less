@@ -1,0 +1,85 @@
+/*!
+* theme-sky-blue 天空蓝
+*/
+@import "../fb-mixins";
+
+html.theme-sky-blue {
+	// 混入蓝色通用主题
+	.blue-theme();
+
+	// 大屏 壳子 面板== 样式
+	.screen-shell {
+
+	}
+
+	.screen-panel {
+		.screen-panel__wrapper {
+			.screen-panel__wrapper__top {
+				height: 44px;
+				background: url("../../../img/theme/sky-blue/screen-panel/screen-panel__wrapper__top_bg.png") no-repeat;
+				background-size: 100% 100%;
+			}
+
+			.screen-panel__wrapper__border {
+				background: transparent;
+				height: ~"calc(100% - 54px)";
+				top: 44px;
+				&:before,
+				&:after {
+					width: 2px;
+					background: #C6FFFF;
+				}
+			}
+
+			.screen-panel__wrapper__bottom {
+				height: 10px;
+				background: url("../../../img/theme/sky-blue/screen-panel/screen-panel__wrapper__footer_bg.png") no-repeat;
+				background-size: 100% 100%;
+			}
+		}
+
+		.screen-panel__header {
+			background: transparent;
+			.title {
+				font-size: 18px;
+				padding: 14px 0 0 39px;
+			}
+		}
+
+		&--no-header {
+			.screen-panel__wrapper {
+				border: 2px solid #C6FFFF;
+			}
+		}
+		&--show-corner {
+			.screen-panel__wrapper {
+				background: linear-gradient(to left, rgba(198, 255, 255, 0.5), rgba(198, 255, 255, 0.5)) left top no-repeat, linear-gradient(to bottom, rgba(198, 255, 255, 0.5), rgba(198, 255, 255, 0.5)) left top no-repeat,
+				linear-gradient(to left, rgba(198, 255, 255, 0.5), rgba(198, 255, 255, 0.5)) right top no-repeat, linear-gradient(to bottom, rgba(198, 255, 255, 0.5), rgba(198, 255, 255, 0.5)) right bottom no-repeat,
+				linear-gradient(to left, #C6FFFF, #C6FFFF) left top no-repeat, linear-gradient(to bottom, #C6FFFF, #C6FFFF) left top no-repeat,
+				linear-gradient(to left, #C6FFFF, #C6FFFF) right top no-repeat, linear-gradient(to bottom, #C6FFFF, #C6FFFF) right top no-repeat,
+				linear-gradient(to left, #C6FFFF, #C6FFFF) left bottom no-repeat, linear-gradient(to bottom, #C6FFFF, #C6FFFF) left bottom no-repeat,
+				linear-gradient(to left, #C6FFFF, #C6FFFF) right bottom no-repeat, linear-gradient(to left, #C6FFFF, #C6FFFF) right bottom no-repeat;
+				background-size: 1px 100%, 100% 1px, 1px 100%, 100% 1px, 2px 18px, 18px 2px, 2px 18px, 18px 2px, 2px 18px, 18px 2px, 2px 18px, 18px 2px;
+			}
+		}
+	}
+
+	.screen-panel-nohead {
+		position: absolute;
+		background: transparent;
+		border: 2px solid #C6FFFF;
+		border-radius: 4px;
+		padding: 10px;
+	}
+}
+
+
+
+
+body.dev {
+    .jpx-container {
+		&:hover {
+			outline: 1px dashed rgba(68, 255, 0, 0.48);
+		}
+    }
+}

@@ -1,0 +1,783 @@
+/*!
+* light
+* (c) 2024 lincong1987
+*/
+
+@import "../../config";
+
+.jpx-button {
+    //默认按钮背景色
+    --default-bg:                  #FFFFFF;
+    //默认按钮边框颜色
+    --default-border-color:        #D3D3D3;
+    //默认按钮文本颜色
+    --default-color:               rgba(0, 0, 0, 0.88);
+    //默认按钮悬浮态背景色
+    --default-hover-bg:            #FFFFFF;
+    //默认按钮悬浮态边框颜色
+    --default-hover-border-color:  #2FA1FE;
+    //默认按钮悬浮态文本颜色
+    --default-hover-color:         #2FA1FE;
+    //默认按钮激活态背景色
+    --default-active-bg:           #FFFFFF;
+    //默认按钮激活态边框颜色
+    --default-active-border-color: #0165D0;
+    //默认按钮激活态文字颜色
+    --default-active-color:        #0165D0;
+    //默认幽灵按钮边框颜色
+    --default-ghost-border-color:  #FFFFFF;
+    //默认幽灵按钮文本颜色
+    --default-ghost-color:         #FFFFFF;
+    //默认幽灵按钮背景色
+    --default-ghost-bg:            transparent;
+    //危险按钮文本颜色
+    --danger-color:                #FFFFFF;
+    //禁用状态边框颜色
+    --border-color-disabled:       #D3D3D3;
+    //链接按钮悬浮态背景色
+    --link-hover-bg:               transparent;
+    //主要按钮文本颜色
+    --primary-color:               #FFFFFF;
+    //操作按钮背景色
+    --editor-bg:                   #E6F7FF;
+    //操作按钮边框颜色
+    --editor-border-color:         #0284FE;
+    //操作按钮文本颜色
+    --editor-color:                #0284FE;
+    //操作按钮悬浮态背景色
+    --editor-hover-bg:             #E6F7FF;
+    //操作按钮悬浮态边框颜色
+    --editor-hover-border-color:   #2FA1FE;
+    //操作按钮悬浮态文本颜色
+    --editor-hover-color:          #2FA1FE;
+    //操作按钮激活态背景色
+    --editor-active-bg:            #E6F7FF;
+    //操作按钮激活态边框颜色
+    --editor-active-border-color:  #0165D0;
+    //操作按钮激活态文本颜色
+    --editor-active-color:         #0165D0;
+    
+    background:                    var(--default-bg);
+    // border: 1px solid var(--button-border-color);
+}
+
+
+@keyframes copy-animation {
+    0% {
+	transform: scale(0);
+    }
+    70% {
+	transform: scale(1.1);
+    }
+    to {
+	transform: scale(1);
+    }
+}
+
+@keyframes copy-animation-success-text {
+    0% {
+	top: 100%;
+    }
+    70% {
+	top: -0px;
+    }
+    100% {
+	top: -4px;
+    }
+}
+
+
+.create-button (@type,  @attr, @ghost: false) {
+    
+    &:hover,
+    &:focus-visible {
+	    @{attr}: @@theme-hover;
+    }
+    
+    
+    @theme-default:  e("btn-color-@{type}");
+    @theme-hover:    e("btn-color-@{type}-hover");
+    @theme-active:   e("btn-color-@{type}-active");
+    @theme-disabled: e("btn-color-@{type}-disabled");
+    @theme-focus:    e("btn-color-@{type}-focus");
+    
+}
+
+.@{prefix}-icon {
+    display: inline-flex;
+}
+
+.@{prefix}-button {
+    display:     inline-flex;
+    align-items: center;
+    height:      var(--control-height);
+    background:  var(--color-test);
+    border-radius: var(--border-radius);
+    
+    .@{prefix}-button__icon {
+	
+    }
+    
+    .@{prefix}-button__loading {
+    }
+    
+    .@{prefix}-button__text {
+    }
+    
+    .@{prefix}-button__append {
+    }
+}
+
+
+/*.@{prefix}-button-wrapper {
+
+}*/
+
+//.@{prefix}-button {
+//    display:            inline-block;
+//    line-height:        1;
+//    white-space:        nowrap;
+//    cursor:             pointer;
+//    background:         var(--button-default-bg);
+//    border:             @--border-base;
+//    border-color:       @--button-default-border-color;
+//    color:              @--button-default-font-color;
+//    text-align:         center;
+//    box-sizing:         border-box;
+//    outline:            none;
+//    margin:             0;
+//    transition:         @--all-transition;
+//    font-weight:        @--button-font-weight;
+//    user-select:        none;
+//    -webkit-appearance: none;
+//    border-radius:      @--border-radius-base;
+//    //margin-bottom:      12px;
+//    /*	overflow:           hidden;*/
+//    position:           relative;
+//    overflow:           hidden;
+//
+//    & + & {
+//        //margin-left: 10px;
+//
+//    }
+//
+//    &::-moz-focus-inner {
+//        border: 0;
+//    }
+//
+//
+//    > .@{prefix}-icon {
+//        //margin-right: 6px;
+//    }
+//
+//    .@{prefix}-button__icon,
+//    .@{prefix}-button__icon-loading {
+//        margin-right: 6px;
+//    }
+//
+//    .@{prefix}-button__icon-append {
+//        margin-left: 6px;
+//    }
+//
+//
+//    // 默认尺寸
+//    .button-size(@--button-m-padding-vertical, @--button-m-padding-horizontal, @--button-m-font-size, @--button-m-border-radius);
+//
+//
+//    &.@{prefix}-button--mousedown {
+//        transform: scale(.95);
+//    }
+//
+//    &.@{prefix}-button--copy-animation {
+//
+//        /*&:after {
+//		content:    "复制成功";
+//		position:   absolute;
+//		top:        100%;
+//		left:       50%;
+//		transform:  translateX(-50%);
+//		opacity:    1;
+//		animation:  copy-animation-success-text 0.8s forwards cubic-bezier(0.12, 0.4, 0.29, 1.46);
+//		background: @--button-default-background-color;
+//		display:    block;
+//		color:      @--color-success;
+//	}*/
+//
+//        .@{prefix}-button__icon {
+//            // all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s
+//            animation:  copy-animation 0.8s forwards cubic-bezier(0.12, 0.4, 0.29, 1.46);
+//            color:      @--color-success;
+//            transition: all 0.8s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+//
+//        }
+//    }
+//
+//
+//    /* 按钮尺寸
+//    ********************************/
+//
+//    &.@{prefix}-button--s {
+//        .button-size(@--button-s-padding-vertical, @--button-s-padding-horizontal, @--button-s-font-size, @--button-s-border-radius);
+//
+//        padding:     0 10px;
+//        height:      24px;
+//        //line-height: 24px;
+//        line-height: 23px;
+//
+//        .@{prefix}-icon {
+//            //margin-right: 6px;
+//        }
+//
+//        .@{prefix}-button__icon,
+//        .@{prefix}-button__icon-loading {
+//            margin-right: 6px;
+//        }
+//
+//        .@{prefix}-button__icon-append {
+//            margin-left: 6px;
+//        }
+//
+//        &.@{prefix}-button--has-icon {
+//            padding-left: 8px;
+//
+//        }
+//
+//        &.@{prefix}-button--has-append-icon {
+//            padding-right: 8px;
+//        }
+//
+//        &.@{prefix}-button--no-value {
+//            &.@{prefix}-button--has-icon {
+//                padding-left:  4.5px;
+//                padding-right: 4.5px;
+//
+//                &.@{prefix}-button--round {
+//                    border-radius: 50%;
+//                    padding-left:  4.5px;
+//                    padding-right: 4.5px;
+//                }
+//            }
+//
+//            &.@{prefix}-button--has-append-icon {
+//
+//            }
+//        }
+//
+//        &.@{prefix}-button--round {
+//            border-radius: 12px;
+//        }
+//
+//
+//    }
+//
+//    &.@{prefix}-button--m {
+//        .button-size(@--button-m-padding-vertical, @--button-m-padding-horizontal, @--button-m-font-size, @--button-m-border-radius);
+//
+//        //padding: 8px 16px 7px 16px;
+//        padding:     0 16px;
+//        height:      30px;
+//        line-height: 30px;
+//
+//        //.@{prefix}-icon {
+//        //	// margin-right: 6px;
+//        //}
+//
+//        .@{prefix}-button__icon,
+//        .@{prefix}-button__icon-loading {
+//            margin-right: 6px;
+//        }
+//
+//        .@{prefix}-button__icon-append {
+//            margin-left: 6px;
+//        }
+//
+//        &.@{prefix}-button--has-icon {
+//            padding-left: 12px;
+//        }
+//
+//        &.@{prefix}-button--has-append-icon {
+//            padding-right: 12px;
+//        }
+//
+//        &.@{prefix}-button--no-value {
+//            &.@{prefix}-button--has-icon {
+//                padding-left:  7px;
+//                padding-right: 7px;
+//
+//                .@{prefix}-button__icon,
+//                .@{prefix}-button__icon-loading {
+//                    margin-right: 0;
+//                }
+//
+//                &.@{prefix}-button--round {
+//                    border-radius: 50%;
+//                    padding-left:  7px;
+//                    padding-right: 7px;
+//                }
+//            }
+//
+//            &.@{prefix}-button--has-append-icon {
+//                .@{prefix}-button__icon-append {
+//                    margin-left: 0;
+//                }
+//            }
+//
+//        }
+//
+//        &.@{prefix}-button--round {
+//            border-radius: 15px;
+//        }
+//    }
+//
+//    &.@{prefix}-button--l {
+//        .button-size(@--button-l-padding-vertical, @--button-l-padding-horizontal, @--button-l-font-size, @--button-l-border-radius);
+//        //padding: 9px 16px 8px 16px;
+//        padding:     0 16px;
+//        height:      36px;
+//        line-height: 36px;
+//
+//        &.@{prefix}-button--has-icon {
+//            padding-left: 12px;
+//        }
+//
+//        &.@{prefix}-button--has-append-icon {
+//            padding-right: 12px;
+//        }
+//
+//        &.@{prefix}-button--no-value {
+//            &.@{prefix}-button--has-icon {
+//                padding-left:  9px;
+//                padding-right: 9px;
+//
+//                &.@{prefix}-button--round {
+//                    border-radius: 50%;
+//                    padding-left:  9px;
+//                    padding-right: 9px;
+//                }
+//            }
+//
+//            &.@{prefix}-button--has-append-icon {
+//
+//            }
+//        }
+//
+//
+//        &.@{prefix}-button--round {
+//            border-radius: 18px;
+//        }
+//    }
+//
+//    /* 按钮类型
+//    ********************************/
+//    // 默认按钮
+//    &.@{prefix}-button--default {
+//        .button-factory(@--button-default-font-color, @--button-default-background-color, @--button-default-border-color);
+//
+//        .@{prefix}-ripple {
+//            background: mix(@--color-brand, @--color-white, 20%);
+//        }
+//
+//        // PC3 的特殊项
+//        &:hover,
+//        &:focus,
+//        &.@{prefix}-button--hover {
+//            background:   @--color-white;
+//            border-color: @--color-brand;
+//            color:        @--color-brand;
+//        }
+//
+//        &:active {
+//            background:   @--color-white;
+//            border-color: mix(@--color-black, @--color-brand, @--button-active-shade-percent);
+//            color:        mix(@--color-black, @--color-brand, @--button-active-shade-percent);
+//        }
+//
+//        &.@{prefix}-button--active {
+//            background:   @--color-white;
+//            border-color: mix(@--color-black, @--color-brand, @--button-active-shade-percent);
+//            color:        mix(@--color-black, @--color-brand, @--button-active-shade-percent);
+//        }
+//
+//        &.@{prefix}-button--danger {
+//            .button-factory(@--color-danger, @--color-white, @--color-danger);
+//        }
+//
+//        &.@{prefix}-button--editor {
+//            .button-factory(@--color-primary, @--color-blue-1, @--color-primary);
+//        }
+//
+//        &.@{prefix}-button--success {
+//            .button-factory(@--color-success, @--color-white, @--color-success);
+//        }
+//
+//        &.@{prefix}-button--warning {
+//            .button-factory(@--color-warning, @--color-white, @--color-warning);
+//        }
+//
+//    }
+//
+//    // 重要按钮
+//    &.@{prefix}-button--primary {
+//        .button-factory(@--button-primary-font-color, @--button-primary-background-color, @--button-primary-border-color);
+//
+//        &.@{prefix}-button--danger {
+//            .button-factory(@--color-white, @--color-danger, @--color-danger);
+//        }
+//
+//        &.@{prefix}-button--editor {
+//            .button-factory(@--color-primary, @--color-blue-1, @--color-primary);
+//        }
+//
+//        &.@{prefix}-button--success {
+//            .button-factory(@--color-white, @--color-success, @--color-success);
+//        }
+//
+//        &.@{prefix}-button--warning {
+//            .button-factory(@--color-white, @--color-warning, @--color-warning);
+//        }
+//    }
+//
+//    // 链接按钮
+//    &.@{prefix}-button--link {
+//        .button-factory(@--button-link-font-color, @--color-transparent, @--color-transparent);
+//        // PC3 的特殊项
+//        &:hover,
+//        &:focus,
+//        &.@{prefix}-button--hover {
+//            background:   @--color-transparent;
+//            border-color: @--color-transparent;
+//            color:        mix(@--color-white, @--color-brand, @--button-hover-tint-percent);
+//            box-shadow:   none;
+//        }
+//
+//        &:active {
+//            background:   @--color-transparent;
+//            border-color: @--color-transparent;
+//            color:        mix(@--color-black, @--color-brand, @--button-active-shade-percent);
+//        }
+//
+//        &.@{prefix}-button--active {
+//            background:   @--color-transparent;
+//            border-color: @--color-transparent;
+//            color:        mix(@--color-black, @--color-brand, @--button-active-shade-percent);
+//        }
+//
+//        &.@{prefix}-button--disabled {
+//            color:        @--button-disabled-font-color;
+//            background:   @--color-transparent;
+//            border-color: @--color-transparent;
+//            cursor:       not-allowed;
+//
+//            &:hover,
+//            &:focus,
+//            &.@{prefix}-button--hover {
+//                cursor:       not-allowed;
+//                color:        @--button-disabled-font-color;
+//                background:   @--color-transparent;
+//                border-color: @--color-transparent;
+//            }
+//
+//
+//            &:active {
+//                color:        @--button-disabled-font-color;
+//                background:   @--color-transparent;
+//                border-color: @--color-transparent;
+//            }
+//
+//            &.@{prefix}-button--active {
+//                color:        @--button-disabled-font-color;
+//                background:   @--color-transparent;
+//                border-color: @--color-transparent;
+//            }
+//
+//
+//        }
+//    }
+//
+//    /* 按钮属性
+//    ********************************/
+//
+//    &.@{prefix}-button--danger,
+//    &.@{prefix}-button--editor,
+//    &.@{prefix}-button--success,
+//    &.@{prefix}-button--warning {
+//        &.@{prefix}-button--disabled {
+//            .fb-button--disabled();
+//        }
+//    }
+//
+//
+//    .fb-button--disabled () {
+//        color:        @--button-disabled-font-color;
+//        background:   @--button-disabled-background-color;
+//        border-color: @--button-disabled-border-color;
+//        cursor:       not-allowed;
+//
+//        &:hover,
+//        &:focus,
+//        &.@{prefix}-button--hover {
+//            cursor:       not-allowed;
+//            color:        @--button-disabled-font-color;
+//            background:   @--button-disabled-background-color;
+//            border-color: @--button-disabled-border-color;
+//        }
+//
+//
+//        &:active {
+//            color:        @--button-disabled-font-color;
+//            background:   @--button-disabled-background-color;
+//            border-color: @--button-disabled-border-color;
+//        }
+//
+//        &.@{prefix}-button--active {
+//            color:        @--button-disabled-font-color;
+//            background:   @--button-disabled-background-color;
+//            border-color: @--button-disabled-border-color;
+//        }
+//
+//
+//    }
+//
+//    &.@{prefix}-button--disabled {
+//        .fb-button--disabled();
+//    }
+//
+//
+//    &.@{prefix}-button--round {
+//
+//    }
+//
+//    &.@{prefix}-button--circle {
+//
+//    }
+//
+//
+//    &.@{prefix}-button--loading {
+//        position:       relative;
+//        pointer-events: none;
+//
+//        &:before {
+//            pointer-events:   none;
+//            content:          "";
+//            position:         absolute;
+//            left:             -1px;
+//            top:              -1px;
+//            right:            -1px;
+//            bottom:           -1px;
+//            border-radius:    inherit;
+//            background-color: rgba(255, 255, 255, .35);
+//        }
+//    }
+//
+//
+//    &.@{prefix}-button--long {
+//        width: 100%;
+//    }
+//
+//}
+//
+//
+///* 普通按钮
+//********************************/
+//.button-plain(@color) {
+//    color:        @color;
+//    background:   @--color-white;
+//    border-color: mix(@--color-white, @color, 60%);
+//
+//    &:hover,
+//    &:focus,
+//    &.@{prefix}-button--hover {
+//        background:   @color;
+//        border-color: @color;
+//        color:        @--color-white;
+//    }
+//
+//    &:active {
+//        background:   mix(@--color-black, @color, @--button-active-shade-percent);
+//        border-color: mix(@--color-black, @color, @--button-active-shade-percent);
+//        color:        @--color-white;
+//        outline:      none;
+//    }
+//
+//    &.@{prefix}-button--disabled {
+//        &,
+//        &:hover,
+//        &:focus,
+//        &:active,
+//        &.@{prefix}-button--hover {
+//            color:            mix(@--color-white, @color, 40%);
+//            background-color: mix(@--color-white, @color, 90%);
+//            border-color:     mix(@--color-white, @color, 80%);
+//        }
+//    }
+//}
+//
+///* 按钮生成函数  .button-factory(文字颜色, 背景颜色, 边框颜色)
+//********************************/
+//.button-factory(@color, @background-color, @border-color) {
+//    color:            @color;
+//    background-color: @background-color;
+//    border-color:     @border-color;
+//
+//
+//    .@{prefix}-ripple {
+//        background: mix(@color, @border-color, 20);
+//    }
+//
+//    &:hover,
+//    &:focus,
+//    &.@{prefix}-button--hover {
+//        background:   mix(@--color-white, @background-color, @--button-hover-tint-percent);
+//        border-color: mix(@--color-white, @border-color, @--button-hover-tint-percent);
+//        color:        @color;
+//        box-shadow:   @--box-shadow-focus;
+//    }
+//
+//    &:active {
+//        background:   mix(@--color-black, @background-color, @--button-active-shade-percent);
+//        border-color: mix(@--color-black, @border-color, @--button-active-shade-percent);
+//        color:        @color;
+//        outline:      none;
+//    }
+//
+//    &.@{prefix}-button--active {
+//        background:   mix(@--color-black, @background-color, @--button-active-shade-percent);
+//        border-color: mix(@--color-black, @border-color, @--button-active-shade-percent);
+//        color:        @color;
+//    }
+//
+//    //&.@{prefix}-button--disabled {
+//    //&,
+//    //&:hover,
+//    //&:focus,
+//    //&:active {
+//    //    color:            @--color-white;
+//    //    background-color: mix(@background-color, @--color-white);
+//    //    border-color:     mix(@border-color, @--color-white);
+//    //}
+//    //}
+//    //
+//    //&.@{prefix}-button--plain {
+//    //.button-plain(@background-color);
+//    //}
+//}
+//
+///* 处理按钮尺寸
+//********************************/
+//.button-size(@padding-vertical, @padding-horizontal, @font-size, @border-radius) {
+//    padding:       @padding-vertical @padding-horizontal;
+//    font-size:     @font-size;
+//    border-radius: @border-radius;
+//
+//    &.@{prefix}-button--no-value {
+//        &.@{prefix}-button--has-icon {
+//            //.@{prefix}-icon {
+//            //	margin-right: 0;
+//            //}
+//            .@{prefix}-button__icon,
+//            .@{prefix}-button__icon-loading {
+//                margin-right: 0;
+//            }
+//
+//        }
+//
+//        &.@{prefix}-button--has-append-icon {
+//            .@{prefix}-button__icon-append {
+//                margin-left: 0;
+//            }
+//        }
+//    }
+//}
+//
+//
+//.@{prefix}-button-group {
+//    display:        inline-block;
+//    vertical-align: middle;
+//
+//    & > .@{prefix}-button {
+//        float:    left;
+//        position: relative;
+//
+//        & + .@{prefix}-button {
+//            margin-left: 0;
+//        }
+//
+//        &.is-disabled {
+//            z-index: 1;
+//        }
+//
+//        &:first-child {
+//            border-top-right-radius:    0;
+//            border-bottom-right-radius: 0;
+//        }
+//
+//        &:last-child {
+//            border-top-left-radius:    0;
+//            border-bottom-left-radius: 0;
+//        }
+//
+//        &:first-child:last-child {
+//            border-top-right-radius:    @--button-m-border-radius;
+//            border-bottom-right-radius: @--button-m-border-radius;
+//            border-top-left-radius:     @--button-m-border-radius;
+//            border-bottom-left-radius:  @--button-m-border-radius;
+//
+//            &.is-round {
+//                border-radius: 20px;
+//            }
+//
+//            &.is-circle {
+//                border-radius: 50%;
+//            }
+//        }
+//
+//        &:not(:first-child):not(:last-child) {
+//            border-radius: 0;
+//        }
+//
+//        &:not(:last-child) {
+//            margin-right: -1px;
+//        }
+//
+//        &:hover,
+//        &:focus,
+//        &:active,
+//        &.@{prefix}-button--hover {
+//            z-index: 1;
+//        }
+//
+//        &.active {
+//            z-index: 1;
+//        }
+//    }
+//
+//    & > .@{prefix}-dropdown {
+//        & > .@{prefix}-button {
+//            border-top-left-radius:    0;
+//            border-bottom-left-radius: 0;
+//            border-left-color:         rgba(@--color-white, 0.5);
+//        }
+//    }
+//
+//    @set:           primary, success, warning, danger, editor, success, warning, info;
+//
+//    each(@set, {
+//
+//        .@{prefix}-button--@{value} {
+//            &:first-child {
+//                border-right-color: rgba(@--color-white, 0.5);
+//            }
+//
+//            &:last-child {
+//                border-left-color: rgba(@--color-white, 0.5);
+//            }
+//
+//            &:not(:first-child):not(:last-child) {
+//                border-left-color:  rgba(@--color-white, 0.5);
+//                border-right-color: rgba(@--color-white, 0.5);
+//            }
+//        }
+//
+//    });
+//
+//}

@@ -1,0 +1,86 @@
+/*!
+* avatar
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-collapse {
+	//border-top: 1px solid #EBEEF5;
+	//border-bottom: 1px solid #EBEEF5
+}
+
+.@{prefix}-collapse-item.is-disabled .@{prefix}-collapse-item__header {
+	color: #bbb;
+	cursor: not-allowed
+}
+
+.@{prefix}-collapse-item__header {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	height: 48px;
+	line-height: 48px;
+	background-color: #FFF;
+	color: #303133;
+	cursor: pointer;
+	border-bottom: 1px solid #EBEEF5;
+	font-size: 13px;
+	font-weight: 500;
+	-webkit-transition: border-bottom-color .3s;
+	transition: border-bottom-color .3s;
+	outline: 0
+}
+
+.@{prefix}-collapse-item__arrow {
+	margin: 0 8px 0 auto;
+}
+
+.@{prefix}-collapse-item__arrow.is-active {
+
+}
+
+.@{prefix}-collapse-item__arrow.arrow-right-slot {
+	position: relative;
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 19;
+	}
+}
+
+.@{prefix}-collapse-item__header.focusing:focus:not(:hover) {
+	color: #409EFF
+}
+
+.@{prefix}-collapse-item__header.is-active {
+	border-bottom-color: transparent
+}
+
+.@{prefix}-collapse-item__wrap {
+	will-change: height;
+	background-color: #FFF;
+	overflow: hidden;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border-bottom: 1px solid #EBEEF5
+}
+
+.@{prefix}-collapse-item__content {
+	padding-bottom: 25px;
+	font-size: 13px;
+	color: #303133;
+	line-height: 1.769230769230769
+}
+
+.@{prefix}-collapse-item:last-child {
+	margin-bottom: -1px
+}

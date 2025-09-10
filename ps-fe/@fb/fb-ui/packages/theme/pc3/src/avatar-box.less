@@ -1,0 +1,134 @@
+/*!
+* avatar
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-avatar-box {
+
+	.@{prefix}-avatar-box__icon, .@{prefix}-avatar-box__img {
+		position: absolute;
+	}
+
+	.@{prefix}-avatar {
+		> img {
+			width: auto;
+			height: auto;
+			display: inline-block;
+		}
+	}
+
+	.icon-linear-box {
+		opacity: 0.5;
+
+		&-default {
+			background-image: -webkit-linear-gradient(top, #D0E8FF, #FEFEFF);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		&-red {
+			background-image: -webkit-linear-gradient(top, @--color-red-2, #FEFEFF);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		&-blue {
+			background-image: -webkit-linear-gradient(top, @--color-blue-2, #FEFEFF);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		&-orange {
+			background-image: -webkit-linear-gradient(top, @--color-orange-2, #FEFEFF);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		&-green {
+			background-image: -webkit-linear-gradient(top, @--color-green-2, #FEFEFF);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		&-cyan {
+			background-image: -webkit-linear-gradient(top, @--color-cyan-2, #FEFEFF);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+
+	}
+
+	&__left {
+		>div {
+			float: left;
+			&:first-child {
+				margin-right: 12px;
+			}
+		}
+
+		.@{prefix}-avatar-box__icon {
+			right: 16px;
+			bottom: -2px;
+		}
+		.@{prefix}-avatar-box__img {
+			right: 16px;
+			bottom: -2px;
+		}
+	}
+
+	&__center {
+		text-align: center;
+
+		.@{prefix}-avatar-box__icon {
+			left: 0;
+			bottom: -2px;
+			width: 100%;
+		}
+		.@{prefix}-avatar-box__img {
+			left: 0;
+			bottom: -2px;
+			width: 100%;
+		}
+	}
+
+	&__img_fill {
+		.@{prefix}-avatar {
+			> img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+
+	.text-bold-20 {
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.text-bold-16 {
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+	.text-color-brand {
+		margin-left: 8px;
+		color: @--color-brand;
+	}
+	.text-color-danger {
+		margin-left: 8px;
+		color: @--color-danger;
+	}
+	.text-color-success {
+		margin-left: 8px;
+		color: @--color-success;
+	}
+	.text-color-warning {
+		margin-left: 8px;
+		color: @--color-warning;
+	}
+
+	&:after {
+		content: '';
+		clear: both;
+		display: block;
+		height: 0;
+		visibility: hidden;
+		overflow: hidden;
+	}
+}

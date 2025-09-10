@@ -1,0 +1,114 @@
+############################################################
+#############  开发环境配置
+#############  Development Environment Configuration
+############################################################
+
+server:
+  port: 8082
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    # 设定HttpHeader请求头大小
+    # 设定Httppost数据大小
+    max-http-form-post-size: 10MB
+  servlet:
+    context-path: /ps-be
+  max-http-header-size: 10MB
+
+# Spring Boot开发环境配置
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  # 邮件配置
+  mail:
+    host: smtp.163.com
+    port: 465
+    username: 18069853753@163.com
+    password: WQbFDS7fdK92fKcU
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+  # DevTools配置 - 启用热重载
+  devtools:
+    restart:
+      enabled: true
+      # 排除不需要重启的目录
+      exclude: static/**,public/**
+    livereload:
+      enabled: true
+      port: 35729
+
+############################################################
+#############  开发环境日志配置
+############################################################  
+logging:
+  level:
+    # 开发环境显示详细日志
+    root: INFO
+    # MyBatis SQL日志 - 显示完整SQL和参数
+    com.jiuxi.admin: DEBUG
+    # MyBatis框架日志 - 显示SQL执行过程
+    org.mybatis: DEBUG
+    # MyBatis-Plus日志 - 显示增强功能日志
+    com.baomidou.mybatisplus: DEBUG
+    # 数据库连接池日志 - 显示连接管理
+    com.alibaba.druid: DEBUG
+    # SQL执行日志 - 显示详细执行信息
+    org.apache.ibatis: DEBUG
+    # 显示SQL参数绑定和结果集
+    org.springframework.jdbc: DEBUG
+    # 显示SQL执行时间和性能信息
+    org.springframework.jdbc.core: DEBUG
+    # 显示事务管理日志
+    org.springframework.transaction: DEBUG
+    # 显示数据源相关日志
+    org.springframework.jdbc.datasource: DEBUG
+    # 监控模块详细日志
+    com.jiuxi.monitor: DEBUG
+    # 监控客户端日志
+    com.jiuxi.monitor.client: DEBUG
+    # 监控服务端日志
+    com.jiuxi.monitor.server: DEBUG
+    # 监控通用模块日志
+    com.jiuxi.monitor.common: DEBUG
+
+############################################################
+#############  开发环境特定配置
+############################################################
+# 开发环境可以开启的调试功能
+debug: false
+
+############################################################
+#############  监控配置
+############################################################
+jiuxi:
+  platform:
+    plugin:
+      monitor:
+        server-url: http://localhost:8082/ps-be
+        system-desc: "PS-BMP后端系统"
+        client-id: "ps-bmp-backend-dev"
+        connection-timeout: 3000
+        read-timeout: 5000
+        # 邮件配置
+        mail-config:
+          # 发件人邮箱
+          user: 18069853753@163.com
+          # 邮箱密码或授权码
+          password: WQbFDS7fdK92fKcU
+          # SMTP服务器地址
+          smtp: smtp.163.com
+          # SMTP端口
+          port: 465
+# 开发环境JVM配置建议
+# -Xms512m -Xmx1024m -XX:+UseG1GC -XX:MaxGCPauseMillis=200

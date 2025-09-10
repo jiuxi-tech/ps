@@ -1,0 +1,73 @@
+{
+	"name": "@fb/tp-components",
+	"version": "2.2.14",
+	"description": "fbjs前端框架-tp基础包",
+	"author": "lincong <lincong1987@gmail.com>",
+	"homepage": "",
+	"license": "ISC",
+	"main": "src/index.js",
+	"directories": {
+		"lib": "lib",
+		"test": "__tests__"
+	},
+	"files": [
+		"lib",
+		"src",
+		"screen",
+		"public",
+		".eslintignore",
+		".eslintrc.js",
+		".gitignore",
+		".npmignore",
+		"babel.config.js",
+		"project.config.js",
+		".env.dev",
+		".env.local",
+		".env.prod",
+		".env.test",
+		"package.json",
+		"README.md",
+		"vue.config.js"
+	],
+	"repository": {
+		"type": "git",
+		"url": "http://192.168.90.23:30010/TX_FRAME/JPX/fb.js.git"
+	},
+	"scripts": {
+		"serve": "vue-cli-service serve --mode=local",
+		"serve-dev": "vue-cli-service serve --mode=dev",
+		"serve-local": "vue-cli-service serve --mode=local",
+		"serve-test": "vue-cli-service serve --mode=test",
+		"build": "vue-cli-service build",
+		"lib": "vue-cli-service build --target lib --name tp-components --dest lib src/main.js"
+	},
+	"dependencies": {
+		"axios": "^0.21.0",
+		"core-js": "^3.6.5",
+		"fb-core": "^1.1.545",
+		"fb-ui": "^1.1.493",
+		"lodash-es": "^4.17.15",
+		"vue": "^2.6.12",
+		"vue-router": "^3.4.9",
+		"vuex": "^3.6.0"
+	},
+	"devDependencies": {
+		"@babel/plugin-proposal-export-default-from": "^7.12.1",
+		"@vue/cli-plugin-babel": "~4.5.0",
+		"@vue/cli-plugin-eslint": "~4.5.0",
+		"@vue/cli-service": "~4.5.0",
+		"babel-eslint": "^10.1.0",
+		"babel-plugin-component": "^1.1.1",
+		"eslint": "^6.7.2",
+		"eslint-plugin-vue": "^6.2.2",
+		"less": "^3.12.2",
+		"less-loader": "^7.1.0",
+		"vue-template-compiler": "^2.6.12"
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead"
+	],
+	"gitHead": "2f6daf2401edc3e39342a4b446b07d98b7622a33"
+}

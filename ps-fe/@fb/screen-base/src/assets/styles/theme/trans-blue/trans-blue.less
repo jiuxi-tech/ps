@@ -1,0 +1,86 @@
+/*!
+* theme-trans-blue 清澈蓝
+*/
+
+@import "../fb-mixins";
+
+html.theme-trans-blue {
+	// 混入蓝色通用主题
+	.blue-theme();
+
+	// 大屏 壳子 面板== 样式
+	.screen-shell {
+		//background:       url("../../../img/theme/dark-blue/wrapper-bg.png") no-repeat;
+		//background-size:  100% 100%;
+	}
+
+	.screen-panel {
+		.screen-panel__wrapper {
+			background: linear-gradient(180deg, rgba(9, 32, 76, 0.01) 0%, rgba(18, 88, 204, 0.01) 100%);
+
+			.screen-panel__wrapper__top {
+				background: transparent;
+			}
+
+			.screen-panel__wrapper__border {
+				background: transparent;
+
+				&:before,
+				&:after {
+					display: none;
+				}
+			}
+
+			.screen-panel__wrapper__bottom {
+				background: transparent;
+			}
+		}
+
+		.screen-panel__header {
+			background: url("../../../img/theme/trans-blue/screen-panel/panel-header-bg.png") no-repeat;
+
+			.title {
+				font-size: 18px;
+				padding: 12px 0 0 22px;
+			}
+		}
+
+		&--no-header {
+			.screen-panel__wrapper {
+				border: 1px solid rgba(0, 145, 255, .7);
+			}
+		}
+
+		&--show-corner {
+
+			.screen-panel__wrapper {
+				position: absolute;
+				background: linear-gradient(to left, rgba(0, 145, 255, .7), rgba(0, 145, 255, .7)) left top no-repeat, linear-gradient(to bottom, rgba(0, 145, 255, .7), rgba(0, 145, 255, .7)) left top no-repeat,
+				linear-gradient(to left, rgba(0, 145, 255, .7), rgba(0, 145, 255, .7)) right top no-repeat, linear-gradient(to bottom, rgba(0, 145, 255, .7), rgba(0, 145, 255, .7)) right bottom no-repeat,
+				linear-gradient(to left, #00DFFF, #00DFFF) left top no-repeat, linear-gradient(to bottom, #00DFFF, #00DFFF) left top no-repeat,
+				linear-gradient(to left, #00DFFF, #00DFFF) right top no-repeat, linear-gradient(to bottom, #00DFFF, #00DFFF) right top no-repeat,
+				linear-gradient(to left, #00DFFF, #00DFFF) left bottom no-repeat, linear-gradient(to bottom, #00DFFF, #00DFFF) left bottom no-repeat,
+				linear-gradient(to left, #00DFFF, #00DFFF) right bottom no-repeat, linear-gradient(to left, #00DFFF, #00DFFF) right bottom no-repeat;
+				background-size: 1px 100%, 100% 1px, 1px 100%, 100% 1px, 2px 18px, 18px 2px, 2px 18px, 18px 2px, 2px 18px, 18px 2px, 2px 18px, 18px 2px;
+				background-color: rgba(4, 19, 53, 0.35);
+			}
+		}
+	}
+
+	.screen-panel-nohead {
+		position: absolute;
+		background: linear-gradient(360deg, #041335 0%, rgba(4, 19, 53, 0.2) 100%);
+		border: 1px solid rgba(0, 196, 255, 0.5);
+		border-radius: 4px;
+		padding: 10px;
+	}
+}
+
+
+body.dev {
+	.jpx-container {
+		&:hover {
+			outline: 1px dashed rgba(68, 255, 0, 0.48);
+		}
+	}
+}

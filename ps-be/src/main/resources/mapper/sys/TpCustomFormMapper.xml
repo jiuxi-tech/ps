@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpCustomFormMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpCustomForm" id="tpCustomFormMap">
+        <result property="fid" column="FID"/>
+        <result property="mid" column="MID"/>
+        <result property="fSource" column="F_SOURCE"/>
+        <result property="ftype" column="FTYPE"/>
+        <result property="fjson" column="FJSON"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpCustomForm">
+        INSERT INTO tp_custom_form
+            (FID, MID, F_SOURCE, FTYPE, FJSON, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+        VALUES
+            (#{fid}, #{mid}, #{fSource}, #{ftype}, #{fjson}, #{actived}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpCustomForm">
+        UPDATE tp_custom_form
+        <set>
+            <if test="null != mid">MID = #{mid},</if>
+            <if test="null != fSource">F_SOURCE = #{fSource},</if>
+            <if test="null != ftype">FTYPE = #{ftype},</if>
+            <if test="null != fjson and '' != fjson">FJSON = #{fjson},</if>
+            <if test="null != actived">ACTIVED = #{actived},</if>
+            <if test="null != creator">CREATOR = #{creator},</if>
+            <if test="null != createTime">CREATE_TIME = #{createTime},</if>
+            <if test="null != updator">UPDATOR = #{updator},</if>
+            <if test="null != updateTime">UPDATE_TIME = #{updateTime},</if>
+            <if test="null != extend01">EXTEND01 = #{extend01},</if>
+            <if test="null != extend02">EXTEND02 = #{extend02},</if>
+            <if test="null != extend03">EXTEND03 = #{extend03},</if>
+        </set>
+        WHERE FID = #{fid}
+        and ACTIVED = 1
+    </update>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpCustomFormVO">
+        SELECT FID, MID, F_SOURCE, FTYPE, FJSON, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03 FROM tp_custom_form
+        WHERE
+        ACTIVED = 1
+        and
+        MID = #{mid}
+        and
+        F_SOURCE = #{fSource}
+        and
+        FTYPE = #{ftype}
+    </select>
+
+    <select id="viewByMcode" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpCustomFormVO">
+        SELECT tcf.FID, tcf.MID, tcf.F_SOURCE, tcf.FTYPE, tcf.FJSON, tcf.ACTIVED, tcf.CREATOR, tcf.CREATE_TIME, tcf.UPDATOR, tcf.UPDATE_TIME, tcf.EXTEND01, tcf.EXTEND02, tcf.EXTEND03
+        FROM tp_custom_module tcm left join tp_custom_form tcf on tcm.MID = tcf.MID and tcf.ACTIVED = 1 and tcf.FTYPE = #{ftype} and tcf.F_SOURCE = #{fSource}
+        WHERE
+        tcm.ACTIVED = 1
+        and
+        tcm.MCODE = #{mcode}
+    </select>
+
+    <select id="viewByFid" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpCustomFormVO">
+        SELECT FID, MID, F_SOURCE, FTYPE, FJSON, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03 FROM tp_custom_form
+        WHERE
+        ACTIVED = 1
+        and
+        FID = #{fid}
+    </select>
+
+    <update id="delete" parameterType="String" >
+        UPDATE tp_custom_form SET ACTIVED = 0 WHERE FID = #{fid} and ACTIVED = 1
+    </update>
+
+</mapper>

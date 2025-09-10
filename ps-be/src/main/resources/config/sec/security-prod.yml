@@ -1,0 +1,115 @@
+############################################################
+#############  生产环境安全配置
+#############  Production Security Configuration
+############################################################
+
+##########################################################################
+#############  安全认证配置
+##########################################################################
+topinfo:
+  # 安全配置
+  security:
+    # 启用鉴权控制
+    enable: true
+    # 密码传输加密
+    password-encryption: true
+    # 认证配置
+    authentication:
+      # 生产环境严格控制不需要认证的路径
+      excludePaths:
+        - /static/**
+        - /sys/captcha/**
+        - /sys/file/preview-pdf
+        - /api/health
+        - /actuator/health
+
+############################################################
+#############  文件服务器配置
+############################################################
+  jdfs:
+    client:
+      # 生产环境使用服务器模式
+      model: server
+      server:
+        # 文件服务器地址（使用环境变量）
+        server-host: ${FILE_SERVER_HOST}
+        # netty服务器监听的端口
+        netty-port: ${FILE_SERVER_NETTY_PORT:8877}
+        # work 线程组
+        work-group: ${FILE_SERVER_WORK_GROUP:24}
+        # 数据帧最大长度
+        max-frame-length: 1048576
+        # tomcat服务器监听的端口
+        tomcat-port: ${FILE_SERVER_TOMCAT_PORT:8080}
+        # 文件服务器应用名称
+        application-name: topinfo-platform-jdfs-storage
+
+############################################################
+#############  Keycloak 配置（生产环境）
+############################################################
+keycloak:
+  # Keycloak 服务器地址（使用环境变量）
+  server-url: ${KEYCLOAK_SERVER_URL}
+  # Realm 名称
+  realm: ${KEYCLOAK_REALM:ps-realm}
+  sso:
+    # 启用 Keycloak SSO
+    enabled: ${KEYCLOAK_SSO_ENABLED:true}
+    # Keycloak 服务器地址
+    server-url: ${KEYCLOAK_SERVER_URL}
+    # Realm 名称
+    realm: ${KEYCLOAK_REALM:ps-realm}
+    # 客户端 ID
+    client-id: ${KEYCLOAK_CLIENT_ID:ps-be}
+    # 客户端密钥（必须使用环境变量）
+    client-secret: ${KEYCLOAK_CLIENT_SECRET}
+    # 回调重定向配置
+    redirect:
+      # 登录成功后重定向地址
+      success-url: ${FRONTEND_URL}/#/sso/login
+      # 登录失败后重定向地址
+      error-url: ${FRONTEND_URL}/#/login
+    # JWT 验证配置
+    jwt:
+      verify-expiration: true
+      verify-issuer: true
+      verify-audience: true
+      cache-ttl: ${KEYCLOAK_JWT_CACHE_TTL:1800}
+    # 用户信息头配置
+    user-header:
+      user-id-header: X-User-Id
+      username-header: X-Username
+      email-header: X-User-Email
+      name-header: X-User-Name
+      roles-header: X-User-Roles
+      permissions-header: X-User-Permissions
+  # 管理员配置
+  admin:
+    client-id: ${KEYCLOAK_ADMIN_CLIENT_ID:admin-cli}
+    username: ${KEYCLOAK_ADMIN_USERNAME}
+    password: ${KEYCLOAK_ADMIN_PASSWORD}
+
+############################################################
+#############  邮件服务配置（生产环境）
+############################################################
+spring:
+  mail:
+    # 生产环境邮件配置（使用环境变量）
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            # 如果使用SSL
+            enable: ${MAIL_SSL_ENABLED:false}
+          socketFactory:
+            port: ${MAIL_SSL_PORT:465}
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false

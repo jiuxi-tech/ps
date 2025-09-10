@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuxi.admin.core.mapper.TpKeycloakAccountMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jiuxi.admin.core.bean.entity.TpKeycloakAccount">
+        <id column="ID" property="id" />
+        <result column="ACCOUNT_ID" property="accountId" />
+        <result column="KC_CLIENT_ID" property="kcClientId" />
+        <result column="KC_CLIENT_SECRET" property="kcClientSecret" />
+        <result column="KC_GRANT_TYPE" property="kcGrantType" />
+        <result column="KC_USERNAME" property="kcUsername" />
+        <result column="KC_USER_ID" property="kcUserId" />
+        <result column="KC_PASSWORD" property="kcPassword" />
+        <result column="KC_REFRESH_TOKEN" property="kcRefreshToken" />
+        <result column="KC_ACCESS_TOKEN" property="kcAccessToken" />
+        <result column="KC_TOKEN_EXPIRES_AT" property="kcTokenExpiresAt" />
+        <result column="KC_REFRESH_EXPIRES_AT" property="kcRefreshExpiresAt" />
+        <result column="KC_POST_LOGOUT_REDIRECT_URI" property="kcPostLogoutRedirectUri" />
+        <result column="KC_REALM" property="kcRealm" />
+        <result column="KC_SERVER_URL" property="kcServerUrl" />
+        <result column="ENABLED" property="enabled" />
+        <result column="LAST_LOGIN_TIME" property="lastLoginTime" />
+        <result column="LAST_TOKEN_REFRESH_TIME" property="lastTokenRefreshTime" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_TIME" property="updateTime" />
+        <result column="CREATOR" property="creator" />
+        <result column="UPDATER" property="updater" />
+        <result column="TENANT_ID" property="tenantId" />
+        <result column="EXTEND01" property="extend01" />
+        <result column="EXTEND02" property="extend02" />
+        <result column="EXTEND03" property="extend03" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, ACCOUNT_ID, KC_CLIENT_ID, KC_CLIENT_SECRET, KC_GRANT_TYPE, KC_USERNAME, KC_USER_ID,
+        KC_PASSWORD, KC_REFRESH_TOKEN, KC_ACCESS_TOKEN, KC_TOKEN_EXPIRES_AT, KC_REFRESH_EXPIRES_AT,
+        KC_POST_LOGOUT_REDIRECT_URI, KC_REALM, KC_SERVER_URL, ENABLED, LAST_LOGIN_TIME,
+        LAST_TOKEN_REFRESH_TIME, CREATE_TIME, UPDATE_TIME, CREATOR, UPDATER, TENANT_ID,
+        EXTEND01, EXTEND02, EXTEND03
+    </sql>
+
+    <!-- 根据账号ID查询Keycloak账号信息 -->
+    <select id="selectByAccountId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tp_keycloak_account
+        WHERE ACCOUNT_ID = #{accountId}
+        AND ENABLED = 1
+    </select>
+
+    <!-- 根据Keycloak用户名查询账号信息 -->
+    <select id="selectByKcUsername" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tp_keycloak_account
+        WHERE KC_USERNAME = #{kcUsername}
+        AND ENABLED = 1
+    </select>
+
+    <!-- 根据Keycloak用户ID查询账号信息 -->
+    <select id="selectByKcUserId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tp_keycloak_account
+        WHERE KC_USER_ID = #{kcUserId}
+        AND ENABLED = 1
+    </select>
+
+    <!-- 更新Keycloak令牌信息 -->
+    <update id="updateTokenInfo">
+        UPDATE tp_keycloak_account
+        SET KC_ACCESS_TOKEN = #{accessToken},
+            KC_REFRESH_TOKEN = #{refreshToken},
+            KC_TOKEN_EXPIRES_AT = #{tokenExpiresAt},
+            KC_REFRESH_EXPIRES_AT = #{refreshExpiresAt},
+            LAST_TOKEN_REFRESH_TIME = NOW(),
+            UPDATE_TIME = DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+        WHERE ACCOUNT_ID = #{accountId}
+    </update>
+
+    <!-- 更新最后登录时间 -->
+    <update id="updateLastLoginTime">
+        UPDATE tp_keycloak_account
+        SET LAST_LOGIN_TIME = #{lastLoginTime},
+            UPDATE_TIME = DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+        WHERE ACCOUNT_ID = #{accountId}
+    </update>
+
+</mapper>

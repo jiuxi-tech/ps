@@ -1,0 +1,473 @@
+//@import "mixins/mixins";
+@import "common/var";
+@import "mixins/utils";
+
+
+.@{prefix}-number-input {
+
+	position:  relative;
+	font-size: 0;
+	display:   inline-block;
+	width:     100%;
+
+	&--readonly,
+	&--disabled {
+		.@{prefix}-number-input__icon {
+			cursor: default;
+		}
+	}
+
+	&--group {
+		display:         table;
+		width:           100%;
+		border-collapse: separate;
+		position:        relative;
+		font-size:       12px;
+
+		.@{prefix}-number-input__el {
+			display: table-cell;
+		}
+	}
+
+	&.@{prefix}-number-input-group--prepend {
+		.@{prefix}-number-input__el {
+			border-bottom-left-radius: 0 !important;
+			border-top-left-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-number-input-group--append {
+		.@{prefix}-number-input__el {
+			border-bottom-right-radius: 0 !important;
+			border-top-right-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-number-input-group--prepend-button {
+		.@{prefix}-number-input__el {
+			border-bottom-left-radius: 0 !important;
+			border-top-left-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-number-input-group--append-button {
+		.@{prefix}-number-input__el {
+			border-bottom-right-radius: 0 !important;
+			border-top-right-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-number-input-group--maxlength {
+		//.@{prefix}-number-input__el {
+		//    border-bottom-right-radius: 0 !important;
+		//    border-top-right-radius:    0 !important;
+		//}
+	}
+
+
+	.@{prefix}-number-input__content {
+		position:  relative;
+		// 原因是子元素的   display: inline-block; 所以要设置其父标签的文字大小为0不然会有间隙
+		font-size: 0;
+
+		.@{prefix}-number-input__el {
+			display:          inline-block;
+			width:            100%;
+			border:           1px solid @--input-border-color;
+			outline:          0;
+			background-image: none;
+			line-height:      @--font-size-m;
+			font-size:        @--font-size-m;
+			border-radius:    @--border-radius-base;
+			color:            @--input-font-color;
+			background-color: @--input-background-color;
+			cursor:           text;
+			transition:       border .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out;
+			text-align:       center;
+
+			&::-moz-placeholder {
+				letter-spacing: normal;
+				color:          @--input-placeholder-color;
+			}
+
+			&:-ms-input-placeholder {
+				letter-spacing: normal;
+				color:          @--input-placeholder-color;
+			}
+
+			&::-webkit-input-placeholder {
+				letter-spacing: normal;
+				color:          @--input-placeholder-color;
+			}
+
+
+			&:hover {
+				border-color: @--border-color-primary;
+			}
+
+			&:focus {
+				border-color: @--border-color-primary;
+				box-shadow:   @--box-shadow-focus;
+			}
+
+			&[readonly] {
+				cursor:           auto;
+				background-color: @--input-disabled-background;
+				color:            @--input-color-disabled;
+
+				&:hover,
+				&:focus {
+					border-color: @--input-disabled-border;
+					box-shadow:   none;
+				}
+			}
+
+			&[disabled] {
+				opacity:          1;
+				border-color:     @--input-disabled-border;
+				background-color: @--input-disabled-background;
+				color:            @--input-disabled-color;
+				cursor:           not-allowed;
+
+				&:hover,
+				&:focus {
+					border-color: @--input-disabled-border;
+					box-shadow:   none;
+				}
+			}
+
+			&:not(:last-child) {
+				border-bottom-right-radius: 0 !important;
+				border-top-right-radius:    0 !important;
+			}
+		}
+
+		.@{prefix}-number-input__prepend-icon {
+			width:       32px;
+			height:      32px;
+			line-height: 32px;
+			font-size:   16px;
+			text-align:  center;
+			color:       @--font-color-secondary;
+			cursor:      pointer;
+			position:    absolute;
+			left:        0;
+			z-index:     1;
+		}
+
+		// 当有前图标时
+		.@{prefix}-number-input__prepend-icon ~ .@{prefix}-number-input__el {
+			padding-left: 32px;
+		}
+
+		.@{prefix}-number-input__icon {
+			width:       32px;
+			height:      32px;
+			line-height: 32px;
+			font-size:   16px;
+			text-align:  center;
+			color:       @--font-color-secondary;
+			cursor:      pointer;
+			position:    absolute;
+			right:       0;
+			z-index:     1;
+		}
+
+		// 当有两个后图标时
+		.@{prefix}-number-input__icon + .@{prefix}-number-input__icon {
+			right: 32px;
+		}
+
+		.@{prefix}-number-input__icon + .@{prefix}-number-input__icon + .@{prefix}-number-input__icon {
+			right: 64px;
+		}
+
+		.@{prefix}-number-input__icon + .@{prefix}-number-input__el {
+			padding-right: 32px;
+		}
+
+		.@{prefix}-number-input__icon + .@{prefix}-number-input__icon + .@{prefix}-number-input__el {
+			padding-right: 64px;
+		}
+
+	}
+
+	.@{prefix}-number-input__prepend,
+	.@{prefix}-number-input__append {
+		display:          table-cell;
+		width:            1px;
+		padding:          4px 8px;
+		vertical-align:   middle;
+		white-space:      nowrap;
+		font-size:        inherit;
+		font-weight:      400;
+		line-height:      1;
+		color:            @--font-color-base;
+		text-align:       center;
+		background-color: @--input-append-background-color;
+		border:           1px solid @--input-border-color;
+		border-radius:    @--border-radius-base;
+	}
+
+	.@{prefix}-number-input__prepend {
+		background-color: @--input-prepend-background-color;
+	}
+
+	.@{prefix}-number-input__prepend {
+		border-bottom-right-radius: 0 !important;
+		border-top-right-radius:    0 !important;
+		border-right:               0;
+	}
+
+	.@{prefix}-number-input__append {
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius:    0 !important;
+		border-left:               0;
+	}
+
+
+	.@{prefix}-number-input__content + .@{prefix}-number-input__maxlength {
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius:    0 !important;
+		border-bottom--radius:     0 !important;
+		border-top-right-radius:   0 !important;
+		border-left:               0;
+		border-right:              1px solid @--input-border-color;
+		border-top:                1px solid @--input-border-color;
+		border-bottom:             1px solid @--input-border-color;
+
+		&:last-child {
+			background:                 transparent;
+			border-top-right-radius:    @--border-radius-base !important;
+			border-bottom-right-radius: @--border-radius-base !important;
+			border-left:                0;
+			border-right:               1px solid @--input-border-color;
+		}
+	}
+
+	.@{prefix}-number-input__content + .@{prefix}-number-input__append {
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius:    0 !important;
+		border-left:               0;
+	}
+
+	&.@{prefix}-number-input--text {
+		vertical-align: middle;
+	}
+
+	&.@{prefix}-number-input--password {
+		vertical-align: middle;
+
+		input {
+			letter-spacing: 0.3em;
+		}
+
+
+	}
+
+
+	// 文本框
+	.@{prefix}-number-input__content {
+		.@{prefix}-number-input__el {
+			-webkit-appearance: none;
+			background-color:   #FFFFFF;
+			background-image:   none;
+			border-radius:      4px;
+			box-sizing:         border-box;
+			color:              #606266;
+			display:            inline-block;
+			font-size:          inherit;
+			outline:            none;
+			padding:            0 12px;
+			transition:         border-color .2s cubic-bezier(.645, .045, .355, 1);
+			width:              100%;
+		}
+	}
+
+
+	.@{prefix}-number-input__prepend-button {
+		display: table-cell;
+
+		.@{prefix}-button {
+			border-left:               0;
+			border-top-left-radius:    0;
+			border-bottom-left-radius: 0;
+		}
+	}
+
+	.@{prefix}-number-input__append-button {
+		display:        table-cell;
+		width:          1px;
+		vertical-align: middle;
+		white-space:    nowrap;
+		font-size:      inherit;
+		font-weight:    400;
+		line-height:    1;
+		color:          @--font-color-base;
+		text-align:     center;
+		background:     transparent;
+
+		.@{prefix}-button {
+			border-left:               0;
+			border-top-left-radius:    0;
+			border-bottom-left-radius: 0;
+		}
+
+	}
+
+
+	&.@{prefix}-number-input--s {
+		.size (@--font-size-s, 24px);
+	}
+
+	&.@{prefix}-number-input--m {
+		.size (@--font-size-m, 30px);
+	}
+
+	&.@{prefix}-number-input--l {
+		.size (@--font-size-l, 36px);
+	}
+
+
+	&.@{prefix}-number-input--round {
+		&.@{prefix}-number-input--s {
+			.round(12px);
+		}
+
+		&.@{prefix}-number-input--m {
+			.round(15px);
+		}
+
+		&.@{prefix}-number-input--l {
+			.round(28px);
+		}
+	}
+
+}
+
+
+.size (@font-size, @size) {
+	.@{prefix}-number-input__content {
+		.@{prefix}-number-input__el {
+			font-size:   @font-size;
+			height:      @size;
+			line-height: @size;
+		}
+
+		.@{prefix}-number-input__prepend-icon {
+			width:       @size;
+			height:      @size;
+			line-height: @size;
+			font-size:   @font-size;
+		}
+
+		.@{prefix}-number-input__icon {
+			width:       @size;
+			height:      @size;
+			line-height: @size;
+			font-size:   @font-size;
+		}
+
+		.@{prefix}-number-input__icon + .@{prefix}-number-input__icon {
+			right: @size;
+		}
+
+		.@{prefix}-number-input__icon + .@{prefix}-number-input__icon + .@{prefix}-number-input__icon {
+			right: @size * 2;
+		}
+
+		.@{prefix}-number-input__icon + .@{prefix}-number-input__el {
+			padding-right: @size;
+		}
+
+		.@{prefix}-number-input__icon + .@{prefix}-number-input__icon + .@{prefix}-number-input__el {
+			padding-right: @size*2;
+		}
+
+
+		.@{prefix}-number-input__maxlength {
+			display:          block;
+			padding:          0 8px;
+			height:           @font-size;
+			line-height:      @font-size;
+			font-size:        @font-size;
+			text-align:       right;
+			color:            @--font-color-secondary;
+			cursor:           pointer;
+			position:         absolute;
+			top:              (@size - @font-size) / 2;
+			right:            1px;
+			z-index:          1;
+			border-radius:    50%;
+			background-color: @--color-white;
+		}
+
+		.@{prefix}-number-input__icon + .@{prefix}-number-input__maxlength {
+			padding-right: @size;
+		}
+
+
+	}
+
+}
+
+.round (@radius) {
+
+	.@{prefix}-number-input__prepend {
+		&:first-child {
+			border-top-left-radius:    @radius !important;
+			border-bottom-left-radius: @radius !important;
+		}
+	}
+
+	.@{prefix}-number-input__prepend-button {
+		&:first-child {
+			border-top-left-radius:    @radius !important;
+			border-bottom-left-radius: @radius !important;
+		}
+	}
+
+	.@{prefix}-number-input__content {
+
+		.@{prefix}-number-input__maxlength {
+			//border-radius: @radius;
+		}
+
+
+		&:first-child {
+			.@{prefix}-number-input__el {
+				border-top-left-radius:    @radius !important;
+				border-bottom-left-radius: @radius !important;
+			}
+		}
+
+		&:last-child {
+			.@{prefix}-number-input__el {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+
+		+ .@{prefix}-number-input__maxlength {
+			&:last-child {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+
+		+ .@{prefix}-number-input__append-button {
+			&:last-child {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+
+		+ .@{prefix}-number-input__append {
+			&:last-child {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+	}
+
+}

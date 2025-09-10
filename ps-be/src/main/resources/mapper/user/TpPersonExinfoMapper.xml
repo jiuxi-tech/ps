@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpPersonExinfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpPersonExinfo" id="tpPersonExinfoMap">
+        <result property="personId" column="PERSON_ID"/>
+        <result property="titleCode" column="TITLE_CODE"/>
+        <result property="maddress" column="MADDRESS"/>
+        <result property="gridDuty" column="GRID_DUTY"/>
+        <result property="gridBurden" column="GRID_BURDEN"/>
+        <result property="checkcardNo" column="CHECKCARD_NO"/>
+        <result property="checkcardLimitdate" column="CHECKCARD_LIMITDATE"/>
+        <result property="safetyEngineer" column="SAFETY_ENGINEER"/>
+        <result property="safetyEngineerDate" column="SAFETY_ENGINEER_DATE"/>
+        <result property="safetyDutyCode" column="SAFETY_DUTY_CODE"/>
+        <result property="fullJob" column="IS_FULL_JOB"/>
+        <result property="jobNumber" column="JOB_NUMBER"/>
+        <result property="politicsCode" column="POLITICS_CODE"/>
+        <result property="school" column="SCHOOL"/>
+        <result property="sepcSubject" column="SEPC_SUBJECT"/>
+        <result property="diplomaCode" column="DIPLOMA_CODE"/>
+        <result property="degree" column="DEGREE"/>
+        <result property="position" column="POSITION"/>
+        <result property="partWorkDate" column="PART_WORK_DATE"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="soldierUrl" column="SOLDIER_URL"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+        <result property="extend04" column="EXTEND04"/>
+        <result property="extend05" column="EXTEND05"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpPersonExinfo">
+        INSERT INTO tp_person_exinfo
+            (PERSON_ID, TITLE_CODE, MADDRESS, GRID_DUTY, GRID_BURDEN, CHECKCARD_NO, CHECKCARD_LIMITDATE, SAFETY_ENGINEER, SAFETY_ENGINEER_DATE, SAFETY_DUTY_CODE,
+            IS_FULL_JOB, JOB_NUMBER, POLITICS_CODE, SCHOOL, SEPC_SUBJECT, DIPLOMA_CODE, DEGREE, POSITION, PART_WORK_DATE, TENANT_ID, SOLDIER_URL, EXTEND01, EXTEND02, EXTEND03, EXTEND04, EXTEND05)
+		VALUES
+			(#{personId}, #{titleCode}, #{maddress}, #{gridDuty}, #{gridBurden}, #{checkcardNo}, #{checkcardLimitdate}, #{safetyEngineer}, #{safetyEngineerDate}, #{safetyDutyCode},
+			#{fullJob}, #{jobNumber}, #{politicsCode}, #{school}, #{sepcSubject}, #{diplomaCode}, #{degree}, #{position}, #{partWorkDate}, #{tenantId}, #{soldierUrl}, #{extend01}, #{extend02}, #{extend03}, #{extend04}, #{extend05})
+    </insert>
+
+    <select id="view" parameterType="String"
+            resultType="com.jiuxi.admin.core.bean.vo.TpPersonExinfoVO">
+        select tpe.PERSON_ID, tpe.TITLE_CODE, (select DIC_NAME from tp_dictionary where DIC_CODE = tpe.TITLE_CODE) as titleCodeName, tpe.MADDRESS, tpe.GRID_DUTY, (select DIC_NAME from tp_dictionary where DIC_CODE = tpe.GRID_DUTY) as gridDutyName, tpe.GRID_BURDEN, tpe.CHECKCARD_NO, tpe.CHECKCARD_LIMITDATE, tpe.SAFETY_ENGINEER, tpe.SAFETY_ENGINEER_DATE, tpe.SAFETY_DUTY_CODE, (select DIC_NAME from tp_dictionary where DIC_CODE = tpe.SAFETY_DUTY_CODE) as safetyDutyCodeName,
+            tpe.IS_FULL_JOB as fullJob, tpe.JOB_NUMBER, tpe.POLITICS_CODE, (select DIC_NAME from tp_dictionary where DIC_CODE = tpe.POLITICS_CODE) as politicsCodeName, tpe.SCHOOL, tpe.SEPC_SUBJECT, tpe.DIPLOMA_CODE, (select DIC_NAME from tp_dictionary where DIC_CODE = tpe.DIPLOMA_CODE) as diplomaCodeName, tpe.DEGREE, tpe.POSITION, tpe.PART_WORK_DATE, tpe.TENANT_ID, tpe.SOLDIER_URL, tpe.EXTEND01, tpe.EXTEND02, tpe.EXTEND03, tpe.EXTEND04, tpe.EXTEND05
+        from tp_person_exinfo tpe
+        where PERSON_ID = #{personId}
+    </select>
+
+    <select id="count" parameterType="String" resultType="Integer">
+        select count(PERSON_ID) from tp_person_exinfo where PERSON_ID = #{personId}
+    </select>
+
+    <update id="update">
+        update tp_person_exinfo
+        <if test="null != personId and '' != personId">
+            <set>
+                <if test="null != titleCode">TITLE_CODE = #{titleCode},</if>
+                <if test="null != maddress">MADDRESS = #{maddress},</if>
+                <if test="null != gridDuty">GRID_DUTY = #{gridDuty},</if>
+                <if test="null != gridBurden">GRID_BURDEN = #{gridBurden},</if>
+                <if test="null != checkcardNo">CHECKCARD_NO = #{checkcardNo},</if>
+                <if test="null != checkcardLimitdate">
+                    CHECKCARD_LIMITDATE = #{checkcardLimitdate},
+                </if>
+                <if test="null != safetyEngineer">SAFETY_ENGINEER = #{safetyEngineer},</if>
+                <if test="null != safetyEngineerDate">
+                    SAFETY_ENGINEER_DATE = #{safetyEngineerDate},
+                </if>
+                <if test="null != safetyDutyCode">SAFETY_DUTY_CODE = #{safetyDutyCode},</if>
+                <if test="null != fullJob">IS_FULL_JOB = #{fullJob},</if>
+                <if test="null != jobNumber">JOB_NUMBER = #{jobNumber},</if>
+                <if test="null != politicsCode">POLITICS_CODE = #{politicsCode},</if>
+                <if test="null != school">SCHOOL = #{school},</if>
+                <if test="null != sepcSubject">SEPC_SUBJECT = #{sepcSubject},</if>
+                <if test="null != diplomaCode">DIPLOMA_CODE = #{diplomaCode},</if>
+                <if test="null != degree">DEGREE = #{degree},</if>
+                <if test="null != position">POSITION = #{position},</if>
+                <if test="null != partWorkDate">PART_WORK_DATE = #{partWorkDate},</if>
+                <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+                <if test="null != soldierUrl">SOLDIER_URL = #{soldierUrl},</if>
+                <if test="null != extend01">EXTEND01 = #{extend01},</if>
+                <if test="null != extend02">EXTEND02 = #{extend02},</if>
+                <if test="null != extend03">EXTEND03 = #{extend03},</if>
+                <if test="null != extend04">EXTEND04 = #{extend04},</if>
+                <if test="null != extend05">EXTEND05 = #{extend05},</if>
+            </set>
+            <where>
+                PERSON_ID = #{personId}
+            </where>
+        </if>
+    </update>
+
+</mapper>

@@ -1,0 +1,429 @@
+/*!
+* screen-panel
+* (c) 2021 lincong1987
+*/
+
+@import "../config";
+
+
+.screen-panel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 0;
+	width: 0;
+
+	.screen-panel__wrapper {
+		position: absolute;
+
+		.screen-panel__wrapper__top {
+			position: absolute;
+			top: 0;
+			height: 7px;
+			width: 100%;
+			background: url("../../img/components/screen-panel/screen-panel__wrapper__top_bg.png") no-repeat;
+			background-size: 100% 100%;
+		}
+
+		.screen-panel__wrapper__border {
+			position: absolute;
+			height: ~"calc(100% - 8px)";
+			width: 100%;
+			top: 7px;
+			left: 0;
+			background: linear-gradient(180deg, rgba(12, 20, 122, 0) 0%, rgba(12, 20, 122, 0.21) 67%, rgba(12, 20, 122, 0.35) 90%, rgba(12, 20, 122, 0.5) 100%);
+
+
+			&:before,
+			&:after {
+				content: "";
+				display: block;
+				background: linear-gradient(#02EDFE 0%, rgba(1, 219, 254, 0.5) 100%);
+				position: absolute;
+				height: 100%;
+				width: 1px;
+				top: 0;
+			}
+
+			&:before {
+				left: 0;
+			}
+
+			&:after {
+				right: 0;
+			}
+		}
+
+		.screen-panel__wrapper__bottom {
+			position: absolute;
+			bottom: 0;
+			height: 1px;
+			width: 100%;
+			background: rgba(1, 219, 254, 0.5);
+		}
+
+		//.screen-panel__wrapper__shadow-left {
+		//    content:    "";
+		//    display:    block;
+		//    position:   absolute;
+		//    height:     100%;
+		//    width:      100%;
+		//    top:        0;
+		//    //background: linear-gradient(90deg, rgba(12, 20, 122, 1) 0%, rgba(12, 20, 122, 0.50) 50%, rgba(12, 20, 122, 0) 100%);
+		//    left:       0;
+		//    //box-shadow: 0 0 0 0 #010528;
+		//
+		//    //background: linear-gradient(90deg, #010528 0%, #010528 28%,   rgba(12, 20, 122, 0) 100%);
+		//}
+		//
+		//.screen-panel__wrapper__shadow-right {
+		//}
+
+	}
+
+	.screen-panel__header {
+		background: url("../../img/components/screen-panel/panel-header-bg.png") no-repeat 13px 12px;
+		position: relative;
+
+		.title {
+			position: absolute;
+			//font-size: 16px;
+			font-size: 20px;
+			color: rgba(255, 255, 255, 1);
+			//padding: 14px 0 0 32px;
+			padding: 4px 0 0 32px;
+			display: block;
+			font-weight: 700;
+			width: 100%;
+		}
+
+		.form {
+			position: absolute;
+			right: 0;
+			padding: 7px 0 0 32px;
+			display: block;
+		}
+
+		.screen-panel__title {
+
+		}
+
+		.screen-panel__form {
+
+		}
+
+		.screen-panel__actions {
+
+		}
+
+	}
+
+	.screen-panel__body {
+		position: absolute;
+	}
+
+	.screen-panel__radar {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+
+		&.screen-panel__radar-vertical {
+			&:after {
+				display: block;
+				content: "";
+				height: 50px;
+				width: 100%;
+				background: linear-gradient(#0D80FE00, #0D80FE);
+
+				position: absolute;
+				top: 0;
+				left: 0;
+				filter: blur(3px);
+				//box-shadow:    0px -5px 20px 3px #0D80FE;
+			}
+
+			&.active {
+				&:after {
+					animation: radar-vertical 2s ease-in infinite;
+				}
+			}
+		}
+
+		&.screen-panel__radar-horizontal {
+			&:after {
+				display: block;
+				content: "";
+				width: 50px;
+				height: 100%;
+				background: linear-gradient(90deg, #0D80FE00, #0D80FE);
+
+				position: absolute;
+				top: 0;
+				left: 0;
+				filter: blur(3px);
+				//box-shadow:    0px -5px 20px 3px #0D80FE;
+			}
+
+			&.active {
+				&:after {
+					animation: radar-horizontal 2s ease-in infinite;
+				}
+			}
+		}
+	}
+
+	.screen-panel__radar-1s {
+		&.screen-panel__radar-vertical {
+			&.active {
+				&:after {
+					animation: radar-vertical 1s ease-in infinite;
+				}
+			}
+		}
+
+		&.screen-panel__radar-horizontal {
+			&.active {
+				&:after {
+					animation: radar-horizontal 1s ease-in infinite;
+				}
+			}
+		}
+	}
+
+	.screen-panel__radar-2s {
+		&.screen-panel__radar-vertical {
+			&.active {
+				&:after {
+					animation: radar-vertical 2s ease-in infinite;
+				}
+			}
+		}
+
+		&.screen-panel__radar-horizontal {
+			&.active {
+				&:after {
+					animation: radar-horizontal 2s ease-in infinite;
+				}
+			}
+		}
+	}
+
+	.screen-panel__radar-3s {
+		&.screen-panel__radar-vertical {
+			&.active {
+				&:after {
+					animation: radar-vertical 3s ease-in infinite;
+				}
+			}
+		}
+
+		&.screen-panel__radar-horizontal {
+			&.active {
+				&:after {
+					animation: radar-horizontal 3s ease-in infinite;
+				}
+			}
+		}
+	}
+
+	.screen-panel__radar-4s {
+		&.screen-panel__radar-vertical {
+			&.active {
+				&:after {
+					animation: radar-vertical 4s ease-in infinite;
+				}
+			}
+		}
+
+		&.screen-panel__radar-horizontal {
+			&.active {
+				&:after {
+					animation: radar-horizontal 4s ease-in infinite;
+				}
+			}
+		}
+	}
+
+	.screen-panel__radar-5s {
+		&.screen-panel__radar-vertical {
+			&.active {
+				&:after {
+					animation: radar-vertical 5s ease-in infinite;
+				}
+			}
+		}
+
+		&.screen-panel__radar-horizontal {
+			&.active {
+				&:after {
+					animation: radar-horizontal 5s ease-in infinite;
+				}
+			}
+		}
+	}
+
+	.screen-panel__radar-6s {
+		&.screen-panel__radar-vertical {
+			&.active {
+				&:after {
+					animation: radar-vertical 6s ease-in infinite;
+				}
+			}
+		}
+
+		&.screen-panel__radar-horizontal {
+			&.active {
+				&:after {
+					animation: radar-horizontal 6s ease-in infinite;
+				}
+			}
+		}
+	}
+
+	&--no-border {
+		.screen-panel__wrapper {
+			display: none !important;
+		}
+	}
+
+	&--no-top {
+		.screen-panel__header {
+			background: transparent;
+		}
+		.screen-panel__wrapper {
+			.screen-panel__wrapper__top {
+				display: none !important;
+			}
+		}
+	}
+
+	&--no-header {
+		.screen-panel__wrapper {
+			position: absolute;
+			border: 1px solid #01DBFE;
+			border-radius: 4px;
+
+			.screen-panel__wrapper__top {
+				display: none !important;
+			}
+			.screen-panel__wrapper__border {
+				display: none !important;
+			}
+			.screen-panel__wrapper__bottom {
+				display: none !important;
+			}
+		}
+	}
+
+	&--no-header-angle {
+		.screen-panel__wrapper {
+			position: absolute;
+			background: url("../../img/components/screen-panel/panel-angle-left.png") left 0 no-repeat,
+						url("../../img/components/screen-panel/panel-angle-right.png") right 0px no-repeat,
+						linear-gradient(to bottom, rgba(2, 239, 255, 1), rgba(1, 219, 254, 0.5)) left 40px no-repeat,
+						linear-gradient(to bottom, rgba(2, 239, 255, 1), rgba(1, 219, 254, 0.5)) right 40px no-repeat,
+						linear-gradient(to left, #02EFFF, #02EFFF) 10px 0px no-repeat,
+						linear-gradient(to left, #02EFFF, #02EFFF) left bottom no-repeat;
+			background-size: 10px 40px, 10px 40px,
+							1px	100% , 1px	100%,
+							calc(100% - 20px) 1px, 100% 1px ;
+			background-color: rgba(12, 20, 122, 0.35);
+
+			.screen-panel__wrapper__top {
+				display: none !important;
+			}
+			.screen-panel__wrapper__border {
+				display: none !important;
+			}
+			.screen-panel__wrapper__bottom {
+				display: none !important;
+			}
+		}
+	}
+
+	&--show-corner {
+
+		.screen-panel__wrapper {
+			position: absolute;
+			background: linear-gradient(to left, rgba(1, 219, 254, 0.5), rgba(1, 219, 254, 0.5)) left top no-repeat, linear-gradient(to bottom, rgba(1, 219, 254, 0.5), rgba(1, 219, 254, 0.5)) left top no-repeat,
+			linear-gradient(to left, rgba(1, 219, 254, 0.5), rgba(1, 219, 254, 0.5)) right top no-repeat, linear-gradient(to bottom, rgba(1, 219, 254, 0.5), rgba(1, 219, 254, 0.5)) right bottom no-repeat,
+				linear-gradient(to left, #00DFFF, #00DFFF) left top no-repeat, linear-gradient(to bottom, #00DFFF, #00DFFF) left top no-repeat,
+			linear-gradient(to left, #00DFFF, #00DFFF) right top no-repeat, linear-gradient(to bottom, #00DFFF, #00DFFF) right top no-repeat,
+			linear-gradient(to left, #00DFFF, #00DFFF) left bottom no-repeat, linear-gradient(to bottom, #00DFFF, #00DFFF) left bottom no-repeat,
+			linear-gradient(to left, #00DFFF, #00DFFF) right bottom no-repeat, linear-gradient(to left, #00DFFF, #00DFFF) right bottom no-repeat;
+			background-size: 1px 100%, 100% 1px, 1px 100%, 100% 1px, 2px 18px, 18px 2px, 2px 18px, 18px 2px, 2px 18px, 18px 2px, 2px 18px, 18px 2px;
+			background-color: rgba(12, 20, 122, 0.35);
+
+			.screen-panel__wrapper__top {
+				display: none !important;
+			}
+			.screen-panel__wrapper__border {
+				display: none !important;
+			}
+			.screen-panel__wrapper__bottom {
+				display: none !important;
+			}
+		}
+	}
+
+
+	&--shadow-left {
+
+
+	}
+
+	&--shadow-right {
+
+	}
+}
+
+.screen-panel-left,
+.screen-panel-right,
+.screen-panel-top,
+.screen-panel-bottom {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+body.dev {
+
+	.screen-panel {
+		.screen-panel__wrapper {
+			outline: 1px dashed rgba(238, 238, 238, 0.46);
+		}
+
+		.screen-panel__header {
+			outline: 1px dashed rgba(255, 0, 0, 0.44);
+		}
+
+		.screen-panel__body {
+			outline: 1px dashed rgba(68, 255, 0, 0.48);
+		}
+	}
+}
+
+@keyframes radar-vertical {
+	0% {
+		top: -50px;
+	}
+	100% {
+		top: 100%;
+	}
+}
+
+@keyframes radar-horizontal {
+	0% {
+		left: -50px;
+	}
+	100% {
+		left: 100%;
+	}
+}
+
+
+

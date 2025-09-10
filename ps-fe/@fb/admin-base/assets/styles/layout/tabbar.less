@@ -1,0 +1,177 @@
+@import "../common.less";
+
+.@{FbUiPrefix}-admin-tabbar {
+	position: absolute;
+	top:      64px;
+	left:     0;
+	height:   40px;
+	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.15);
+	display: flex;
+	justify-content: space-between;
+
+	.@{FbUiPrefix}-tabs {
+		.@{FbUiPrefix}-tabs-header {
+			.@{FbUiPrefix}-tabs-header-container {
+				.@{FbUiPrefix}-tabs-header-item {
+
+					min-width:   80px;
+					padding:     0;
+					user-select: none;
+
+					.@{FbUiPrefix}-tabs-header-label {
+						height:      40px;
+						line-height: 40px;
+						user-select: none;
+						text-align: center;
+						padding-left: 16px;
+						padding-right: 31px;
+					}
+
+					.button-close {
+						display: inline-block;
+						transform: scale(0.8);
+						top:       14px;
+						right:     8px;
+						color:     rgba(61, 61, 61, 1);
+
+						&:hover {
+							color:     rgba(2, 132, 254, 1);
+							transform: scale(0.9);
+						}
+					}
+
+					&:after {
+						content:    "";
+						position:   absolute;
+						width:      1px;
+						height:     24px;
+						background: #E8E8E8;
+						top:        8px;
+						right:      0;
+					}
+
+
+					&:hover {
+
+						.@{FbUiPrefix}-tabs-header-label {
+							&:after {
+								background: rgba(2, 132, 254, 0.8);
+								width: 100%;
+							}
+						}
+
+					}
+
+					&:first-child {
+						.@{FbUiPrefix}-tabs-header-label {
+							padding-right: 16px;
+						}
+
+						.button-close {
+							display: none;
+						}
+					}
+				}
+			}
+
+		}
+
+		.@{FbUiPrefix}-tab--padding {
+			padding: 0;
+		}
+	}
+
+	.@{FbUiPrefix}-admin-tabbar__wrap {
+		white-space: nowrap;
+		float:       left;
+		transition:  .5s cubic-bezier(.645, .045, .355, 1);
+
+		.@{FbUiPrefix}-admin-tabbar__item {
+			display:     table;
+			height:      40px;
+			line-height: 40px;
+			position:    relative;
+			padding:     0 12px 0 16px;
+			cursor:      pointer;
+			user-select: none;
+
+			&:before {
+				position:   absolute;
+				height:     3px;
+				content:    "";
+				width:      100%;
+				left:       0;
+				bottom:     -3px;
+				background: #0284FE;
+				opacity:    0;
+				transform:  scale(0);
+				transition: all .4s;
+			}
+
+			.@{FbUiPrefix}-admin-tabbar__item__label {
+				display: table-cell;
+				color:   #0284FE;
+
+				.@{FbUiPrefix}-admin-tabbar__item__label__icon {
+
+				}
+			}
+
+			.@{FbUiPrefix}-admin-tabbar__item__close {
+				display:    table-cell;
+				cursor:     pointer;
+				text-align: right;
+				width:      20px;
+			}
+
+
+			&.active {
+				&:before {
+					transform: scale(1);
+					opacity:   1;
+					bottom:    0;
+				}
+			}
+
+		}
+
+	}
+
+
+	.jpx-admin-tabbar-tool {
+		position: relative;
+		width: 30px;
+		margin-right: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		>span {
+			cursor: pointer;
+			display: inline-block;
+			width: 22px;
+			height: 22px;
+			line-height: 22px;
+			border-radius: 4px;
+			background: #F5F5F5;
+			text-align: center;
+
+			&:hover {
+				color: #0284FE;
+			}
+		}
+
+		&_item {
+			margin-bottom: 8px;
+			cursor: pointer;
+			text-align: left;
+
+			&:hover {
+				color: #0284FE;
+			}
+			&:last-child {
+				margin-bottom: 0px;
+			}
+		}
+	}
+}

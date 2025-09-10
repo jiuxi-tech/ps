@@ -1,0 +1,124 @@
+.utils-user-select(@value) {
+	-moz-user-select:    @value;
+	-webkit-user-select: @value;
+	-ms-user-select:     @value;
+}
+
+.utils-clearfix () {
+	&::before,
+	&::after {
+		display: table;
+		content: "";
+	}
+	&::after {
+		clear: both
+	}
+}
+
+.utils-vertical-center() {
+	&::after {
+		display:        inline-block;
+		content:        "";
+		height:         100%;
+		vertical-align: middle
+	}
+}
+
+.utils-ellipsis() {
+	overflow:      hidden;
+	text-overflow: ellipsis;
+	white-space:   nowrap;
+}
+
+.utils-unellipsis() {
+	overflow:      initial;
+	text-overflow: initial;
+	white-space:   initial;
+}
+
+
+/* Scrollbar
+ -------------------------- */
+.scroll-bar() {
+	@--scrollbar-thumb-background: #B4BCCC;
+	@--scrollbar-track-background: #FFFFFF;
+
+	&::-webkit-scrollbar {
+		z-index: 11;
+		width:   6px;
+
+		&:horizontal {
+			height: 6px;
+		}
+
+		&-thumb {
+			border-radius: 5px;
+			width:         6px;
+			background:    @--scrollbar-thumb-background;
+		}
+
+		&-corner {
+			background: @--scrollbar-track-background;
+		}
+
+		&-track {
+			background: @--scrollbar-track-background;
+
+			&-piece {
+				background: @--scrollbar-track-background;
+				width:      6px;
+			}
+		}
+	}
+}
+
+/* Placeholder
+ -------------------------- */
+.placeholder() {
+	&::-webkit-input-placeholder {
+	}
+
+	&::-moz-placeholder {
+	}
+
+	&:-ms-input-placeholder {
+	}
+}
+
+
+/* mini font size under 12px
+ -------------------------- */
+.font-size-under-12px(@size, @rotate: 0deg) {
+	display:     inline-block;
+	@font-scale: unit(@size / 12px);
+
+	font-size:   12px;
+	// IE9
+	font-size:   ~'@{size} \9';
+	transform:   scale(@font-scale) rotate(@rotate);
+	:root & {
+		font-size: 12px;
+	}
+}
+
+
+// mixins for clearfix
+// ------------------------
+.clearfix() {
+	zoom: 1;
+	&::before,
+	&::after {
+		display: table;
+		content: '';
+	}
+	&::after {
+		clear: both;
+	}
+}
+
+.reset-component() {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}

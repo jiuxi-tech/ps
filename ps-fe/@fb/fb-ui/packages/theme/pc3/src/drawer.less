@@ -1,0 +1,189 @@
+/*!
+* drawer
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-drawer-wrapper {
+	position: fixed;
+	left:     0;
+	right:    0;
+	top:      0;
+	bottom:   0;
+	height:   100%;
+	width:    100%;
+	z-index:  @--index-drawer;
+
+	.@{prefix}-drawer-mask {
+		position:         absolute;
+		left:             0;
+		right:            0;
+		top:              0;
+		bottom:           0;
+		height:           100%;
+		width:            100%;
+		opacity:          0;
+		background-color: rgba(0, 0, 0, 0.3);
+		transition:       opacity .3s linear, height 0s ease .3s;
+	}
+
+	.@{prefix}-drawer {
+
+		position:   absolute;
+		transition: all .3s cubic-bezier(.7, .3, .1, 1);
+		height:     100%;
+
+
+		.@{prefix}-drawer-card {
+			width:            100%;
+			height:           100%;
+			position:         relative;
+			z-index:          1;
+			overflow:         auto;
+			background-color: #FFFFFF;
+			background-clip:  padding-box;
+			border:           0;
+
+			.@{prefix}-card {
+				width:            100%;
+				height:           100%;
+				margin:           0;
+				border-radius:    0;
+				overflow:         auto;
+				position:         static;
+				background-color: #FFFFFF;
+			}
+		}
+
+	}
+
+	&.@{prefix}-drawer-wrapper--top {
+
+		.@{prefix}-drawer {
+			top:       0;
+			left:      0;
+			width:     100%;
+			transform: translateY(-100%);
+		}
+	}
+
+	&.@{prefix}-drawer-wrapper--bottom {
+		.@{prefix}-drawer {
+			left:      0;
+			bottom:    0;
+			width:     100%;
+			transform: translateY(100%);
+		}
+	}
+
+	&.@{prefix}-drawer-wrapper--left {
+
+		.@{prefix}-drawer {
+			left:      0;
+			bottom:    0;
+			height:    100%;
+			transform: translateX(-100%);
+		}
+	}
+
+	&.@{prefix}-drawer-wrapper--right {
+
+		.@{prefix}-drawer {
+			right:     0;
+			bottom:    0;
+			height:    100%;
+			transform: translateX(100%);
+		}
+
+	}
+
+
+}
+
+
+// 这个类放 body 上
+.@{prefix}-drawer-wrapper-open {
+
+	overflow: hidden;
+
+	.@{prefix}-drawer-wrapper {
+
+		.@{prefix}-drawer-mask {
+			height:  100%;
+			opacity: 1;
+		}
+
+		.@{prefix}-drawer {
+		}
+
+
+		&.@{prefix}-drawer-wrapper--top {
+			.@{prefix}-drawer {
+				box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+				transform:  translateY(0);
+				transition: all .3s cubic-bezier(.7, .3, .1, 1);
+			}
+		}
+
+		&.@{prefix}-drawer-wrapper--bottom {
+			.@{prefix}-drawer {
+				box-shadow: -2px 0 8px rgba(0, 0, 0, .15);
+				transform:  translateY(0);
+			}
+		}
+
+
+		&.@{prefix}-drawer-wrapper--left {
+			.@{prefix}-drawer {
+				transform:  translateX(0);
+				box-shadow: 2px 0 8px rgba(0, 0, 0, .15);
+			}
+		}
+
+		&.@{prefix}-drawer-wrapper--right {
+			.@{prefix}-drawer {
+				transform:  translateX(0);
+				box-shadow: -2px 0 8px rgba(0, 0, 0, .15);
+			}
+
+		}
+
+
+	}
+
+
+}
+
+
+//.@{prefix}-drawer-fade-enter-active {
+//	animation: ~'@{prefix}-drawer-fade-in .3s';
+//}
+//
+//.@{prefix}-drawer-fade-leave-active {
+//	animation:  ~'@{prefix}-drawer-fade-in .3s reverse';
+//}
+//
+//.@{prefix}-drawer-fade-enter-active {
+//	animation: ~'@{prefix}-drawer-fade-in .3s';
+//}
+//
+//.@{prefix}-drawer-fade-leave-active {
+//	animation:  ~'@{prefix}-drawer-fade-in .3s reverse';
+//}
+//
+//.@{prefix}-drawer-fade-enter-active {
+//	animation: ~'@{prefix}-drawer-fade-in .3s';
+//}
+//
+//.@{prefix}-drawer-fade-leave-active {
+//	animation:  ~'@{prefix}-drawer-fade-in .3s reverse';
+//}
+//
+//.@{prefix}-drawer-fade-enter-active {
+//	animation: ~'@{prefix}-drawer-fade-in .3s';
+//}
+//
+//.@{prefix}-drawer-fade-leave-active {
+//	animation:  ~'@{prefix}-drawer-fade-in .3s reverse';
+//}

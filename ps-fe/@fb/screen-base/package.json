@@ -1,0 +1,55 @@
+{
+	"name": "@fb/screen-base",
+	"version": "1.0.78",
+	"description": "fbjs前端框架-大屏基础模板",
+	"author": "lincong <lincong1987@gmail.com>",
+	"homepage": "",
+	"main": "src/index.js",
+	"files": [
+		"src",
+		"package.json"
+	],
+	"modules": [
+		"@fb"
+	],
+	"scripts": {
+		"serve": "vue-cli-service serve --mode=local",
+		"serve-dev": "vue-cli-service serve --mode=dev",
+		"serve-local": "vue-cli-service serve --mode=local",
+		"serve-test": "vue-cli-service serve --mode=test",
+		"build": "vue-cli-service build",
+		"lint": "vue-cli-service lint",
+		"inspect": "vue-cli-service inspect",
+		"ui": "vue ui",
+		"lib": "vue-cli-service build  --mode=lib --target lib --name screen-base --dest lib src/lib.js --max 1M",
+		"link": "npm link fb-core && npm link fb-ui && npm link fb-theme && npm link fb-third && vue-cli-service serve --mode=dev"
+	},
+	"dependencies": {
+		"fb-assets": "^1.1.548",
+		"fb-core": "^1.1.545",
+		"fb-third": "^1.1.471",
+		"fb-ui": "^1.1.498",
+		"vue": "^2.6.12"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.3.4",
+		"@babel/plugin-proposal-export-default-from": "^7.12.1",
+		"@vue/cli-plugin-babel": "~4.5.0",
+		"@vue/cli-plugin-eslint": "~4.5.0",
+		"@vue/cli-service": "~4.5.0",
+		"babel-eslint": "^10.1.0",
+		"babel-plugin-component": "^1.1.1",
+		"copy-webpack-plugin": "^6.4.1",
+		"eslint": "^6.7.2",
+		"eslint-plugin-vue": "^6.2.2",
+		"less": "^3.12.2",
+		"less-loader": "^7.1.0",
+		"vue-template-compiler": "^2.6.12"
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead"
+	],
+	"gitHead": "c0786952e424d194f3aee46670249b04ad78d8f4"
+}

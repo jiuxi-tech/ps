@@ -1,0 +1,317 @@
+/*
+ This file 'common.less' is part of Firebird Integrated Solution 1.0
+
+ Copyright (c) 2020 Lincong
+
+ Contact:
+        Email: lincong1987@gmail.com
+
+        QQ: 159257119
+
+ See Usage at http://www.cleverlin.com/firebird
+
+ Create date: 2020-05-29 14:44
+ */
+
+@import "reset";
+
+@import "../config";
+
+//@import "panel-title";
+
+@import "../utils/utils";
+
+@import "../utils/animation";
+
+// html height: 100% 会导致docs vue-run-sfc 报错 打lib 包的时候注释掉
+//
+//html {
+//	height: 100%;
+//}
+
+body {
+	color: #FFFFFF;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #0A1D5F;
+	height: 8px;
+	box-shadow: inset 0 0 5px #324082;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #8A9AEA;
+	background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+	border-radius: 8px;
+}
+
+
+//::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+//    border-radius: 10px;
+//    background-color: #F90;
+//    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+//}
+//::-webkit-scrollbar-track {/*滚动条里面轨道*/
+//    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+//    /*border-radius: 10px;*/
+//    background: #EDEDED;
+//}
+
+body.screen-body {
+	background: #040D32;
+}
+
+
+.ellipsis () {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+
+.ellipsis {
+	.ellipsis();
+}
+
+.unellipsis () {
+	overflow: visible;
+	text-overflow: initial;
+	white-space: normal;
+}
+
+.unellipsis {
+	.unellipsis();
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+/** 通用 文字 **/
+.DINPro-blue-24 {
+	font-size: 24px;
+	font-family: DINPro-Bold, DINPro;
+	font-weight: bold;
+	color: #52FFFD;
+}
+
+.DINPro-yellow-24 {
+	font-size: 24px;
+	font-family: DINPro-Bold, DINPro;
+	font-weight: bold;
+	color: #F9FD26;
+}
+
+/** 通用 board **/
+
+.board-1 {
+	background: linear-gradient(180deg, rgba(12, 20, 122, 0) 0%, rgba(12, 20, 122, 0.21) 67%, rgba(12, 20, 122, 0.35) 90%, rgba(12, 20, 122, 0.5) 100%);
+	box-shadow: inset 0px 1px 4px 0px #1626A0;
+	border: 1px solid rgba(1, 219, 254, 0.3);
+}
+
+.board-3 {
+	background: linear-gradient(180deg, rgba(9, 32, 76, 0.5) 0%, rgba(18, 88, 204, 0.3) 100%);
+	border-radius: 4px;
+}
+
+/** 组件样式 **/
+
+.link-more {
+	color: #52FFFD;
+	font-size: 16px;
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+/** 定制通用 btn 样式 **/
+.custom-btn-1 {
+	cursor: pointer;
+	background: url("../../img/common/btn/btn-1-bg.png") no-repeat;
+	background-size: 100% 100%;
+	line-height: 40px;
+	width: 126px;
+	height: 40px;
+
+	&:hover {
+		opacity: .8;
+	}
+}
+.custom-btn-return {
+	cursor: pointer;
+	background: url("../../img/common/btn/btn-return.png") no-repeat;
+	background-size: 100% 100%;
+	width: 40px;
+	height: 40px;
+
+	&:hover {
+		opacity: .8;
+	}
+}
+.custom-btn-refresh {
+	cursor: pointer;
+	background: url("../../img/common/btn/btn-refresh.svg") no-repeat;
+	background-size: 100% 100%;
+	width: 40px;
+	height: 40px;
+
+	&:hover {
+		opacity: .8;
+	}
+}
+
+/** 定制盒子 **/
+.custom-box-1 {
+	.blue_box_bg();
+	padding: 8px 10px;
+	border-radius: 4px;
+}
+
+/** 定制排名样式列表比较通用 **/
+// 各镇街道管控力指数排名
+.custom-rank-list {
+	.custom-rank-list-icon {
+		width: 22px;
+		height: 22px;
+		background: #0284FE;
+		text-align: center;
+		line-height: 22px;
+		border-radius: 50%;
+		border: 1px solid #fff;
+	}
+
+	.custom-rank-list-item {
+		height: 50px;
+
+		&:nth-child(2n) {
+			background: rgba(9, 28, 117, .8);
+			border-radius: 4px;
+		}
+		&:nth-child(1) {
+			.custom-rank-list-icon {
+				width: 22px;
+				height: 24px;
+				border: none;
+				background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAYCAYAAAD+vg1LAAAAAXNSR0IArs4c6QAAAwJJREFUSEu1lE9MVHcQxz/ze7vssiywYpFlAf9sg6WsSSOc9NJzGxNNxDZpo2c9Y7z0Kh6MnNuzxiatGu1FvZioSdtLgTRxETVd/wDbgoICCy7svjfmvZXt0u6+YhN/1zfzeTPfmflKdohLCgP4PAMn279h2A3RK/sHHYdzfvECl2VmiLYipIGtPsErQcMnrR/uwxH5HYjUihVhTtbslLgB2TMcVeW8bxXCnXj3fhQ+9e3OcEwO/3LBA3vwIa4rfFYrKdIcp6kt6cdE0BvmyK+fu0Fl8PRpukS4p9DkZRsh3B4j1N5MMBbBqg8hIlAQyAssWbBkQMuIRRMM7JFDdyc3gL2qT3NchW9DiRiNqQ4CFGDhFbKyAsVCqdpAEI1EoDkGwUaYCXg/MSInZODn79ZbKv/Om7hiLd/c8aQ+Hu0kOw12EWItEI1CMFjKKRQgl4NX82AFINGBvI5Myb6dO0Uu2VXBdrr/HMu5QZl6hrZugy0t4LZf7anCy3nk+SzauR0aosNWauTkv8B6b+9hp7B2WR5n0M4uN7ACpzi/zcKfOUg0YPrjf3/L5ZDpSXRXEhOsG5A9Y1fKGmu6t87R8H2eZpI0NUNLxUrbinPrKZqe92DSHcMc+Md2zM/B4gLsSGaM5D+W1Pia12cx3feFLOd+4K8sJLs3tO+MzaK3p6C1Hp6/rg52Zck8gngCbYh+GUiN/uiB7fTei2SnvyIUhq0fbFDUGZmBooO0RXCu/lEd7GbMvYDVvDvM763U2Nce2Bnvm+DRw4+0azsevFLdVRsJWeiTBX/wah6ZfAbdux+Y3tGeEjjdt8hEulF394Cxqi/Bf4EdG3k4AT2pJZMabXrPYB8p1sv/X1L4DW/T4GrD81u3TYFrrZvvgbwl+0pR60A8A6o86Y6ukvFs5vmd9Hr+ezEhr2rFOOP9Z1nLD76LbVIXHja9I6dEcKraZnlQrizIWVZySV+jj0QzBj217miVytUwW3AHahM+JOhBEelHSZTsjayqjijyk0X+mutk1UbxBpsAlakDF6e+AAAAAElFTkSuQmCC");
+				background-size: 100% 100%;
+			}
+		}
+		&:nth-child(2) {
+			.custom-rank-list-icon {
+				width: 22px;
+				height: 24px;
+				border: none;
+				background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAYCAYAAAD+vg1LAAAAAXNSR0IArs4c6QAAA5BJREFUSEu1VF1IG1kYPXcmkWSsiaIxP/4QU5OMZEuRgnaLsOIKSwvSQm0Lu7TPu89KX/a17kOpz+1zSwt1G1h96LoiCy60K0J3WW2sRgmpsfEHxBhxdJPM3HJvO4PBzNA+9Huce+Z85zvfD8mO4FcKDMIiBGDY/zNGGYTGLwxpGu5Z4QnwjGyNwFsCEgDqLcCKXcBZz+mvoRHyHwDJDEsIdkhBjREGyP6Cm5TioaUKghlf+AIo8I1ldQJukasvH3FiTj6C5xS4aPaT5PbB5Q1ZcYKA/i5c+/sSAxnE7+6ghRC8poCLeynYUQr0oxT4FmptDJB8HG4r5eA4TKM6/y9O5f8BoaqeLC/YbV+RK39lyoi56jv4kRLcLzZ9h//PDMPpiaKmpgZOpxN2u50TFItFHB4eYn9/H8XcWzRsjuHU3isIhPxEBl880LMYirlKOiam/lhNI3yj2efzQRRF7O3t4eDggBOyYAmqq6vhdruhqio2Nzfh3P5z3X/eHSTkuiG/jHh5efmew+EYCgQC2NnZQS6Xs/S0trYW9fX1yGazODo6Go1Go8MnFCeTyauiKD5rbW3lQFauHmtra8hkMlwhI4pGo7DZbPxZkiT4/X4wjKqqg5FIJG54nEgkqkRRfNPS0hJi3h1XmkgksLCwUKbc4/Ggr68PhHwomClnvchkMilVVTtisViBvywtLV2XJOlpY2Mj0um0QUIpRTweh6ZpnIj9PDU1xT3v7+9HQ0ODgQ0Gg9je3oaiKDdkWR7TiR97vd7vC4UCdnd3DTArfX19nZfd1NTEv8/OzvLkPT09aG5uNrB1dXWoqqrC1tbWE1mWf9CJl4LBYJR5y8jNgimdnJzkXg8MDPAx1IORsqan0+llWZZlnTgfDodrVldXwcqvFCzh9PQ08vk8Ojs7eQOPB/O7vb0dKysr+7Isuz6JmHk8MzPDykRbWxu6u7tP5DYjtrRibm4OqVQKrLm9vb0QBOEEsZkVFZvH/l5cXMT8/DxcLhefBEZQKcyaV3Hc2JKMj49zHjZqDofD4Ozo6ODN0qPiuJktiKIomJiYqKiwq6sLodCHM2q6IOzx+EpvbGywQTcdu+MPliutA7/IEWLklFIhmUzetdlsQ59zNkul0mgkErlNCNF0kWVnU//IbNE07a4kSSGrQ68oSkoQhNv6RStbGDMjPzb0CoDLAM4B0EcgC+AVgHFVVX9jl6wSx3vVt9upiciFZwAAAABJRU5ErkJggg==");
+				background-size: 100% 100%;
+			}
+		}
+		&:nth-child(3) {
+			.custom-rank-list-icon {
+				width: 22px;
+				height: 24px;
+				border: none;
+				background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAYCAYAAAD+vg1LAAAAAXNSR0IArs4c6QAAA+RJREFUSEu1VF9MW1Uc/s659/S2F0pvoawrYwyYTBxGEzUzksUtGWO6RF0EZ6LRwJs+s+zFFx6GD8t41jeIRhPHlqgPLhNi/BPcNNFFM3Q6ZDCgrGtLW7qWtvfPMfeUFhrbG33wvNycc7/fd36/73e+HwmPYYoDg3BYFDgTegfjNoRf7h2xLFxwwhPgEomMIWgAcwCaHMBZRvF48/5nYBHyCwC1FpYQxEnB7CE2IPwu3uAcHzhmQfDN7q5ecOCIY3UUb5KB7z8UxIJ8DF9w4PlaQapvNxqCnU6cIOBX6CvXTtqgMvHqOewlBDc50FCMJpDcuyB5doEyL6jsEWeUcFDJApMNyJIJUmbABmXyo+TUt8sVxCLrc3iLE7wnuYNgDV3QTQWbmxYKeQ7T4uI6iRK4FAKPh8LtBtxKAUw2QQl5mwzOvl8qafs+u+MXIcWjPYvcFWpNJg1YFqCqFIpCIUnFENME8nkL2awFSgFNk6F6zBXVFWgnp6fMqsTJyeMX8nlrZH3dgNcrQVWlnaVW6Ms5kM2aSKdNNDbK9uXj2tD0mX8QJydPDOi6eSkW0+H3C6DAWJxjfimOcCQt9qFmL7o6muzSxd7OPpEwEAgwMCYNakNXL5c1nhs96GrZt+f3WEzvtLWrq9uqG8C1G3cxv7RekW1Hqx+Hn9pXPstkTNGLQIAthJdWH+kZ/a0grk1O9p3O5fgnqZSJ5mZWLj+XNzB15SYkieC5Zw+ILKdn52Gfv9x/EHWqS5DbskSjOnw+CW43eVUbmrlYJJ7o/yiR1F+TZYL6+u1sC7qJWCILF5MQ8BfNdvW727gfz+Dk0QNo0rYN+OCBCcPg8GvsY234y9e3iPtuRSLGw/5GGYxVPJRyuZs5HXdWEvh5LgzFJWPgRA8o3cbqOkdi3UAwKP+hDc90iz+Jib6NtTXdGwyyCvBOYZfXUvj6hzvi6MihdrS1aBW6WxZHJKIjFGJp//BMw78mzmQLmL8bx9yf9yFJFC8c64bqZmXyqsTJiepS2GDDtI1AIEvF53f9xjJuL8XR+0Qb9rc1lomrSlGrefeiaUzP/oVgoB79hx8SJF9dX8DqvQ0cfboDe0O+MnH15tV4brph4vOZW8jmdDTUKyCEIJXOwa3IePFYt2ii43NzMkgitYkff11BNJ4RJE1+FYceaxXf0qppkKJJqlu6FCymG+eicTuXo6VLwP9lCAmtRkFT7cfP6zof+S9jkzEy7lucPktGYZWSrGozWxbOrfP5vNXpNOgVhS4QQs+WJtpOiar7F4Dd0D3tLafA6UuA9SQHWuxAAoQB+hOI9dnqYvhTe5JViL61+RsUyuapNL8hRAAAAABJRU5ErkJggg==");
+				background-size: 100% 100%;
+			}
+		}
+	}
+}
+
+table th,
+table td {
+	border: none;
+}
+
+/** 定制 timeline-card **/
+.timeline-card {
+	position: absolute;
+	left: 452px;
+	top: 968px;
+	width: 850px;
+	height: 68px;
+	background: linear-gradient(270deg, rgba(21, 66, 179, 0) 0%, rgba(21, 66, 179, 0.93) 25%, rgba(21, 66, 179, 0.98) 78%, rgba(21, 66, 179, 0) 100%);
+}
+
+
+.header-downbox {
+	display: block;
+	position: relative;
+
+	.header-downbox-content {
+		position: relative;
+		display: none;
+		min-width: 100%;
+		margin-left: -20px;
+		margin-top: 14px;
+		padding: 12px 6px;
+		//background: url("../../img/components/screen-header/header-downbox-bg.png") no-repeat center;
+		background: rgba(9, 31, 124, 0.9);
+		border: 1px solid #00DAFD;
+
+
+		a.header-downbox-content-a {
+			background: transparent;
+			margin-left: 0;
+			height: 32px;
+			line-height: 32px;
+			width: 100%;
+			padding-top: 0;
+			border-radius: 4px;
+
+			&:hover {
+				background: #0A54EA;
+			}
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			display: block;
+			width: 10px;
+			height: 10px;
+			background: rgba(9, 31, 124, 1);
+			border: 1px solid #00DAFD;
+			border-bottom: none;
+			border-right: none;
+			transform: rotate(45deg);
+			top: -6px;
+			left: 50%;
+			margin-right: -5px;
+		}
+	}
+
+	.@{prefix}-icon {
+		.transition();
+	}
+
+	&:hover {
+		.header-downbox-content {
+			display: block;
+		}
+
+		.@{prefix}-icon {
+			transform: rotate(-180deg);
+		}
+	}
+}
+
+

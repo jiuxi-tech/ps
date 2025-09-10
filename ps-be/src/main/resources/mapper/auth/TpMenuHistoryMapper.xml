@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuxi.admin.core.mapper.TpMenuHistoryMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.jiuxi.admin.core.bean.entity.TpMenuHistory">
+        <result column="history_id" property="historyId" jdbcType="VARCHAR"/>
+        <result column="menu_id" property="menuId" jdbcType="VARCHAR"/>
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR"/>
+        <result column="operation_type" property="operationType" jdbcType="VARCHAR"/>
+        <result column="node_data_before" property="nodeDataBefore" jdbcType="LONGVARCHAR"/>
+        <result column="node_data_after" property="nodeDataAfter" jdbcType="LONGVARCHAR"/>
+        <result column="full_tree_before" property="fullTreeBefore" jdbcType="LONGVARCHAR"/>
+        <result column="full_tree_after" property="fullTreeAfter" jdbcType="LONGVARCHAR"/>
+        <result column="operator_id" property="operatorId" jdbcType="VARCHAR"/>
+        <result column="operator_name" property="operatorName" jdbcType="VARCHAR"/>
+        <result column="operation_time" property="operationTime" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="VARCHAR"/>
+        <result column="updator" property="updator" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 基础列 -->
+    <sql id="Base_Column_List">
+        history_id, menu_id, menu_name, operation_type, node_data_before, node_data_after,
+        full_tree_before, full_tree_after, operator_id, operator_name, operation_time,
+        create_time, creator, update_time, updator
+    </sql>
+
+    <!-- 根据ID查询历史记录 -->
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tp_menu_history
+        WHERE history_id = #{historyId}
+    </select>
+
+    <!-- 查询所有历史记录 -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tp_menu_history
+        ORDER BY operation_time DESC
+    </select>
+
+    <!-- 分页查询历史记录 -->
+    <select id="getPage" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tp_menu_history
+        <where>
+            <if test="query.menuId != null and query.menuId != ''">
+                AND menu_id = #{query.menuId}
+            </if>
+            <if test="query.operationType != null and query.operationType != ''">
+                AND operation_type = #{query.operationType}
+            </if>
+            <if test="query.operatorId != null">
+                AND operator_id = #{query.operatorId}
+            </if>
+            <if test="query.operatorName != null and query.operatorName != ''">
+                AND operator_name LIKE CONCAT('%', #{query.operatorName}, '%')
+            </if>
+            <if test="query.startTime != null">
+                AND operation_time &gt;= #{query.startTime}
+            </if>
+            <if test="query.endTime != null">
+                AND operation_time &lt;= #{query.endTime}
+            </if>
+        </where>
+        ORDER BY operation_time DESC
+    </select>
+
+    <!-- 保存历史记录 -->
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpMenuHistory">
+        INSERT INTO tp_menu_history (
+            history_id, menu_id, menu_name, operation_type, node_data_before, node_data_after,
+            full_tree_before, full_tree_after, operator_id, operator_name, operation_time,
+            create_time, creator, update_time, updator
+        ) VALUES (
+            #{historyId}, #{menuId}, #{menuName}, #{operationType}, #{nodeDataBefore}, #{nodeDataAfter},
+            #{fullTreeBefore}, #{fullTreeAfter}, #{operatorId}, #{operatorName}, #{operationTime},
+            #{createTime}, #{creator}, #{updateTime}, #{updator}
+        )
+    </insert>
+
+    <!-- 根据菜单ID查询历史记录 -->
+    <select id="selectByMenuId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tp_menu_history
+        WHERE menu_id = #{menuId}
+        ORDER BY operation_time DESC
+    </select>
+
+    <!-- 根据操作人ID查询历史记录 -->
+    <select id="selectByOperatorId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tp_menu_history
+        WHERE operator_id = #{operatorId}
+        ORDER BY operation_time DESC
+    </select>
+
+    <!-- 根据操作类型查询历史记录 -->
+    <select id="selectByOperationType" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tp_menu_history
+        WHERE operation_type = #{operationType}
+        ORDER BY operation_time DESC
+    </select>
+
+    <!-- 根据时间范围查询历史记录 -->
+    <select id="selectByTimeRange" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tp_menu_history
+        WHERE operation_time &gt;= #{startTime} AND operation_time &lt;= #{endTime}
+        ORDER BY operation_time DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,88 @@
+/*!
+* colors
+* (c) 2024 lincong1987
+*/
+
+
+.light-colors () {
+    // 主色浅色背景颜色，一般用于标签、信息提示等的背景；
+    --primary-color-tint:          var(--blue_1);
+    // 主色浅色背景色的聚焦色；
+    --primary-color-focus:         var(--blue_2);
+    // 主色的失效状态色，多用在使用主色的按钮、链接等的失效色；
+    --primary-color-disabled:      var(--blue_3);
+    // 主色的鼠标悬浮色，多用在使用主色的按钮、链接等的悬浮色；
+    --primary-color-hover:         var(--blue_5);
+    // 主色，包括信息色、链接色都为该色，主色选取之后会自动生成一套色板来应用在不同的场景下；
+    --primary-color:               var(--blue_6);
+    // 主色的鼠标激活色；
+    --primary-color-active:        var(--blue_7);
+    // 成功色浅色背景颜色，一般用于标签、信息提示等的背景；
+    --success-color-tint:          var(--green_1);
+    // 成功色浅色背景色的聚焦色；
+    --success-color-focus:         var(--green_2);
+    // 成功色的失效状态色，多用在使用成功色的按钮的失效色；
+    --success-color-disabled:      var(--green_3);
+    // 成功色的鼠标悬浮色，多用在使用成功色的按钮的悬浮色；
+    --success-color-hover:         var(--green_5);
+    // 成功色，多用在信息提示的成功状态，成功色选取之后会自动生成一套色板来应用在不同的场景下；
+    --success-color:               var(--green_6);
+    // 成功色的鼠标激活色；
+    --success-color-active:        var(--green_7);
+    // 警告色浅色背景颜色，一般用于标签、信息提示等的背景；
+    --warning-color-tint:          var(--orange_1);
+    // 警告色浅色背景色的聚焦色；
+    --warning-color-focus:         var(--orange_2);
+    // 警告色的失效状态色，多用在使用警告色的按钮的失效色；
+    --warning-color-disabled:      var(--orange_3);
+    // 警告色的鼠标悬浮色，多用在使用警告色的按钮的悬浮色；
+    --warning-color-hover:         var(--orange_5);
+    // 警告色，多用在信息提示的警告状态，警告色选取之后会自动生成一套色板来应用在不同的场景下；
+    --warning-color:               var(--orange_6);
+    // 警告色的鼠标激活色；
+    --warning-color-active:        var(--orange_7);
+    // 错误色浅色背景颜色，一般用于标签、信息提示等的背景；
+    --error-color-tint:            var(--red_1);
+    // 错误色浅色背景色的聚焦色；
+    --error-color-focus:           var(--red_2);
+    // 错误色的失效状态色，多用在使用错误色的按钮的失效色；
+    --error-color-disabled:        var(--red_3);
+    // 错误色的鼠标悬浮色，多用在使用错误色的按钮的悬浮色；
+    --error-color-hover:           var(--red_4);
+    // 失败色，多用在信息提示的失败状态，失败色选取之后会自动生成一套色板来应用在不同的场景下；
+    --error-color:                 var(--red_5);
+    // 错误色的鼠标激活色；
+    --error-color-active:          var(--red_6);
+    // 不随主题变化的纯白色；
+    --white-color:                 var(--white);
+    // 控制列表的奇偶行的深色颜色；
+    --bg-color-row:                var(--grey_1);
+    // 控制列表的表头行的颜色；
+    --bg-color-table:              var(--grey_2);
+    // 控制列表的表头有排序功能时鼠标悬浮态及 focus 时的颜色；
+    --bg-color-table-hover:        var(--grey_3);
+    // 控制元素替代背景色，用于图片上传背景色、详情查看标题背景色；
+    --bg-color-detail:             var(--grey_1);
+    // 控制元素替代背景色，多用于文本框的前缀后缀背景色；
+    --bg-color-alter:              var(--grey_2);
+    // 用于页面整体布局的背景色；
+    --bg-color-layout:             var(--grey_3);
+    // 控制组件的背景色，如默认按钮、文本框等；
+    --bg-color-component:          var(--white);
+    // 控制组件的鼠标悬浮背景色；暂无用
+    --bg-color-component-hover:    var(--grey_1);
+    // 控制组件的鼠标激活背景色；暂无用
+    --bg-color-component-active:   var(--grey_3);
+    // 控制组件失效状态下的背景色，如失效按钮、文本框禁用；
+    --bg-color-component-disabled: var(--grey_2);
+    // 用于区分表单内容，卡片标题与内容之间及其他控件部分弹窗的分割线颜色；
+    --divider-color:               var(--grey_4);
+    // 控制组件默认边框线的颜色；
+    --border-color:                var(--grey_5);
+    // 控制组件二级边框线的颜色，如详情查看、日历边框色；
+    --border-color-secondary:      var(--grey_4);
+    // 浮层的背景蒙层颜色，用于遮罩浮层下面的内容，弹窗、抽屉 等组件的蒙层使用的是该 token；
+    --bg-color-mask:               rgba(0, 0, 0, 0.60);
+    // 该色用于引起用户强烈关注注意的背景色，目前只用在 Tooltip 的背景色上；
+    --bg-color-tooltip:            rgba(0, 0, 0, 0.80);
+}

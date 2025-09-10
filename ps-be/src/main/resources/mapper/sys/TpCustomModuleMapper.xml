@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpCustomModuleMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpCustomModule" id="tpCustomModuleMap">
+        <result property="mid" column="MID"/>
+        <result property="mname" column="MNAME"/>
+        <result property="mcode" column="MCODE"/>
+        <result property="mdesc" column="MDESC"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpCustomModule">
+        INSERT INTO tp_custom_module
+            (MID, MNAME, MCODE, MDESC, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+        VALUES
+            (#{mid}, #{mname}, #{mcode}, #{mdesc}, #{actived}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpCustomModule">
+        UPDATE tp_custom_module
+        <set>
+            <if test="null != mname">MNAME = #{mname},</if>
+            <if test="null != mdesc">MDESC = #{mdesc},</if>
+            <if test="null != actived">ACTIVED = #{actived},</if>
+            <if test="null != creator">CREATOR = #{creator},</if>
+            <if test="null != createTime">CREATE_TIME = #{createTime},</if>
+            <if test="null != updator">UPDATOR = #{updator},</if>
+            <if test="null != updateTime">UPDATE_TIME = #{updateTime},</if>
+            <if test="null != extend01">EXTEND01 = #{extend01},</if>
+            <if test="null != extend02">EXTEND02 = #{extend02},</if>
+            <if test="null != extend03">EXTEND03 = #{extend03},</if>
+        </set>
+        WHERE MID = #{mid}
+        and ACTIVED = 1
+    </update>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpCustomModuleQuery" resultMap="tpCustomModuleMap">
+        SELECT MID, MNAME, MCODE, MDESC, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03 FROM tp_custom_module
+        WHERE
+        ACTIVED = 1
+        <if test="query.mname != null and query.mname != ''">
+            AND MNAME like CONCAT('%', #{query.mname}, '%')
+        </if>
+        <if test="query.mcode != null and query.mcode != ''">
+            AND MCODE like CONCAT('%', #{query.mcode}, '%')
+        </if>
+        ORDER BY CREATE_TIME desc
+    </select>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpCustomModuleVO">
+        SELECT MID, MNAME, MCODE, MDESC, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03 FROM tp_custom_module
+        WHERE
+        ACTIVED = 1
+        and
+        MID = #{mid}
+    </select>
+
+    <select id="selectByMcode" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpCustomModuleVO">
+        SELECT MID, MNAME, MCODE, MDESC, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03 FROM tp_custom_module
+        WHERE
+        ACTIVED = 1
+        and
+        MCODE = #{mcode}
+    </select>
+
+    <update id="delete" parameterType="String" >
+        UPDATE tp_custom_module SET ACTIVED = 0 WHERE MID = #{mid} and ACTIVED = 1
+    </update>
+
+</mapper>

@@ -1,0 +1,78 @@
+############################################################
+#############  生产环境配置
+#############  Production Environment Configuration
+############################################################
+
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 2000
+    max-http-form-post-size: 10MB
+    # 生产环境连接超时配置
+    connection-timeout: 20000
+    max-connections: 10000
+  servlet:
+    context-path: /ps-be
+  max-http-header-size: 10MB
+  # 生产环境启用压缩
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+
+# Spring Boot生产环境配置
+spring:
+  # 生产环境禁用DevTools
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+
+############################################################
+#############  生产环境日志配置
+############################################################  
+logging:
+  level:
+    # 生产环境精简日志
+    root: WARN
+    com.jiuxi: INFO
+    # 数据库相关日志最小化
+    org.mybatis: WARN
+    com.baomidou.mybatisplus: ERROR
+    com.alibaba.druid: WARN
+    org.apache.ibatis: ERROR
+    org.springframework.jdbc: WARN
+    org.springframework.transaction: WARN
+  # 生产环境日志文件配置
+  file:
+    name: logs/ps-bmp-backend.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+############################################################
+#############  生产环境监控配置
+############################################################
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: never
+  # 生产环境指标收集
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+############################################################
+#############  生产环境安全配置
+############################################################
+# 生产环境禁用调试
+debug: false
+
+# 生产环境JVM配置建议
+# -Xms2048m -Xmx4096m -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:+HeapDumpOnOutOfMemoryError

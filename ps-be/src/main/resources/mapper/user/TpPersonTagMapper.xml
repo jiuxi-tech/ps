@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpPersonTagMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpPersonTag" id="tpPersonTagMap">
+        <result property="personId" column="person_id"/>
+        <result property="tagId" column="tag_id"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpPersonTag">
+        INSERT INTO tp_person_tag (person_id, tag_id, dept_id, creator, create_time)
+        VALUES (#{personId}, #{tagId}, #{deptId}, #{creator}, #{createTime})
+    </insert>
+
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO tp_person_tag (person_id, tag_id, dept_id, creator, create_time)
+        VALUES
+        <foreach collection="personTags" item="item" separator=",">
+            (#{item.personId}, #{item.tagId}, #{item.deptId}, #{item.creator}, #{item.createTime})
+        </foreach>
+    </insert>
+
+    <select id="selectByPersonId" resultType="com.jiuxi.admin.core.bean.vo.TpPersonTagVO">
+        select tpt.person_id as personId, tpt.tag_id as tagId, tt.tag_name as tagName, tpt.creator as creator,
+               tpt.create_time as createTime, tt.tag_desc as tagDesc, tt.tag_color as tagColor, tt.order_index as orderIndex
+        from tp_person_tag tpt
+        left join tp_tag tt on tpt.tag_id = tt.tag_id
+        where tpt.person_id = #{personId}
+        and tt.log_delete = 0
+        order by tt.order_index
+    </select>
+
+    <select id="selectByTagId" resultType="com.jiuxi.admin.core.bean.vo.TpPersonTagVO">
+        select tpt.person_id as personId, tpt.tag_id as tagId, tt.tag_name as tagName, tpt.creator as creator,
+               tpt.create_time as createTime, tt.tag_desc as tagDesc, tt.tag_color as tagColor, tt.order_index as orderIndex
+        from tp_person_tag tpt
+        left join tp_tag tt on tpt.tag_id = tt.tag_id
+        left join tp_person_basicinfo tpb on tpt.person_id = tpb.person_id
+        where tpb.actived = 1
+        and tpt.tag_id = #{tagId}
+        and tt.log_delete = 0
+        order by tt.order_index
+    </select>
+
+    <select id="selectByPersonIdAndTagId" resultType="com.jiuxi.admin.core.bean.vo.TpPersonTagVO">
+        select tpt.person_id as personId, tpt.tag_id as tagId, tt.tag_name as tagName, tpt.creator as creator,
+               tpt.create_time as createTime, tt.tag_desc as tagDesc, tt.tag_color as tagColor, tt.order_index as orderIndex
+        from tp_person_tag tpt
+        left join tp_tag tt on tpt.tag_id = tt.tag_id
+        where tpt.person_id = #{personId}
+        and tpt.tag_id = #{tagId}
+        and tt.log_delete = 0
+    </select>
+
+    <!--  根据人员id和标签id删除【人员-标签】  -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tp_person_tag
+        where person_id = #{personId}
+          and tag_id = #{tagId}
+    </delete>
+
+    <!-- 根据人员id删除【人员-标签】 -->
+    <delete id="deleteByPersonId" parameterType="string">
+        DELETE FROM tp_person_tag
+        where person_id = #{personId}
+    </delete>
+
+    <!-- 根据标签id删除【人员-标签】 -->
+    <delete id="deleteByTagId" parameterType="string">
+        DELETE FROM tp_person_tag
+        where tag_id = #{tagId}
+    </delete>
+
+    <delete id="batchDeleteByPersonIdAndTagIds">
+        DELETE FROM tp_person_tag where person_id = #{personId} and
+        tag_id in
+        <foreach collection="tagIds" item="tagId" index="index" open="(" close=")" separator=",">
+            #{tagId}
+        </foreach>
+    </delete>
+
+</mapper>

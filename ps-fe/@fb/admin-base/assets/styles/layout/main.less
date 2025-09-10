@@ -1,0 +1,35 @@
+.fb-admin-main {
+	overflow: auto;
+	position:   absolute;
+	top:        104px;
+	left:       0;
+
+	background: #F0EFF5;
+}
+
+.admin-main-fade-transform-leave-active,
+.admin-main-fade-transform-enter-active {
+	transition: all 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
+	transform-origin: center;
+	will-change: transform, opacity;
+}
+
+.admin-main-fade-transform-enter {
+	opacity: 0;
+	transform: translateY(-15px) scale(0.98);
+}
+
+.admin-main-fade-transform-leave-to {
+	opacity: 0;
+	transform: translateY(15px) scale(1.02);
+}
+
+.admin-main-fade-transform-enter-to {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+.admin-main-fade-transform-leave {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}

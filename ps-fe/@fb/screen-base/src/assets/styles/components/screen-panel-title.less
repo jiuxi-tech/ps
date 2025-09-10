@@ -1,0 +1,121 @@
+/*!
+* panel-title
+* (c) 2021 lincong1987
+*/
+
+.screen-panel-title {
+	background: url("../../img/components/screen-panel-title/panel-title-bg.png") no-repeat 0 4px;
+	height: 24px;
+	position: relative;
+	padding-left: 30px;
+	font-size: 18px;
+	color: #FFFFFF;
+	font-weight: bold;
+
+	.title-text {
+		display: inline-block;
+		height: 24px;
+		line-height: 24px;
+
+		&.title-click {
+			cursor: pointer;
+		}
+	}
+
+	.actions {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+	}
+
+	&.screen-panel-title--theme-l2 {
+		background: url("../../img/components/screen-panel-title/panel-title-l2-bg.png") no-repeat 0 4px;
+	}
+
+	&.screen-panel-title--theme-l3 {
+		background: transparent;
+		color: #00DFFF;
+
+		&:before {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 4px;
+			height: 90%;
+			background: #0091FF;
+			border-radius: 4px;
+			top: 4px;
+			left: 12px;
+		}
+
+	}
+
+	&.screen-panel-title--theme-c1 {
+		padding: 0;
+		text-align: center;
+		background: transparent;
+
+		.title-text {
+			position: relative;
+
+			&:before, &:after {
+				content: '';
+				display: block;
+				width: 21px;
+				height: 11px;
+				position: absolute;
+				top: 50%;
+				margin-top: -4px;
+			}
+
+			&:before {
+				background: url("../../img/components/screen-panel-title/title-c1-left-bg.png");
+				left: -30px;
+			}
+			&:after {
+				background: url("../../img/components/screen-panel-title/title-c1-right-bg.png");
+				right: -30px;
+			}
+		}
+	}
+
+	&.screen-panel-title--theme-c2 {
+		padding: 0;
+		text-align: center;
+		background: transparent;
+
+		.title-text {
+			position: relative;
+
+			&:before, &:after {
+				content: '';
+				display: block;
+				width: 90px;
+				height: 8px;
+				position: absolute;
+				top: 50%;
+				margin-top: -4px;
+			}
+
+			&:before {
+				left: -110px;
+				background: url("../../img/components/screen-panel-title/title-c2-left-bg.png") center no-repeat;
+			}
+			&:after {
+				right: -110px;
+				background: url("../../img/components/screen-panel-title/title-c2-right-bg.png") center no-repeat;
+			}
+		}
+	}
+}
+
+
+
+body.dev {
+
+	.screen-panel-title {
+		&:hover {
+			outline: 1px dashed rgba(68, 255, 0, 0.48);
+		}
+	}
+}

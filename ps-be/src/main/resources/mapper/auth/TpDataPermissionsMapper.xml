@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpDataPermissionsMapper">
+    <insert id="batchAdd"
+            parameterType="com.jiuxi.admin.core.bean.entity.TpDataPermissions">
+        insert into tp_data_permissions(per_id, person_id, dept_id, ascn_id, extend01, extend02, extend03)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.perId}, #{item.personId}, #{item.deptId}, #{item.ascnId}, #{item.extend01}, #{item.extend02}, #{item.extend03})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPersonId" parameterType="java.lang.String">
+        delete from tp_data_permissions where PERSON_ID = #{personId}
+    </delete>
+
+    <select id="listPerm" resultType="com.jiuxi.admin.core.bean.vo.TpDataPermissionsVO"
+            parameterType="java.lang.String">
+        select * from tp_data_permissions where PERSON_ID = #{personId}
+    </select>
+
+    <select id="listPermIds" resultType="java.lang.String" parameterType="java.lang.String">
+        select distinct DEPT_ID from tp_data_permissions where PERSON_ID = #{personId}
+    </select>
+
+    <select id="treeSimplePerm" resultType="com.jiuxi.common.bean.TreeNode"
+            parameterType="com.jiuxi.admin.core.bean.query.TpTreePermQuery">
+        select  tdb.DEPT_ID id
+               ,tdb.DEPT_FULL_NAME text
+               ,tdb.PDEPT_ID pid
+               ,0 disabled
+               ,tdb.DEPT_LEVELCODE extend01
+               ,tdb.ASCN_ID extend02
+        from tp_data_permissions tdp
+        inner join tp_dept_basicinfo tdb
+          on tdp.DEPT_ID = tdb.DEPT_ID
+        where tdp.PERSON_ID = #{query.personId}
+          and tdb.ACTIVED = 1
+          <if test="query.deptType != null and query.deptType != ''">
+              and tdb.DEPT_TYPE in
+              <foreach collection="query.deptTypes" item="item" open="(" close=")" separator="," index="i">
+                  #{item}
+              </foreach>
+          </if>
+    </select>
+    <select id="listByDeptLevelCodes" resultType="com.jiuxi.common.bean.TreeNode"
+            parameterType="java.lang.String">
+        select  tdb.DEPT_ID id
+               ,tdb.DEPT_FULL_NAME text
+               ,tdb.PDEPT_ID pid
+               ,1 disabled
+               ,tdb.DEPT_LEVELCODE extend01
+        from tp_dept_basicinfo tdb
+        where tdb.ACTIVED = 1
+          and tdb.DEPT_LEVELCODE in
+        <foreach collection="list" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+          and tdb.ASCN_ID in
+        <foreach collection="ascnIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+        and tdb.DEPT_ID not in
+        <foreach collection="permIds" open="(" separator="," close=")" item="item">
+            #{item}
+        </foreach>
+    </select>
+    <select id="isExistsDataPermissions" resultType="java.lang.String">
+        select tdp.PERSON_ID
+          from tp_data_permissions tdp
+         where tdp.PERSON_ID = #{personId}
+           and tdp.DEPT_ID = #{deptId}
+         limit 1
+    </select>
+
+    <select id="listAllDeptDataPermissions" resultType="java.lang.String">
+        select
+            tdp.dept_id
+         from tp_data_permissions tdp
+        inner join tp_dept_basicinfo tdb
+           on tdp.dept_id = tdb.DEPT_ID
+        where tdp.person_id = #{personId}
+          and tdb.DEPT_LEVELCODE like concat(#{deptLevelcode}, '%')
+    </select>
+
+</mapper>

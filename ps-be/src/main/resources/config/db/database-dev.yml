@@ -1,0 +1,58 @@
+############################################################
+#############  开发环境数据库配置
+#############  Development Database Configuration
+############################################################
+
+spring:
+  # 开发环境数据源配置
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://alilaoba.cn:13307/ps-bmp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: W4HV=QxtHz
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 500
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 开发环境开启SQL监控
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+
+##########################################################################
+#############  MyBatis 相关配置
+##########################################################################
+topinfo:
+  mybatis:
+    ## 数据中心（可选）
+    datacenterId: 0
+    ## 机器（可选）
+    machineId: 0
+    ## 数据源配置
+    datasource-config:
+      # mysql数据库接配置
+      url: jdbc:mariadb://alilaoba.cn:13307/ps-bmp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      # 用户名
+      username: root
+      # 密码
+      password: W4HV=QxtHz
+      ## 最新连接数（可选）， 默认：5
+      minIdle: 5
+      ## 最大连接数（可选）， 默认：500
+      maxActive: 500
+      ## 校验连接sql（可选）, 默认： SELECT 1
+      validationQuery: SELECT 1
+    ## 租户模式（可选）
+    tenant: false
+    ## 忽略不需要添加租户条件的表, 数组（可选）
+    ignore-tenant-tables:
+      - test

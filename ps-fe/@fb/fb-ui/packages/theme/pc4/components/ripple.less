@@ -1,0 +1,43 @@
+/*!
+* ripple
+* (c) 2024 lincong1987
+*/
+
+@import "../config";
+
+@keyframes jpx-ripple {
+    to {
+	opacity:   0;
+	transform: scale(2.5)
+    }
+}
+
+:root {
+    --ripple-background: hsla(0, 0%, 100%, .5);
+}
+
+.@{light-theme-name} {
+    --ripple-background: red;
+}
+
+.@{dark-theme-name} {
+    --ripple-background: green;
+}
+
+
+.@{light-theme-name},
+.@{dark-theme-name}  {
+    .@{prefix}-ripple {
+	display:       block;
+	position:      absolute;
+	background:    var(--ripple-background);
+	border-radius: 100%;
+	transform:     scale(0);
+	
+	&--active {
+	    animation: jpx-ripple .4s linear
+	}
+    }
+    
+}
+

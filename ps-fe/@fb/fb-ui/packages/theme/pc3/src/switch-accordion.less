@@ -1,0 +1,66 @@
+/*!
+* switch-accordion
+* (c) 2021 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-switch-accordion {
+
+	border-radius: 4px;
+	border:        1px solid #E8E8E8;
+
+	.@{prefix}-switch-accordion__header {
+
+		height:        44px;
+		line-height:   44px;
+		padding:       0 16px;
+		border-bottom: 1px solid #E8E8E8;
+
+		.@{prefix}-switch-accordion__header-title {
+
+			color:       #313C47;
+			font-weight: bold;
+			font-size:   14px;
+
+			> .@{prefix}-icon {
+				margin-right: 8px;
+			}
+		}
+
+		.@{prefix}-switch-accordion__header-switch {
+
+		}
+
+	}
+
+	.@{prefix}-switch-accordion__body {
+		padding: 16px;
+	}
+
+	.@{prefix}-switch-accordion__footer {
+	}
+
+
+	&.@{prefix}-switch-accordion--close {
+		.@{prefix}-switch-accordion__header {
+			border-bottom: 0;
+		}
+	}
+
+}
+
+.@{prefix}-switch-accordion-group {
+	border-radius: 4px;
+	border:        1px solid #E8E8E8;
+
+	.@{prefix}-switch-accordion {
+		border-radius: 0;
+		border:        none;
+		border-top:    1px solid #E8E8E8;
+
+		&:first-child {
+			border-top: none;
+		}
+	}
+}

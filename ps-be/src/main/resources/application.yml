@@ -1,0 +1,79 @@
+############################################################
+#############  PS BMP Backend Application 主配置文件
+#############  
+#############  按环境切换配置：
+#############  开发： dev
+#############  测试： test  
+#############  生产： prod
+############################################################
+
+spring:
+  # 配置文件导入和环境切换
+  config:
+    import: 
+      - "classpath:config/env/${spring.profiles.active}/application-${spring.profiles.active}.yml"
+      - "classpath:config/db/database-${spring.profiles.active}.yml"
+      - "classpath:config/cache/cache-${spring.profiles.active}.yml"
+      - "classpath:config/sec/security-${spring.profiles.active}.yml"
+  profiles:
+    active: dev
+  application:
+    name: ps-be
+    id: ps-be
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      # 单个上传数据大小
+      max-file-size: 50MB
+      # 总上传数据大小
+      max-request-size: 100MB
+  resources:
+    # 多个逗号隔开 classpath:/static/,classpath:/views/
+    static-locations: classpath:/static/,classpath:/views/
+  # 将/static/**访问映射到 static-locations 目录中
+  mvc:
+     static-path-pattern: /static/**
+
+############################################################
+#############  国际化配置
+############################################################
+  messages:
+    # 支持多个国际化资源文件
+    basename: i18n/messages,i18n/validation
+    encoding: UTF-8
+    cache-duration: 3600
+    fallback-to-system-locale: true
+
+############################################################
+#############  Actuator 监控配置
+############################################################
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,conditions
+  endpoint:
+    health:
+      show-details: when_authorized
+
+############################################################
+#############  应用基础信息
+############################################################
+info:
+  app:
+    name: ${spring.application.name}
+    description: ps-be
+    version: 2.2.2-SNAPSHOT
+    encoding: UTF-8
+    java:
+      version: ${java.version}
+
+############################################################
+#############  默认日志配置（各环境可覆盖）
+############################################################  
+logging:
+  config: classpath:config/log/logback-spring.xml
+  level:
+    root: INFO
+    com.jiuxi: INFO

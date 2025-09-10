@@ -1,0 +1,120 @@
+/*!
+* timepicker
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-timepicker {
+	position:       relative;
+	display:        inline-block;
+	vertical-align: middle;
+	width:          100%;
+	height:         30px;
+
+
+
+	.addon {
+		//padding:    8px;
+		//border-top: 1px solid #E8E8E8;
+	}
+}
+
+.@{prefix}-popup-header {
+	width: 100%;
+}
+
+.@{prefix}-timepicker__footer {
+	height:     40px;
+	border-top: 1px solid #E8E8E8;
+	padding:    8px 16px;
+	background: #fff;
+}
+
+.@{prefix}-time-select {
+	display:        flex;
+	flex-direction: row;
+	padding:        5px;
+	outline:        none;
+	background: #fff;
+
+	ul, li {
+		list-style: none;
+	}
+
+	.@{prefix}-time-item {
+		//display:        flex;
+		//flex-direction: column;
+		margin:         0;
+		padding:        0;
+		//float: left;
+		//box-sizing: border-box;
+		//width: 33.33%;
+		height:         192px;
+		padding-bottom: 160px;
+		border-right:   1px solid #E8E8E8;
+
+		&:last-child {
+			border-right: 0;
+		}
+
+		overflow:       hidden;
+		//overflow-y: auto;
+		&:hover {
+			overflow-y: auto;
+		}
+
+		&-focus {
+			background-color: @--color-blue-1;
+		}
+
+		.@{prefix}-time-item-child {
+			box-sizing:    border-box;
+			padding-right: 12px;
+			width:         100%;
+			min-width:     56px;
+			height:        32px;
+			line-height:   32px;
+			text-align:    center;
+			cursor:        pointer;
+
+			&.focus,
+			&:hover {
+				color:            @--color-white;
+				background-color: @--color-blue-4;
+			}
+
+			&.disabled {
+				cursor:     not-allowed;
+				color:      #999999;
+				background: transparent;
+			}
+		}
+
+		.active {
+			font-weight:      bold;
+			color:            @--color-white;
+			background-color: @--color-brand;
+
+			&:hover {
+				color:            @--color-white;
+				background-color: @--color-blue-4;
+			}
+		}
+	}
+
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+		height: 0;
+		visibility: hidden;
+		overflow: hidden;
+	}
+}
+
+
+.@{prefix}-timepicker-dropdown {
+	box-shadow: @--datepicker-dropdown-shadow;
+}
+

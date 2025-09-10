@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpAccountThirdMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpAccountThird" id="iotThreeAccountMap">
+        <result property="appKey" column="APP_KEY"/>
+        <result property="appSecret" column="APP_SECRET"/>
+        <result property="partnerName" column="PARTNER_NAME"/>
+        <result property="partnerDesc" column="PARTNER_DESC"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpAccountThird">
+        INSERT INTO tp_account_third
+            (APP_KEY, APP_SECRET, PARTNER_NAME, PARTNER_DESC, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+        VALUES
+            (#{appKey}, #{appSecret}, #{partnerName}, #{partnerDesc}, #{actived}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <update id="reset" parameterType="com.jiuxi.admin.core.bean.entity.TpAccountThird">
+        UPDATE tp_account_third
+        <set>
+            <if test="null != appSecret">APP_SECRET = #{appSecret},</if>
+            <if test="null != updator">UPDATOR = #{updator},</if>
+            <if test="null != updateTime">UPDATE_TIME = #{updateTime},</if>
+        </set>
+        WHERE APP_KEY = #{appKey}
+    </update>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpAccountThirdQuery" resultType="com.jiuxi.admin.core.bean.vo.TpAccountThirdVO">
+        SELECT
+        ita.APP_KEY
+        , ita.APP_SECRET
+        , ita.APP_SECRET appSecretHide
+        , ita.APP_SECRET appSecretShow
+        , '显示' as showLabel
+        , ita.PARTNER_NAME
+        , ita.PARTNER_DESC
+        , ita.CREATE_TIME
+        FROM tp_account_third ita
+        WHERE
+        ita.ACTIVED = 1
+        <if test="query.partnerName != null and query.partnerName != ''">
+            AND ita.PARTNER_NAME like CONCAT('%',#{query.partnerName},'%')
+        </if>
+        ORDER BY ita.CREATE_TIME desc
+    </select>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountThirdVO">
+        SELECT
+        ita.APP_KEY
+        , ita.APP_SECRET
+        , ita.PARTNER_NAME
+        , ita.PARTNER_DESC
+        , ita.ACTIVED
+        , ita.CREATOR
+        , ita.CREATE_TIME
+        , ita.UPDATOR
+        , ita.UPDATE_TIME
+        , ita.EXTEND01
+        , ita.EXTEND02
+        , ita.EXTEND03
+        FROM tp_account_third ita
+        WHERE
+        ita.ACTIVED = 1
+        and
+        ita.APP_KEY = #{appKey}
+    </select>
+
+    <update id="delete" parameterType="String" >
+        UPDATE tp_account_third SET ACTIVED = 0, UPDATE_TIME = #{updateTime}, UPDATOR = #{updator} WHERE APP_KEY = #{id}
+    </update>
+
+</mapper>

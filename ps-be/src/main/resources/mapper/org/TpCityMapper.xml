@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpCityMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpCity" id="tpCityMap">
+        <result property="cityId" column="CITY_ID"/>
+        <result property="cityCode" column="CITY_CODE"/>
+        <result property="cityName" column="CITY_NAME"/>
+        <result property="cityFullName" column="CITY_FULL_NAME"/>
+        <result property="citySimpleName" column="CITY_SIMPLE_NAME"/>
+        <result property="pcityId" column="PCITY_ID"/>
+        <result property="statCode" column="STAT_CODE"/>
+        <result property="orderIndex" column="ORDER_INDEX"/>
+        <result property="enabled" column="ENABLED"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="cityLevel" column="CITY_LEVEL"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+        <result property="extend04" column="EXTEND04"/>
+        <result property="extend05" column="EXTEND05"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpCity">
+        INSERT INTO tp_city
+            (CITY_ID, CITY_CODE, CITY_NAME, CITY_FULL_NAME, CITY_SIMPLE_NAME, PCITY_ID, STAT_CODE, ORDER_INDEX, ENABLED, ACTIVED, TENANT_ID, CITY_LEVEL, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+		VALUES
+			(#{cityId}, #{cityCode}, #{cityName}, #{cityFullName}, #{citySimpleName}, #{pcityId}, #{statCode}, #{orderIndex}, #{enabled}, 1, #{tenantId}, #{cityLevel}, #{createTime}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <select id="selectCityCodeByCityId" parameterType="String" resultType="String">
+        SELECT CITY_CODE
+        FROM tp_city
+        WHERE ACTIVED = 1 and CITY_ID = #{cityId}
+    </select>
+
+    <select id="selectByIdAndCityCode" parameterType="String" resultType="String">
+        SELECT CITY_ID
+        FROM tp_city
+        WHERE ACTIVED = 1 and CITY_ID != #{cityId} and CITY_CODE = #{cityCode}
+    </select>
+
+    <select id="selectCityFullNameByCityCode" parameterType="String" resultType="String">
+        SELECT CITY_FULL_NAME
+        FROM tp_city
+        WHERE ACTIVED = 1 and CITY_CODE = #{cityCode}
+    </select>
+
+    <select id="selectCityNameByCityCode" parameterType="String" resultType="String">
+        SELECT CITY_NAME
+        FROM tp_city
+        WHERE ACTIVED = 1 and CITY_CODE = #{cityCode}
+    </select>
+
+    <select id="selectCityIdByCityCode" parameterType="String" resultType="String">
+        SELECT CITY_ID
+        FROM tp_city
+        WHERE ACTIVED = 1 and CITY_CODE = #{cityCode}
+    </select>
+
+    <select id="selectPcityIdByCityCode" parameterType="String" resultType="String">
+        SELECT PCITY_ID
+        FROM tp_city
+        WHERE ACTIVED = 1 and CITY_CODE = #{cityCode}
+    </select>
+
+    <update id="update">
+        update tp_city
+        <if test="null != cityId and '' != cityId">
+            <set>
+                <if test="null != cityCode and '' != cityCode">CITY_CODE = #{cityCode},</if>
+                <if test="null != cityName and '' != cityName">CITY_NAME = #{cityName},</if>
+                <if test="null != cityFullName and '' != cityFullName">CITY_FULL_NAME = #{cityFullName},</if>
+                <if test="null != citySimpleName">CITY_SIMPLE_NAME = #{citySimpleName},</if>
+                <if test="null != pcityId and '' != pcityId">PCITY_ID = #{pcityId},</if>
+                <if test="null != statCode">STAT_CODE = #{statCode},</if>
+                <if test="null != enabled">ENABLED = #{enabled},</if>
+                <if test="null != actived">ACTIVED = #{actived},</if>
+                <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+                <if test="null != cityLevel">CITY_LEVEL = #{cityLevel},</if>
+                <if test="null != extend01">EXTEND01 = #{extend01},</if>
+                <if test="null != extend02">EXTEND02 = #{extend02},</if>
+                <if test="null != extend03">EXTEND03 = #{extend03},</if>
+                ORDER_INDEX = #{orderIndex},
+                UPDATE_TIME = #{updateTime}
+            </set>
+            <where>
+                ACTIVED = 1
+                and
+                CITY_ID = #{cityId}
+            </where>
+        </if>
+    </update>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpCityVO">
+        select CITY_ID, CITY_CODE, CITY_NAME, CITY_FULL_NAME, CITY_SIMPLE_NAME, PCITY_ID, STAT_CODE, ORDER_INDEX, ENABLED, ACTIVED, TENANT_ID, CITY_LEVEL, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_city
+        where CITY_ID = #{cityId}
+        and
+        ACTIVED = 1
+    </select>
+
+    <select id="selectAllByCityCode" resultType="com.jiuxi.common.bean.TreeNode">
+        select CITY_ID as id, CITY_CODE as extend02, CITY_CODE as value, CITY_NAME as text, CITY_NAME as label, CITY_FULL_NAME as extend01, CITY_SIMPLE_NAME, PCITY_ID as pid, CITY_LEVEL
+        from tp_city
+        where ACTIVED = 1
+        <if test="null != cityCode and '' != cityCode">
+            and CITY_CODE like concat(#{cityCode}, '%')
+        </if>
+        order by ORDER_INDEX
+    </select>
+
+    <select id="select" parameterType="String" resultType="com.jiuxi.common.bean.TreeNode">
+        select tc.CITY_ID as value, tc.CITY_NAME as label from tp_city tc where tc.ACTIVED = 1 and tc.PCITY_ID = #{cityId} order by tc.ORDER_INDEX
+    </select>
+
+    <select id="batchSelectByCityCode" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpCityVO">
+        select tc.CITY_ID, tc.CITY_CODE, tc.CITY_NAME, tc.CITY_FULL_NAME, tc.CITY_SIMPLE_NAME, tc.PCITY_ID, tc.STAT_CODE, tc.ORDER_INDEX, tc.ENABLED, tc.ACTIVED, tc.TENANT_ID, tc.CITY_LEVEL, tc.CREATE_TIME, tc.UPDATE_TIME, tc.EXTEND01, tc.EXTEND02, tc.EXTEND03 from tp_city tc
+        where
+        tc.ACTIVED = 1
+        and
+        tc.CITY_CODE in
+        <foreach collection="cityCodes" item="cityCode" open="(" separator="," close=")">
+        #{cityCode}
+        </foreach>
+        order by tc.ORDER_INDEX
+    </select>
+
+
+    <select id="selectByCityLevel" parameterType="String"
+            resultType="com.jiuxi.admin.core.bean.vo.TpCityVO">
+        select CITY_ID, CITY_CODE, CITY_NAME, CITY_FULL_NAME, CITY_SIMPLE_NAME, PCITY_ID, STAT_CODE, ORDER_INDEX, ENABLED, TENANT_ID, CITY_LEVEL from tp_city where ACTIVED = 1 and PCITY_ID = #{pcityId} and CITY_LEVEL = #{cityLevel} order by ORDER_INDEX
+    </select>
+
+    <resultMap type="com.jiuxi.common.bean.TreeNode" id="tpCityTreeMap">
+        <result property="id" column="CITY_ID"/>
+        <result property="text" column="CITY_NAME"/>
+        <result property="label" column="CITY_NAME"/>
+        <result property="pid" column="PCITY_ID"/>
+        <result property="extend01" column="CITY_FULL_NAME"/>
+        <result property="extend02" column="CITY_CODE"/>
+        <result property="value" column="CITY_CODE"/>
+        <collection property="children" ofType="com.jiuxi.common.bean.TreeNode">
+            <result property="id" column="TWO_CITY_ID"/>
+            <result property="text" column="TWO_CITY_NAME"/>
+            <result property="label" column="TWO_CITY_NAME"/>
+            <result property="pid" column="TWO_PCITY_ID"/>
+            <result property="extend01" column="TWO_CITY_FULL_NAME"/>
+            <result property="extend02" column="TWO_CITY_CODE"/>
+            <result property="value" column="TWO_CITY_CODE"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectChildren" parameterType="String" resultType="com.jiuxi.common.bean.TreeNode">
+        select tc.CITY_ID as id
+             , tc.CITY_CODE as value
+             , tc.CITY_CODE as extend02
+             , tc.CITY_NAME as text
+             , tc.CITY_NAME as label
+             , tc.CITY_FULL_NAME as extend01
+             , tc.PCITY_ID as pid, tc.CITY_LEVEL
+        from tp_city tc
+        where
+        tc.ACTIVED = 1
+        and
+        tc.ENABLED = 1
+        <if test="pcityId != null and pcityId != ''">
+            AND tc.PCITY_ID = #{pcityId}
+        </if>
+        order by ORDER_INDEX
+    </select>
+
+
+    <select id="selectTwoLevel" parameterType="String" resultMap="tpCityTreeMap">
+        select tc1.CITY_ID, tc1.CITY_CODE, tc1.CITY_NAME, tc1.CITY_FULL_NAME, tc1.PCITY_ID, tc1.CITY_LEVEL,
+        tc2.CITY_ID as TWO_CITY_ID, tc2.CITY_CODE as TWO_CITY_CODE, tc2.CITY_NAME as TWO_CITY_NAME, tc2.CITY_FULL_NAME
+        as TWO_CITY_FULL_NAME, tc2.PCITY_ID as TWO_PCITY_ID, tc2.CITY_LEVEL as TWO_CITY_LEVEL
+        from tp_city tc1
+        left join tp_city tc2 on tc1.CITY_ID = tc2.PCITY_ID
+        where
+        tc1.ACTIVED = 1
+        and
+        tc1.ENABLED = 1
+        <if test="pcityId != null and pcityId != ''">
+            AND tc1.PCITY_ID = #{pcityId}
+        </if>
+        order by tc1.ORDER_INDEX
+    </select>
+
+
+    <select id="selectTestAll" resultType="com.jiuxi.admin.core.bean.entity.TestCity">
+       select DISTRICT_ID, PDISTRICT_ID, DISTRICT_CODE, DISTRICT_NAME, FULL_NAME, SIMPLE_NAME, DISTRICT_LEVEL, ORDER_INDEX from test_city
+    </select>
+
+    <update id="deleteBycityId">
+        update tp_city set ACTIVED = #{actived}, UPDATE_TIME = #{updateTime}, CITY_CODE = #{cityCode} where CITY_ID = #{cityId}
+    </update>
+
+    <!-- 根据行政区划code查询行政区划 -->
+    <select id="viewByCode" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpCityVO">
+        select
+               CITY_ID, CITY_CODE, CITY_NAME, CITY_FULL_NAME, CITY_SIMPLE_NAME, PCITY_ID, STAT_CODE, ORDER_INDEX, ENABLED, ACTIVED, TENANT_ID, CITY_LEVEL, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_city
+        where
+            CITY_CODE = #{cityCode}
+          and
+            ACTIVED = 1
+    </select>
+
+    <!--   根据行政区划编码，查询本级及下级 -->
+    <select id="listByCityCode" resultType="com.jiuxi.admin.core.bean.vo.TpCityVO">
+        select *
+          from tp_city
+         where ACTIVED = 1
+           and ENABLED = 1
+        <if test="cityCode != null and cityCode != ''">
+            and CITY_CODE like concat(#{cityCode}, '%')
+        </if>
+        <if test="null != cityLevel and cityLevel.size > 0">
+            AND CITY_LEVEL in
+            <foreach collection="cityLevel" item="item" open="(" close=")" separator="," index="i">
+                #{item}
+            </foreach>
+        </if>
+        order by ORDER_INDEX, CITY_CODE
+    </select>
+    <!--    根据行政区划id, 查询本级及下级 -->
+    <select id="listByCityId" resultType="com.jiuxi.admin.core.bean.vo.TpCityVO"
+            parameterType="java.lang.String">
+        select *
+         from tp_city
+        where ACTIVED = 1
+          and ENABLED = 1
+          and (CITY_ID = #{cityId} or PCITY_ID = #{cityId})
+        order by ORDER_INDEX, CITY_CODE
+    </select>
+
+</mapper>

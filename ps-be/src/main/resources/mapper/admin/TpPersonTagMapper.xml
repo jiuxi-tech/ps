@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.dao.TpPersonTagMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jiuxi.admin.core.bean.entity.TpPersonTag">
+        <result column="person_id" property="personId" />
+        <result column="tag_id" property="tagId" />
+        <result column="dept_id" property="deptId" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        person_id, tag_id, dept_id, creator, create_time
+    </sql>
+
+    <!-- 插入人员标签关系 -->
+    <insert id="insert" parameterType="com.jiuxi.admin.core.bean.entity.TpPersonTag">
+        INSERT INTO tp_person_tag
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="personId != null">person_id,</if>
+            <if test="tagId != null">tag_id,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="personId != null">#{personId},</if>
+            <if test="tagId != null">#{tagId},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <!-- 根据人员ID和部门ID查询标签 -->
+    <select id="selectByPersonIdAndDeptId" resultType="com.jiuxi.admin.core.bean.vo.TpPersonTagVO">
+        SELECT 
+            pt.person_id,
+            pt.tag_id,
+            pt.dept_id,
+            pt.creator,
+            pt.create_time,
+            t.tag_name,
+            t.tag_color
+        FROM tp_person_tag pt
+        LEFT JOIN tp_tag t ON pt.tag_id = t.tag_id
+        WHERE pt.person_id = #{personId}
+        <if test="deptId != null and deptId != ''">
+            AND pt.dept_id = #{deptId}
+        </if>
+        ORDER BY pt.create_time DESC
+    </select>
+
+    <!-- 根据标签ID查询人员 -->
+    <select id="selectByTagId" resultType="com.jiuxi.admin.core.bean.vo.TpPersonTagVO">
+        SELECT 
+            pt.person_id,
+            pt.tag_id,
+            pt.dept_id,
+            pt.creator,
+            pt.create_time,
+            pb.person_name,
+            pb.person_code
+        FROM tp_person_tag pt
+        LEFT JOIN tp_person_basicinfo pb ON pt.person_id = pb.person_id
+        WHERE pt.tag_id = #{tagId}
+        ORDER BY pt.create_time DESC
+    </select>
+
+    <!-- 删除人员标签关系 -->
+    <delete id="deleteByPersonIdAndTagId">
+        DELETE FROM tp_person_tag 
+        WHERE person_id = #{personId} AND tag_id = #{tagId}
+        <if test="deptId != null and deptId != ''">
+            AND dept_id = #{deptId}
+        </if>
+    </delete>
+
+    <!-- 根据标签ID删除 -->
+    <delete id="deleteByTagId">
+        DELETE FROM tp_person_tag WHERE tag_id = #{tagId}
+    </delete>
+
+    <!-- 根据人员ID和部门ID列表删除 -->
+    <delete id="deleteByPersonIdAndDeptIds">
+        DELETE FROM tp_person_tag 
+        WHERE person_id = #{personId}
+        <if test="deptIds != null and deptIds.size() > 0">
+            AND dept_id IN
+            <foreach collection="deptIds" item="deptId" open="(" separator="," close=")">
+                #{deptId}
+            </foreach>
+        </if>
+    </delete>
+
+    <!-- 批量插入人员标签关系 -->
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO tp_person_tag (person_id, tag_id, dept_id, creator, create_time)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.personId}, #{item.tagId}, #{item.deptId}, #{item.creator}, #{item.createTime})
+        </foreach>
+    </insert>
+
+</mapper>

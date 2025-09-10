@@ -1,0 +1,235 @@
+@import "../common.less";
+
+.fb-admin-menu {
+	position: absolute;
+	top: 64px;
+	left: 0;
+	width: 200px;
+	height: 704px;
+	background: #0284FE url("../../../assets/img/menu-bg.png") no-repeat 0 bottom;
+
+	&:hover {
+		.fb-admin-menu__toggle {
+			opacity: 1;
+		}
+	}
+}
+
+.fb-admin-menu__toggle {
+	position: absolute;
+	top: 7px;
+	right: 0px;
+	width: 13px;
+	height: 27px;
+	line-height: 27px;
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 2px 0px 0px 2px;
+	color: #fff;
+	cursor: pointer;
+	transition: background 0.4s;
+	text-align: center;
+	font-size: 12px;
+	opacity: 0;
+
+	.@{FbUiPrefix}-icon {
+		font-size: 12px;
+	}
+
+	&:hover {
+		background: rgba(0, 0, 0, 0.4);
+	}
+
+	&.fb-admin-menu__toggle--show-tail {
+		right: -13px;
+		opacity: 1;
+	}
+}
+
+.fb-admin-menu__header {
+	height: 40px;
+	line-height: 40px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 0 16px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	> .@{FbUiPrefix}-icon {
+		margin-right: 8px;
+	}
+
+}
+
+.fb-admin-menu_line {
+	height: 1px;
+	background-color: #E8E8E8;
+}
+
+.fb-admin-menu__content {
+
+	padding: 0 8px;
+
+	.level1 {
+
+		margin: 4px 0;
+
+		.level1__title {
+			height: 32px;
+			border-radius: 4px;
+			color: #fff;
+			cursor: pointer;
+			line-height: 32px;
+			padding: 0 8px;
+			user-select: none;
+			font-size: 14px;
+			transition: all 0.4s;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+
+			.@{FbUiPrefix}-icon {
+				font-size: 16px;
+				transform: scale(.5);
+			}
+
+		}
+
+		.level1__body {
+			margin: 0;
+			padding: 0;
+		}
+
+		&.active {
+			.level1__title {
+				background: rgba(255, 255, 255, 0.2);
+			}
+
+			.level1__body {
+			}
+		}
+
+		&:hover {
+			.level1__title {
+				padding: 0 8px 0 10px;
+			}
+		}
+
+		&:hover {
+			.level1__title {
+				padding: 0 8px 0 10px;
+			}
+		}
+
+		&:hover {
+			.level1__title {
+				padding: 0 8px 0 10px;
+			}
+		}
+
+		&:hover {
+			.level1__title {
+				padding: 0 8px 0 10px;
+			}
+		}
+
+	}
+
+
+	.level2 {
+
+		margin: 1px 0;
+
+		.level2__title {
+			user-select: none;
+			height: 32px;
+			border-radius: 4px;
+			color: #fff;
+			cursor: pointer;
+			line-height: 32px;
+			padding: 0 12px 0 38px;
+			transition: all 0.4s;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		&.active, &:hover {
+			.level2__title {
+				background: rgba(255, 255, 255, 0.2);
+			}
+
+			.level2__body {
+			}
+		}
+
+		&:hover {
+			.level2__title {
+				padding: 0 12px 0 40px;
+			}
+		}
+
+		&:hover {
+			.level2__title {
+				padding: 0 12px 0 40px;
+			}
+		}
+
+		&:hover {
+			.level2__title {
+				padding: 0 12px 0 40px;
+			}
+		}
+
+		&:hover {
+			.level2__title {
+				padding: 0 12px 0 40px;
+			}
+		}
+
+	}
+}
+
+
+/* show-hide-menu */
+.show-hide-menu-leave-active,
+.show-hide-menu-enter-active {
+	/*transition: all .3s;*/
+}
+
+.show-hide-menu-enter {
+	transform: scaleY(0);
+
+}
+
+.show-hide-menu-leave {
+	transform: scaleY(1);
+}
+
+
+@keyframes rcMenuOpenSlideUpIn {
+	0% {
+		opacity: 0;
+		transform-origin: 0% 0%;
+		transform: scaleY(0);
+	}
+	100% {
+		opacity: 1;
+		transform-origin: 0% 0%;
+		transform: scaleY(1);
+	}
+}
+
+@keyframes rcMenuOpenSlideUpOut {
+	0% {
+		opacity: 1;
+		transform-origin: 0% 0%;
+		transform: scaleY(1);
+	}
+	100% {
+		opacity: 0;
+		transform-origin: 0% 0%;
+		transform: scaleY(0);
+	}
+}

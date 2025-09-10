@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpTagMapper">
+
+    <!-- 标签表结果映射 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpTag" id="tpTagMap">
+        <result property="tagId" column="TAG_ID"/>
+        <result property="tagName" column="TAG_NAME"/>
+        <result property="tagDesc" column="TAG_DESC"/>
+        <result property="tagColor" column="TAG_COLOR"/>
+        <result property="orderIndex" column="ORDER_INDEX"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="ascnId" column="ASCN_ID"/>
+
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <!-- 基础查询SQL -->
+    <sql id="baseSql">
+        SELECT
+            TAG_ID,
+            TAG_NAME,
+            TAG_DESC,
+            TAG_COLOR,
+            ORDER_INDEX,
+            TENANT_ID,
+            ASCN_ID,
+
+            CREATOR,
+            CREATE_TIME,
+            UPDATOR,
+            UPDATE_TIME,
+            EXTEND01,
+            EXTEND02,
+            EXTEND03
+        FROM tp_tag
+    </sql>
+
+    <!-- 分页查询标签列表 -->
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpTagQuery" resultType="com.jiuxi.admin.core.bean.vo.TpTagVO">
+        SELECT
+            t.TAG_ID,
+            t.TAG_NAME,
+            t.TAG_DESC,
+            t.TAG_COLOR,
+            t.ORDER_INDEX,
+            t.TENANT_ID,
+            t.ASCN_ID,
+
+            t.CREATOR,
+            t.CREATE_TIME,
+            t.UPDATOR,
+            t.UPDATE_TIME,
+            t.EXTEND01,
+            t.EXTEND02,
+            t.EXTEND03,
+            p.PERSON_NAME as updatePersonName
+        FROM tp_tag t
+        LEFT JOIN tp_person_basicinfo p ON t.UPDATOR = p.PERSON_ID
+        <where>
+            1=1
+            <if test="query.tagName != null and query.tagName != ''">
+                AND t.TAG_NAME LIKE CONCAT('%', #{query.tagName}, '%')
+            </if>
+            <if test="query.tagDesc != null and query.tagDesc != ''">
+                AND t.TAG_DESC LIKE CONCAT('%', #{query.tagDesc}, '%')
+            </if>
+            <if test="query.tagColor != null and query.tagColor != ''">
+                AND t.TAG_COLOR = #{query.tagColor}
+            </if>
+            <if test="query.tenantId != null and query.tenantId != ''">
+                AND t.TENANT_ID = #{query.tenantId}
+            </if>
+            <if test="query.ascnId != null and query.ascnId != ''">
+                AND t.ASCN_ID = #{query.ascnId}
+            </if>
+
+        </where>
+        ORDER BY t.ORDER_INDEX ASC, t.CREATE_TIME DESC
+    </select>
+
+    <!-- 查询标签列表 -->
+    <select id="getList" parameterType="com.jiuxi.admin.core.bean.query.TpTagQuery" resultType="com.jiuxi.admin.core.bean.vo.TpTagVO">
+        SELECT
+            t.TAG_ID,
+            t.TAG_NAME,
+            t.TAG_DESC,
+            t.TAG_COLOR,
+            t.ORDER_INDEX,
+            t.TENANT_ID,
+            t.ASCN_ID,
+
+            t.CREATOR,
+            t.CREATE_TIME,
+            t.UPDATOR,
+            t.UPDATE_TIME,
+            t.EXTEND01,
+            t.EXTEND02,
+            t.EXTEND03,
+            p.PERSON_NAME as updatePersonName
+        FROM tp_tag t
+        LEFT JOIN tp_person_basicinfo p ON t.UPDATOR = p.PERSON_ID
+        <where>
+            1=1
+            <if test="query.tagName != null and query.tagName != ''">
+                AND t.TAG_NAME LIKE CONCAT('%', #{query.tagName}, '%')
+            </if>
+            <if test="query.tagDesc != null and query.tagDesc != ''">
+                AND t.TAG_DESC LIKE CONCAT('%', #{query.tagDesc}, '%')
+            </if>
+            <if test="query.tagColor != null and query.tagColor != ''">
+                AND t.TAG_COLOR = #{query.tagColor}
+            </if>
+            <if test="query.tenantId != null and query.tenantId != ''">
+                AND t.TENANT_ID = #{query.tenantId}
+            </if>
+            <if test="query.ascnId != null and query.ascnId != ''">
+                AND t.ASCN_ID = #{query.ascnId}
+            </if>
+            <if test="query.actived != null">
+                AND t.ACTIVED = #{query.actived}
+            </if>
+        </where>
+        ORDER BY ORDER_INDEX ASC, CREATE_TIME DESC
+    </select>
+
+    <!-- 新增标签 -->
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpTag">
+        INSERT INTO tp_tag (
+            TAG_ID,
+            TAG_NAME,
+            TAG_DESC,
+            TAG_COLOR,
+            ORDER_INDEX,
+            TENANT_ID,
+            ASCN_ID,
+
+            CREATOR,
+            CREATE_TIME,
+            UPDATOR,
+            UPDATE_TIME,
+            EXTEND01,
+            EXTEND02,
+            EXTEND03
+        ) VALUES (
+            #{tagId},
+            #{tagName},
+            #{tagDesc},
+            #{tagColor},
+            #{orderIndex},
+            #{tenantId},
+            #{ascnId},
+
+            #{creator},
+            #{createTime},
+            #{updator},
+            #{updateTime},
+            #{extend01},
+            #{extend02},
+            #{extend03}
+        )
+    </insert>
+
+    <!-- 更新标签 -->
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpTag">
+        UPDATE tp_tag
+        <set>
+            <if test="tagName != null and tagName != ''">TAG_NAME = #{tagName},</if>
+            <if test="tagDesc != null">TAG_DESC = #{tagDesc},</if>
+            <if test="tagColor != null">TAG_COLOR = #{tagColor},</if>
+            <if test="orderIndex != null">ORDER_INDEX = #{orderIndex},</if>
+            <if test="tenantId != null">TENANT_ID = #{tenantId},</if>
+            <if test="ascnId != null">ASCN_ID = #{ascnId},</if>
+
+            <if test="updator != null">UPDATOR = #{updator},</if>
+            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
+            <if test="extend01 != null">EXTEND01 = #{extend01},</if>
+            <if test="extend02 != null">EXTEND02 = #{extend02},</if>
+            <if test="extend03 != null">EXTEND03 = #{extend03}</if>
+        </set>
+        WHERE TAG_ID = #{tagId}
+    </update>
+
+    <!-- 查看标签详情 -->
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpTagVO">
+        SELECT
+            t.TAG_ID,
+            t.TAG_NAME,
+            t.TAG_DESC,
+            t.TAG_COLOR,
+            t.ORDER_INDEX,
+            t.TENANT_ID,
+            t.ASCN_ID,
+
+            t.CREATOR,
+            t.CREATE_TIME,
+            t.UPDATOR,
+            t.UPDATE_TIME,
+            t.EXTEND01,
+            t.EXTEND02,
+            t.EXTEND03,
+            cp.PERSON_NAME as createPersonName,
+            up.PERSON_NAME as updatePersonName
+        FROM tp_tag t
+        LEFT JOIN tp_person_basicinfo cp ON t.CREATOR = cp.PERSON_ID
+        LEFT JOIN tp_person_basicinfo up ON t.UPDATOR = up.PERSON_ID
+        WHERE t.TAG_ID = #{tagId}
+    </select>
+
+    <!-- 删除标签（物理删除） -->
+    <delete id="delete" parameterType="com.jiuxi.admin.core.bean.entity.TpTag">
+        DELETE FROM tp_tag
+        WHERE TAG_ID = #{tagId}
+    </delete>
+
+    <!-- 根据标签名称查询标签 -->
+    <select id="selectByTagName" resultType="com.jiuxi.admin.core.bean.entity.TpTag">
+        <include refid="baseSql"/>
+        WHERE TAG_NAME = #{tagName}
+          AND TENANT_ID = #{tenantId}
+          AND ASCN_ID = #{orgId}
+    </select>
+
+</mapper>

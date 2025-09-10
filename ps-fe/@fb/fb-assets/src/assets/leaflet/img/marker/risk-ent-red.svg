@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="29px" viewBox="0 0 20 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <defs>
+        <radialGradient cx="50%" cy="0%" fx="50%" fy="0%" r="147.132353%" gradientTransform="translate(0.500000,0.000000),scale(1.000000,0.679660),rotate(90.000000),translate(-0.500000,-0.000000)" id="radialGradient-1">
+            <stop stop-color="#FF6D66" offset="0%"></stop>
+            <stop stop-color="#E2261D" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="DV" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="000-组件" transform="translate(-3388.000000, -40.000000)">
+            <g id="02组件/19地图标点/01企业/01pin-ent-red" transform="translate(3388.000000, 40.000000)">
+                <ellipse id="椭圆形" fill-opacity="0.4" fill="#000000" cx="10" cy="27.7205882" rx="5" ry="1.27941176"></ellipse>
+                <g id="icon_dw" transform="translate(0.833333, 0.852941)">
+                    <path d="M6.30208333,20.8087185 C8.02083333,23.6988183 8.30729167,26.9742647 9.16666667,26.9742647 C10.0260417,26.9742647 10.3125,23.6988183 12.03125,20.8087185 C13.75,17.9186187 18.3333333,13.4407153 18.3333333,9.24831933 C18.3333333,4.1406136 14.2292769,0 9.16666667,0 C4.10405646,0 0,4.1406136 0,9.24831933 C0,14.3560251 4.58333333,17.9186187 6.30208333,20.8087185 Z" id="Combined-Shape" stroke="#FFFFFF" stroke-width="0.5" fill="url(#radialGradient-1)"></path>
+                    <ellipse id="Oval" fill="#FFFFFF" cx="9.16666667" cy="9.38235294" rx="4.01041667" ry="4.10477941"></ellipse>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

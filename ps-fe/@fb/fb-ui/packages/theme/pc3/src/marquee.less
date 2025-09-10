@@ -1,0 +1,129 @@
+@import "common/var";
+@import "mixins/utils";
+
+@prefix-cls: ~'@{prefix}-marquee';
+
+
+.@{prefix-cls} {
+	display: flex !important;
+	position: relative;
+}
+
+.@{prefix-cls}.horizontal {
+	overflow-x: hidden !important;
+	flex-direction: row !important;
+	width: 100%;
+	height: max-content;
+}
+
+.@{prefix-cls}.vertical {
+	overflow-y: hidden !important;
+	flex-direction: column !important;
+	height: 100%;
+	width: max-content;
+}
+
+.@{prefix-cls}:hover div {
+	animation-play-state: var(--pauseOnHover);
+}
+
+.@{prefix-cls}:active div {
+	animation-play-state: var(--pauseOnClick);
+}
+
+.@{prefix-cls} > .marquee {
+	flex: 0 0 auto;
+	min-width: var(--min-width);
+	min-height: var(--min-height);
+	z-index: 1;
+
+	animation: var(--orientation) var(--duration) linear var(--delay) var(--loops);
+	animation-play-state: var(--pauseAnimation);
+	animation-direction: var(--direction);
+}
+
+.@{prefix-cls}.horizontal > .marquee {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.@{prefix-cls}.vertical > .marquee {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+@keyframes scrollX {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}
+
+@keyframes scrollY {
+	0% {
+		transform: translateY(0%);
+	}
+	100% {
+		transform: translateY(-100%);
+	}
+}
+
+.@{prefix-cls} > .overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.@{prefix-cls} > .transparent-overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.@{prefix-cls} > .overlay::before,
+.@{prefix-cls} > .overlay::after {
+	content: '';
+	position: absolute;
+	z-index: 2;
+}
+
+.@{prefix-cls}.horizontal > .overlay::before,
+.@{prefix-cls}.horizontal > .overlay::after {
+	background: linear-gradient(to right, var(--gradient-color));
+	height: 100%;
+	width: var(--gradient-length);
+}
+
+.@{prefix-cls}.vertical > .overlay::before,
+.@{prefix-cls}.vertical > .overlay::after {
+	background: linear-gradient(to bottom, var(--gradient-color));
+	height: var(--gradient-length);
+	width: 100%;
+}
+
+.@{prefix-cls}.horizontal > .overlay::after {
+	transform: rotateZ(180deg);
+}
+
+.@{prefix-cls}.vertical > .overlay::after {
+	transform: rotateZ(-180deg);
+}
+
+.@{prefix-cls} > .overlay::before {
+	left: 0;
+	top: 0;
+}
+
+.@{prefix-cls}.horizontal > .overlay::after {
+	right: 0;
+	top: 0;
+}
+
+.@{prefix-cls}.vertical > .overlay::after {
+	left: 0;
+	bottom: 0;
+}

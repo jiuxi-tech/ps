@@ -1,0 +1,208 @@
+/*
+This file 'pager' is part of Firebird Integrated Solution 1.0
+
+Copyright (c) 2015 Lincong
+
+Contact:
+	Email: lincong1987@gmail.com
+
+	QQ: 159257119
+
+See Usage at http://www.cleverlin.com/firebird
+
+Create date: 2015-09-21 22:23
+*/
+
+.pager2 {
+    display: block;
+    border: none 0;
+    margin: 5px 0;
+    color: #000000;
+    padding: 0 0 0 5px;
+    height: 32px;
+    transition: all, 0.8s;
+    clear: both;
+    overflow: hidden;
+    
+    &.my-pager2 {
+	height: 33px;
+	margin: 10px 20px;
+	
+	ul.pager li a {
+	    background: rgba(11, 73, 204, 0.2);
+	    border-radius: 3px;
+	    border: 1px solid rgba(11, 73, 204, 0.5);
+	    color: rgba(82, 255, 253, 1);
+	    height: 33px;
+	    
+	}
+	
+	ul.pager li.active a {
+	    background: rgba(1, 75, 230, .8);
+	    border-color: rgba(1, 75, 230, .8);
+	}
+	
+	ul.pager li.disabled a {
+	    background: rgba(11, 73, 204, 0.2);
+	    border: 1px solid rgba(11, 73, 204, 0.5);
+	    color: rgba(255, 255, 255, 0.6);
+	}
+	
+	ul.pager li span.label.label-default {
+	    font-family: PingFangSC-Regular, PingFang SC;
+	    font-weight: 400;
+	    color: rgba(82, 255, 253, 1);
+	}
+    }
+    
+    ul.pager {
+	display: block;
+	border: none 0;
+	margin: 0;
+	color: #000000;
+	padding: 0 0 0 5px;
+	list-style: none;
+	
+	
+	li {
+	    float: left;
+	    list-style: none;
+	    
+	    a {
+		list-style: none;
+		float: left;
+		border: 1px solid #037FF4;
+		background: rgba(2, 35, 90, 0.9);
+		text-decoration: none;
+		margin: 0 5px 0 0;
+		color: #037FF4;
+		padding: 4px 8px;
+		cursor: pointer;
+		border-radius: 3px;
+		transition: all, 0.8s;
+	    }
+	    
+	    &.disabled {
+		a {
+		    border: 1px solid #037FF4;
+		    color: #FFFFFF;
+		    cursor: not-allowed;
+		    background: rgba(2, 35, 90, 0.9);
+		}
+	    }
+	    
+	    &.active {
+		a {
+		    border: 1px solid #037FF4;
+		    background: #037FF4;
+		    color: #FFFFFF;
+		}
+	    }
+	    
+	    &.detail {
+		a {
+		    border: 1px solid #ffffff;
+		    cursor: auto;
+		    background: none;
+		}
+	    }
+	    
+	    &:hover {
+		a {
+		    border: 1px solid #08C;
+		}
+	    }
+	    
+	    .pager2-detail {
+		padding-right: 10px;
+	    }
+	    
+	    
+	    span {
+		&.label {
+		    &.label-default {
+			padding: 10px;
+			color: #037FF4;
+			font-size: 14px;
+		    }
+		}
+	    }
+	    
+	}
+	
+    }
+    
+    &.middle {
+	height: 26px;
+	
+	ul.pager {
+	    li {
+		a {
+		    padding: 3px 6px;
+		    font-size: 12px;
+		}
+		
+		span {
+		    &.label {
+			&.label-default {
+			    padding: 6px;
+			    font-size: 12px;
+			}
+		    }
+		}
+	    }
+	}
+    }
+    
+    &.small {
+	
+	height: 24px;
+	
+	ul.pager {
+	    li {
+		a {
+		    padding: 2px 4px;
+		    font-size: 12px;
+		}
+		
+		span {
+		    &.label {
+			&.label-default {
+			    padding: 8px;
+			    font-size: 12px;
+			}
+		    }
+		}
+	    }
+	}
+    }
+    
+    
+    &.group {
+	
+	ul.pager {
+	    li {
+		a {
+		    margin-right: 0;
+		    border-radius: 0;
+		    border-left-width: 0;
+		    
+		}
+		
+		&:first-child {
+		    a {
+			border-left-width: 1px;
+			border-radius: 3px 0 0 3px;
+		    }
+		}
+		
+		&:last-child {
+		    a {
+			border-radius: 0 3px 3px 0;
+		    }
+		}
+	    }
+	}
+    }
+    
+}

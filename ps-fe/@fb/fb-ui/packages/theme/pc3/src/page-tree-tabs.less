@@ -1,0 +1,70 @@
+/*!
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-page-tree-tabs {
+
+	height:     100%;
+	width:      100%;
+	position:   relative;
+	background: #F0EFF5;
+	padding:    8px;
+
+
+	.@{prefix}-page-tree-tabs__tree-panel {
+		.@{prefix}-page-tree-tabs__tree-card {
+
+			.@{prefix}-card__header {
+				.@{prefix}-card__header__actions {
+					padding-right: 16px;
+				}
+			}
+
+			.@{prefix}-card__body {
+				overflow: hidden;
+
+				&:hover {
+					overflow: auto;
+				}
+			}
+
+
+		}
+	}
+
+	.@{prefix}-page-tree-tabs__form-panel {
+
+		.@{prefix}-page-tree-tabs__form-card {
+
+			.@{prefix}-card__header {
+				.@{prefix}-card__header__actions {
+					right: auto;
+					left: 8px;
+				}
+			}
+
+			.@{prefix}-card__body {
+				padding: 0;
+
+
+				.@{prefix}-tabs {
+					.@{prefix}-tabs-header {
+						border-bottom: 1px solid #E8E8E8;
+					}
+
+					.@{prefix}-tabs-body {
+						padding: 12px;
+
+					}
+				}
+
+
+			}
+
+		}
+
+	}
+
+}

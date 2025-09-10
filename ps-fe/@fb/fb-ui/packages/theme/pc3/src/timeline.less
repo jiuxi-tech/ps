@@ -1,0 +1,432 @@
+@import "common/var";
+
+@timeline-prefix-cls: ~'@{prefix}-timeline';
+
+// Timeline
+// ---
+@timeline-width: 2px;
+@timeline-color: rgba(232, 232, 232, 1);
+@timeline-dot-border-width: 2px;
+@timeline-dot-color: @--color-brand;
+@timeline-dot-bg: #fff;
+@line-height-base: 1.5;
+
+.@{timeline-prefix-cls} {
+	box-sizing: border-box;
+	color: @--font-color-base;
+	font-size: 14px;
+	font-variant: tabular-nums;
+	line-height: 1.5;
+	font-feature-settings: 'tnum';
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	&-item {
+		position: relative;
+		margin: 0;
+		padding: 0 0 20px;
+		font-size: @--font-size-ml;
+		list-style: none;
+
+		&-tail {
+			position: absolute;
+			top: 10px;
+			left: 4px;
+			height: calc(100% - 10px);
+			border-left: @timeline-width solid @timeline-color;
+		}
+
+		&-pending &-head {
+			font-size:@--font-size-m;
+			background-color: transparent;
+		}
+
+		&-pending &-tail {
+			display: none;
+		}
+
+		&-head {
+			position: absolute;
+			width: 10px;
+			height: 10px;
+			background-color: @timeline-dot-bg;
+			border: @timeline-dot-border-width solid transparent;
+			border-radius: 100px;
+
+			&-blue {
+				color: @--color-brand;
+				border-color: @--color-brand;
+			}
+
+			&-red {
+				color: @--color-danger;
+				border-color: @--color-danger;
+			}
+
+			&-green {
+				color: @--color-success;
+				border-color: @--color-success;
+			}
+
+			&-gray {
+				color: @--color-info;
+				border-color: @--color-info;
+			}
+		}
+
+		&-head-custom {
+			position: absolute;
+			top: 5.5px;
+			left: 5px;
+			width: auto;
+			height: auto;
+			margin-top: 0;
+			padding: 3px 1px;
+			line-height: 1;
+			text-align: center;
+			border: 0;
+			border-radius: 0;
+			transform: translate(-50%, -50%);
+		}
+
+		&-content {
+			position: relative;
+			top: -(@--font-size-ml * @line-height-base - @--font-size-ml) + 1px;
+			margin: 0 0 0 18px;
+			word-break: break-word;
+		}
+
+		&-last {
+			> .@{timeline-prefix-cls}-item-tail {
+				display: none;
+			}
+			> .@{timeline-prefix-cls}-item-content {
+				min-height: 48px;
+			}
+		}
+	}
+
+	.@{timeline-prefix-cls}-item-content_describe {
+		margin-top: 4px;
+		font-size: 13px;
+		font-family: MicrosoftYaHei;
+		color: #666666;
+		line-height: 22px;
+	}
+	.@{timeline-prefix-cls}-item-content_time {
+		font-size: 12px;
+		font-family: MicrosoftYaHei;
+		color: #999999;
+		line-height: 20px;
+	}
+
+	&.@{timeline-prefix-cls}-alternate,
+	&.@{timeline-prefix-cls}-right {
+		.@{timeline-prefix-cls}-item {
+			&-tail,
+			&-head,
+			&-head-custom {
+				left: 50%;
+			}
+
+			&-head {
+				margin-left: -4px;
+				&-custom {
+					margin-left: 1px;
+				}
+			}
+
+			&-left {
+				.@{timeline-prefix-cls}-item-content {
+					left: calc(50% - 4px);
+					width: calc(50% - 14px);
+					text-align: left;
+				}
+			}
+
+			&-right {
+				.@{timeline-prefix-cls}-item-content {
+					width: calc(50% - 12px);
+					margin: 0;
+					text-align: right;
+				}
+			}
+		}
+	}
+
+	&.@{timeline-prefix-cls}-right {
+		.@{timeline-prefix-cls}-item-right {
+			.@{timeline-prefix-cls}-item-tail,
+			.@{timeline-prefix-cls}-item-head,
+			.@{timeline-prefix-cls}-item-head-custom {
+				// stylelint-disable-next-line function-calc-no-invalid
+				left: calc(100% - 4px - @timeline-width);
+			}
+			.@{timeline-prefix-cls}-item-content {
+				width: calc(100% - 18px);
+			}
+		}
+	}
+
+	&&-pending &-item-last &-item-tail {
+		display: block;
+		height: calc(100% - 14px);
+		border-left: 2px dotted @timeline-color;
+	}
+
+	&&-reverse &-item-last &-item-tail {
+		display: none;
+	}
+
+	&&-reverse &-item-pending {
+		.@{timeline-prefix-cls}-item-tail {
+			top: 15px;
+			display: block;
+			height: calc(100% - 15px);
+			border-left: 2px dotted @timeline-color;
+		}
+		.@{timeline-prefix-cls}-item-content {
+			min-height: 48px;
+		}
+	}
+}
+
+// 时间轴水平
+.@{timeline-prefix-cls}-horizontal {
+
+	.@{timeline-prefix-cls}-item {
+		position: relative;
+		margin: 0;
+		font-size: @--font-size-ml;
+		list-style: none;
+		float: left;
+
+		&-tail {
+			position: absolute;
+			top: 4px;
+			left: 10px;
+			width: 100%;
+			border-top: @timeline-width solid @timeline-color;
+			border-left: none;
+		}
+
+		&-pending &-head {
+			font-size:@--font-size-m;
+			background-color: transparent;
+		}
+
+		&-pending &-tail {
+			display: none;
+		}
+
+		&-head {
+			position: absolute;
+			width: 10px;
+			height: 10px;
+			background-color: @timeline-dot-bg;
+			border: @timeline-dot-border-width solid transparent;
+			border-radius: 100px;
+
+			&-blue {
+				color: @--color-brand;
+				border-color: @--color-brand;
+			}
+
+			&-red {
+				color: @--color-warning;
+				border-color: @--color-warning;
+			}
+
+			&-green {
+				color: @--color-success;
+				border-color: @--color-success;
+			}
+
+			&-gray {
+				color: @--color-info;
+				border-color: @--color-info;
+			}
+		}
+
+		&-head-custom {
+			position: absolute;
+			top: 5.5px;
+			left: 5px;
+			width: auto;
+			height: auto;
+			margin-top: 0;
+			padding: 3px 1px;
+			line-height: 1;
+			text-align: center;
+			border: 0;
+			border-radius: 0;
+			transform: translate(-50%, -50%);
+		}
+
+		&-content {
+			position: relative;
+			top: 0;
+			margin-top: 16px;
+			margin-left: 0;
+			margin-right: 26px;
+			word-break: break-word;
+		}
+
+		&-last {
+			> .@{timeline-prefix-cls}-item-tail {
+				display: none;
+			}
+			> .@{timeline-prefix-cls}-item-content {
+				min-height: 48px;
+			}
+		}
+
+	}
+	// 时间轴 -- 节点下方居中（固宽200px）
+	&.@{timeline-prefix-cls}-bottom-center {
+		margin-left: 100px;
+		position: relative;
+
+		.@{timeline-prefix-cls}-item {
+			text-align: center;
+			&-content {
+				margin: 0;
+				margin-top: 16px;
+				word-break: break-word;
+				width: 200px;
+				transform: translateX(-50%);
+			}
+
+		}
+	}
+	// 时间轴 -- 节点在上方
+	&.@{timeline-prefix-cls}-top {
+
+		.@{timeline-prefix-cls}-item-top {
+
+
+			.@{timeline-prefix-cls}-item-head {
+				position: absolute;
+				bottom: 0;
+			}
+			.@{timeline-prefix-cls}-item-tail {
+				position: absolute;
+				top: calc(100% - 6px);
+				height: 0px;
+				width: 100%;
+			}
+
+			.@{timeline-prefix-cls}-item-head-custom {
+				position: absolute;
+				top: auto;
+				bottom: -18.5px;
+			}
+		}
+	}
+
+	// 时间轴 -- 节点在上方居中 （使用弹性布局，固宽200px）
+	&.@{timeline-prefix-cls}-top-center {
+		margin-left: 100px;
+		position: relative;
+		display: flex;
+		align-items: flex-end;
+
+		.@{timeline-prefix-cls}-item {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+
+			.@{timeline-prefix-cls}-item-head {
+				position: absolute;
+				bottom: 0;
+			}
+			.@{timeline-prefix-cls}-item-tail {
+				position: absolute;
+				top: calc(100% - 6px);
+				height: 0px;
+				width: 100%;
+			}
+
+			.@{timeline-prefix-cls}-item-head-custom {
+				position: absolute;
+				top: auto;
+				bottom: -18.5px;
+			}
+
+			.@{timeline-prefix-cls}-item {
+				text-align: center;
+				&-content {
+					position: relative;
+					bottom: 20px;
+					margin: 0;
+					margin-top: 0px;
+					word-break: break-word;
+					width: 200px;
+					transform: translateX(-50%);
+				}
+
+			}
+		}
+	}
+
+	// 时间轴 -- 节点在两侧分布
+	&.@{timeline-prefix-cls}-alternate {
+		display: flex;
+		padding-top: 80px;
+
+		.@{timeline-prefix-cls}-item {
+			float: none;
+			padding-bottom: 0;
+
+			&-tail,
+			&-head,
+			&-head-custom {
+				left: 0%;
+			}
+
+			&.@{timeline-prefix-cls}-item-top {
+				.@{timeline-prefix-cls}-item-content {
+					margin-top: -73px;
+				}
+			}
+		}
+	}
+
+	// 时间轴 -- 节点在两侧分布-文字居中
+	&.@{timeline-prefix-cls}-alternate-center {
+		display: flex;
+		padding-top: 80px;
+		text-align: center;
+		margin-left: 100px;
+
+		.@{timeline-prefix-cls}-item {
+			float: none;
+			padding-bottom: 0;
+
+			&-tail,
+			&-head,
+			&-head-custom {
+				left: 0%;
+			}
+
+			.@{timeline-prefix-cls}-item-content {
+				transform: translateX(-50%);
+			}
+
+			&.@{timeline-prefix-cls}-item-top {
+				.@{timeline-prefix-cls}-item-content {
+					margin-top: -73px;
+				}
+			}
+		}
+	}
+
+
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+}

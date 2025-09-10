@@ -1,0 +1,171 @@
+/*!
+* video-player
+* (c) 2021 lincong1987
+*/
+
+
+.video-wall-wrapper {
+	background: #000000;
+
+	.video-wall-container {
+		height:  ~'calc(100% - 50px)';
+		padding: 4px;
+	}
+
+	.video-wall-toolbar {
+		padding: 10px;
+		background:  #3D3D3D;
+		color: #ddd;
+
+		.icon-box {
+			cursor: pointer;
+		}
+	}
+
+
+	.video-player-cell {
+		position:   relative;
+		cursor:     pointer;
+		background: #272727;
+
+		.video-player {
+			/deep/ .video-wrapper .alt {
+				background: #272727;
+			}
+
+
+			/deep/ .video-js {
+				color:            #EEEEEE;
+				background-color: #272727;
+			}
+		}
+
+		.video-player-title {
+			position: absolute;
+			right: 0;
+			left:    0px;
+			top:      -30px;
+			display:  none;
+			transition: all .3s;
+			padding: 8px;
+			height: 40px;
+			background: rgba(0, 0, 0, 0.65);
+		}
+
+		.video-player-toolbar {
+			position: absolute;
+			right:    10px;
+			top:      10px;
+			display:  none;
+		}
+
+		.video-border--tb {
+
+			&:after,
+			&:before {
+				position:   absolute;
+				height:     0px;
+				width:      100%;
+				display:    block;
+				content:    "";
+				left:       0;
+				right:      0;
+				background: #FFFFFF;
+			}
+
+			&:after {
+				top: -2px;
+			}
+
+			&:before {
+				bottom: -2px;
+			}
+		}
+
+		.video-border--lr {
+
+			&:after,
+			&:before {
+				position:   absolute;
+				height:     100%;
+				width:      0px;
+				display:    block;
+				content:    "";
+				top:        0;
+				bottom:     0;
+				background: #FFFFFF;
+			}
+
+			&:after {
+				left: -2px;
+			}
+
+			&:before {
+				right: -2px;
+			}
+		}
+
+		&--active {
+			.video-border--tb {
+				&:after,
+				&:before {
+					height:     3px;
+					background: #C9A60A;
+				}
+			}
+
+			.video-border--lr {
+				&:after,
+				&:before {
+					width:      3px;
+					background: #C9A60A;
+				}
+			}
+		}
+
+		&:hover {
+
+			.video-border--tb {
+				&:after,
+				&:before {
+					height:     2px;
+					background: #B6C90A;
+				}
+			}
+
+			.video-border--lr {
+				&:after,
+				&:before {
+					width:      2px;
+					background: #B6C90A;
+				}
+			}
+
+			.video-player-title{
+				display: block;
+				top: 0px;
+			}
+			.video-player-toolbar {
+				display: block;
+			}
+		}
+
+	}
+
+
+	&--mode-1 {
+	}
+
+	&--mode-4 {
+	}
+
+	&--mode-9 {
+	}
+
+
+	//::v-deep.video-wrapper .video-title {
+	//	left: 5px;
+	//	right: auto;
+	//}
+
+}

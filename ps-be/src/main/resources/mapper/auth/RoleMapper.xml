@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.module.auth.infra.persistence.mapper.RoleMapper">
+
+    <!-- 角色结果映射 -->
+    <resultMap type="com.jiuxi.module.auth.infra.persistence.entity.RolePO" id="roleMap">
+        <result property="id" column="id"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDesc" column="role_desc"/>
+        <result property="roleType" column="role_type"/>
+        <result property="status" column="status"/>
+        <result property="builtIn" column="built_in"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="dataScope" column="data_scope"/>
+        <result property="orderIndex" column="order_index"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updator" column="updator"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <!-- 插入角色 -->
+    <insert id="insert" parameterType="com.jiuxi.module.auth.infra.persistence.entity.RolePO">
+        INSERT INTO sys_role
+            (id, role_code, role_name, role_desc, role_type, status, built_in, dept_id, data_scope, order_index, creator, create_time, updator, update_time, tenant_id, deleted)
+        VALUES
+            (#{id}, #{roleCode}, #{roleName}, #{roleDesc}, #{roleType}, #{status}, #{builtIn}, #{deptId}, #{dataScope}, #{orderIndex}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{tenantId}, #{deleted})
+    </insert>
+
+    <!-- 更新角色 -->
+    <update id="updateById" parameterType="com.jiuxi.module.auth.infra.persistence.entity.RolePO">
+        UPDATE sys_role
+        <set>
+            <if test="roleCode != null and roleCode != ''">role_code = #{roleCode},</if>
+            <if test="roleName != null and roleName != ''">role_name = #{roleName},</if>
+            <if test="roleDesc != null">role_desc = #{roleDesc},</if>
+            <if test="roleType != null">role_type = #{roleType},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="builtIn != null">built_in = #{builtIn},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="dataScope != null">data_scope = #{dataScope},</if>
+            <if test="orderIndex != null">order_index = #{orderIndex},</if>
+            <if test="updator != null">updator = #{updator},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="tenantId != null">tenant_id = #{tenantId},</if>
+            deleted = #{deleted}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID查询角色 -->
+    <select id="selectById" parameterType="String" resultMap="roleMap">
+        SELECT id, role_code, role_name, role_desc, role_type, status, built_in, dept_id, data_scope, order_index, creator, create_time, updator, update_time, tenant_id, deleted
+        FROM sys_role
+        WHERE id = #{id} AND deleted = 0
+    </select>
+
+    <!-- 根据条件查询单个角色 -->
+    <select id="selectOne" parameterType="com.baomidou.mybatisplus.core.conditions.query.QueryWrapper" resultMap="roleMap">
+        SELECT id, role_code, role_name, role_desc, role_type, status, built_in, dept_id, data_scope, order_index, creator, create_time, updator, update_time, tenant_id, deleted
+        FROM sys_role
+        <where>
+            deleted = 0
+            <if test="ew != null and ew.sqlSegment != null and ew.sqlSegment != ''">
+                AND ${ew.sqlSegment}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据ID删除角色（逻辑删除） -->
+    <update id="deleteById" parameterType="String">
+        UPDATE sys_role
+        SET deleted = 1
+        WHERE id = #{id}
+    </update>
+
+</mapper>

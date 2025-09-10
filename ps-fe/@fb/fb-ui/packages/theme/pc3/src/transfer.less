@@ -1,0 +1,143 @@
+/*!
+* transfer
+* (c) 2021 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-transfer {
+
+	box-sizing:            border-box;
+	margin:                0;
+	padding:               0;
+	color:                 @--color-text-emphasize;
+	font-size:             14px;
+	font-variant:          tabular-nums;
+	line-height:           1.5;
+	list-style:            none;
+	font-feature-settings: "tnum";
+	position:              relative;
+
+	display:               flex;
+	align-items:           center;
+
+
+	.@{prefix}-transfer-list {
+		position:         relative;
+		display:          inline-block;
+		height:           200px;
+		padding-top:      40px;
+		vertical-align:   middle;
+		border:           1px solid @--card-border-color;
+		flex:             1;
+		min-width:        160px;
+
+		border-radius:    @--card-border-radius;
+		background-color: @--color-white;
+
+		&:hover,
+		&:focus {
+			box-shadow: @--box-shadow-light;
+		}
+
+		.@{prefix}-transfer-list-header {
+			position:      absolute;
+			top:           0;
+			left:          0;
+			width:         100%;
+			padding:       0 12px;
+			height:        44px;
+			line-height:   44px;
+			overflow:      hidden;
+			color:         @--color-text-emphasize;
+			background:    @--color-white;
+			border-bottom: 1px solid @--card-border-color;
+			border-radius: @--card-border-radius @--card-border-radius 0 0;
+			font-size:     0;
+
+			.@{prefix}-checkbox {
+				padding:      0;
+				font-size:    0;
+				margin-right: 4px;
+
+			}
+
+			.@{prefix}-transfer-list-header-selected {
+				vertical-align: middle;
+				font-size:      @--font-size-m;
+
+				.@{prefix}-transfer-list-header-title {
+					position: absolute;
+					right:    12px;
+				}
+			}
+
+
+		}
+
+		.@{prefix}-transfer-list-body {
+			position:   relative;
+			height:     100%;
+			font-size:  14px;
+			overflow-y: auto;
+			overflow-x: hidden;
+
+			&.@{prefix}-transfer-list-body-search {
+				padding-top: 56px;
+			}
+
+			.@{prefix}-transfer-list-content {
+				//display: block;
+				width: 100%;
+
+				.@{prefix}-checkbox {
+					width:   100%;
+					padding: 0 12px;
+
+					&:nth-of-type(even) {
+						background: #F9F9F9;
+					}
+
+					&.@{prefix}-checkbox--checked,
+					&:hover {
+						background: #E6F7FF;
+					}
+
+					&:hover {
+						padding-left: 10px;
+					}
+
+					.@{prefix}-checkbox__content {
+						overflow:            hidden;
+						white-space:         nowrap;
+						text-overflow:       ellipsis;
+					}
+
+				}
+			}
+		}
+
+		.@{prefix}-transfer-list-footer {
+		}
+
+	}
+
+	.@{prefix}-transfer-operation {
+
+		display:        inline-block;
+		margin:         0 8px;
+		//overflow:       hidden;
+		vertical-align: middle;
+
+		.@{prefix}-button {
+			display:       block;
+			margin-bottom: 4px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+	}
+
+}

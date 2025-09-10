@@ -1,0 +1,25 @@
+/*!
+* fieldset
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-form-fieldset {
+
+	.@{prefix}-form-fieldset__legend {
+		height:       22px;
+		font-size:    14px;
+		color:        #313C47;
+		line-height:  22px;
+		border-left:  2px solid #0284FE;
+		padding-left: 8px;
+		margin: 16px 0;
+	}
+
+	&:first-child {
+		.@{prefix}-form-fieldset__legend {
+			margin-top: 0;
+		}
+	}
+}

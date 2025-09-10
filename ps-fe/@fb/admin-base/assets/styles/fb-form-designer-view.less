@@ -1,0 +1,46 @@
+/*!
+* fb-form-designer
+* (c) 2021 lincong1987
+*/
+
+@import "./var.less";
+
+
+/********************************************************************************
+	view 设计器添加行
+ ********************************************************************************/
+.view-add-row {
+	margin:  8px 0;
+	border:  2px dashed @--color-white;
+	padding: 0 4px;
+
+	&__container {
+		text-align: center;
+		height:     24px;
+		opacity:    0;
+		transition: all 0.3s;
+	}
+
+	&:hover {
+
+		background-color: @--color-danger-lighter;
+		border:           2px dashed @--color-danger;
+		border-radius:    4px;
+
+		.view-add-row__container {
+			display: block;
+			opacity: 1;
+		}
+	}
+
+	&--show {
+		background-color: @--color-danger-lighter;
+		border:           2px dashed @--color-danger;
+		border-radius:    4px;
+
+		.view-add-row__container {
+			display: block;
+			opacity: 1;
+		}
+	}
+}

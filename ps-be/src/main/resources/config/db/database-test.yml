@@ -1,0 +1,46 @@
+############################################################
+#############  测试环境数据库配置
+#############  Test Database Configuration
+############################################################
+
+spring:
+  # 测试环境数据源配置
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://test-db-server:3306/ps-bmp-test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: ${DB_USERNAME:ps_test_user}
+    password: ${DB_PASSWORD:test_password}
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 200
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 测试环境禁用SQL监控界面
+      stat-view-servlet:
+        enabled: false
+
+##########################################################################
+#############  MyBatis 相关配置
+##########################################################################
+topinfo:
+  mybatis:
+    ## 数据中心（可选）
+    datacenterId: 1
+    ## 机器（可选）
+    machineId: 1
+    ## 数据源配置
+    datasource-config:
+      url: jdbc:mariadb://test-db-server:3306/ps-bmp-test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      username: ${DB_USERNAME:ps_test_user}
+      password: ${DB_PASSWORD:test_password}
+      minIdle: 10
+      maxActive: 200
+      validationQuery: SELECT 1
+    ## 租户模式（可选）
+    tenant: false
+    ## 忽略不需要添加租户条件的表, 数组（可选）
+    ignore-tenant-tables:
+      - test

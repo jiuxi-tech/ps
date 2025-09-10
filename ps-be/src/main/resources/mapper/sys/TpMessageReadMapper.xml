@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpMessageReadMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpMessageRead" id="tpMessageReadMap">
+        <result property="personId" column="PERSON_ID"/>
+        <result property="readTime" column="READ_TIME"/>
+        <result property="msgId" column="MSG_ID"/>
+        <result property="msgTitle" column="MSG_TITLE"/>
+        <result property="msgType" column="MSG_TYPE"/>
+        <result property="msgScope" column="MSG_SCOPE"/>
+        <result property="msgGroup" column="MSG_GROUP"/>
+        <result property="msgFrom" column="MSG_FROM"/>
+        <result property="msgFromName" column="MSG_FROM_NAME"/>
+        <result property="msgTo" column="MSG_TO"/>
+        <result property="msgToName" column="MSG_TO_NAME"/>
+        <result property="levelcode" column="LEVELCODE"/>
+        <result property="msgContext" column="MSG_CONTEXT"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpMessageRead">
+        INSERT INTO tp_message_read
+            (PERSON_ID, READ_TIME, MSG_ID, MSG_TITLE, MSG_TYPE, MSG_SCOPE, MSG_GROUP, MSG_FROM, MSG_FROM_NAME, MSG_TO, MSG_TO_NAME, LEVELCODE, MSG_CONTEXT, ACTIVED, EXTEND01, EXTEND02, EXTEND03, CREATE_TIME)
+        VALUES
+            (#{personId}, #{readTime}, #{msgId}, #{msgTitle}, #{msgType}, #{msgScope}, #{msgGroup}, #{msgFrom}, #{msgFromName}, #{msgTo}, #{msgToName}, #{levelcode}, #{msgContext}, #{actived}, #{extend01}, #{extend02}, #{extend03}, #{createTime})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpMessageRead">
+        UPDATE tp_message_read
+        <set>
+            <if test="null != readTime">READ_TIME = #{readTime},</if>
+            <if test="null != msgTitle">MSG_TITLE = #{msgTitle},</if>
+            <if test="null != msgType">MSG_TYPE = #{msgType},</if>
+            <if test="null != msgScope">MSG_SCOPE = #{msgScope},</if>
+            <if test="null != msgGroup">MSG_GROUP = #{msgGroup},</if>
+            <if test="null != msgFrom">MSG_FROM = #{msgFrom},</if>
+            <if test="null != msgFromName">MSG_FROM_NAME = #{msgFromName},</if>
+            <if test="null != msgTo">MSG_TO = #{msgTo},</if>
+            <if test="null != msgToName">MSG_TO_NAME = #{msgToName},</if>
+            <if test="null != levelcode">LEVELCODE = #{levelcode},</if>
+            <if test="null != msgContext">MSG_CONTEXT = #{msgContext},</if>
+            <if test="null != actived">ACTIVED = #{actived},</if>
+            <if test="null != extend01">EXTEND01 = #{extend01},</if>
+            <if test="null != extend02">EXTEND02 = #{extend02},</if>
+            <if test="null != extend03">EXTEND03 = #{extend03},</if>
+            <if test="null != createTime">CREATE_TIME = #{createTime},</if>
+        </set>
+        WHERE PERSON_ID = #{personId}
+    </update>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpMessageReadQuery"
+            resultMap="tpMessageReadMap">
+        SELECT PERSON_ID, READ_TIME, MSG_ID, MSG_TITLE, MSG_TYPE, MSG_SCOPE, MSG_GROUP, MSG_FROM, MSG_FROM_NAME, MSG_TO,
+        MSG_TO_NAME, LEVELCODE, MSG_CONTEXT, ACTIVED, EXTEND01, EXTEND02, EXTEND03, CREATE_TIME FROM tp_message_read tmr
+        WHERE
+        ACTIVED = 1 AND tmr.PERSON_ID = #{query.personId}
+        <if test="query.msgId != null and query.msgId != ''">
+            AND tmr.MSG_ID = #{query.msgId}
+        </if>
+        <if test="query.msgTitle != null and query.msgTitle != ''">
+            AND tmr.MSG_TITLE like CONCAT(#{query.msgTitle}, '%')
+        </if>
+        ORDER BY CREATE_TIME desc
+    </select>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpMessageReadVO">
+        SELECT PERSON_ID, READ_TIME, MSG_ID, MSG_TITLE, MSG_TYPE, MSG_SCOPE, MSG_GROUP, MSG_FROM, MSG_FROM_NAME, MSG_TO, MSG_TO_NAME, LEVELCODE, MSG_CONTEXT, ACTIVED, EXTEND01, EXTEND02, EXTEND03, CREATE_TIME FROM tp_message_read
+        WHERE
+        ACTIVED = 1
+        and
+        PERSON_ID = #{personId}
+        and
+        MSG_ID = #{msgId}
+    </select>
+
+    <update id="delete" parameterType="String">
+        UPDATE tp_message_read SET ACTIVED = 0 WHERE PERSON_ID = #{personId}
+    </update>
+
+</mapper>

@@ -1,0 +1,147 @@
+/*!
+* theme-cerulean-blue 青山蓝
+*/
+@import "../fb-mixins";
+
+.theme-cerulean-blue {
+	// 混入蓝色通用主题
+	.blue-theme();
+
+	// 大屏 壳子 面板== 样式
+	.screen-shell {
+		background:       url("../../../img/theme/cerulean-blue/wrapper-bg.png") no-repeat;
+		background-size:  100% 100%;
+
+		.header {
+			background: url("../../../img/theme/cerulean-blue/screen-header/header-bg.png") center no-repeat;
+		}
+
+	}
+
+	.screen-panel {
+		.screen-panel__header {
+			//background: url("../../../img/theme/cerulean-blue/screen-panel/panel-header-bg.png") no-repeat 0px 0px;
+			background: transparent;
+			background-size: 100% 100%;
+			height:     48px;
+
+			.screen-panel__header_title_lottie {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+			}
+
+			.title {
+				padding:                 8px 0px 0 46px;
+				vertical-align:          top;
+				height:                  32px;
+				font-family:             AlimamaShuHeiTi-Bold;
+				font-weight:             700;
+				font-size:               24px;
+				color:                   #FFFFFF;
+				letter-spacing:          0;
+				line-height:             32px;
+				background-image:        none;
+				-webkit-background-clip: unset;
+				-webkit-text-fill-color: #FFFFFF;
+			}
+		}
+		.screen-panel__wrapper .screen-panel__wrapper__top {
+			position:        absolute;
+			top:             0px;
+			height:          60px;
+			width:           100%;
+			background:      none;
+			background-size: 100% 100%;
+		}
+		.screen-panel__wrapper .screen-panel__wrapper__border {
+			position:         absolute;
+			height:           calc(100% - 60px);
+			width:            100%;
+			top:              60px;
+			left:             0;
+			background:       none;
+			background-image: none;
+
+			&:before, &:after {
+				display: none;
+			}
+		}
+	}
+
+
+	.jpx-dialog-header .jpx-dialog-header__actions > .jpx-icon {
+		background: url("../../../img/theme/cerulean-blue/dialog/close-bg.png") no-repeat;
+		background-size: 100% 100%;
+		border-radius: 0px;
+		border: none;
+		font-size: 0px !important;
+		color: #fff;
+		width: 24px;
+		height: 24px;
+	}
+	.jpx-dialog {
+		position: absolute;
+		background: url("../../../img/theme/cerulean-blue/dialog/top-left.png") left top no-repeat,
+					url("../../../img/theme/cerulean-blue/dialog/top-center.png") 72px top no-repeat,
+					url("../../../img/theme/cerulean-blue/dialog/top-right.png") right top no-repeat,
+					linear-gradient(90deg, #33588b 0%, #33588b 100%) left 52px no-repeat,
+					linear-gradient(90deg, rgba(29, 64, 116, 0.8) 0%, rgba(29, 64, 116, 0.8) 100%) 1px 52px no-repeat,
+					linear-gradient(90deg, #33588b 0%, #33588b 100%) right 52px no-repeat,
+					url("../../../img/theme/cerulean-blue/dialog/bottom-left.png") left bottom no-repeat,
+					url("../../../img/theme/cerulean-blue/dialog/bottom-center.png") 72px bottom no-repeat,
+					url("../../../img/theme/cerulean-blue/dialog/bottom-right.png") right bottom no-repeat;
+		background-size: 72px 52px, calc(100% - 144px) 52px, 72px 52px,
+						2px calc(100% - 72px), calc(100% - 2px) calc(100% - 72px), 2px calc(100% - 72px),
+						72px 20px, calc(100% - 144px) 20px, 72px 20px;
+		//background-color: #00175A;
+		border-radius: 0;
+		box-shadow: none;
+		border: none;
+	}
+	.jpx-dialog-header {
+		text-align: center;
+		border: none;
+	}
+	.jpx-dialog-header .jpx-dialog-header__title__main {
+		font-family: AlimamaShuHeiTi-Bold;
+		font-weight: 700;
+		font-size: 20px;
+		color: #FFFFFF;
+		position: relative;
+		padding: 13px;
+
+		&:before, &:after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 12px;
+			width: 32px;
+			height: 24px;
+		}
+		&:before {
+			left: -30px;
+			background: url("../../../img/theme/cerulean-blue/dialog/title-left.png") no-repeat;
+			background-size: 100% 100%;
+			margin: 0px;
+		}
+		&:after {
+			right: -30px;
+			background: url("../../../img/theme/cerulean-blue/dialog/title-right.png") no-repeat;
+			background-size: 100% 100%;
+		}
+	}
+}
+
+
+
+
+body.dev {
+	.jpx-container {
+		&:hover {
+			outline: 1px dashed rgba(68, 255, 0, 0.48);
+		}
+	}
+}

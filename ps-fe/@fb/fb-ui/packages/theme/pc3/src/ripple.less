@@ -1,0 +1,26 @@
+/*!
+* ripple
+* (c) 2022 lincong1987
+*/
+@import "common/var";
+
+
+
+@keyframes jpx-ripple {
+	to {
+		opacity:   0;
+		transform: scale(2.5)
+	}
+}
+
+.@{prefix}-ripple {
+	display:       block;
+	position:      absolute;
+	background:    hsla(0, 0%, 100%, .5);
+	border-radius: 100%;
+	transform:     scale(0);
+
+	&--active {
+		animation: jpx-ripple .4s linear
+	}
+}

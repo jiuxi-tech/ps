@@ -1,0 +1,19 @@
+/*!
+* theme-midnight-blue 午夜蓝
+*/
+
+@import "../fb-mixins";
+
+html.theme-midnight-blue {
+	// 混入蓝色通用主题
+	.blue-theme();
+}
+
+
+body.dev {
+	.jpx-container {
+		&:hover {
+			outline: 1px dashed rgba(68, 255, 0, 0.48);
+		}
+	}
+}

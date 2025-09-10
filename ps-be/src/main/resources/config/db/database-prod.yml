@@ -1,0 +1,59 @@
+############################################################
+#############  生产环境数据库配置
+#############  Production Database Configuration
+############################################################
+
+spring:
+  # 生产环境数据源配置
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    # 生产环境使用环境变量配置数据库连接
+    url: ${DB_URL:jdbc:mariadb://prod-db-server:3306/ps-bmp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    druid:
+      initial-size: 20
+      min-idle: 20
+      max-active: 500
+      max-wait: 60000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      # 生产环境禁用SQL监控界面
+      stat-view-servlet:
+        enabled: false
+      # 生产环境启用SQL防火墙
+      filter:
+        wall:
+          enabled: true
+          config:
+            select-allow: true
+            delete-allow: false
+            update-allow: true
+            insert-allow: true
+
+##########################################################################
+#############  MyBatis 相关配置
+##########################################################################
+topinfo:
+  mybatis:
+    ## 数据中心（可选）
+    datacenterId: ${DATACENTER_ID:0}
+    ## 机器（可选）
+    machineId: ${MACHINE_ID:0}
+    ## 数据源配置
+    datasource-config:
+      url: ${DB_URL:jdbc:mariadb://prod-db-server:3306/ps-bmp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai}
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+      minIdle: 20
+      maxActive: 500
+      validationQuery: SELECT 1
+    ## 租户模式（可选）
+    tenant: ${TENANT_MODE:false}
+    ## 忽略不需要添加租户条件的表, 数组（可选）
+    ignore-tenant-tables:
+      - test

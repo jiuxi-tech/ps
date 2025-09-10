@@ -1,0 +1,170 @@
+/*!
+* tree
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-tree {
+	width:      100%;
+	margin:     0;
+	padding:    0;
+	list-style: none;
+	border:     none;
+
+	&.@{prefix}-child-tree {
+		padding: 0 0 0 20px !important;
+	}
+
+	&-node {
+		position:    relative;
+		padding:     0;
+		outline:     0;
+		list-style:  none;
+		white-space: nowrap;
+		width:       100%;
+
+		i,
+		span,
+		input {
+			cursor:         pointer;
+			vertical-align: middle;
+		}
+
+		.@{prefix}-checkbox {
+			//padding-right: 8px;
+
+			.@{prefix}-checkbox__el {
+				margin-right: 0;
+			}
+
+			&--disabled {
+
+			}
+		}
+
+		.@{prefix}-radio {
+			//padding-right: 8px;
+
+			.@{prefix}-radio__el {
+				margin-right: 0;
+			}
+
+			&--disabled {
+
+			}
+		}
+	}
+
+	&-node-title {
+		//height:        24px;
+		//line-height:   24px;
+		//height:        30px;
+		//line-height:   30px;
+		min-height:    26px;
+		padding:       0 8px;
+		font-size:     0;
+		margin-bottom: 2px;
+		cursor:        pointer;
+		user-select:   none;
+		display:       flex;
+		align-items:   center;
+
+		&:hover,
+		&.selected {
+			background-color: #E6F7FF;
+		}
+
+		&.checked {
+			background-color: #E6F7FF;
+		}
+
+		&.disabled {
+			.@{prefix}-tree-node-text {
+				color:  @--color-text-disabled;
+				cursor: not-allowed;
+			}
+
+			&:hover,
+			&.checked,
+			&.selected {
+				.@{prefix}-tree-node-text {
+					color:  @--color-text-disabled;
+					cursor: not-allowed;
+				}
+			}
+		}
+
+		.@{prefix}-expand-null {
+			width: 0px;
+			padding-left: 21px;
+		}
+
+		.@{prefix}-expand-arrow {
+			padding-right: 8px;
+			color:         #666666;
+			width:         22px;
+		}
+
+		.@{prefix}-tree-node-title-icon {
+			margin-right: 8px;
+			color:        #666666;
+		}
+	}
+
+	&-node-text {
+		width:           100%;
+		display:         flex;
+		align-items:     center;
+		margin:          0;
+		color:           #313C47;
+		font-size:       13px;
+		text-decoration: none;
+		border-radius:   2px;
+		transition:      all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);;
+
+		&:hover,
+		&.selected {
+			background-color: #E6F7FF;
+			border-radius:    2px;
+		}
+	}
+
+
+	.loading {
+		display:        inline-block;
+		width:          22px;
+		height:         16px;
+		line-height:    16px;
+		margin-top:     2px;
+		vertical-align: middle;
+		border:         0 none;
+		cursor:         pointer;
+		outline:        none;
+	}
+
+	&.@{prefix}-tree--show-line {
+		li:not(:last-child):before {
+			position:    absolute;
+			left:        14px;
+			width:       1px;
+			height:      calc(100% - 24px);
+			margin:      28px 0 0;
+			border-left: 1px solid @--border-color-base;
+			content:     " ";
+		}
+	}
+
+	&.@{prefix}-tree--inline {
+		.@{prefix}-tree-just-data .@{prefix}-tree-node {
+			display: inline-block;
+			width:   200px;
+		}
+	}
+
+
+}
+
+
+
+

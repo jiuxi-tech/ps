@@ -1,0 +1,43 @@
+/*!
+* flip
+* (c) 2021 lincong1987
+*/
+/**************************************************************/
+/** 神奇效果 **/
+/**************************************************************/
+
+.flip-enter-active {
+    animation: flipIn 0.75s ease-in-out;
+}
+
+.flip-leave-active {
+    animation: flipOut 0.75s ease-in-out;
+}
+
+.flip-enter {
+    opacity: 1;
+}
+
+.flip-leave {
+    opacity: 1;
+}
+
+@keyframes flipIn {
+    0% {
+	opacity:   0;
+	transform: rotateY(180deg)
+    }
+    to {
+	transform: rotateY(0deg)
+    }
+}
+
+@keyframes flipOut {
+    0% {
+	transform: rotateY(0deg)
+    }
+    to {
+	opacity:   0;
+	transform: rotateY(180deg)
+    }
+}

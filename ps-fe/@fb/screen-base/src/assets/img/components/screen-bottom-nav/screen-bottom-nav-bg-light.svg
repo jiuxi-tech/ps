@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="541px" height="193px" viewBox="0 0 541 193" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>线条</title>
+    <defs>
+        <linearGradient x1="12.4328782%" y1="49.9982749%" x2="100%" y2="50.0023781%" id="linearGradient-1">
+            <stop stop-color="#F7B500" offset="0%"></stop>
+            <stop stop-color="#2667B9" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="79.2305362%" x2="76.080394%" y2="37.5267891%" id="linearGradient-2">
+            <stop stop-color="#4EA0DD" offset="0%"></stop>
+            <stop stop-color="#2667B9" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="55.6222884%" y1="0%" x2="45.7757362%" y2="93.4700107%" id="linearGradient-3">
+            <stop stop-color="#4EA0DD" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#2667B9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="45.7757362%" y1="93.4700107%" x2="55.6222884%" y2="0%" id="linearGradient-4">
+            <stop stop-color="#4EA0DD" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#2667B9" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="大屏" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-dasharray="1,2">
+        <g id="00-首页-素材" transform="translate(-690.000000, -412.000000)" stroke-width="2">
+            <g id="线条" transform="translate(960.500000, 508.250000) rotate(-90.000000) translate(-960.500000, -508.250000) translate(865.250000, 238.750000)">
+                <line x1="45.5" y1="269.5" x2="190.5" y2="270.5" id="路径-2" stroke="url(#linearGradient-1)"></line>
+                <line x1="34" y1="208" x2="156" y2="117" id="路径-2" stroke="url(#linearGradient-2)"></line>
+                <line x1="156" y1="422" x2="34" y2="331" id="路径-2" stroke="url(#linearGradient-2)"></line>
+                <line x1="2.48689958e-14" y1="167" x2="56" y2="0" id="路径-2" stroke="url(#linearGradient-3)"></line>
+                <line x1="56" y1="539" x2="5.68434189e-14" y2="372" id="路径-2" stroke="url(#linearGradient-4)"></line>
+            </g>
+        </g>
+    </g>
+</svg>

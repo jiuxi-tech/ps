@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="50px" viewBox="0 0 72 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组</title>
+    <g id="Components" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="反馈-Feedback" transform="translate(-424.000000, -2569.000000)">
+            <g id="空状态-Empty" transform="translate(120.000000, 2466.000000)">
+                <g id="空状态/暂无待办" transform="translate(294.000000, 103.000000)">
+                    <g id="空状态/暂无数据">
+                        <g id="编组" transform="translate(10.000000, 0.000000)">
+                            <ellipse id="path--inject-119" fill="#F5F5F5" fill-rule="nonzero" cx="36" cy="44" rx="36" ry="6"></ellipse>
+                            <g id="编组-2" transform="translate(17.000000, 0.000000)">
+                                <path d="M35,0 L3,0 C1.34314575,0 0,1.34314575 0,3 L0,42 C0,43.6568542 1.34314575,45 3,45 L35,45 C36.6568542,45 38,43.6568542 38,42 L38,3 C38,1.34314575 36.6568542,0 35,0 Z" id="路径" fill="#F8F8F8" fill-rule="nonzero"></path>
+                                <path d="M35,0 L3,0 C1.34314575,0 0,1.34314575 0,3 L0,42 C0,43.6568542 1.34314575,45 3,45 L35,45 C36.6568542,45 38,43.6568542 38,42 L38,3 C38,1.34314575 36.6568542,0 35,0 Z M3,2 L35,2 C35.5522847,2 36,2.44771525 36,3 L36,42 C36,42.5522847 35.5522847,43 35,43 L3,43 C2.44771525,43 2,42.5522847 2,42 L2,3 C2,2.44771525 2.44771525,2 3,2 Z" id="矩形" fill="#DDDDDD" fill-rule="nonzero"></path>
+                                <rect id="矩形" fill="#DDDDDD" x="11" y="8" width="20" height="2" rx="1"></rect>
+                                <circle id="椭圆形" fill="#D8D8D8" cx="8" cy="9" r="1"></circle>
+                                <circle id="椭圆形备份" fill="#D8D8D8" cx="8" cy="15" r="1"></circle>
+                                <circle id="椭圆形备份-2" fill="#D8D8D8" cx="8" cy="21" r="1"></circle>
+                                <rect id="矩形备份" fill="#DDDDDD" x="11" y="14" width="15" height="2" rx="1"></rect>
+                                <rect id="矩形备份-2" fill="#DDDDDD" x="11" y="20" width="17" height="2" rx="1"></rect>
+                                <path d="M30.2672065,29.3195489 C30.6430093,28.9148382 31.2757404,28.8914037 31.6804511,29.2672065 C32.0540302,29.6141014 32.1027349,30.1799175 31.8124383,30.5832294 L31.7327935,30.6804511 L25.2327935,37.6804511 C24.8579902,38.0840854 24.2353039,38.1041118 23.835512,37.7474859 L23.7474233,37.6585046 L20.2474233,33.6585046 C19.8837413,33.242868 19.9258588,32.6111054 20.3414954,32.2474233 C20.72516,31.9117168 21.2929792,31.9217803 21.6641116,32.2522245 L21.7525767,32.3414954 L24.522,35.506 L30.2672065,29.3195489 Z" id="路径-12" fill="#DDDDDD" fill-rule="nonzero"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

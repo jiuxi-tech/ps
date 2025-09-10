@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpRichtextMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpRichtext" id="tpRichtextMap">
+        <result property="txtId" column="TXT_ID"/>
+        <result property="txtType" column="TXT_TYPE"/>
+        <result property="referId" column="REFER_ID"/>
+        <result property="content" column="CONTENT"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpRichtext">
+        INSERT INTO tp_richtext
+            (TXT_ID, TXT_TYPE, REFER_ID, CONTENT)
+        VALUES
+            (#{txtId}, #{txtType}, #{referId}, #{content})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpRichtext">
+        UPDATE tp_richtext
+        <set>
+            <if test="null != content">CONTENT = #{content},</if>
+        </set>
+        WHERE REFER_ID = #{referId}
+        <if test="null != txtType and '' != txtType">and TXT_TYPE = #{txtType}</if>
+    </update>
+
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpRichtextVO">
+        SELECT TXT_ID, TXT_TYPE, REFER_ID, CONTENT FROM tp_richtext
+        WHERE
+        TXT_ID = #{txtId}
+    </select>
+
+    <select id="selectByReferId" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpRichtextVO">
+        SELECT TXT_ID, TXT_TYPE, REFER_ID, CONTENT FROM tp_richtext WHERE REFER_ID = #{referId} limit 1
+    </select>
+    <select id="selectByReferIdAndType"
+            resultType="com.jiuxi.admin.core.bean.vo.TpRichtextVO">
+        SELECT TXT_ID, TXT_TYPE, REFER_ID, CONTENT
+        FROM tp_richtext
+        WHERE REFER_ID = #{referId}
+          and TXT_TYPE = #{txtType}
+        limit 1
+    </select>
+
+    <update id="deleteByReferId" parameterType="String">
+        delete from tp_richtext WHERE REFER_ID = #{referId}
+    </update>
+    <delete id="deleteByReferIdAndType">
+        delete from tp_richtext WHERE REFER_ID = #{referId}  and TXT_TYPE = #{txtType}
+    </delete>
+</mapper>

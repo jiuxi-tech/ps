@@ -1,0 +1,56 @@
+/*!
+* base
+* (c) 2024 lincong1987
+*/
+
+.theme-base() {
+
+    --jpx-color-test:         red;
+	--jpx-color-primary-bg:   ~'hsl(hue(var(--color-primary))-10,saturation(var(--color-primary)),lightness(var(--color-primary))+45)';
+
+    background:           var(--color-primary-bg);
+
+    //Token 名称	描述	 	默认值	颜色	色板
+
+    //基础组件的圆角大小，例如按钮、输入框、卡片等；
+	--jpx-border-radius:      4px;
+    //用于派生背景色梯度的基础变量，4.0中我们添加了一层背景色的派生算法可以产出梯度明确的背景色的梯度变量。但请不要在代码中直接使用该 Base Token ；
+	--jpx-color-bg-base:      var(--color-white);
+    //品牌色是体现产品特性和传播理念最直观的视觉元素之一。在你完成品牌主色的选取之后，我们会自动帮你生成一套完整的色板，并赋予它们有效的设计语义；
+	--jpx-color-primary:      var(--color-blue-6);
+    //用于表示操作成功的 Token 序列，如消息提示、结果页等组件会使用该组梯度变量；
+	--jpx-color-success:      var(--color-green-6);
+    //用于表示操作警告的 Token 序列，如消息提示、 Alert等警告类组件或 Input 输入类等组件会使用该组梯度变量；
+	--jpx-color-warning:      var(--color-orange-6);
+    //用于表示操作失败的 Token 序列，如失败按钮、错误状态提示、结果页组件等；
+	--jpx-color-error:        var(--color-red-5);
+    //用于表示操作信息的 Token 序列，如消息提示、步骤条、标签等组件都有用到该组梯度变量；
+	--jpx-color-info:         var(--color-blue-6);
+    //控制超链接的颜色；
+	--jpx-color-link:         var(--color-blue-6);
+    //用于派生文本色梯度的基础变量，4.0中我们添加了一层文本色的派生算法可以产出梯度明确的文本色的梯度变量。但请不要在代码中直接使用该 Base Token ；
+	--jpx-color-text-base:    #000000;
+    //按钮和输入框等基础控件的高度；
+	--jpx-control-height:     30px;
+
+
+    //用于控制组件边框、分割线等的样式，默认是实线；
+	--jpx-line-type:          solid;
+    //用于控制组件边框、分割线等的宽度
+	--jpx-line-width:         1px;
+
+    //图片透明度；
+	--jpx-opacity-image:      1;
+    //组件气泡卡片箭头的尺寸
+	--jpx-size-popup-arrow:   14px;
+    //用于控制组件尺寸的基础步长，尺寸步长结合尺寸变化单位，就可以派生各种尺寸梯度。通过调整步长即可得到不同的布局模式，例如 4.0 紧凑模式下的尺寸步长为 2
+	--jpx-size-step:          4px;
+    //用于控制组件尺寸的变化单位，在 4.0 中我们的基础单位为 4 ，便于更加细致地控制尺寸梯度
+	--jpx-size-unit:          4px;
+    //用于将组件的视觉效果变为线框化
+	--jpx-wireframe:          false;
+    //所有组件的基础 Z 轴值，用于一些悬浮类的组件的可以基于该值 Z 轴控制层级，例如 BackTop、 Affix 等
+	--jpx-z-index-base:       0;
+    //浮层类组件的基础 Z 轴值，用于一些悬浮类的组件的可以基于该值 Z 轴控制层级，例如浮动按钮、弹窗等
+	--jpx-z-index-popup-base: 1000;
+}

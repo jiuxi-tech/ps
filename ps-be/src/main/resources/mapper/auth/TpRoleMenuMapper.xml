@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpRoleMenuMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpRoleMenu" id="tpRoleMenuMap">
+        <result property="roleId" column="ROLE_ID"/>
+        <result property="menuId" column="MENU_ID"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpRoleMenu">
+        INSERT INTO tp_role_menu
+            (ROLE_ID, MENU_ID)
+		VALUES
+			(#{roleId}, #{menuId})
+    </insert>
+
+    <delete id="delete" parameterType="String">
+        delete from tp_role_menu where ROLE_ID = #{roleId}
+        <if test="null != menuId and '' != menuId">and MENU_ID = #{menuId}</if>
+    </delete>
+
+</mapper>

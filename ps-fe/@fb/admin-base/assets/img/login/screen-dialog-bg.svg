@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="444px" height="565px" viewBox="0 0 444 565" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>导航菜单</title>
+    <defs>
+        <path d="M442,549 L427,564 L15,564 L0,549 L0,339.675 L6,333.675 L6,231.675 L0,226.675 L0,15 L15,0 L427,0 L442,15 L442,226.675 L436,231.675 L436,333.675 L442,339.675 L442,549 Z" id="path-1"></path>
+        <filter x="-7.2%" y="-5.7%" width="114.5%" height="111.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="32" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="0" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.196078431   0 0 0 0 0.77254902   0 0 0 0 1  0 0 0 0.3 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="大屏-政府端" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="000-登录页" transform="translate(-738.000000, -199.000000)">
+            <g id="导航菜单" transform="translate(739.000000, 200.000000)">
+                <g id="形状结合" fill="black" fill-opacity="1">
+                    <use filter="url(#filter-2)" xlink:href="#path-1"></use>
+                </g>
+                <polygon id="路径-11" fill="#04D2EC" points="442 230 438 233.014085 438 332.981221 442 337"></polygon>
+                <polygon id="路径-11备份-3" fill="#04D2EC" transform="translate(2.000000, 283.500000) scale(-1, 1) translate(-2.000000, -283.500000) " points="4 230 0 233.014085 0 332.981221 4 337"></polygon>
+                <polyline id="路径-12" stroke="#0288D1" stroke-width="2" points="29 0 15.2631579 0 0 15 0 30"></polyline>
+                <polyline id="路径-12备份" stroke="#0288D1" stroke-width="2" transform="translate(427.500000, 15.000000) scale(-1, 1) translate(-427.500000, -15.000000) " points="442 0 428.263158 0 413 15 413 30"></polyline>
+                <polyline id="路径-12备份-3" stroke="#0288D1" stroke-width="2" transform="translate(14.500000, 548.000000) scale(1, -1) translate(-14.500000, -548.000000) " points="29 533 15.2631579 533 0 548 0 563"></polyline>
+                <polyline id="路径-12备份-2" stroke="#0288D1" stroke-width="2" transform="translate(427.500000, 548.000000) scale(-1, -1) translate(-427.500000, -548.000000) " points="442 533 428.263158 533 413 548 413 563"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

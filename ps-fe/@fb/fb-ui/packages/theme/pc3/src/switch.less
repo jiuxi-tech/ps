@@ -1,0 +1,114 @@
+/*!
+* switch
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-switch {
+	position:       relative;
+	display:        inline-block;
+	min-width:      44px;
+	height:         22px;
+	line-height:    22px;
+	border-radius:  11px;
+	vertical-align: middle;
+	text-align:     left;
+	color:          #FFFFFF;
+	cursor:         pointer;
+	outline:        none;
+	transition:     @--all-transition;
+	user-select:    none;
+
+	&:focus:not(.@{prefix}-switch--disabled):not(.@{prefix}-switch--readonly) {
+		//box-shadow: 0 0 0 3px @--color-brand;
+		box-shadow: @--box-shadow-focus;
+	}
+
+	&.@{prefix}-switch--readonly {
+		cursor: default;
+
+		&.@{prefix}-switch--on {
+			opacity: 0.3;
+		}
+	}
+
+	&.@{prefix}-switch--disabled {
+		cursor: not-allowed;
+
+		&.@{prefix}-switch--on {
+			opacity: 0.3;
+		}
+	}
+
+	&.@{prefix}-switch--on {
+		background:    @--color-brand;
+		padding-left:  6px;
+		padding-right: 22px;
+
+		.@{prefix}-switch__circle {
+			top:  1px;
+			left: calc(100% - 21px);
+		}
+	}
+
+	&.@{prefix}-switch--off {
+		background:    #CCCCCC;
+		padding-left:  22px;
+		padding-right: 6px;
+
+		.@{prefix}-switch__circle {
+			top:  1px;
+			left: 1px;
+		}
+	}
+
+	.@{prefix}-switch__circle {
+		position:         absolute;
+		width:            20px;
+		height:           20px;
+		background-color: #FFFFFF;
+		border-radius:    50%;
+		transition:       @--all-transition;
+	}
+
+
+	&.@{prefix}-switch--size--m {
+	}
+
+	&.@{prefix}-switch--size--s {
+		min-width:     32px;
+		height:        16px;
+		line-height:   16px;
+		border-radius: 8px;
+
+		.@{prefix}-switch__circle {
+			width:  14px;
+			height: 14px;
+		}
+
+		&.@{prefix}-switch--on {
+			padding-left:  3px;
+			padding-right: 16px;
+
+			.@{prefix}-switch__circle {
+				top:  1px;
+				left: calc(100% - 16px);
+			}
+		}
+
+		&.@{prefix}-switch--off {
+			padding-left:  16px;
+			padding-right: 3px;
+
+			.@{prefix}-switch__circle {
+				top:  1px;
+				left: 1px;
+			}
+		}
+
+
+	}
+
+
+}

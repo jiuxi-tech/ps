@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.mapper.TpTenantMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpTenant" id="tpTenantMap">
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="tenantName" column="TENANT_NAME"/>
+        <result property="enabled" column="ENABLED"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <sql id="baseSql">
+        select
+           TENANT_ID,
+           TENANT_NAME,
+           ENABLED,
+           ACTIVED,
+           CREATE_TIME,
+           UPDATE_TIME,
+           EXTEND01,
+           EXTEND02,
+           EXTEND03
+        from tp_tenant
+    </sql>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpTenant">
+        INSERT INTO tp_tenant
+            (TENANT_ID,
+             TENANT_NAME,
+             ENABLED,
+             ACTIVED,
+             CREATE_TIME,
+             UPDATE_TIME,
+             EXTEND01,
+             EXTEND02,
+             EXTEND03)
+        VALUES
+            (#{tenantId},
+             #{tenantName},
+             #{enabled},
+             #{actived},
+             #{createTime},
+             #{updateTime},
+             #{extend01},
+             #{extend02},
+             #{extend03})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpTenant">
+        UPDATE tp_tenant
+        <set>
+            <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+            <if test="null != tenantName">TENANT_NAME = #{tenantName},</if>
+            <if test="null != enabled">ENABLED = #{enabled},</if>
+            <if test="null != actived">ACTIVED = #{actived},</if>
+            <if test="null != createTime">CREATE_TIME = #{createTime},</if>
+            <if test="null != updateTime">UPDATE_TIME = #{updateTime},</if>
+            <if test="null != extend01">EXTEND01 = #{extend01},</if>
+            <if test="null != extend02">EXTEND02 = #{extend02},</if>
+            <if test="null != extend03">EXTEND03 = #{extend03},</if>
+            UPDATEOR_TIME = #{updateorTime}
+        </set>
+        <where>
+            ID = #{id}
+        </where>
+    </update>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpTenantQuery" resultMap="tpTenantMap">
+        <include refid="baseSql"/>
+        where
+        ACTIVED = 1
+        ORDER BY CREATE_TIME desc
+    </select>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpTenantVO">
+        <include refid="baseSql"/>
+        where
+        ACTIVED = 1
+    </select>
+
+</mapper>

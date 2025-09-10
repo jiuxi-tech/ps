@@ -1,0 +1,527 @@
+/*!
+* property
+* (c) 2021 lincong1987
+*/
+
+@import "common/var";
+
+
+.@{prefix}-property {
+
+	.@{prefix}-property__header {
+
+
+		.@{prefix}-property__title {
+		}
+
+		.@{prefix}-property__actions {
+		}
+
+	}
+
+	.@{prefix}-property__body {
+
+		width:         100%;
+		overflow:      hidden;
+		border-radius: 4px;
+
+		// table dom
+		.@{prefix}-property__table {
+
+			width:        100%;
+			table-layout: fixed;
+
+
+			// tr
+			.@{prefix}-property__row {
+
+				> th,
+				> td {
+					padding-bottom: 16px;
+					word-break: break-all;
+				}
+
+				&:last-child {
+					border-bottom: none;
+
+					> th,
+					> td {
+						padding-bottom: 0;
+					}
+				}
+			}
+
+		}
+	}
+
+}
+
+
+.@{prefix}-property-item__label {
+	font-size:     13px;
+	color:         #666666;
+	//display:     inline-block;
+	display:       table;
+	table-layout:  auto;
+	float:         left;
+	padding-right: 8px;
+	height:        22px;
+	line-height:   22px;
+
+
+	//&:after {
+	//	color:    #666666;
+	//	position: relative;
+	//	margin:   0 8px 0 0;
+	//	content:  " ";
+	//}
+
+	.@{prefix}-property-item__label__colon__text {
+		display: table-cell;
+	}
+
+	.@{prefix}-property-item__label__colon__colon {
+		display: table-cell;
+		opacity: 0;
+		width:   17px;
+	}
+
+	.@{prefix}-property-item__label__label-extra {
+		display:    table-cell;
+		text-align: center;
+	}
+
+
+}
+
+.@{prefix}-property-item__content {
+	font-size:    13px;
+	color:        #313C47;
+	line-height:  22px;
+	display:      table;
+	table-layout: fixed;
+	word-break:   break-word;
+}
+
+
+// item 就是th或td
+.@{prefix}-property-item {
+
+	vertical-align: top;
+	padding-bottom: 16px;
+	display:        table;
+
+
+	&--valign-top {
+		vertical-align: top;
+	}
+
+	&--valign-middle {
+		vertical-align: middle;
+	}
+
+	&--valign-bottom {
+		vertical-align: bottom;
+	}
+
+	&:after,
+	&:before {
+		content: "";
+		display: table;
+	}
+
+	&:last-child {
+		padding-bottom: 0;
+	}
+
+	&--colon {
+
+		.@{prefix}-property-item__label__colon {
+			width:       17px;
+			text-align:  right;
+			font-family: SimSun, serif;
+			font-size:   @--font-size-m;
+			display:     table-cell;
+		}
+	}
+
+	&--label-left {
+
+		.@{prefix}-property-item__label {
+			text-align: left;
+		}
+	}
+
+	&--label-center {
+
+		.@{prefix}-property-item__label {
+			text-align: center;
+		}
+	}
+
+	&--label-right {
+
+		.@{prefix}-property-item__label {
+			text-align: right;
+		}
+	}
+
+
+	&--content-left {
+		.@{prefix}-property-item__content {
+			text-align: left;
+		}
+	}
+
+	&--content-center {
+
+		.@{prefix}-property-item__content {
+			text-align: center;
+		}
+	}
+
+	&--content-right {
+
+		.@{prefix}-property-item__content {
+			text-align: right;
+		}
+	}
+
+	&:last-child {
+		padding-bottom: 16px;
+	}
+
+
+	//	display:      table;
+	//	width:        100%;
+	//	table-layout: fixed;
+	//
+	&--content--ellipsis {
+
+		.@{prefix}-property-item__content {
+			overflow:      hidden;
+			text-overflow: ellipsis;
+			white-space:   nowrap;
+			word-break:    normal;
+		}
+	}
+
+	//
+
+
+	//&:last-child {
+	//	padding-bottom: 16px;
+	//}
+
+
+	//&.@{prefix}-property-item--content--ellipsis {
+	//
+	//	background-color: red;
+	//
+	//	.@{prefix}-property-item__content {
+	//		overflow:      hidden;
+	//		text-overflow: ellipsis;
+	//		white-space:   nowrap;
+	//		word-break:    normal;
+	//	}
+	//}
+
+
+}
+
+
+td.@{prefix}-property-item {
+	display: table-cell;
+}
+
+
+.@{prefix}-property--form {
+
+	//.@{prefix}-property-item__label {
+	//	display: table-cell;
+	//	//word-break: break-all;
+	//}
+	//
+	//.@{prefix}-property-item__content {
+	//	display: table-cell;
+	//	//word-break: break-all;
+	//}
+	//
+
+
+	// 处理 form 模式下 最后一行的内边距
+	.@{prefix}-property__body {
+		> .@{prefix}-row {
+			&:last-child {
+
+				.@{prefix}-property-item {
+					&:last-child {
+						padding-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+
+}
+
+.@{prefix}-property--table {
+
+	//.@{prefix}-property-item__label {
+	//	display: table-cell;
+	//	//word-break: break-all;
+	//}
+	//
+	//.@{prefix}-property-item__content {
+	//	display: table-cell;
+	//	//word-break: break-all;
+	//}
+	//
+
+
+	// 处理 table 模式下 最后一行的内边距
+	.@{prefix}-property__body {
+		> .@{prefix}-row {
+			//&:last-child {
+
+			.@{prefix}-property-item {
+				//&:last-child {
+				padding-bottom: 0;
+				//}
+			}
+
+			//}
+		}
+	}
+
+
+}
+
+
+.@{prefix}-property--bordered {
+	table-layout: auto;
+
+
+	.@{prefix}-property-item__label {
+		font-size:      13px;
+		vertical-align: middle;
+		background:     #F9F9F9;
+		padding:        9px 10px;
+	}
+
+	.@{prefix}-property-item__content {
+		font-size:      13px;
+		vertical-align: middle;
+		background:     #FFFFFF;
+		padding:        9px 10px;
+	}
+
+	.@{prefix}-property__body .@{prefix}-property__table {
+	}
+
+	.@{prefix}-property__body {
+		border-radius: 0;
+	}
+
+	.@{prefix}-property__body .@{prefix}-property__table .@{prefix}-property__row > th,
+	.@{prefix}-property__body .@{prefix}-property__table .@{prefix}-property__row > td {
+		padding: 0;
+		border:  1px solid #E8E8E8;
+
+		.@{prefix}-property-item__label {
+			padding:        9px 10px;
+			float:          none;
+			display:        table-cell;
+			border-right:   1px solid #E8E8E8;
+			vertical-align: top;
+		}
+
+		.@{prefix}-property-item__content {
+			padding:        9px 10px;
+			text-align:     left;
+			display:        table-cell;
+			vertical-align: top;
+		}
+	}
+
+
+	// 处理 table 模式下 最后一行的内边距
+	.@{prefix}-property__body {
+		> .@{prefix}-row {
+			display:      table;
+			width:        100%;
+			table-layout: fixed;
+
+			&:before,
+			&:after {
+				display:    none;
+				width:      0;
+				clear:      none;
+				visibility: hidden;
+				font-size:  0;
+				height:     auto;
+			}
+
+			.@{prefix}-property-item {
+				padding-bottom: 0;
+				border:         1px solid #E8E8E8;
+				border-bottom:  none;
+				border-right:   none;
+
+				display:        table;
+				width:          100%;
+				height:         100%;
+				table-layout:   auto;
+
+				&:before,
+				&:after {
+					display: table-cell;
+					width:   0;
+				}
+
+				.@{prefix}-property-item__label {
+
+					display:        table-cell;
+					position:       relative;
+					border-right:   1px solid #E8E8E8;
+					float:          none;
+					vertical-align: top;
+
+				}
+
+				.@{prefix}-property-item__content {
+					display:        table-cell;
+					vertical-align: top;
+
+				}
+
+				&:last-child {
+					//	border-bottom: 1px solid red;
+				}
+			}
+
+			> .@{prefix}-col {
+				display:        table-cell;
+				height:         100%;
+				vertical-align: top;
+
+				//&:after {
+				//	clear:   both;
+				//	content: "";
+				//}
+
+				float:          none;
+
+				&:before,
+				&:after {
+					content: "";
+					display: table-cell;
+					width:   0;
+				}
+
+
+				&:last-child {
+
+					.@{prefix}-property-item {
+						border-right: 1px solid #E8E8E8;
+					}
+				}
+			}
+
+			&:last-child {
+				.@{prefix}-property-item {
+					border-bottom: 1px solid #E8E8E8;
+				}
+			}
+
+
+			& + .@{prefix}-row--property-fieldset {
+				border-top: 1px solid #E8E8E8;
+
+				> .@{prefix}-col {
+					> .@{prefix}-form-fieldset {
+						&:first-child {
+							margin: 16px 0;
+						}
+					}
+				}
+			}
+
+		}
+
+
+	}
+
+
+}
+
+
+.@{prefix}-property--s {
+	.@{prefix}-property--bordered {
+		.@{prefix}-property-item__label {
+			padding: 4px 6px;
+		}
+
+		.@{prefix}-property-item__content {
+			padding: 4px 6px;
+		}
+
+		.@{prefix}-property__body .@{prefix}-property__table .@{prefix}-property__row > th,
+		.@{prefix}-property__body .@{prefix}-property__table .@{prefix}-property__row > td {
+
+			.@{prefix}-property-item__label {
+				padding: 4px 6px;
+			}
+
+			.@{prefix}-property-item__content {
+				padding: 4px 6px;
+			}
+		}
+
+		// 处理 table 模式下 最后一行的内边距
+		.@{prefix}-property__body {
+			> .@{prefix}-row {
+				& + .@{prefix}-row--property-fieldset {
+
+					> .@{prefix}-col {
+						> .@{prefix}-form-fieldset {
+							&:first-child {
+								margin: 8px 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.@{prefix}-property--l {
+}
+
+// 兼容 Safari 浏览器
+// Safari 下有个问题 table-layout: fixed; 时，样式异常。
+//@media screen and (min-color-index: 0) and (-webkit-min-device-pixel-ratio: 0) {
+//
+//	.xxx {
+//		color: red
+//	}
+//
+//
+//	.@{prefix}-property--bordered {
+//
+//		// 处理 table 模式下 最后一行的内边距
+//		.@{prefix}-property__body {
+//			> .@{prefix}-row {
+//				table-layout: auto;
+//
+//
+//				.@{prefix}-property-item {
+//					table-layout: auto;
+//					border:       1px solid red;
+//				}
+//			}
+//
+//		}
+//	}
+//}

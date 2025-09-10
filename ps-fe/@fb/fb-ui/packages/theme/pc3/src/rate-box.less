@@ -1,0 +1,84 @@
+/*!
+* rate-box 业务组件
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-rate-box {
+	>div {
+		float: left;
+	}
+
+	&.clearfix {
+		&:after {
+			content: '';
+			display: block;
+			clear: both;
+			height: 0;
+			overflow: hidden;
+			visibility: hidden;
+		}
+	}
+
+
+	&-left {
+		width: 60px;
+		height: 60px;
+		line-height: 60px;
+		background: #FC9C3B;
+		border-radius: 4px;
+		font-size: 20px;
+		font-family: MicrosoftYaHeiSemibold;
+		color: #FFFFFF;
+		text-align: center;
+		margin-right: 16px;
+	}
+
+	&-right {
+		font-weight: 700;
+		width: calc(100% - 76px);
+		height: 37px;
+
+		>div {
+			overflow: auto;
+			white-space: nowrap;
+
+			&.ellipsis {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+
+		>div:first-child {
+			margin-top: 3px;
+			margin-bottom: 7px;
+
+		}
+		>div:last-child {
+			font-size: 18px;
+		}
+	}
+
+
+	&.@{prefix}-rate-box_nums {
+		.@{prefix}-rate-box-left {
+			width: 54px;
+			height: 65px;
+			background: #FC9C3B;
+			border-radius: 0px 0px 4px 4px;
+			font-size: 16px;
+			font-family: MicrosoftYaHeiSemibold;
+			color: #FFFFFF;
+			line-height: 32px;
+			margin-right: 12px;
+
+			>div:first-child {
+				border-bottom: 1px dotted #fff;
+			}
+		}
+	}
+}
+
+

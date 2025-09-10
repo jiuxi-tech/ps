@@ -1,0 +1,28 @@
+.ranking-bar-list {
+	font-size: 16px;
+
+	.ranking-list-item {
+		align-items: center;
+		&.active {
+			background: #1858CE;
+			border-radius: 4px;
+		}
+		&.ranking-list-item_click {
+			cursor: pointer;
+		}
+	}
+
+	.ranking-list-label {
+		/* 规定当内容溢出元素框（容器）时隐藏 */
+		overflow: hidden;
+		/* 规定当文本溢出包含元素（容器）出现省略号 */
+		text-overflow: ellipsis;
+		/* 规定段落中的文本不进行换行 */
+		white-space: nowrap;
+		line-height: 30px;
+
+		&.active {
+			color: #52FFFD;
+		}
+	}
+}

@@ -1,0 +1,257 @@
+@import "../common.less";
+
+
+.login-wrapper {
+	position: relative;
+	/*top: 0;*/
+	/*left: 0;*/
+	width: 1920px;
+	height: 1080px;
+	background: linear-gradient(180deg, #031952 0%, #051F59 100%);
+	overflow: hidden;
+	z-index: 1;
+	transform-origin: top left;
+
+	&::after {
+		content: "";
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		background-image: url("../../img/login/screen-bg-dark.png");
+		background-size: cover;
+		background-position: 50% 50%;
+	}
+
+	.login-header {
+		position: absolute;
+		width: 100%;
+		height: 90px;
+		background: url("../../img/login/screen-header-bg.png") no-repeat center center;
+		//background: url(~"/assets/img/screen-header-bg.png") no-repeat center center;
+		background-size: 100% 100%;
+		z-index: 9;
+
+		.@{FbUiPrefix}-datetime {
+			position: absolute;
+			top: 10px;
+			left: 20px;
+			font-size: 16px;
+			color: #fff;
+		}
+	}
+
+	.login-logo {
+		position: absolute;
+		top: 19px;
+		left: 50%;
+		transform: translateX(-50%);
+		//width:           826px;
+		width: 100%;
+		height: 59px;
+		/*background:      url("../~@fb/admin-base/src/assets/img/login/screen-header-logo.png") no-repeat center top;*/
+		z-index: 9;
+	}
+
+	::v-deep .login-dialog {
+		.loginCardCom();
+
+		height: 454px;
+		background: url("../../img/login/screen-dialog-bg.svg") no-repeat;
+		background-size: 100% 100%;
+
+
+		.login-form {
+
+
+			padding: 0 24px;
+
+
+			.@{FbUiPrefix}-form-item {
+				padding-bottom: 24px;
+			}
+
+			&__caption {
+				margin-bottom: 56px;
+				font-size: 32px;
+				color: #00DFFF;
+				line-height: 32px;
+				padding-top: 61px;
+			}
+
+			.@{FbUiPrefix}-input.@{FbUiPrefix}-input--l .@{FbUiPrefix}-input__content .@{FbUiPrefix}-input__el {
+				border: 1px solid #63A1FE;
+				background: transparent;
+				color: #00D9FA;
+			}
+
+			.@{FbUiPrefix}-input .@{FbUiPrefix}-input__content .@{FbUiPrefix}-input__prepend-icon {
+				color: #00D9FA;
+			}
+
+			.@{FbUiPrefix}-input .@{FbUiPrefix}-input__content .@{FbUiPrefix}-input__icon {
+				color: #00D9FA;
+			}
+
+			.@{FbUiPrefix}-input.@{FbUiPrefix}-input--l .@{FbUiPrefix}-input__content .@{FbUiPrefix}-input__el::-webkit-input-placeholder {
+				color: #00D9FA;
+			}
+
+			.@{FbUiPrefix}-button.@{FbUiPrefix}-button--primary {
+				background: linear-gradient(90deg, #3B51FF, #588AFF);
+				height: 40px;
+				border: none;
+			}
+		}
+
+		.login-card-bottom {
+			background: rgba(50, 197, 255, 0.1);
+			left: 2px;
+			width: 355px;
+			border-radius: 0 0 10px 10px;
+
+			.login-card-bottom-left span {
+				color: #fff
+			}
+
+			.jpx-icon {
+				color: #52FFFD;
+			}
+
+			.login-card-bottom-right .jpx-link-item .jpx-link.jpx-link--primary {
+				color: #52FFFD;
+			}
+		}
+
+		.appdown-card {
+			background: transparent;
+			box-shadow: none;
+			h1 {
+				color: #52FFFD;
+				font-size: 32px;
+			}
+
+			.login-code .login-scan-code .login-scan-code--img {
+				background: transparent;
+			}
+
+			.login-code {
+				color: #fff;
+
+				.login-scan-code {
+					border: none;
+				}
+			}
+		}
+	}
+}
+
+.login-dialog, .login-forget {
+	position: absolute;
+	top: 40.2%;
+	left: 50%;
+	margin-top: -(422px * 0.382);
+	transform: translateX(-50%);
+	z-index: 100;
+}
+.login-dialog {
+	margin-left: -180px;
+	transform: none;
+}
+
+.login-register {
+	position: absolute;
+	top: 198px;
+	left: 50%;
+	margin-left: -(1000px / 2);
+	width: 1000px;
+	height: 544px;
+	background: #FFFFFF;
+	box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+	z-index: 9;
+}
+
+.register-btn {
+	float: right;
+}
+
+
+@media screen and (max-height: 720px) {
+
+	.login-dialog {
+		top: 50%;
+		margin-top: -(422px * 0.5);
+	}
+}
+
+
+.fb-form-item {
+	padding-bottom: 24px;
+}
+
+.login-footer {
+	position: absolute;
+	width: 660px;
+	height: 44px;
+	bottom: 30px;
+	left: 50%;
+	margin-left: -(660px/2);
+	z-index: 10;
+
+	p {
+		text-align: center;
+		color: #fff;
+		margin: 0;
+	}
+}
+
+.bottom-map {
+	position: absolute;
+	left: 177px;
+	top: 556px;
+	width: 1553px;
+	height: 698px;
+	background: url("../../img/login/screen-bottom-map.png") no-repeat;
+	z-index: 1;
+}
+
+.nav-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	background: url("../../img/login/nav-bg.png") no-repeat;
+	background-size: 100% 100%;
+	transition: all .3s;
+	cursor: pointer;
+	color: #fff;
+	font-weight: 700;
+	font-size: 22px;
+
+	&:hover {
+		background: url("../../img/login/nav-bg-hover.png") no-repeat;
+		background-size: 100% 100%;
+	}
+}
+
+.bg-line {
+	position: absolute;
+	top: -112px;
+	width: 1920px;
+	height: 1920px;
+	z-index: 1;
+	background: url("../../img/login/bg-line.png") no-repeat center;
+	background-size: cover;
+	animation: line-circle 10s infinite linear;
+	transform: rotateX(80deg);
+}
+
+
+@keyframes line-circle {
+	from {
+		transform: rotateX(80deg) rotateZ(0deg);
+	}
+	to {
+		transform: rotateX(80deg) rotateZ(360deg);
+	}
+}

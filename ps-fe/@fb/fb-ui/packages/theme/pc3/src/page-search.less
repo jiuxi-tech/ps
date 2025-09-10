@@ -1,0 +1,65 @@
+/*!
+* fb-page-search
+* (c) 2020 lincong1987
+*/
+@import "common/var";
+
+.@{prefix}-page-search {
+	height:     100%;
+	width:      100%;
+	position:   relative;
+	background: #F0EFF5;
+	padding:    8px;
+
+	.@{prefix}-page-search__query-panel {
+		background:    #FFFFFF;
+		border-radius: 4px;
+		padding:       0 8px;
+	}
+
+	.@{prefix}-page-search__list-panel {
+		margin-top:    8px;
+		background:    #FFFFFF;
+		border-radius: 4px;
+		padding:       0 8px;
+	}
+
+	.@{prefix}-page-search__list-panel__header {
+		position: relative;
+		height:   52px;
+
+		.@{prefix}-page-search__list-panel__header__buttons {
+			position: absolute;
+			top:      0;
+			left:     0;
+			height:   52px;
+			padding:  12px 0;
+
+			> .@{prefix}-button {
+				margin-right: 8px;
+			}
+		}
+
+		.@{prefix}-page-search__list-panel__header__actions {
+			position: absolute;
+			top:      0;
+			right:    0;
+			height:   52px;
+			padding:  12px 0;
+
+			> .@{prefix}-button {
+				margin-left: 8px;
+			}
+		}
+	}
+
+	.@{prefix}-page-search__list-panel__table {
+		min-height: 100px;
+	}
+
+	.@{prefix}-page-search__list-panel__pager {
+		text-align: right;
+		padding:    12px 0;
+	}
+
+}

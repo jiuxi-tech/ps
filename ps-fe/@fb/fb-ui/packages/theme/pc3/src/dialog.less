@@ -1,0 +1,239 @@
+/*!
+* dialog
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-dialog-open {
+	overflow: hidden;
+}
+
+.@{prefix}-dialog-open .@{prefix}-dialog-wrapper {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.@{prefix}-dialog-wrapper {
+	position:                   fixed;
+	top:                        0;
+	right:                      0;
+	bottom:                     0;
+	left:                       0;
+	background-color:           transparent;
+	overflow:                   hidden;
+	outline:                    0;
+	-webkit-overflow-scrolling: touch;
+	z-index:                    @--index-dialog;
+
+	&.scroll {
+		text-align: center;
+
+		.@{prefix}-dialog {
+			text-align: left;
+			position:   absolute;
+			display:    inline-block;
+			left:       0;
+			top:        0;
+			margin:     25px auto;
+			//transform:  translate(0, 0);
+		}
+	}
+
+
+	&.lock {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+}
+
+.@{prefix}-dialog {
+	//position:         relative;
+	position:         absolute;
+	background-color: @--color-white;
+	background-clip:  padding-box;
+	box-shadow:       0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+	border-radius:    4px;
+	//animation:        showDialog 0.4s ease-in-out;
+	//
+	//transform:        translateX(-50%) translateY(-50%);
+	//transform-origin: center center;
+
+	//transition: all 0.3s ease-in-out;
+
+
+	transition:       all 0.46s ease-in-out 0s;
+
+	&.@{prefix}-dialog--no-padding {
+		.@{prefix}-dialog-body {
+			padding: 0;
+		}
+	}
+
+}
+
+.@{prefix}-dialog-header {
+	border-bottom: 1px solid #E8E8E8;
+	height:        44px;
+	line-height:   44px;
+	position:      relative;
+
+	.@{prefix}-dialog-header__title {
+		width:    100%;
+		position: absolute;
+
+		&__main {
+			display:     inline-block;
+			padding:     10px 16px;
+			line-height: 21px;
+			font-size:   16px;
+			color:       #313C47;
+		}
+
+		&__sub {
+			font-size: 13px;
+			color:     #E8E8E8;
+		}
+
+
+	}
+
+	.@{prefix}-dialog-header__actions {
+
+		position: absolute;
+		right:    0;
+
+
+		> .@{prefix}-icon {
+			font-size: 16px;
+			color:     #666666;
+			cursor:    pointer;
+			padding:   10px 16px;
+		}
+
+	}
+}
+
+
+.@{prefix}-dialog-body {
+	position: relative;
+	padding:  16px;
+}
+
+
+.@{prefix}-dialog-footer {
+	height:      48px;
+	line-height: 48px;
+	border-top:  1px solid #E8E8E8;
+	position:    relative;
+
+	.@{prefix}-dialog-footer__left {
+		position: absolute;
+		padding:  0 16px;
+
+		> .@{prefix}-button {
+			margin-right: 8px;
+		}
+	}
+
+	.@{prefix}-dialog-footer__center {
+		position:   absolute;
+		text-align: center;
+		padding:    0 16px;
+
+		> .@{prefix}-button {
+			margin: 0 4px;
+		}
+	}
+
+	.@{prefix}-dialog-footer__right {
+		position: absolute;
+		right:    0;
+		padding:  0 16px;
+
+		> .@{prefix}-button {
+			margin-left: 8px;
+		}
+	}
+}
+
+
+.@{prefix}-dialog-wrapper {
+	&.full-screen {
+		.@{prefix}-dialog {
+			top:              0;
+			right:            0;
+			bottom:           0;
+			left:             0;
+			width:            100%;
+			height:           100%;
+			min-height:       300px;
+			margin:           0;
+			position:         fixed;
+			transform-origin: center center;
+			//animation:        showFullscreen 0.3s;
+			transition:       all 0.46s ease-in-out;
+
+			.@{prefix}-dialog-height {
+
+			}
+
+			.@{prefix}-dialog-body {
+				overflow: auto;
+				height:   ~'calc(100% - 100px)';
+			}
+
+			.@{prefix}-dialog-footer {
+				position:   absolute;
+				bottom:     0;
+				left:       0;
+				width:      100%;
+				background: @--color-white;
+			}
+
+		}
+	}
+
+}
+
+
+@keyframes showDialog {
+	0% {
+		transform:        translateX(0) translateY(0) scale(0);
+		transform-origin: center center;
+	}
+
+	100% {
+		transform:        translateX(-50%) translateY(-50%) scale(1);
+		transform-origin: center center;
+	}
+}
+
+
+@keyframes showFullscreen {
+	0% {
+		transform:        translateX(-50%) translateY(-50%);
+		transform-origin: left center;
+		left:             50%;
+		top:              38.2%;
+		right:            0;
+		bottom:           0;
+		width:            100%;
+		min-height:       300px;
+		margin:           0;
+		height:           100%;
+		position:         fixed;
+	}
+	100% {
+		transform:        translateX(0) translateY(0);
+		transform-origin: left center;
+		top:              0;
+		right:            0;
+		bottom:           0;
+		left:             0;
+		width:            100%;
+		min-height:       300px;
+		margin:           0;
+		height:           100%;
+		position:         fixed;
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"base":  {},
+	"light": {
+
+	},
+	"dark":  {},
+	
+	"components": {
+		"button": {
+			"light": {
+
+			},
+			"dark":  {}
+		}
+	}
+}

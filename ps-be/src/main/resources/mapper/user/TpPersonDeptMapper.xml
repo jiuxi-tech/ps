@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpPersonDeptMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpPersonDept" id="tpPersonDeptMap">
+        <result property="personId" column="PERSON_ID"/>
+        <result property="deptId" column="DEPT_ID"/>
+        <result property="defaultDept" column="DEFAULT_DEPT"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpPersonDept">
+        INSERT INTO tp_person_dept
+            (DEPT_ID, PERSON_ID, DEFAULT_DEPT)
+		VALUES
+			(#{deptId}, #{personId}, #{defaultDept})
+    </insert>
+
+    <select id="select" resultType="com.jiuxi.admin.core.bean.vo.TpPersonDeptVO">
+        select DEPT_ID, PERSON_ID, DEFAULT_DEPT from tp_person_dept
+        <where>
+            <if test="'' != deptId and null != deptId">and DEPT_ID = #{deptId}</if>
+            <if test="'' != personId and null != personId">and PERSON_ID = #{personId}</if>
+            <if test="null != defaultDept">and DEFAULT_DEPT = #{defaultDept}</if>
+        </where>
+    </select>
+
+    <select id="selectByDeptIdAndPersonId" resultType="Integer">
+        select DEFAULT_DEPT from tp_person_dept where DEPT_ID = #{deptId} and PERSON_ID = #{personId}
+    </select>
+
+     <!--    根据人员id删除部门 -->
+    <delete id="deleteByPersonId">
+        DELETE FROM tp_person_dept
+        where PERSON_ID = #{personId}
+          and DEFAULT_DEPT = #{defaultDept}
+    </delete>
+<!--    根据部门id和人员id删除部门 -->
+    <delete id="deleteByDeptIdPersonId">
+        DELETE FROM tp_person_dept
+        where DEPT_ID = #{deptId}
+          and PERSON_ID = #{personId}
+    </delete>
+<!-- 物理删除，比如取消兼职部门的时候 -->
+    <delete id="delete">
+        delete from tp_person_dept
+        where DEPT_ID = #{deptId}
+          and PERSON_ID = #{personId}
+          and DEFAULT_DEPT = #{defaultDept}
+    </delete>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpPersonDept">
+        update tp_person_dept
+        set DEPT_ID = #{deptId}
+        where
+            PERSON_ID = #{personId}
+        and
+            DEFAULT_DEPT = #{defaultDept}
+    </update>
+
+</mapper>

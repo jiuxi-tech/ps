@@ -1,0 +1,19 @@
+@import "common/var";
+//@import "mixins/mixins";
+
+.hidden {
+ 
+
+       each(@--breakpoints-spec, {
+  
+         
+         &-@{key}  {
+           @media only screen and @key {
+                    @value;
+           }
+         }
+         
+  
+       });
+  
+}

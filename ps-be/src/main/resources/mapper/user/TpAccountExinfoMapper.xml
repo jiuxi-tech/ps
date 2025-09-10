@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpAccountExinfoMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpAccountExinfo" id="tpAccountExinfoMap">
+        <result property="accountId" column="ACCOUNT_ID"/>
+        <result property="errCount" column="ERR_COUNT"/>
+        <result property="lastErrTime" column="LAST_ERR_TIME"/>
+        <result property="lastLoginTime" column="LAST_LOGIN_TIME"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+
+</mapper>

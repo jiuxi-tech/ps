@@ -1,0 +1,51 @@
+/*!
+* loading-bar
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-loading-bar-wrapper {
+	position: fixed;
+	left:     0;
+	right:    0;
+	top:      0;
+	z-index:  @--index-loading-bar;
+
+	.@{prefix}-loading-bar {
+
+		height: 2px;
+
+		.@{prefix}-loading-bar__process {
+			width:      0;
+			transition: width .3s
+		}
+
+		&--info {
+			.@{prefix}-loading-bar__process {
+				background: @--color-info;
+			}
+		}
+		&--success {
+			.@{prefix}-loading-bar__process {
+				background: @--color-success;
+			}
+		}
+		&--danger {
+			.@{prefix}-loading-bar__process {
+				background: @--color-danger;
+			}
+		}
+		&--warning {
+			.@{prefix}-loading-bar__process {
+				background: @--color-warning;
+			}
+		}
+		&--primary {
+			.@{prefix}-loading-bar__process {
+				background: @--color-brand;
+			}
+		}
+
+	}
+}

@@ -1,0 +1,240 @@
+/*!
+* steps
+* (c) 2021 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-steps {
+
+	font-size:   0;
+	line-height: 1.5;
+
+	.@{prefix}-step {
+		position:       relative;
+		display:        inline-block;
+		vertical-align: top;
+		margin:         0;
+		padding:        0;
+
+		.@{prefix}-step__line {
+			position: absolute;
+			left:     0;
+			top:      12px;
+			width:    100%;
+			padding:  0 10px;
+
+			i {
+				position:       relative;
+				display:        inline-block;
+				width:          100%;
+				height:         1px;
+				vertical-align: top;
+				background:     #E8E8E8;
+				border-radius:  1px;
+			}
+		}
+
+
+		.@{prefix}-step-header-wrapper {
+			position:         relative;
+			display:          inline-block;
+			vertical-align:   top;
+			background-color: #FFFFFF;
+			font-size:        @--font-size-m;
+			cursor:        pointer;
+			.@{prefix}-step-header {
+				width:         24px;
+				height:        24px;
+				line-height:   23px;
+				text-align:    center;
+				margin-right:  6px;
+				border-radius: 100%;
+				border:        1px solid @--color-brand;
+				transition:    background-color 0.2s ease-in-out;
+
+
+				.@{prefix}-step-header__icon {
+					display:   inline-block;
+					font-size: @--size-px-14;
+				}
+			}
+		}
+
+		.@{prefix}-step-body {
+			position:         relative;
+			display:          inline;
+			vertical-align:   top;
+			background-color: #FFFFFF;
+			cursor:           pointer;
+
+
+			.@{prefix}-step-label {
+				display:          inline-block;
+				height:           24px;
+				line-height:      24px;
+				padding-right:    6px;
+				font-size:        @--font-size-l;
+				color:            #313C47;
+				background-color: #FFFFFF;
+			}
+
+			.@{prefix}-step-description {
+				color:       #8F8E94;
+				padding:     0 0 10px 0;
+				margin-left: 32px;
+				font-size:   @--font-size-m;
+			}
+
+
+		}
+
+
+		// ready, doing, done, wait, error
+
+
+		&.@{prefix}-step--done {
+			.ui-step-line {
+				i {
+					background-color: @--color-brand;
+				}
+			}
+
+			.@{prefix}-step-header-wrapper .@{prefix}-step-header .@{prefix}-step-header__icon {
+				color: @--color-brand;
+			}
+
+			.@{prefix}-step-body {
+				color: #999999;
+			}
+		}
+
+
+		&.@{prefix}-step--doing {
+			.ui-step-line {
+				i {
+					background-color: @--color-brand;
+				}
+			}
+
+			.@{prefix}-step-header-wrapper .@{prefix}-step-header {
+				border-color:     @--color-brand;
+				background-color: @--color-brand;
+				color:            #FFFFFF;
+			}
+
+			.@{prefix}-step-body {
+
+				.@{prefix}-step-label {
+					color: @--color-brand;
+				}
+
+				.@{prefix}-step-description {
+					color: #313C47;
+				}
+			}
+		}
+
+		&.@{prefix}-step--ready {
+			.@{prefix}-step-header-wrapper .@{prefix}-step-header {
+				border-color: #CCCCCC;
+				color:        #999999;
+			}
+
+			.@{prefix}-step-body {
+				color: #999999;
+			}
+		}
+
+
+		&.@{prefix}-step--wait {
+			.@{prefix}-step-header-wrapper .@{prefix}-step-header {
+				border-color: #CCCCCC;
+				color:        #999999;
+			}
+
+			.@{prefix}-step-body {
+				color: #999999;
+			}
+		}
+
+		&.@{prefix}-step--error {
+			.@{prefix}-step-header-wrapper .@{prefix}-step-header {
+				border-color: #CCCCCC;
+				color:        #999999;
+			}
+
+			.@{prefix}-step-body {
+				color: #999999;
+			}
+		}
+
+	}
+
+
+	&--vertical {
+
+		.@{prefix}-step {
+			display: block;
+
+			.@{prefix}-step__line {
+				left:    12px;
+				top:     30px;
+				width:   0;
+				height:  auto;
+				bottom:  10px;
+				padding: 0;
+
+				i {
+					width:  1px;
+					height: 100%;
+				}
+			}
+
+			.@{prefix}-step-description {
+				padding: 5px 0 20px 0;
+			}
+		}
+	}
+
+
+	&--size-s {
+
+		.@{prefix}-step {
+			.@{prefix}-step__line {
+				top:     9px;
+				padding: 0 5px;
+			}
+
+			.@{prefix}-step-header-wrapper .@{prefix}-step-header {
+				width:        18px;
+				height:       18px;
+				line-height:  17px;
+				margin-right: 5px;
+
+				.@{prefix}-step-header__icon {
+					transform: scale(0.7) rotate(0deg);
+				}
+			}
+
+
+			.@{prefix}-step-body {
+				.@{prefix}-step-label {
+					height:        18px;
+					line-height:   18px;
+					padding-right: 5px;
+					font-size:     @--font-size-m;
+				}
+
+				.@{prefix}-step-description {
+					display: none;
+				}
+			}
+
+
+		}
+
+	}
+
+
+}

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpTimeRuleMapper">
+
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpTimeRule" id="tpTimeRuleMap">
+        <result property="id" column="ID"/>
+        <result property="ruleName" column="RULE_NAME"/>
+        <result property="startTime" column="START_TIME"/>
+        <result property="endTime" column="END_TIME"/>
+        <result property="status" column="STATUS"/>
+        <result property="allowLogin" column="ALLOW_LOGIN"/>
+        <result property="roleIds" column="ROLE_IDS"/>
+        <result property="roleNames" column="ROLE_NAMES"/>
+        <result property="userIds" column="USER_IDS"/>
+        <result property="userNames" column="USER_NAMES"/>
+        <result property="creatorId" column="CREATOR_ID"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="modifierId" column="MODIFIER_ID"/>
+        <result property="modifyTime" column="MODIFY_TIME"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="institutionId" column="ASCN_ID"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="logDelete" column="LOG_DELETE"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+        <result property="extend04" column="EXTEND04"/>
+        <result property="extend05" column="EXTEND05"/>
+    </resultMap>
+
+    <resultMap type="com.jiuxi.admin.core.bean.vo.TpTimeRuleVO" id="tpTimeRuleVOMap">
+        <result property="id" column="ID"/>
+        <result property="ruleName" column="RULE_NAME"/>
+        <result property="startTime" column="START_TIME"/>
+        <result property="endTime" column="END_TIME"/>
+        <result property="status" column="STATUS"/>
+        <result property="allowLogin" column="ALLOW_LOGIN"/>
+        <result property="roleIds" column="ROLE_IDS"/>
+        <result property="roleNames" column="ROLE_NAMES"/>
+        <result property="userIds" column="USER_IDS"/>
+        <result property="userNames" column="USER_NAMES"/>
+        <result property="creatorId" column="CREATOR_ID"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="modifierId" column="MODIFIER_ID"/>
+        <result property="modifyTime" column="MODIFY_TIME"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="logDelete" column="LOG_DELETE"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+        <result property="extend04" column="EXTEND04"/>
+        <result property="extend05" column="EXTEND05"/>
+        <result property="creatorName" column="creatorName"/>
+        <result property="modifierName" column="modifierName"/>
+    </resultMap>
+
+    <sql id="baseSql">
+        SELECT
+            ID,
+            RULE_NAME,
+            START_TIME,
+            END_TIME,
+            STATUS,
+            ALLOW_LOGIN,
+            ROLE_IDS,
+            ROLE_NAMES,
+            USER_IDS,
+            USER_NAMES,
+            CREATOR_ID,
+            CREATE_TIME,
+            MODIFIER_ID,
+            MODIFY_TIME,
+            ACTIVED,
+            LOG_DELETE,
+            EXTEND01,
+            EXTEND02,
+            EXTEND03
+        FROM tp_time_rule
+    </sql>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpTimeRuleQuery" resultMap="tpTimeRuleVOMap">
+        SELECT
+            t.ID,
+            t.RULE_NAME,
+            t.START_TIME,
+            t.END_TIME,
+            t.STATUS,
+            t.ALLOW_LOGIN,
+            t.ROLE_IDS,
+            t.ROLE_NAMES,
+            t.USER_IDS,
+            t.USER_NAMES,
+            t.CREATOR_ID,
+            t.CREATE_TIME,
+            t.MODIFIER_ID,
+            t.MODIFY_TIME,
+            t.ACTIVED,
+            t.LOG_DELETE,
+            t.EXTEND01,
+            t.EXTEND02,
+            t.EXTEND03,
+            cp.PERSON_NAME as creatorName,
+            mp.PERSON_NAME as modifierName
+        FROM tp_time_rule t
+        LEFT JOIN tp_person_basicinfo cp ON t.CREATOR_ID = cp.PERSON_ID
+        LEFT JOIN tp_person_basicinfo mp ON t.MODIFIER_ID = mp.PERSON_ID
+        <where>
+            t.LOG_DELETE = 0
+            <if test="query.ruleName != null and query.ruleName != ''">
+                AND t.RULE_NAME LIKE CONCAT('%', #{query.ruleName}, '%')
+            </if>
+            <if test="query.status != null">
+                AND t.STATUS = #{query.status}
+            </if>
+            <if test="query.allowLogin != null">
+                AND t.ALLOW_LOGIN = #{query.allowLogin}
+            </if>
+            <if test="query.startTimeFrom != null and query.startTimeFrom != ''">
+                AND t.START_TIME &gt;= #{query.startTimeFrom}
+            </if>
+            <if test="query.startTimeTo != null and query.startTimeTo != ''">
+                AND t.START_TIME &lt;= #{query.startTimeTo}
+            </if>
+            <if test="query.endTimeFrom != null and query.endTimeFrom != ''">
+                AND t.END_TIME &gt;= #{query.endTimeFrom}
+            </if>
+            <if test="query.endTimeTo != null and query.endTimeTo != ''">
+                AND t.END_TIME &lt;= #{query.endTimeTo}
+            </if>
+            <if test="query.creatorId != null and query.creatorId != ''">
+                AND t.CREATOR_ID = #{query.creatorId}
+            </if>
+
+        </where>
+        ORDER BY t.CREATE_TIME DESC
+    </select>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpTimeRule">
+        INSERT INTO tp_time_rule (
+            ID,
+            RULE_NAME,
+            START_TIME,
+            END_TIME,
+            STATUS,
+            ALLOW_LOGIN,
+            ROLE_IDS,
+            ROLE_NAMES,
+            USER_IDS,
+            USER_NAMES,
+            CREATOR_ID,
+            CREATE_TIME,
+            MODIFIER_ID,
+            MODIFY_TIME,
+            ACTIVED,
+            LOG_DELETE,
+            EXTEND01,
+            EXTEND02,
+            EXTEND03
+        ) VALUES (
+            #{id},
+            #{ruleName},
+            #{startTime},
+            #{endTime},
+            #{status},
+            #{allowLogin},
+            #{roleIds},
+            #{roleNames},
+            #{userIds},
+            #{userNames},
+            #{creatorId},
+            #{createTime},
+            #{modifierId},
+            #{modifyTime},
+            #{actived},
+            #{logDelete},
+            #{extend01},
+            #{extend02},
+            #{extend03}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpTimeRule">
+        UPDATE tp_time_rule
+        <set>
+            <if test="ruleName != null and ruleName != ''">RULE_NAME = #{ruleName},</if>
+            <if test="startTime != null and startTime != ''">START_TIME = #{startTime},</if>
+            <if test="endTime != null and endTime != ''">END_TIME = #{endTime},</if>
+            <if test="status != null">STATUS = #{status},</if>
+            <if test="allowLogin != null">ALLOW_LOGIN = #{allowLogin},</if>
+            <if test="roleIds != null">ROLE_IDS = #{roleIds},</if>
+            <if test="roleNames != null">ROLE_NAMES = #{roleNames},</if>
+            <if test="userIds != null">USER_IDS = #{userIds},</if>
+            <if test="userNames != null">USER_NAMES = #{userNames},</if>
+            <if test="modifierId != null">MODIFIER_ID = #{modifierId},</if>
+            <if test="modifyTime != null">MODIFY_TIME = #{modifyTime},</if>
+            <if test="extend01 != null">EXTEND01 = #{extend01},</if>
+            <if test="extend02 != null">EXTEND02 = #{extend02},</if>
+            <if test="extend03 != null">EXTEND03 = #{extend03}</if>
+        </set>
+        WHERE ID = #{id}
+    </update>
+
+    <select id="getById" parameterType="java.lang.String" resultType="com.jiuxi.admin.core.bean.vo.TpTimeRuleVO">
+        SELECT
+            t.ID,
+            t.RULE_NAME,
+            t.START_TIME,
+            t.END_TIME,
+            t.STATUS,
+            t.ALLOW_LOGIN,
+            t.ROLE_IDS,
+            t.ROLE_NAMES,
+            t.USER_IDS,
+            t.USER_NAMES,
+            t.CREATOR_ID,
+            t.CREATE_TIME,
+            t.MODIFIER_ID,
+            t.MODIFY_TIME,
+            t.TENANT_ID,
+            t.ASCN_ID,
+            t.ACTIVED,
+            t.LOG_DELETE,
+            t.EXTEND01,
+            t.EXTEND02,
+            t.EXTEND03,
+            t.EXTEND04,
+            t.EXTEND05,
+            cp.PERSON_NAME as creatorName,
+            mp.PERSON_NAME as modifierName
+        FROM tp_time_rule t
+        LEFT JOIN tp_person_basicinfo cp ON t.CREATOR_ID = cp.PERSON_ID
+        LEFT JOIN tp_person_basicinfo mp ON t.MODIFIER_ID = mp.PERSON_ID
+        WHERE t.ID = #{id} AND t.LOG_DELETE = 0
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        DELETE FROM tp_time_rule WHERE ID = #{id}
+    </delete>
+
+    <delete id="delete">
+        DELETE FROM tp_time_rule WHERE ID = #{id}
+    </delete>
+
+    <select id="view" parameterType="java.lang.String" resultMap="tpTimeRuleVOMap">
+        SELECT
+            t.ID,
+            t.RULE_NAME,
+            t.START_TIME,
+            t.END_TIME,
+            t.STATUS,
+            t.ALLOW_LOGIN,
+            t.ROLE_IDS,
+            t.ROLE_NAMES,
+            t.USER_IDS,
+            t.USER_NAMES,
+            t.CREATOR_ID,
+            t.CREATE_TIME,
+            t.MODIFIER_ID,
+            t.MODIFY_TIME,
+            t.ACTIVED,
+            t.LOG_DELETE,
+            t.EXTEND01,
+            t.EXTEND02,
+            t.EXTEND03,
+            cp.PERSON_NAME as creatorName,
+            mp.PERSON_NAME as modifierName
+        FROM tp_time_rule t
+        LEFT JOIN tp_person_basicinfo cp ON t.CREATOR_ID = cp.PERSON_ID
+        LEFT JOIN tp_person_basicinfo mp ON t.MODIFIER_ID = mp.PERSON_ID
+        WHERE t.ID = #{id} AND t.LOG_DELETE = 0
+    </select>
+
+    <select id="selectValidRulesByUserAndRoles" resultType="com.jiuxi.admin.core.bean.vo.TpTimeRuleVO">
+        <include refid="baseSql"/>
+        <where>
+            LOG_DELETE = 0
+            AND ACTIVED = 1
+            AND STATUS = 1
+            AND #{currentTime} &gt;= START_TIME
+            AND #{currentTime} &lt;= END_TIME
+            <if test="(userId != null and userId != '') or (roleIds != null and roleIds.size() > 0)">
+                AND (
+                    <if test="userId != null and userId != ''">
+                        FIND_IN_SET(#{userId}, USER_IDS) &gt; 0
+                    </if>
+                    <if test="roleIds != null and roleIds.size() > 0">
+                        <if test="userId != null and userId != ''">
+                            OR
+                        </if>
+                        <foreach collection="roleIds" item="roleId" separator=" OR ">
+                            FIND_IN_SET(#{roleId}, ROLE_IDS) &gt; 0
+                        </foreach>
+                    </if>
+                )
+            </if>
+        </where>
+        ORDER BY ALLOW_LOGIN ASC, CREATE_TIME ASC
+    </select>
+
+    <select id="selectValidRulesByUser" resultType="com.jiuxi.admin.core.bean.vo.TpTimeRuleVO">
+        <include refid="baseSql"/>
+        WHERE LOG_DELETE = 0
+          AND ACTIVED = 1
+          AND STATUS = 1
+          AND FIND_IN_SET(#{userId}, USER_IDS) &gt; 0
+          AND #{currentTime} &gt;= START_TIME
+          AND #{currentTime} &lt;= END_TIME
+        ORDER BY ALLOW_LOGIN ASC, CREATE_TIME ASC
+    </select>
+
+    <select id="selectValidRulesByRoles" resultType="com.jiuxi.admin.core.bean.vo.TpTimeRuleVO">
+        <include refid="baseSql"/>
+        <where>
+            LOG_DELETE = 0
+            AND ACTIVED = 1
+            AND STATUS = 1
+            AND #{currentTime} &gt;= START_TIME
+            AND #{currentTime} &lt;= END_TIME
+            AND (
+                <foreach collection="roleIds" item="roleId" separator=" OR ">
+                    FIND_IN_SET(#{roleId}, ROLE_IDS) &gt; 0
+                </foreach>
+            )
+        </where>
+        ORDER BY ALLOW_LOGIN ASC, CREATE_TIME ASC
+    </select>
+
+</mapper>

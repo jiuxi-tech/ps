@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.monitor.server.core.mapper.TpMonitorClientMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.monitor.server.core.bean.entity.TpMonitorClient" id="tpMonitorClientMap">
+        <result property="clientId" column="client_id"/>
+        <result property="applicationName" column="application_name"/>
+        <result property="macAddr" column="mac_addr"/>
+        <result property="absolutePath" column="absolute_path"/>
+        <result property="systemDesc" column="system_desc"/>
+        <result property="ip" column="ip"/>
+        <result property="remark" column="remark"/>
+        <result property="systemUrl" column="system_url"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="actived" column="actived"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updator" column="updator"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="extend01" column="extend01"/>
+        <result property="extend02" column="extend02"/>
+        <result property="extend03" column="extend03"/>
+        <result property="extend04" column="extend04"/>
+        <result property="extend05" column="extend05"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.monitor.server.core.bean.entity.TpMonitorClient">
+        INSERT INTO tp_monitor_client
+            (client_id, application_name, mac_addr, absolute_path, system_desc, ip, remark, system_url, tenant_id, actived, creator, create_time, updator, update_time, extend01, extend02, extend03, extend04, extend05)
+        VALUES
+            (#{clientId}, #{applicationName}, #{macAddr}, #{absolutePath}, #{systemDesc}, #{ip}, #{remark}, #{systemUrl}, #{tenantId}, #{actived}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{extend01}, #{extend02}, #{extend03}, #{extend04}, #{extend05})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.monitor.server.core.bean.entity.TpMonitorClient">
+        UPDATE tp_monitor_client
+        <set>
+            <if test="null != applicationName">application_name = #{applicationName},</if>
+            <if test="null != macAddr">mac_addr = #{macAddr},</if>
+            <if test="null != absolutePath">absolute_path = #{absolutePath},</if>
+            <if test="null != systemDesc">system_desc = #{systemDesc},</if>
+            <if test="null != ip">ip = #{ip},</if>
+            <if test="null != remark">remark = #{remark},</if>
+            <if test="null != systemUrl">system_url = #{systemUrl},</if>
+            <if test="null != tenantId">tenant_id = #{tenantId},</if>
+            <if test="null != actived">actived = #{actived},</if>
+            <if test="null != creator">creator = #{creator},</if>
+            <if test="null != createTime">create_time = #{createTime},</if>
+            <if test="null != updator">updator = #{updator},</if>
+            <if test="null != updateTime">update_time = #{updateTime},</if>
+            <if test="null != extend01">extend01 = #{extend01},</if>
+            <if test="null != extend02">extend02 = #{extend02},</if>
+            <if test="null != extend03">extend03 = #{extend03},</if>
+            <if test="null != extend04">extend04 = #{extend04},</if>
+            <if test="null != extend05">extend05 = #{extend05},</if>
+        </set>
+        WHERE client_id = #{clientId}
+    </update>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.monitor.server.core.bean.vo.TpMonitorClientVO">
+        SELECT
+          tmc.client_id
+        , tmc.application_name
+        , tmc.mac_addr
+        , tmc.absolute_path
+        , tmc.system_desc
+        , tmc.ip
+        , tmc.remark
+        , tmc.system_url
+        , tmc.tenant_id
+        , tmc.actived
+        , tmc.creator
+        , tmc.create_time
+        , tmc.updator
+        , tmc.update_time
+        , tmc.extend01
+        , tmc.extend02
+        , tmc.extend03
+        , tmc.extend04
+        , tmc.extend05
+        FROM tp_monitor_client tmc
+        WHERE
+        tmc.ACTIVED = 1
+        and
+        tmc.client_id = #{clientId}
+    </select>
+    <select id="listAll"
+            resultType="com.jiuxi.monitor.server.core.bean.vo.TpMonitorClientVO"
+            parameterType="com.jiuxi.monitor.server.core.bean.query.TpMonitorClientQuery" >
+        select *
+          from tp_monitor_client
+          where actived = 1
+          <if test="applicationName != null and applicationName != ''">
+              and application_name = #{applicationName}
+          </if>
+          <if test="macAddr != null and macAddr != ''">
+              and mac_addr  like concat('%', #{macAddr}, '%')
+          </if>
+          <if test="systemDesc != null and systemDesc != ''">
+              and system_desc  like concat('%', #{systemDesc}, '%')
+          </if>
+          <if test="ip != null and ip != ''">
+              and ip  like concat('%', #{ip}, '%')
+          </if>
+          <if test="remark != null and remark != ''">
+              and remark  like concat('%', #{remark}, '%')
+          </if>
+    </select>
+
+    <update id="delete" parameterType="String" >
+        delete from tp_monitor_client WHERE client_id = #{clientId}
+    </update>
+
+</mapper>

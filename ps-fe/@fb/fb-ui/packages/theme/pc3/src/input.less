@@ -1,0 +1,495 @@
+//@import "mixins/mixins";
+@import "common/var";
+@import "mixins/utils";
+
+
+.@{prefix}-input {
+
+	position:  relative;
+	font-size: 0;
+	display:   inline-block;
+	width:     100%;
+
+	&.@{prefix}-input--readonly,
+	&.@{prefix}-input--disabled {
+		.@{prefix}-input__icon {
+			cursor: default;
+		}
+	}
+
+	&.@{prefix}-input-group {
+		display:         table;
+		width:           100%;
+		border-collapse: separate;
+		position:        relative;
+		font-size:       12px;
+
+		.@{prefix}-input__el {
+			display: table-cell;
+		}
+	}
+
+	&.@{prefix}-input-group--prepend {
+		.@{prefix}-input__el {
+			border-bottom-left-radius: 0 !important;
+			border-top-left-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-input-group--append {
+		.@{prefix}-input__el {
+			border-bottom-right-radius: 0 !important;
+			border-top-right-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-input-group--prepend-button {
+		.@{prefix}-input__el {
+			border-bottom-left-radius: 0 !important;
+			border-top-left-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-input-group--append-button {
+		.@{prefix}-input__el {
+			border-bottom-right-radius: 0 !important;
+			border-top-right-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-input-group--maxlength {
+		//.@{prefix}-input__el {
+		//    border-bottom-right-radius: 0 !important;
+		//    border-top-right-radius:    0 !important;
+		//}
+	}
+
+
+	.@{prefix}-input__content {
+		position:  relative;
+		// 原因是子元素的   display: inline-block; 所以要设置其父标签的文字大小为0不然会有间隙
+		font-size: 0;
+
+		.@{prefix}-input__el {
+			display:          inline-block;
+			width:            100%;
+			border:           1px solid @--input-border-color;
+			outline:          0;
+			background-image: none;
+			line-height:      @--font-size-m;
+			font-size:        @--font-size-m;
+			border-radius:    @--border-radius-base;
+			color:            @--input-font-color;
+			background-color: @--input-background-color;
+			cursor:           text;
+			transition:       border .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out;
+
+			&::-moz-placeholder {
+				letter-spacing: normal;
+				color:          @--input-placeholder-color;
+			}
+
+			&:-ms-input-placeholder {
+				letter-spacing: normal;
+				color:          @--input-placeholder-color;
+			}
+
+			&::-webkit-input-placeholder {
+				letter-spacing: normal;
+				color:          @--input-placeholder-color;
+			}
+
+
+			&:hover {
+				border-color: @--border-color-primary;
+			}
+
+			&:focus {
+				border-color: @--border-color-primary;
+				box-shadow:   @--box-shadow-focus;
+			}
+
+			&[readonly] {
+				cursor:           auto;
+				background-color: @--input-disabled-background;
+				color:            @--input-color-disabled;
+
+				&:hover,
+				&:focus {
+					border-color: @--input-disabled-border;
+					box-shadow:   none;
+				}
+			}
+
+			&[disabled] {
+				opacity:          1;
+				border-color:     @--input-disabled-border;
+				background-color: @--input-disabled-background;
+				color:            @--input-disabled-color;
+				cursor:           not-allowed;
+
+				&:hover,
+				&:focus {
+					border-color: @--input-disabled-border;
+					box-shadow:   none;
+				}
+			}
+
+			&:not(:last-child) {
+				border-bottom-right-radius: 0 !important;
+				border-top-right-radius:    0 !important;
+			}
+		}
+
+		.@{prefix}-input__prepend-icon {
+			width:       32px;
+			height:      32px;
+			line-height: 32px;
+			font-size:   16px;
+			text-align:  center;
+			color:       @--font-color-secondary;
+			cursor:      pointer;
+			position:    absolute;
+			left:        0;
+			z-index:     1;
+		}
+
+		// 当有前图标时
+		.@{prefix}-input__prepend-icon ~ .@{prefix}-input__el {
+			padding-left: 32px;
+		}
+
+		.@{prefix}-input__icon {
+			width:       32px;
+			height:      32px;
+			line-height: 32px;
+			font-size:   16px;
+			text-align:  center;
+			color:       @--font-color-secondary;
+			cursor:      pointer;
+			position:    absolute;
+			right:       0;
+			z-index:     1;
+		}
+
+		// 当有两个后图标时
+		.@{prefix}-input__icon + .@{prefix}-input__icon {
+			right: 32px;
+		}
+
+		.@{prefix}-input__icon + .@{prefix}-input__icon + .@{prefix}-input__icon {
+			right: 64px;
+		}
+
+		.@{prefix}-input__icon + .@{prefix}-input__el {
+			padding-right: 32px;
+		}
+
+		.@{prefix}-input__icon + .@{prefix}-input__icon + .@{prefix}-input__el {
+			padding-right: 64px;
+		}
+
+	}
+
+	.@{prefix}-input__suffix {
+		position: absolute;
+		height: 100%;
+		right: 5px;
+		top: 0;
+		display: flex;
+		align-items: center;
+		color: #c0c4cc;
+		transition: all .3s;
+		cursor: pointer;
+		z-index: 9;
+		font-size: 14px;
+	}
+
+	.@{prefix}-input__prepend,
+	.@{prefix}-input__append {
+		display:          table-cell;
+		width:            1px;
+		padding:          4px 8px;
+		vertical-align:   middle;
+		white-space:      nowrap;
+		font-size:        inherit;
+		font-weight:      400;
+		line-height:      1;
+		color:            @--font-color-base;
+		text-align:       center;
+		background-color: @--input-append-background-color;
+		border:           1px solid @--input-border-color;
+		border-radius:    @--border-radius-base;
+	}
+
+	.@{prefix}-input__prepend {
+		background-color: @--input-prepend-background-color;
+	}
+
+	.@{prefix}-input__prepend {
+		border-bottom-right-radius: 0 !important;
+		border-top-right-radius:    0 !important;
+		border-right:               0;
+	}
+
+	.@{prefix}-input__append {
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius:    0 !important;
+		border-left:               0;
+	}
+
+
+	.@{prefix}-input__content + .@{prefix}-input__maxlength {
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius:    0 !important;
+		border-bottom--radius:     0 !important;
+		border-top-right-radius:   0 !important;
+		border-left:               0;
+		border-right:              1px solid @--input-border-color;
+		border-top:                1px solid @--input-border-color;
+		border-bottom:             1px solid @--input-border-color;
+
+		&:last-child {
+			background:                 transparent;
+			border-top-right-radius:    @--border-radius-base !important;
+			border-bottom-right-radius: @--border-radius-base !important;
+			border-left:                0;
+			border-right:               1px solid @--input-border-color;
+		}
+	}
+
+	.@{prefix}-input__content + .@{prefix}-input__append {
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius:    0 !important;
+		border-left:               0;
+	}
+
+	&.@{prefix}-input--text {
+		vertical-align: middle;
+	}
+
+	&.@{prefix}-input--password {
+		vertical-align: middle;
+
+		input {
+			letter-spacing: 0.3em;
+		}
+
+
+	}
+
+
+	// 文本框
+	.@{prefix}-input__content {
+		.@{prefix}-input__el {
+			-webkit-appearance: none;
+			background-color:   #FFFFFF;
+			background-image:   none;
+			border-radius:      4px;
+			box-sizing:         border-box;
+			color:              #606266;
+			display:            inline-block;
+			font-size:          inherit;
+			outline:            none;
+			padding:            0 12px;
+			transition:         border-color .2s cubic-bezier(.645, .045, .355, 1);
+			width:              100%;
+		}
+	}
+
+
+	.@{prefix}-input__prepend-button {
+		display:        table-cell;
+		width:          1px;
+		vertical-align: middle;
+		white-space:    nowrap;
+		font-size:      inherit;
+		font-weight:    400;
+		line-height:    1;
+		color:          @--font-color-base;
+		text-align:     center;
+		background:     transparent;
+
+		.@{prefix}-button {
+			border-right:               0;
+			border-top-right-radius:    0;
+			border-bottom-right-radius: 0;
+		}
+	}
+
+	.@{prefix}-input__append-button {
+		display:        table-cell;
+		width:          1px;
+		vertical-align: middle;
+		white-space:    nowrap;
+		font-size:      inherit;
+		font-weight:    400;
+		line-height:    1;
+		color:          @--font-color-base;
+		text-align:     center;
+		background:     transparent;
+
+		.@{prefix}-button {
+			border-left:               0;
+			border-top-left-radius:    0;
+			border-bottom-left-radius: 0;
+		}
+
+	}
+
+
+	&.@{prefix}-input--s {
+		.size (@--font-size-s, 24px);
+	}
+
+	&.@{prefix}-input--m {
+		.size (@--font-size-m, 30px);
+	}
+
+	&.@{prefix}-input--l {
+		.size (@--font-size-l, 36px);
+	}
+
+
+	&.@{prefix}-input--round {
+		&.@{prefix}-input--s {
+			.round(12px);
+		}
+
+		&.@{prefix}-input--m {
+			.round(15px);
+		}
+
+		&.@{prefix}-input--l {
+			.round(28px);
+		}
+	}
+
+}
+
+
+.size (@font-size, @size) {
+	.@{prefix}-input__content {
+		.@{prefix}-input__el {
+			font-size:   @font-size;
+			height:      @size;
+			line-height: @size;
+		}
+
+		.@{prefix}-input__prepend-icon {
+			width:       @size;
+			height:      @size;
+			line-height: @size;
+			font-size:   @font-size;
+		}
+
+		.@{prefix}-input__icon {
+			width:       @size;
+			height:      @size;
+			line-height: @size;
+			font-size:   @font-size;
+		}
+
+		.@{prefix}-input__icon + .@{prefix}-input__icon {
+			right: @size;
+		}
+
+		.@{prefix}-input__icon + .@{prefix}-input__icon + .@{prefix}-input__icon {
+			right: @size * 2;
+		}
+
+		.@{prefix}-input__icon + .@{prefix}-input__el {
+			padding-right: @size;
+		}
+
+		.@{prefix}-input__icon + .@{prefix}-input__icon + .@{prefix}-input__el {
+			padding-right: @size*2;
+		}
+
+
+		.@{prefix}-input__maxlength {
+			display:          block;
+			padding:          0 8px;
+			height:           @font-size;
+			line-height:      @font-size;
+			font-size:        @font-size;
+			text-align:       right;
+			color:            @--font-color-secondary;
+			cursor:           pointer;
+			position:         absolute;
+			top:              (@size - @font-size) / 2;
+			right:            1px;
+			z-index:          1;
+			border-radius:    50%;
+			background-color: @--color-white;
+		}
+
+		.@{prefix}-input__icon + .@{prefix}-input__maxlength {
+			padding-right: @size;
+		}
+
+
+	}
+
+}
+
+.round (@radius) {
+
+	.@{prefix}-input__prepend {
+		&:first-child {
+			border-top-left-radius:    @radius !important;
+			border-bottom-left-radius: @radius !important;
+		}
+	}
+
+	.@{prefix}-input__prepend-button {
+		&:first-child {
+			border-top-left-radius:    @radius !important;
+			border-bottom-left-radius: @radius !important;
+		}
+	}
+
+	.@{prefix}-input__content {
+
+		.@{prefix}-input__maxlength {
+			//border-radius: @radius;
+		}
+
+
+		&:first-child {
+			.@{prefix}-input__el {
+				border-top-left-radius:    @radius !important;
+				border-bottom-left-radius: @radius !important;
+			}
+		}
+
+		&:last-child {
+			.@{prefix}-input__el {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+
+		+ .@{prefix}-input__maxlength {
+			&:last-child {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+
+		+ .@{prefix}-input__append-button {
+			&:last-child {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+
+		+ .@{prefix}-input__append {
+			&:last-child {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+	}
+
+}

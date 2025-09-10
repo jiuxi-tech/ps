@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpAttachinfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpAttachinfo" id="tpAttachinfoMap">
+        <result property="attachId" column="ATTACH_ID"/>
+        <result property="attachTitle" column="ATTACH_TITLE"/>
+        <result property="attachName" column="ATTACH_NAME"/>
+        <result property="referType" column="REFER_TYPE"/>
+        <result property="referId" column="REFER_ID"/>
+        <result property="attachTypeCode" column="ATTACH_TYPE_CODE"/>
+        <result property="savePath" column="SAVE_PATH"/>
+        <result property="savePathBak1" column="SAVE_PATH_BAK1"/>
+        <result property="savePathBak2" column="SAVE_PATH_BAK2"/>
+        <result property="attachSize" column="ATTACH_SIZE"/>
+        <result property="orderIndex" column="ORDER_INDEX"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpAttachinfo">
+        INSERT INTO tp_attachinfo
+            (ATTACH_ID, ATTACH_TITLE, ATTACH_NAME, REFER_TYPE, REFER_ID, ATTACH_TYPE_CODE, SAVE_PATH, SAVE_PATH_BAK1, SAVE_PATH_BAK2, ATTACH_SIZE, ORDER_INDEX, ACTIVED, EXTEND01, EXTEND02, EXTEND03, CREATE_TIME, CREATOR, UPDATE_TIME, UPDATOR)
+		VALUES
+			(#{attachId}, #{attachTitle}, #{attachName}, #{referType}, #{referId}, #{attachTypeCode}, #{savePath}, #{savePathBak1}, #{savePathBak2}, #{attachSize}, #{orderIndex}, 1, #{extend01}, #{extend02}, #{extend03}, #{createTime}, #{creator}, #{updateTime}, #{updator})
+    </insert>
+
+    <select id="view" parameterType="String"
+            resultType="com.jiuxi.admin.core.bean.entity.TpAttachinfo">
+        select ATTACH_ID, ATTACH_TITLE, ATTACH_NAME, REFER_TYPE, REFER_ID, ATTACH_TYPE_CODE, SAVE_PATH, SAVE_PATH_BAK1, SAVE_PATH_BAK2, ATTACH_SIZE, ORDER_INDEX, ACTIVED, EXTEND01, EXTEND02, EXTEND03, CREATE_TIME, CREATOR, UPDATE_TIME, UPDATOR
+        from tp_attachinfo
+        where ATTACH_ID = #{attachId}
+        and
+        ACTIVED = 1
+    </select>
+
+    <select id="selectByReferIdAndType" parameterType="String"
+            resultType="com.jiuxi.admin.core.bean.vo.TpAttachinfoVO">
+        select ATTACH_ID, ATTACH_TITLE, ATTACH_NAME, REFER_TYPE, REFER_ID, ATTACH_TYPE_CODE, SAVE_PATH, SAVE_PATH_BAK1, SAVE_PATH_BAK2, ATTACH_SIZE, ORDER_INDEX, ACTIVED, EXTEND01, EXTEND02, EXTEND03, CREATE_TIME, CREATOR, UPDATE_TIME, UPDATOR
+        from tp_attachinfo
+        where
+        ACTIVED = 1
+        and
+        REFER_ID = #{referId}
+        and
+        REFER_TYPE = #{referType}
+    </select>
+    <!--    判断附件是否存在 -->
+    <select id="exists" resultType="java.lang.String" parameterType="java.lang.String">
+        select attach_id from tp_attachinfo where ATTACH_ID = #{attachId}
+    </select>
+
+    <update id="update">
+        update tp_attachinfo
+        <if test="null != attachId and '' != attachId">
+            <set>
+                <if test="null != attachTitle and '' != attachTitle">ATTACH_TITLE = #{attachTitle},</if>
+                <if test="null != attachName and '' != attachName">ATTACH_TITLE = #{attachName},</if>
+                <if test="null != referType and '' != referType">REFER_TYPE = #{referType},</if>
+                <if test="null != referId and '' != referId">REFER_ID = #{referId},</if>
+                <if test="null != attachTypeCode and '' != attachTypeCode">ATTACH_TYPE_CODE = #{attachTypeCode},</if>
+                <if test="null != savePath and '' != savePath">SAVE_PATH = #{savePath},</if>
+                <if test="null != savePathBak1 and '' != savePathBak1">SAVE_PATH_BAK1 = #{savePathBak1},</if>
+                <if test="null != savePathBak2 and '' != savePathBak2">SAVE_PATH_BAK2 = #{savePathBak2},</if>
+                <if test="null != attachSize">ATTACH_SIZE = #{attachSize},</if>
+                <if test="null != actived">ACTIVED = #{actived},</if>
+                <if test="null != extend01">EXTEND01 = #{extend01},</if>
+                <if test="null != extend02">EXTEND02 = #{extend02},</if>
+                <if test="null != extend03">EXTEND03 = #{extend03},</if>
+                UPDATE_TIME = #{updateTime}
+            </set>
+        </if>
+        where
+        ACTIVED = 1
+        and
+        ATTACH_ID = #{attachId}
+    </update>
+
+    <update id="updateByAttachId">
+        update tp_attachinfo
+        set REFER_ID = #{referId}, UPDATE_TIME = #{updateTime}, ACTIVED = 1
+        where
+        ATTACH_ID = #{attachId}
+    </update>
+
+    <!-- 逻辑删除 -->
+    <update id="logicDelete">
+        update tp_attachinfo set ACTIVED = 0, UPDATE_TIME = #{updateTime}, UPDATOR = #{jwtpid} where ATTACH_ID = #{attachId}
+    </update>
+
+    <!-- 根据创建人和附件id物理删除 -->
+    <delete id="physicsDelete" >
+        delete from tp_attachinfo where ATTACH_ID = #{attachId} and CREATOR = #{jwtpid}
+    </delete>
+
+    <!-- 物理删除 -->
+    <update id="delete">
+        delete from tp_attachinfo where ATTACH_ID = #{attachId}
+    </update>
+
+
+    <update id="deleteByReferId">
+        update tp_attachinfo set ACTIVED = 0, UPDATE_TIME = #{updateTime}, UPDATOR = #{updator} where REFER_ID = #{referId} and ACTIVED = 1
+    </update>
+
+
+    <update id="deleteByReferIdAndReferType">
+        update tp_attachinfo set ACTIVED = 0, UPDATE_TIME = #{updateTime}, UPDATOR = #{updator} where REFER_ID = #{referId} and REFER_TYPE = #{referType} and ACTIVED = 1
+    </update>
+
+</mapper>

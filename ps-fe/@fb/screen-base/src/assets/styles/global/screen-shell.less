@@ -1,0 +1,86 @@
+/*!
+* screen-shell
+* (c) 2021 lincong1987
+*/
+
+@import "../config";
+
+.screen-shell {
+    overflow:         hidden;
+    position:         relative;
+    background:       url("../../img/global/wrapper-bg.png") no-repeat;
+    background-size:  100% 100%;
+    width:            @screen-width;
+    height:           @screen-height;
+    //margin:     0 auto;
+    transform-origin: top left;
+    //animation:        breath2 4s ease-in-out infinite;
+    
+    // transition: width .44s .2s cubic-bezier(0.52, 0.16, 0.24, 1),height .56s cubic-bezier(0.52, 0.16, 0.24, 1);
+    transition:       opacity .8s cubic-bezier(0.52, 0.16, 0.24, 1), height .56s cubic-bezier(0.52, 0.16, 0.24, 1), width .56s cubic-bezier(0.52, 0.16, 0.24, 1);
+    
+    animation:        opacity1 .8s cubic-bezier(0.52, 0.16, 0.24, 1);
+    
+    &.wh {
+	left:        50%;
+	margin-left: -@screen-height / 2;
+    }
+    
+    &.hw {
+	transform-origin: top left;
+    }
+}
+
+body.dev {
+    
+    overflow: auto;
+    
+    .screen-shell {
+	transform: scale(1) !important;
+	left:      0 !important;
+	top:       0 !important;
+	
+	&.scale-0_25 {
+	    transform: scale(0.25) !important;
+	}
+	
+	&.scale-0_33 {
+	    transform: scale(0.33) !important;
+	}
+	
+	&.scale-0_5 {
+	    transform: scale(0.5) !important;
+	}
+	
+	&.scale-0_66 {
+	    transform: scale(0.66) !important;
+	}
+	
+	&.scale-0_88 {
+	    transform: scale(0.88) !important;
+	}
+	
+	
+	&.scale-1 {
+	    transform: scale(1) !important;
+	}
+	
+	&.scale-1_5 {
+	    transform: scale(1.5) !important;
+	}
+	
+	&.scale-2 {
+	    transform: scale(2) !important;
+	}
+	
+	&.scale-3 {
+	    transform: scale(3) !important;
+	}
+	
+	&.scale-4 {
+	    transform: scale(4) !important;
+	}
+    }
+    
+}
+

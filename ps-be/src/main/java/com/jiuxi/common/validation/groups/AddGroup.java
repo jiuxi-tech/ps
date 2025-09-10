@@ -1,0 +1,11 @@
+package com.jiuxi.common.validation.groups;
+
+/**
+ * @ClassName: AddGroup
+ * @Description: 新增操作验证组
+ * @Author: System
+ * @Date: 2025/01/07
+ * @Copyright: 2025 www.jiuxi.com Inc. All rights reserved.
+ */
+public interface AddGroup {
+}

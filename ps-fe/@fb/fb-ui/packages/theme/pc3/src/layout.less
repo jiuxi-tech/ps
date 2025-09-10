@@ -1,0 +1,120 @@
+/*!
+* layout
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-layout {
+
+	display:        flex;
+	flex:           auto;
+	flex-direction: column;
+	min-height:     0;
+
+	.@{prefix}-layout-header {
+		flex: 0 0 auto
+	}
+
+	.@{prefix}-layout-body {
+		flex:       auto;
+		min-height: 0;
+	}
+
+
+	.@{prefix}-layout-sider {
+		position:   relative;
+		min-width:  0;
+		transition: all .2s;
+
+		&--children {
+			height:      100%;
+			margin-top:  -.1px;
+			padding-top: .1px
+		}
+
+		&--has-trigger {
+		}
+
+		&--right {
+			order: 1
+		}
+
+		&--trigger {
+			position:   fixed;
+			bottom:     0;
+			z-index:    1;
+			cursor:     pointer;
+			transition: all .2s
+		}
+
+		&--light {
+		}
+
+
+	}
+
+	.@{prefix}-layout-footer {
+		flex: 0 0 auto
+	}
+
+
+	&--has-sider {
+		flex-direction: row;
+
+		& > .@{prefix}-layout,
+		& > .@{prefix}-layout-body {
+			overflow-x: hidden
+		}
+
+	}
+
+
+	&--blank {
+	}
+
+	&--default {
+
+
+		background: @--color-grey-3;
+
+		.@{prefix}-layout-header {
+			height:      64px;
+			padding:     0 50px;
+			line-height: 64px;
+			background:  @--color-brand;
+		}
+
+		.@{prefix}-layout-sider {
+
+			background: @--color-brand;
+
+			&--has-trigger {
+				padding-bottom: 48px
+			}
+
+			&--trigger {
+				height:      48px;
+				color:       #FFFFFF;
+				line-height: 48px;
+				background:  #002140;
+			}
+
+			&--light {
+				background: #FFFFFF
+			}
+
+		}
+
+		.@{prefix}-layout-footer {
+			padding:    24px 50px;
+			color:      @--color-text-dark-emphasize;
+			font-size:  14px;
+			background: #F0F2F5;
+		}
+
+
+	}
+
+
+}

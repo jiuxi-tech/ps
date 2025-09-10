@@ -1,0 +1,28 @@
+/*!
+* scale-up
+* (c) 2021 lincong1987
+*/
+.scale-up-center-enter-active {
+    animation: scale-up-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.scale-up-top-enter-active {
+  animation: scale-up-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+@keyframes scale-up-center {
+     0% {
+	 transform: scale(0.5);
+     }
+     100% {
+	 transform: scale(1);
+     }
+ }
+@keyframes scale-up-top {
+     0% {
+	 transform: scale(0.5);
+	 transform-origin: 50% 0%;
+     }
+     100% {
+	 transform: scale(1);
+	 transform-origin: 50% 0%;
+     }
+ }

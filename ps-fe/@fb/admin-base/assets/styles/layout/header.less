@@ -1,0 +1,354 @@
+@import "../common.less";
+
+.fb-admin-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 64px;
+	background: url("../../img/main/header_right_bg.png") right top no-repeat #0284FE;
+
+
+	.fb-admin-header__logo {
+		height: 100%;
+		font-size: clamp(20px, 2.5vw, 28px);
+		font-weight: 700;
+		color: #FFFFFF;
+		line-height: 34px;
+		text-shadow: 0px 0px 6px rgba(0, 21, 41, 0.1);
+		padding-top: 13px;
+		padding-left: clamp(60px, 6vw, 72px);
+		position: relative;
+		width: clamp(300px, 30vw, 440px);
+
+		&:before {
+			content: '';
+			display: block;
+			width: clamp(32px, 4vw, 44px);
+			height: clamp(30px, 3.5vw, 40px);
+			position: absolute;
+			top: 13px;
+			left: clamp(12px, 1.5vw, 16px);
+			background: url("../../img/login/logo-icon.png") center no-repeat;
+			background-size: 100% 100%;
+		}
+	}
+
+	.fb-admin-header__nav {
+		position: absolute;
+		left: 484px;
+		top: 0;
+		height: 64px;
+		width: 540px;
+		transition: all, 0.4s;
+	}
+}
+
+
+.fb-admin-header__nav_list {
+	width: 540px;
+	clear: both;
+	overflow: hidden;
+
+	.fb-admin-header__nav__item {
+		float: left;
+		width: 88px;
+		height: 64px;
+		cursor: pointer;
+		transition: all, 0.6s;
+		user-select: none;
+
+		&.active,
+		&:hover {
+			background: rgba(255, 255, 255, 0.2);
+		}
+
+		.fb-admin-header__nav__item__icon {
+			text-align: center;
+			font-size: 20px;
+			color: #fff;
+			padding-top: 8px;
+		}
+
+		.fb-admin-header__nav__item__name {
+			text-align: center;
+			color: #fff;
+			height: 16px;
+			line-height: 16px;
+			font-size: 12px;
+			padding-top: 6px;
+		}
+
+	}
+}
+
+.fb-admin-header__nav__toggle {
+	position: absolute;
+	right: 10px;
+	top: 18px;
+	width: 14px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 2px;
+	cursor: pointer;
+	color: #fff;
+	transition: all, 0.6s;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.2);
+	}
+}
+
+
+.fb-admin-header__actions {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 0 0 0 16px;
+	height: 64px;
+	line-height: 64px;
+	display: flex;
+
+	.fb-admin-header__actions-item {
+		height: 100%;
+		width: 44px;
+		color: #fff;
+		text-align: center;
+		position: relative;
+
+		.c-box {
+			position: relative;
+
+			&:hover {
+				cursor: pointer;
+				background: rgba(255, 255, 255, 0.2);
+			}
+		}
+	}
+
+	.fb-admin-header__actions-notice {
+		.c-box {
+			.notice-tip-num {
+				position: absolute;
+				top: 14px;
+				right: 3px;
+				width: 16px;
+				height: 16px;
+				line-height: 16px;
+				border-radius: 50%;
+				background: red;
+				font-size: 12px;
+			}
+		}
+
+		.@{FbUiPrefix}-popup-picker {
+			line-height: normal;
+			width: 300px;
+
+			.@{FbUiPrefix}-card {
+				/deep/ .@{FbUiPrefix}-card__body {
+					padding: 0;
+					color: #666666;
+					text-align: left;
+
+					.card-header {
+						border-bottom: 1px solid #E8E8E8;
+
+						.@{FbUiPrefix}-tabs-header-label {
+							width: 126px;
+							text-align: center;
+						}
+
+						.@{FbUiPrefix}-tabs-buttons {
+							display: none;
+						}
+					}
+
+					.card-body {
+						height: 315px;
+						overflow-y: auto;
+
+						.card-body-item {
+							padding: 8px 16px;
+							border-bottom: 1px solid #E8E8E8;
+							cursor: pointer;
+							transition: all .3s;
+
+							&:hover, &.active {
+								background: rgba(230, 247, 255, 1);
+							}
+						}
+
+						.card-body-notice {
+							.card-body-item {
+								> div {
+									display: -webkit-box;
+									-webkit-box-orient: vertical;
+									-webkit-line-clamp: 2;
+									overflow: hidden;
+									color: #313C47;
+									font-size: 13px;
+									line-height: 22px;
+
+									&:after {
+										content: '';
+										display: inline-block;
+										width: 8px;
+										height: 8px;
+										border-radius: 50%;
+										background: #FB544E;
+										margin-left: 8px;
+									}
+								}
+
+								> p {
+									margin-top: 4px;
+									font-size: 12px;
+									color: #666666;
+									line-height: 20px;
+								}
+							}
+						}
+
+						.card-body-agency {
+							.card-body-item {
+								> div {
+									display: flex;
+									justify-content: space-between;
+									color: #313C47;
+									font-size: 13px;
+									line-height: 22px;
+
+									.state {
+										font-size: 12px;
+										padding: 0px 8px;
+										border: 1px solid #ccc;
+										border-radius: 4px;
+
+										&.red {
+											color: #FB544E;
+											border-color: #FB544E;
+										}
+
+										&.yellow {
+											color: #FFB500;
+											border-color: #FFB500;
+										}
+									}
+								}
+
+								> p {
+									margin-top: 4px;
+									font-size: 12px;
+									color: #666666;
+									line-height: 20px;
+								}
+							}
+						}
+
+						.card-body-nodata {
+							.@{FbUiPrefix}-empty {
+								margin-top: 110px;
+							}
+						}
+					}
+
+					.card-footer {
+						padding: 9px 16px;
+						border-top: 1px solid #E8E8E8;
+						color: #313C47;
+
+						span {
+							transition: all .3s;
+							float: left;
+
+							&:hover {
+								color: #0284FE;
+								cursor: pointer;
+							}
+
+							&:last-child {
+								float: right;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.fb-admin-header__actions-avatar {
+		width: auto;
+		min-width: 130px;
+
+		.c-box {
+			padding: 0 16px;
+
+			.@{FbUiPrefix}-avatar {
+				margin-right: 4px;
+				margin-top: -2px;
+			}
+		}
+
+		.@{FbUiPrefix}-popup-picker {
+			width: 160px;
+
+			.@{FbUiPrefix}-card {
+				/deep/ .@{FbUiPrefix}-card__body {
+					padding: 0;
+					color: #666666;
+					text-align: left;
+
+					.card-header {
+						padding: 10px;
+						border-bottom: 1px solid #E8E8E8;
+						display: flex;
+
+						.@{FbUiPrefix}-avatar {
+							margin-right: 10px;
+						}
+
+						p {
+							margin: 0;
+						}
+					}
+
+					.card-item {
+						padding: 0 16px;
+						height: 32px;
+						line-height: 32px;
+
+						.@{FbUiPrefix}-icon {
+							margin-right: 6px;
+						}
+
+						&:hover {
+							cursor: pointer;
+							background: #E6F7FF;
+						}
+					}
+
+					.card-footer {
+						padding: 5px 0;
+						border-top: 1px solid #E8E8E8;
+					}
+				}
+			}
+		}
+	}
+}
+
+.current {
+	position: absolute;
+	bottom: 42px;
+	right: 4px;
+}
+
+.jpx-button.jpx-button--link {
+	color: #666666
+}
+
+.jpx-card--border {
+	border: none;
+}

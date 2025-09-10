@@ -1,0 +1,2411 @@
+{
+	"application/epub+zip":                                                       {
+		"compressible": false, "extensions": ["epub"]
+	},
+	"application/geo+json":                                                       {
+		"compressible": true, "extensions": ["geojson"]
+	},
+	"application/gml+xml":                                                        {
+		"compressible": true, "extensions": ["gml"]
+	},
+	"application/gpx+xml":                                                        {
+		"compressible": true, "extensions": ["gpx"]
+	},
+	"application/gxf":                                                            {
+		"compressible": false, "extensions": ["gxf"]
+	},
+	"application/gzip":                                                           {
+		"compressible": false, "extensions": ["gz"]
+	}, "application/java-archive":                                                {
+	"compressible": false, "extensions": ["jar", "war", "ear"]
+}, "application/java-vm":                                                         {
+	"compressible": false, "extensions": ["class"]
+},
+	"application/javascript":                                                     {
+		"compressible": true, "extensions": ["js", "mjs"]
+	}, "application/json":                                                        {
+	"compressible": true, "extensions": ["json", "map"]
+}, "application/json5":                                                           {
+	"compressible": false, "extensions": ["json5"]
+},
+	"application/jsonml+json":                                                    {
+		"compressible": true, "extensions": ["jsonml"]
+	},
+	"application/ld+json":                                                        {
+		"compressible": true, "extensions": ["jsonld"]
+	}, "application/manifest+json":                                               {
+	"compressible": true, "extensions": ["webmanifest"]
+}, "application/mathematica":                                                     {
+	"compressible": false, "extensions": ["ma", "nb", "mb"]
+}, "application/mathml+xml":                                                      {
+	"compressible": true, "extensions": ["mathml"]
+}, "application/mp21":                                                            {
+	"compressible": false, "extensions": ["m21", "mp21"]
+}, "application/mp4":                                                             {
+	"compressible": false, "extensions": ["mp4s", "m4p"]
+}, "application/mrb-consumer+xml":                                                {
+	"compressible": true, "extensions": ["xdf"]
+},
+	"application/mrb-publish+xml":                                                {
+		"compressible": true, "extensions": ["xdf"]
+	}, "application/msword":                                                      {
+	"compressible": false, "extensions": ["doc", "dot"]
+}, "application/mxf":                                                             {
+	"compressible": false, "extensions": ["mxf"]
+},
+	"application/n-quads":                                                        {
+		"compressible": false, "extensions": ["nq"]
+	},
+	"application/n-triples":                                                      {
+		"compressible": false, "extensions": ["nt"]
+	},
+	"application/node":                                                           {
+		"compressible": false, "extensions": ["cjs"]
+	}, "application/octet-stream":                                                {
+	"compressible": false, "extensions": [
+		"bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc", "deploy", "exe", "dll", "deb",
+		"dmg", "iso", "img", "msi", "msp", "msm", "buffer"
+	]
+}, "application/pdf":                                                             {
+	"compressible": false, "extensions": ["pdf"]
+},
+	"application/pgp-encrypted":                                                  {
+		"compressible": false, "extensions": ["pgp"]
+	}, "application/pgp-signature":                                               {
+	"compressible": false, "extensions": ["asc", "sig"]
+}, "application/pics-rules":                                                      {
+	"compressible": false, "extensions": ["prf"]
+},
+	"application/pkcs10":                                                         {
+		"compressible": false, "extensions": ["p10"]
+	}, "application/pkcs7-mime":                                                  {
+	"compressible": false, "extensions": ["p7m", "p7c"]
+}, "application/pkcs7-signature":                                                 {
+	"compressible": false, "extensions": ["p7s"]
+},
+	"application/pkcs8":                                                          {
+		"compressible": false, "extensions": ["p8"]
+	},
+	"application/pkix-cert":                                                      {
+		"compressible": false, "extensions": ["cer"]
+	},
+	"application/pkix-crl":                                                       {
+		"compressible": false, "extensions": ["crl"]
+	},
+	"application/pkix-pkipath":                                                   {
+		"compressible": false, "extensions": ["pkipath"]
+	},
+	"application/pkixcmp":                                                        {
+		"compressible": false, "extensions": ["pki"]
+	},
+	"application/pls+xml":                                                        {
+		"compressible": true, "extensions": ["pls"]
+	}, "application/postscript":                                                  {
+	"compressible": true, "extensions": ["ai", "eps", "ps"]
+}, "application/provenance+xml":                                                  {
+	"compressible": true, "extensions": ["provx"]
+},
+	"application/prs.cww":                                                        {
+		"compressible": false, "extensions": ["cww"]
+	},
+	"application/pskc+xml":                                                       {
+		"compressible": true, "extensions": ["pskcxml"]
+	},
+	"application/rdf+xml":                                                        {
+		"compressible": true, "extensions": ["rdf", "owl"]
+	},
+	"application/resource-lists-diff+xml":                                        {
+		"compressible": true, "extensions": ["rld"]
+	},
+	"application/rls-services+xml":                                               {
+		"compressible": true, "extensions": ["rs"]
+	},
+	"application/route-apd+xml":                                                  {
+		"compressible": true, "extensions": ["rapd"]
+	},
+	"application/route-s-tsid+xml":                                               {
+		"compressible": true, "extensions": ["sls"]
+	},
+	"application/route-usd+xml":                                                  {
+		"compressible": true, "extensions": ["rusd"]
+	},
+	"application/rss+xml":                                                        {
+		"compressible": true, "extensions": ["rss"]
+	},
+	"application/rtf":                                                            {
+		"compressible": true, "extensions": ["rtf"]
+	},
+	"application/shf+xml":                                                        {
+		"compressible": true, "extensions": ["shf"]
+	}, "application/sieve":                                                       {
+	"compressible": false, "extensions": ["siv", "sieve"]
+}, "application/smil+xml":                                                        {
+	"compressible": true, "extensions": ["smi", "smil"]
+}, "application/sparql-query":                                                    {
+	"compressible": false, "extensions": ["rq"]
+},
+	"application/sparql-results+xml":                                             {
+		"compressible": true, "extensions": ["srx"]
+	},
+	"application/srgs":                                                           {
+		"compressible": false, "extensions": ["gram"]
+	},
+	"application/srgs+xml":                                                       {
+		"compressible": true, "extensions": ["grxml"]
+	},
+	"application/sru+xml":                                                        {
+		"compressible": true, "extensions": ["sru"]
+	},
+	"application/ssdl+xml":                                                       {
+		"compressible": true, "extensions": ["ssdl"]
+	},
+	"application/swid+xml":                                                       {
+		"compressible": true, "extensions": ["swidtag"]
+	}, "application/tei+xml":                                                     {
+	"compressible": true, "extensions": ["tei", "teicorpus"]
+}, "application/thraud+xml":                                                      {
+	"compressible": true, "extensions": ["tfi"]
+},
+	"application/timestamped-data":                                               {
+		"compressible": false, "extensions": ["tsd"]
+	},
+	"application/ttml+xml":                                                       {
+		"compressible": true, "extensions": ["ttml"]
+	},
+	"application/urc-ressheet+xml":                                               {
+		"compressible": true, "extensions": ["rsheet"]
+	},
+	"application/vnd.1000minds.decision-model+xml":                               {
+		"compressible": true, "extensions": ["1km"]
+	},
+	"application/vnd.3gpp.pic-bw-large":                                          {
+		"compressible": false, "extensions": ["plb"]
+	},
+	"application/vnd.3gpp.pic-bw-small":                                          {
+		"compressible": false, "extensions": ["psb"]
+	},
+	"application/vnd.3gpp.pic-bw-var":                                            {
+		"compressible": false, "extensions": ["pvb"]
+	},
+	"application/vnd.3gpp2.tcap":                                                 {
+		"compressible": false, "extensions": ["tcap"]
+	},
+	"application/vnd.3m.post-it-notes":                                           {
+		"compressible": false, "extensions": ["pwn"]
+	},
+	"application/vnd.accpac.simply.aso":                                          {
+		"compressible": false, "extensions": ["aso"]
+	},
+	"application/vnd.accpac.simply.imp":                                          {
+		"compressible": false, "extensions": ["imp"]
+	},
+	"application/vnd.acucobol":                                                   {
+		"compressible": false, "extensions": ["acu"]
+	}, "application/vnd.acucorp":                                                 {
+	"compressible": false, "extensions": ["atc", "acutc"]
+}, "application/vnd.adobe.air-application-installer-package+zip":                 {
+	"compressible": false, "extensions": ["air"]
+},
+	"application/vnd.adobe.formscentral.fcdt":                                    {
+		"compressible": false, "extensions": ["fcdt"]
+	},
+	"application/vnd.adobe.fxp":                                                  {
+		"compressible": false, "extensions": ["fxp", "fxpl"]
+	},
+	"application/vnd.adobe.xdp+xml":                                              {
+		"compressible": true, "extensions": ["xdp"]
+	},
+	"application/vnd.airzip.filesecure.azf":                                      {
+		"compressible": false, "extensions": ["azf"]
+	},
+	"application/vnd.airzip.filesecure.azs":                                      {
+		"compressible": false, "extensions": ["azs"]
+	},
+	"application/vnd.amazon.ebook":                                               {
+		"compressible": false, "extensions": ["azw"]
+	},
+	"application/vnd.americandynamics.acc":                                       {
+		"compressible": false, "extensions": ["acc"]
+	},
+	"application/vnd.amiga.ami":                                                  {
+		"compressible": false, "extensions": ["ami"]
+	},
+	"application/vnd.android.package-archive":                                    {
+		"compressible": false, "extensions": ["apk"]
+	},
+	"application/vnd.anser-web-certificate-issue-initiation":                     {
+		"compressible": false, "extensions": ["cii"]
+	},
+	"application/vnd.anser-web-funds-transfer-initiation":                        {
+		"compressible": false, "extensions": ["fti"]
+	},
+	"application/vnd.apple.installer+xml":                                        {
+		"compressible": true, "extensions": ["mpkg"]
+	},
+	"application/vnd.apple.keynote":                                              {
+		"compressible": false, "extensions": ["keynote"]
+	},
+	"application/vnd.apple.mpegurl":                                              {
+		"compressible": false, "extensions": ["m3u8"]
+	},
+	"application/vnd.apple.numbers":                                              {
+		"compressible": false, "extensions": ["numbers"]
+	},
+	"application/vnd.apple.pages":                                                {
+		"compressible": false, "extensions": ["pages"]
+	},
+	"application/vnd.apple.pkpass":                                               {
+		"compressible": false, "extensions": ["pkpass"]
+	},
+	"application/vnd.chemdraw+xml":                                               {
+		"compressible": true, "extensions": ["cdxml"]
+	},
+	"application/vnd.chipnuts.karaoke-mmd":                                       {
+		"compressible": false, "extensions": ["mmd"]
+	},
+	"application/vnd.cinderella":                                                 {
+		"compressible": false, "extensions": ["cdy"]
+	},
+	"application/vnd.citationstyles.style+xml":                                   {
+		"compressible": true, "extensions": ["csl"]
+	},
+	"application/vnd.claymore":                                                   {
+		"compressible": false, "extensions": ["cla"]
+	},
+	"application/vnd.cloanto.rp9":                                                {
+		"compressible": false, "extensions": ["rp9"]
+	},
+	"application/vnd.clonk.c4group":                                              {
+		"compressible": false, "extensions": [
+			"c4g", "c4d", "c4f", "c4p", "c4u"
+		]
+	},
+	"application/vnd.commonspace":                                                {
+		"compressible": false, "extensions": ["csp"]
+	},
+	"application/vnd.contact.cmsg":                                               {
+		"compressible": false, "extensions": ["cdbcmsg"]
+	},
+	"application/vnd.cosmocaller":                                                {
+		"compressible": false, "extensions": ["cmc"]
+	},
+	"application/vnd.criticaltools.wbs+xml":                                      {
+		"compressible": true, "extensions": ["wbs"]
+	},
+	"application/vnd.ctc-posml":                                                  {
+		"compressible": false, "extensions": ["pml"]
+	},
+	"application/vnd.cups-ppd":                                                   {
+		"compressible": false, "extensions": ["ppd"]
+	},
+	"application/vnd.curl.car":                                                   {
+		"compressible": false, "extensions": ["car"]
+	},
+	"application/vnd.curl.pcurl":                                                 {
+		"compressible": false, "extensions": ["pcurl"]
+	},
+	"application/vnd.dart":                                                       {
+		"compressible": true, "extensions": ["dart"]
+	},
+	"application/vnd.data-vision.rdz":                                            {
+		"compressible": false, "extensions": ["rdz"]
+	},
+	"application/vnd.dece.data":                                                  {
+		"compressible": false, "extensions": ["uvf", "uvvf", "uvd", "uvvd"]
+	},
+	"application/vnd.dece.ttml+xml":                                              {
+		"compressible": true, "extensions": ["uvt", "uvvt"]
+	},
+	"application/vnd.dece.unspecified":                                           {
+		"compressible": false, "extensions": ["uvx", "uvvx"]
+	},
+	"application/vnd.dece.zip":                                                   {
+		"compressible": false, "extensions": ["uvz", "uvvz"]
+	},
+	"application/vnd.dna":                                                        {
+		"compressible": false, "extensions": ["dna"]
+	},
+	"application/vnd.dolby.mlp":                                                  {
+		"compressible": false, "extensions": ["mlp"]
+	},
+	"application/vnd.dpgraph":                                                    {
+		"compressible": false, "extensions": ["dpg"]
+	},
+	"application/vnd.dreamfactory":                                               {
+		"compressible": false, "extensions": ["dfac"]
+	},
+	"application/vnd.ds-keypoint":                                                {
+		"compressible": false, "extensions": ["kpxx"]
+	},
+	"application/vnd.dvb.ait":                                                    {
+		"compressible": false, "extensions": ["ait"]
+	},
+	"application/vnd.dvb.service":                                                {
+		"compressible": false, "extensions": ["svc"]
+	},
+	"application/vnd.dynageo":                                                    {
+		"compressible": false, "extensions": ["geo"]
+	},
+	"application/vnd.ecowin.chart":                                               {
+		"compressible": false, "extensions": ["mag"]
+	},
+	"application/vnd.enliven":                                                    {
+		"compressible": false, "extensions": ["nml"]
+	},
+	"application/vnd.epson.esf":                                                  {
+		"compressible": false, "extensions": ["esf"]
+	},
+	"application/vnd.epson.msf":                                                  {
+		"compressible": false, "extensions": ["msf"]
+	},
+	"application/vnd.epson.quickanime":                                           {
+		"compressible": false, "extensions": ["qam"]
+	},
+	"application/vnd.epson.salt":                                                 {
+		"compressible": false, "extensions": ["slt"]
+	},
+	"application/vnd.epson.ssf":                                                  {
+		"compressible": false, "extensions": ["ssf"]
+	},
+	"application/vnd.eszigno3+xml":                                               {
+		"compressible": true, "extensions": ["es3", "et3"]
+	},
+	"application/vnd.ezpix-album":                                                {
+		"compressible": false, "extensions": ["ez2"]
+	},
+	"application/vnd.ezpix-package":                                              {
+		"compressible": false, "extensions": ["ez3"]
+	},
+	"application/vnd.fdf":                                                        {
+		"compressible": false, "extensions": ["fdf"]
+	},
+	"application/vnd.fdsn.mseed":                                                 {
+		"compressible": false, "extensions": ["mseed"]
+	},
+	"application/vnd.fdsn.seed":                                                  {
+		"compressible": false, "extensions": ["seed", "dataless"]
+	},
+	"application/vnd.flographit":                                                 {
+		"compressible": false, "extensions": ["gph"]
+	},
+	"application/vnd.fluxtime.clip":                                              {
+		"compressible": false, "extensions": ["ftc"]
+	},
+	"application/vnd.framemaker":                                                 {
+		"compressible": false, "extensions": ["fm", "frame", "maker", "book"]
+	},
+	"application/vnd.frogans.fnc":                                                {
+		"compressible": false, "extensions": ["fnc"]
+	},
+	"application/vnd.frogans.ltf":                                                {
+		"compressible": false, "extensions": ["ltf"]
+	},
+	"application/vnd.fsc.weblaunch":                                              {
+		"compressible": false, "extensions": ["fsc"]
+	},
+	"application/vnd.fujixerox.docuworks":                                        {
+		"compressible": false, "extensions": ["xdw"]
+	},
+	"application/vnd.fujixerox.docuworks.binder":                                 {
+		"compressible": false, "extensions": ["xbd"]
+	},
+	"application/vnd.geogebra.file":                                              {
+		"compressible": false, "extensions": ["ggb"]
+	},
+	"application/vnd.geogebra.tool":                                              {
+		"compressible": false, "extensions": ["ggt"]
+	},
+	"application/vnd.geometry-explorer":                                          {
+		"compressible": false, "extensions": ["gex", "gre"]
+	},
+	"application/vnd.geonext":                                                    {
+		"compressible": false, "extensions": ["gxt"]
+	},
+	"application/vnd.geoplan":                                                    {
+		"compressible": false, "extensions": ["g2w"]
+	},
+	"application/vnd.geospace":                                                   {
+		"compressible": false, "extensions": ["g3w"]
+	},
+	"application/vnd.gmx":                                                        {
+		"compressible": false, "extensions": ["gmx"]
+	},
+	"application/vnd.google-apps.document":                                       {
+		"compressible": false, "extensions": ["gdoc"]
+	},
+	"application/vnd.google-apps.presentation":                                   {
+		"compressible": false, "extensions": ["gslides"]
+	},
+	"application/vnd.google-apps.spreadsheet":                                    {
+		"compressible": false, "extensions": ["gsheet"]
+	},
+	"application/vnd.google-earth.kml+xml":                                       {
+		"compressible": true, "extensions": ["kml"]
+	},
+	"application/vnd.google-earth.kmz":                                           {
+		"compressible": false, "extensions": ["kmz"]
+	},
+	"application/vnd.grafeq":                                                     {
+		"compressible": false, "extensions": ["gqf", "gqs"]
+	},
+	"application/vnd.groove-account":                                             {
+		"compressible": false, "extensions": ["gac"]
+	},
+	"application/vnd.groove-help":                                                {
+		"compressible": false, "extensions": ["ghf"]
+	},
+	"application/vnd.groove-identity-message":                                    {
+		"compressible": false, "extensions": ["gim"]
+	},
+	"application/vnd.groove-injector":                                            {
+		"compressible": false, "extensions": ["grv"]
+	},
+	"application/vnd.groove-tool-message":                                        {
+		"compressible": false, "extensions": ["gtm"]
+	},
+	"application/vnd.groove-tool-template":                                       {
+		"compressible": false, "extensions": ["tpl"]
+	},
+	"application/vnd.groove-vcard":                                               {
+		"compressible": false, "extensions": ["vcg"]
+	},
+	"application/vnd.hal+xml":                                                    {
+		"compressible": true, "extensions": ["hal"]
+	},
+	"application/vnd.handheld-entertainment+xml":                                 {
+		"compressible": true, "extensions": ["zmm"]
+	},
+	"application/vnd.hbci":                                                       {
+		"compressible": false, "extensions": ["hbci"]
+	},
+	"application/vnd.hhe.lesson-player":                                          {
+		"compressible": false, "extensions": ["les"]
+	},
+	"application/vnd.hp-hpgl":                                                    {
+		"compressible": false, "extensions": ["hpgl"]
+	},
+	"application/vnd.hp-hpid":                                                    {
+		"compressible": false, "extensions": ["hpid"]
+	},
+	"application/vnd.hp-hps":                                                     {
+		"compressible": false, "extensions": ["hps"]
+	},
+	"application/vnd.hp-jlyt":                                                    {
+		"compressible": false, "extensions": ["jlt"]
+	},
+	"application/vnd.hp-pcl":                                                     {
+		"compressible": false, "extensions": ["pcl"]
+	},
+	"application/vnd.hp-pclxl":                                                   {
+		"compressible": false, "extensions": ["pclxl"]
+	},
+	"application/vnd.hydrostatix.sof-data":                                       {
+		"compressible": false, "extensions": ["sfd-hdstx"]
+	},
+	"application/vnd.ibm.minipay":                                                {
+		"compressible": false, "extensions": ["mpy"]
+	},
+	"application/vnd.ibm.modcap":                                                 {
+		"compressible": false, "extensions": ["afp", "listafp", "list3820"]
+	},
+	"application/vnd.ibm.rights-management":                                      {
+		"compressible": false, "extensions": ["irm"]
+	},
+	"application/vnd.ibm.secure-container":                                       {
+		"compressible": false, "extensions": ["sc"]
+	},
+	"application/vnd.iccprofile":                                                 {
+		"compressible": false, "extensions": ["icc", "icm"]
+	},
+	"application/vnd.igloader":                                                   {
+		"compressible": false, "extensions": ["igl"]
+	},
+	"application/vnd.immervision-ivp":                                            {
+		"compressible": false, "extensions": ["ivp"]
+	},
+	"application/vnd.immervision-ivu":                                            {
+		"compressible": false, "extensions": ["ivu"]
+	},
+	"application/vnd.insors.igm":                                                 {
+		"compressible": false, "extensions": ["igm"]
+	},
+	"application/vnd.intercon.formnet":                                           {
+		"compressible": false, "extensions": ["xpw", "xpx"]
+	},
+	"application/vnd.intergeo":                                                   {
+		"compressible": false, "extensions": ["i2g"]
+	},
+	"application/vnd.intu.qbo":                                                   {
+		"compressible": false, "extensions": ["qbo"]
+	},
+	"application/vnd.intu.qfx":                                                   {
+		"compressible": false, "extensions": ["qfx"]
+	},
+	"application/vnd.ipunplugged.rcprofile":                                      {
+		"compressible": false, "extensions": ["rcprofile"]
+	},
+	"application/vnd.irepository.package+xml":                                    {
+		"compressible": true, "extensions": ["irp"]
+	},
+	"application/vnd.is-xpr":                                                     {
+		"compressible": false, "extensions": ["xpr"]
+	},
+	"application/vnd.isac.fcs":                                                   {
+		"compressible": false, "extensions": ["fcs"]
+	},
+	"application/vnd.jam":                                                        {
+		"compressible": false, "extensions": ["jam"]
+	},
+	"application/vnd.jcp.javame.midlet-rms":                                      {
+		"compressible": false, "extensions": ["rms"]
+	},
+	"application/vnd.jisp":                                                       {
+		"compressible": false, "extensions": ["jisp"]
+	},
+	"application/vnd.joost.joda-archive":                                         {
+		"compressible": false, "extensions": ["joda"]
+	},
+	"application/vnd.kahootz":                                                    {
+		"compressible": false, "extensions": ["ktz", "ktr"]
+	},
+	"application/vnd.kde.karbon":                                                 {
+		"compressible": false, "extensions": ["karbon"]
+	},
+	"application/vnd.kde.kchart":                                                 {
+		"compressible": false, "extensions": ["chrt"]
+	},
+	"application/vnd.kde.kformula":                                               {
+		"compressible": false, "extensions": ["kfo"]
+	},
+	"application/vnd.kde.kivio":                                                  {
+		"compressible": false, "extensions": ["flw"]
+	},
+	"application/vnd.kde.kontour":                                                {
+		"compressible": false, "extensions": ["kon"]
+	},
+	"application/vnd.kde.kpresenter":                                             {
+		"compressible": false, "extensions": ["kpr", "kpt"]
+	},
+	"application/vnd.kde.kspread":                                                {
+		"compressible": false, "extensions": ["ksp"]
+	},
+	"application/vnd.kde.kword":                                                  {
+		"compressible": false, "extensions": ["kwd", "kwt"]
+	},
+	"application/vnd.kenameaapp":                                                 {
+		"compressible": false, "extensions": ["htke"]
+	},
+	"application/vnd.kidspiration":                                               {
+		"compressible": false, "extensions": ["kia"]
+	},
+	"application/vnd.kinar":                                                      {
+		"compressible": false, "extensions": ["kne", "knp"]
+	},
+	"application/vnd.koan":                                                       {
+		"compressible": false, "extensions": ["skp", "skd", "skt", "skm"]
+	},
+	"application/vnd.kodak-descriptor":                                           {
+		"compressible": false, "extensions": ["sse"]
+	},
+	"application/vnd.las.las+xml":                                                {
+		"compressible": true, "extensions": ["lasxml"]
+	},
+	"application/vnd.llamagraphics.life-balance.desktop":                         {
+		"compressible": false, "extensions": ["lbd"]
+	},
+	"application/vnd.llamagraphics.life-balance.exchange+xml":                    {
+		"compressible": true, "extensions": ["lbe"]
+	},
+	"application/vnd.lotus-1-2-3":                                                {
+		"compressible": false, "extensions": ["123"]
+	},
+	"application/vnd.lotus-approach":                                             {
+		"compressible": false, "extensions": ["apr"]
+	},
+	"application/vnd.lotus-freelance":                                            {
+		"compressible": false, "extensions": ["pre"]
+	},
+	"application/vnd.lotus-notes":                                                {
+		"compressible": false, "extensions": ["nsf"]
+	},
+	"application/vnd.lotus-organizer":                                            {
+		"compressible": false, "extensions": ["org"]
+	},
+	"application/vnd.lotus-screencam":                                            {
+		"compressible": false, "extensions": ["scm"]
+	},
+	"application/vnd.lotus-wordpro":                                              {
+		"compressible": false, "extensions": ["lwp"]
+	},
+	"application/vnd.macports.portpkg":                                           {
+		"compressible": false, "extensions": ["portpkg"]
+	},
+	"application/vnd.mcd":                                                        {
+		"compressible": false, "extensions": ["mcd"]
+	},
+	"application/vnd.medcalcdata":                                                {
+		"compressible": false, "extensions": ["mc1"]
+	},
+	"application/vnd.mediastation.cdkey":                                         {
+		"compressible": false, "extensions": ["cdkey"]
+	},
+	"application/vnd.mfer":                                                       {
+		"compressible": false, "extensions": ["mwf"]
+	},
+	"application/vnd.mfmp":                                                       {
+		"compressible": false, "extensions": ["mfm"]
+	},
+	"application/vnd.micrografx.flo":                                             {
+		"compressible": false, "extensions": ["flo"]
+	},
+	"application/vnd.micrografx.igx":                                             {
+		"compressible": false, "extensions": ["igx"]
+	},
+	"application/vnd.mif":                                                        {
+		"compressible": false, "extensions": ["mif"]
+	},
+	"application/vnd.mobius.daf":                                                 {
+		"compressible": false, "extensions": ["daf"]
+	},
+	"application/vnd.mobius.dis":                                                 {
+		"compressible": false, "extensions": ["dis"]
+	},
+	"application/vnd.mobius.mbk":                                                 {
+		"compressible": false, "extensions": ["mbk"]
+	},
+	"application/vnd.mobius.mqy":                                                 {
+		"compressible": false, "extensions": ["mqy"]
+	},
+	"application/vnd.mobius.msl":                                                 {
+		"compressible": false, "extensions": ["msl"]
+	},
+	"application/vnd.mobius.plc":                                                 {
+		"compressible": false, "extensions": ["plc"]
+	},
+	"application/vnd.mobius.txf":                                                 {
+		"compressible": false, "extensions": ["txf"]
+	},
+	"application/vnd.mophun.application":                                         {
+		"compressible": false, "extensions": ["mpn"]
+	},
+	"application/vnd.mophun.certificate":                                         {
+		"compressible": false, "extensions": ["mpc"]
+	},
+	"application/vnd.mozilla.xul+xml":                                            {
+		"compressible": true, "extensions": ["xul"]
+	},
+	"application/vnd.ms-artgalry":                                                {
+		"compressible": false, "extensions": ["cil"]
+	},
+	"application/vnd.ms-cab-compressed":                                          {
+		"compressible": false, "extensions": ["cab"]
+	},
+	"application/vnd.ms-excel":                                                   {
+		"compressible": false, "extensions": [
+			"xls", "xlm", "xla", "xlc", "xlt", "xlw"
+		]
+	},
+	"application/vnd.ms-excel.addin.macroenabled.12":                             {
+		"compressible": false, "extensions": ["xlam"]
+	},
+	"application/vnd.ms-excel.sheet.binary.macroenabled.12":                      {
+		"compressible": false, "extensions": ["xlsb"]
+	},
+	"application/vnd.ms-excel.sheet.macroenabled.12":                             {
+		"compressible": false, "extensions": ["xlsm"]
+	},
+	"application/vnd.ms-excel.template.macroenabled.12":                          {
+		"compressible": false, "extensions": ["xltm"]
+	},
+	"application/vnd.ms-fontobject":                                              {
+		"compressible": true, "extensions": ["eot"]
+	},
+	"application/vnd.ms-htmlhelp":                                                {
+		"compressible": false, "extensions": ["chm"]
+	},
+	"application/vnd.ms-ims":                                                     {
+		"compressible": false, "extensions": ["ims"]
+	},
+	"application/vnd.ms-lrm":                                                     {
+		"compressible": false, "extensions": ["lrm"]
+	},
+	"application/vnd.ms-officetheme":                                             {
+		"compressible": false, "extensions": ["thmx"]
+	},
+	"application/vnd.ms-outlook":                                                 {
+		"compressible": false, "extensions": ["msg"]
+	},
+	"application/vnd.ms-pki.seccat":                                              {
+		"compressible": false, "extensions": ["cat"]
+	},
+	"application/vnd.ms-pki.stl":                                                 {
+		"compressible": false, "extensions": ["stl"]
+	},
+	"application/vnd.ms-powerpoint":                                              {
+		"compressible": false, "extensions": ["ppt", "pps", "pot"]
+	},
+	"application/vnd.ms-powerpoint.addin.macroenabled.12":                        {
+		"compressible": false, "extensions": ["ppam"]
+	},
+	"application/vnd.ms-powerpoint.presentation.macroenabled.12":                 {
+		"compressible": false, "extensions": ["pptm"]
+	},
+	"application/vnd.ms-powerpoint.slide.macroenabled.12":                        {
+		"compressible": false, "extensions": ["sldm"]
+	},
+	"application/vnd.ms-powerpoint.slideshow.macroenabled.12":                    {
+		"compressible": false, "extensions": ["ppsm"]
+	},
+	"application/vnd.ms-powerpoint.template.macroenabled.12":                     {
+		"compressible": false, "extensions": ["potm"]
+	},
+	"application/vnd.ms-project":                                                 {
+		"compressible": false, "extensions": ["mpp", "mpt"]
+	},
+	"application/vnd.ms-word.document.macroenabled.12":                           {
+		"compressible": false, "extensions": ["docm"]
+	},
+	"application/vnd.ms-word.template.macroenabled.12":                           {
+		"compressible": false, "extensions": ["dotm"]
+	},
+	"application/vnd.ms-works":                                                   {
+		"compressible": false, "extensions": ["wps", "wks", "wcm", "wdb"]
+	},
+	"application/vnd.ms-wpl":                                                     {
+		"compressible": false, "extensions": ["wpl"]
+	},
+	"application/vnd.ms-xpsdocument":                                             {
+		"compressible": false, "extensions": ["xps"]
+	},
+	"application/vnd.mseq":                                                       {
+		"compressible": false, "extensions": ["mseq"]
+	},
+	"application/vnd.musician":                                                   {
+		"compressible": false, "extensions": ["mus"]
+	},
+	"application/vnd.muvee.style":                                                {
+		"compressible": false, "extensions": ["msty"]
+	},
+	"application/vnd.mynfc":                                                      {
+		"compressible": false, "extensions": ["taglet"]
+	},
+	"application/vnd.neurolanguage.nlu":                                          {
+		"compressible": false, "extensions": ["nlu"]
+	},
+	"application/vnd.nitf":                                                       {
+		"compressible": false, "extensions": ["ntf", "nitf"]
+	},
+	"application/vnd.noblenet-directory":                                         {
+		"compressible": false, "extensions": ["nnd"]
+	},
+	"application/vnd.noblenet-sealer":                                            {
+		"compressible": false, "extensions": ["nns"]
+	},
+	"application/vnd.noblenet-web":                                               {
+		"compressible": false, "extensions": ["nnw"]
+	},
+	"application/vnd.nokia.n-gage.ac+xml":                                        {
+		"compressible": true, "extensions": ["ac"]
+	},
+	"application/vnd.nokia.n-gage.data":                                          {
+		"compressible": false, "extensions": ["ngdat"]
+	},
+	"application/vnd.nokia.n-gage.symbian.install":                               {
+		"compressible": false, "extensions": ["n-gage"]
+	},
+	"application/vnd.nokia.radio-preset":                                         {
+		"compressible": false, "extensions": ["rpst"]
+	},
+	"application/vnd.nokia.radio-presets":                                        {
+		"compressible": false, "extensions": ["rpss"]
+	},
+	"application/vnd.novadigm.edm":                                               {
+		"compressible": false, "extensions": ["edm"]
+	},
+	"application/vnd.novadigm.edx":                                               {
+		"compressible": false, "extensions": ["edx"]
+	},
+	"application/vnd.novadigm.ext":                                               {
+		"compressible": false, "extensions": ["ext"]
+	},
+	"application/vnd.oasis.opendocument.chart":                                   {
+		"compressible": false, "extensions": ["odc"]
+	},
+	"application/vnd.oasis.opendocument.chart-template":                          {
+		"compressible": false, "extensions": ["otc"]
+	},
+	"application/vnd.oasis.opendocument.database":                                {
+		"compressible": false, "extensions": ["odb"]
+	},
+	"application/vnd.oasis.opendocument.formula":                                 {
+		"compressible": false, "extensions": ["odf"]
+	},
+	"application/vnd.oasis.opendocument.formula-template":                        {
+		"compressible": false, "extensions": ["odft"]
+	},
+	"application/vnd.oasis.opendocument.graphics":                                {
+		"compressible": false, "extensions": ["odg"]
+	},
+	"application/vnd.oasis.opendocument.graphics-template":                       {
+		"compressible": false, "extensions": ["otg"]
+	},
+	"application/vnd.oasis.opendocument.image":                                   {
+		"compressible": false, "extensions": ["odi"]
+	},
+	"application/vnd.oasis.opendocument.image-template":                          {
+		"compressible": false, "extensions": ["oti"]
+	},
+	"application/vnd.oasis.opendocument.presentation":                            {
+		"compressible": false, "extensions": ["odp"]
+	},
+	"application/vnd.oasis.opendocument.presentation-template":                   {
+		"compressible": false, "extensions": ["otp"]
+	},
+	"application/vnd.oasis.opendocument.spreadsheet":                             {
+		"compressible": false, "extensions": ["ods"]
+	},
+	"application/vnd.oasis.opendocument.spreadsheet-template":                    {
+		"compressible": false, "extensions": ["ots"]
+	},
+	"application/vnd.oasis.opendocument.text":                                    {
+		"compressible": false, "extensions": ["odt"]
+	},
+	"application/vnd.oasis.opendocument.text-master":                             {
+		"compressible": false, "extensions": ["odm"]
+	},
+	"application/vnd.oasis.opendocument.text-template":                           {
+		"compressible": false, "extensions": ["ott"]
+	},
+	"application/vnd.oasis.opendocument.text-web":                                {
+		"compressible": false, "extensions": ["oth"]
+	},
+	"application/vnd.olpc-sugar":                                                 {
+		"compressible": false, "extensions": ["xo"]
+	},
+	"application/vnd.oma.dd2+xml":                                                {
+		"compressible": true, "extensions": ["dd2"]
+	},
+	"application/vnd.openblox.game+xml":                                          {
+		"compressible": true, "extensions": ["obgx"]
+	},
+	"application/vnd.openofficeorg.extension":                                    {
+		"compressible": false, "extensions": ["oxt"]
+	},
+	"application/vnd.openstreetmap.data+xml":                                     {
+		"compressible": true, "extensions": ["osm"]
+	},
+	"application/vnd.openxmlformats-officedocument.presentationml.presentation":  {
+		"compressible": false, "extensions": ["pptx"]
+	}, "application/vnd.openxmlformats-officedocument.presentationml.slide":      {
+	"compressible": false, "extensions": ["sldx"]
+}, "application/vnd.openxmlformats-officedocument.presentationml.slideshow":      {
+	"compressible": false, "extensions": ["ppsx"]
+}, "application/vnd.openxmlformats-officedocument.presentationml.template":       {
+	"compressible": false, "extensions": ["potx"]
+}, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":           {
+	"compressible": false, "extensions": ["xlsx"]
+},
+	"application/vnd.openxmlformats-officedocument.spreadsheetml.template":       {
+		"compressible": false, "extensions": ["xltx"]
+	}, "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
+	"compressible": false, "extensions": ["docx"]
+}, "application/vnd.openxmlformats-officedocument.wordprocessingml.template":     {
+	"compressible": false, "extensions": ["dotx"]
+}, "application/vnd.osgeo.mapguide.package":                                      {
+	"compressible": false, "extensions": ["mgp"]
+},
+	"application/vnd.palm":                                                       {
+		"compressible": false, "extensions": [
+			"pdb", "pqa", "oprc"
+		]
+	},
+	"application/vnd.pawaafile":                                                  {
+		"compressible": false, "extensions": ["paw"]
+	},
+	"application/vnd.pg.format":                                                  {
+		"compressible": false, "extensions": ["str"]
+	},
+	"application/vnd.picsel":                                                     {
+		"compressible": false, "extensions": ["efif"]
+	},
+	"application/vnd.powerbuilder6":                                              {
+		"compressible": false, "extensions": ["pbd"]
+	},
+	"application/vnd.previewsystems.box":                                         {
+		"compressible": false, "extensions": ["box"]
+	},
+	"application/vnd.proteus.magazine":                                           {
+		"compressible": false, "extensions": ["mgz"]
+	},
+	"application/vnd.publishare-delta-tree":                                      {
+		"compressible": false, "extensions": ["qps"]
+	},
+	"application/vnd.pvi.ptid1":                                                  {
+		"compressible": false, "extensions": ["ptid"]
+	}, "application/vnd.quark.quarkxpress":                                       {
+	"compressible": false, "extensions": ["qxd", "qxt", "qwd", "qwt", "qxl", "qxb"]
+}, "application/vnd.realvnc.bed":                                                 {
+	"compressible": false, "extensions": ["bed"]
+},
+	"application/vnd.recordare.musicxml":                                         {
+		"compressible": false, "extensions": ["mxl"]
+	},
+	"application/vnd.recordare.musicxml+xml":                                     {
+		"compressible": true, "extensions": ["musicxml"]
+	},
+	"application/vnd.rig.cryptonote":                                             {
+		"compressible": false, "extensions": ["cryptonote"]
+	},
+	"application/vnd.rim.cod":                                                    {
+		"compressible": false, "extensions": ["cod"]
+	},
+	"application/vnd.rn-realmedia":                                               {
+		"compressible": false, "extensions": ["rm"]
+	},
+	"application/vnd.rn-realmedia-vbr":                                           {
+		"compressible": false, "extensions": ["rmvb"]
+	},
+	"application/vnd.sailingtracker.track":                                       {
+		"compressible": false, "extensions": ["st"]
+	},
+	"application/vnd.simtech-mindmapper":                                         {
+		"compressible": false, "extensions": ["twd", "twds"]
+	},
+	"application/vnd.smaf":                                                       {
+		"compressible": false, "extensions": ["mmf"]
+	},
+	"application/vnd.smart.teacher":                                              {
+		"compressible": false, "extensions": ["teacher"]
+	},
+	"application/vnd.software602.filler.form+xml":                                {
+		"compressible": true, "extensions": ["fo"]
+	},
+	"application/vnd.solent.sdkm+xml":                                            {
+		"compressible": true, "extensions": ["sdkm", "sdkd"]
+	},
+	"application/vnd.spotfire.dxp":                                               {
+		"compressible": false, "extensions": ["dxp"]
+	},
+	"application/vnd.spotfire.sfs":                                               {
+		"compressible": false, "extensions": ["sfs"]
+	},
+	"application/vnd.stardivision.calc":                                          {
+		"compressible": false, "extensions": ["sdc"]
+	},
+	"application/vnd.stardivision.draw":                                          {
+		"compressible": false, "extensions": ["sda"]
+	},
+	"application/vnd.stardivision.impress":                                       {
+		"compressible": false, "extensions": ["sdd"]
+	},
+	"application/vnd.stardivision.math":                                          {
+		"compressible": false, "extensions": ["smf"]
+	},
+	"application/vnd.stardivision.writer":                                        {
+		"compressible": false, "extensions": ["sdw", "vor"]
+	},
+	"application/vnd.stardivision.writer-global":                                 {
+		"compressible": false, "extensions": ["sgl"]
+	},
+	"application/vnd.stepmania.package":                                          {
+		"compressible": false, "extensions": ["smzip"]
+	},
+	"application/vnd.stepmania.stepchart":                                        {
+		"compressible": false, "extensions": ["sm"]
+	},
+	"application/vnd.sun.wadl+xml":                                               {
+		"compressible": true, "extensions": ["wadl"]
+	},
+	"application/vnd.sun.xml.calc":                                               {
+		"compressible": false, "extensions": ["sxc"]
+	},
+	"application/vnd.sun.xml.calc.template":                                      {
+		"compressible": false, "extensions": ["stc"]
+	},
+	"application/vnd.sun.xml.draw":                                               {
+		"compressible": false, "extensions": ["sxd"]
+	},
+	"application/vnd.sun.xml.draw.template":                                      {
+		"compressible": false, "extensions": ["std"]
+	},
+	"application/vnd.sun.xml.impress":                                            {
+		"compressible": false, "extensions": ["sxi"]
+	},
+	"application/vnd.sun.xml.impress.template":                                   {
+		"compressible": false, "extensions": ["sti"]
+	},
+	"application/vnd.sun.xml.math":                                               {
+		"compressible": false, "extensions": ["sxm"]
+	},
+	"application/vnd.sun.xml.writer":                                             {
+		"compressible": false, "extensions": ["sxw"]
+	},
+	"application/vnd.sun.xml.writer.global":                                      {
+		"compressible": false, "extensions": ["sxg"]
+	},
+	"application/vnd.sun.xml.writer.template":                                    {
+		"compressible": false, "extensions": ["stw"]
+	},
+	"application/vnd.sus-calendar":                                               {
+		"compressible": false, "extensions": ["sus", "susp"]
+	},
+	"application/vnd.svd":                                                        {
+		"compressible": false, "extensions": ["svd"]
+	},
+	"application/vnd.symbian.install":                                            {
+		"compressible": false, "extensions": ["sis", "sisx"]
+	},
+	"application/vnd.syncml+xml":                                                 {
+		"compressible": true, "extensions": ["xsm"]
+	},
+	"application/vnd.syncml.dm+wbxml":                                            {
+		"compressible": false, "extensions": ["bdm"]
+	},
+	"application/vnd.syncml.dm+xml":                                              {
+		"compressible": true, "extensions": ["xdm"]
+	},
+	"application/vnd.syncml.dmddf+xml":                                           {
+		"compressible": true, "extensions": ["ddf"]
+	},
+	"application/vnd.tao.intent-module-archive":                                  {
+		"compressible": false, "extensions": ["tao"]
+	},
+	"application/vnd.tcpdump.pcap":                                               {
+		"compressible": false, "extensions": [
+			"pcap", "cap", "dmp"
+		]
+	},
+	"application/vnd.tmobile-livetv":                                             {
+		"compressible": false, "extensions": ["tmo"]
+	},
+	"application/vnd.trid.tpt":                                                   {
+		"compressible": false, "extensions": ["tpt"]
+	},
+	"application/vnd.triscape.mxs":                                               {
+		"compressible": false, "extensions": ["mxs"]
+	},
+	"application/vnd.trueapp":                                                    {
+		"compressible": false, "extensions": ["tra"]
+	},
+	"application/vnd.ufdl":                                                       {
+		"compressible": false, "extensions": ["ufd", "ufdl"]
+	},
+	"application/vnd.uiq.theme":                                                  {
+		"compressible": false, "extensions": ["utz"]
+	},
+	"application/vnd.umajin":                                                     {
+		"compressible": false, "extensions": ["umj"]
+	},
+	"application/vnd.unity":                                                      {
+		"compressible": false, "extensions": ["unityweb"]
+	},
+	"application/vnd.uoml+xml":                                                   {
+		"compressible": true, "extensions": ["uoml"]
+	},
+	"application/vnd.vcx":                                                        {
+		"compressible": false, "extensions": ["vcx"]
+	},
+	"application/vnd.visio":                                                      {
+		"compressible": false, "extensions": [
+			"vsd", "vst", "vss", "vsw"
+		]
+	},
+	"application/vnd.visionary":                                                  {
+		"compressible": false, "extensions": ["vis"]
+	},
+	"application/vnd.vsf":                                                        {
+		"compressible": false, "extensions": ["vsf"]
+	},
+	"application/vnd.wap.wbxml":                                                  {
+		"compressible": false, "extensions": ["wbxml"]
+	},
+	"application/vnd.wap.wmlc":                                                   {
+		"compressible": false, "extensions": ["wmlc"]
+	},
+	"application/vnd.wap.wmlscriptc":                                             {
+		"compressible": false, "extensions": ["wmlsc"]
+	},
+	"application/vnd.webturbo":                                                   {
+		"compressible": false, "extensions": ["wtb"]
+	},
+	"application/vnd.wolfram.player":                                             {
+		"compressible": false, "extensions": ["nbp"]
+	},
+	"application/vnd.wordperfect":                                                {
+		"compressible": false, "extensions": ["wpd"]
+	},
+	"application/vnd.wqd":                                                        {
+		"compressible": false, "extensions": ["wqd"]
+	},
+	"application/vnd.wt.stf":                                                     {
+		"compressible": false, "extensions": ["stf"]
+	},
+	"application/vnd.xara":                                                       {
+		"compressible": false, "extensions": ["xar"]
+	},
+	"application/vnd.xfdl":                                                       {
+		"compressible": false, "extensions": ["xfdl"]
+	},
+	"application/vnd.yamaha.hv-dic":                                              {
+		"compressible": false, "extensions": ["hvd"]
+	},
+	"application/vnd.yamaha.hv-script":                                           {
+		"compressible": false, "extensions": ["hvs"]
+	},
+	"application/vnd.yamaha.hv-voice":                                            {
+		"compressible": false, "extensions": ["hvp"]
+	},
+	"application/vnd.yamaha.openscoreformat":                                     {
+		"compressible": false, "extensions": ["osf"]
+	},
+	"application/vnd.yamaha.openscoreformat.osfpvg+xml":                          {
+		"compressible": true, "extensions": ["osfpvg"]
+	},
+	"application/vnd.yamaha.smaf-audio":                                          {
+		"compressible": false, "extensions": ["saf"]
+	},
+	"application/vnd.yamaha.smaf-phrase":                                         {
+		"compressible": false, "extensions": ["spf"]
+	},
+	"application/vnd.yellowriver-custom-menu":                                    {
+		"compressible": false, "extensions": ["cmp"]
+	},
+	"application/vnd.zul":                                                        {
+		"compressible": false, "extensions": ["zir", "zirz"]
+	},
+	"application/vnd.zzazz.deck+xml":                                             {
+		"compressible": true, "extensions": ["zaz"]
+	},
+	"application/voicexml+xml":                                                   {
+		"compressible": true, "extensions": ["vxml"]
+	},
+	"application/wasm":                                                           {
+		"compressible": true, "extensions": ["wasm"]
+	},
+	"application/widget":                                                         {
+		"compressible": false, "extensions": ["wgt"]
+	},
+	"application/winhlp":                                                         {
+		"compressible": false, "extensions": ["hlp"]
+	},
+	"application/wsdl+xml":                                                       {
+		"compressible": true, "extensions": ["wsdl"]
+	},
+	"application/wspolicy+xml":                                                   {
+		"compressible": true, "extensions": ["wspolicy"]
+	},
+	"application/x-7z-compressed":                                                {
+		"compressible": false, "extensions": ["7z"]
+	},
+	"application/x-abiword":                                                      {
+		"compressible": false, "extensions": ["abw"]
+	},
+	"application/x-ace-compressed":                                               {
+		"compressible": false, "extensions": ["ace"]
+	},
+	"application/x-apple-diskimage":                                              {
+		"compressible": false, "extensions": ["dmg"]
+	},
+	"application/x-arj":                                                          {
+		"compressible": false, "extensions": ["arj"]
+	},
+	"application/x-authorware-bin":                                               {
+		"compressible": false, "extensions": [
+			"aab", "x32", "u32", "vox"
+		]
+	},
+	"application/x-authorware-map":                                               {
+		"compressible": false, "extensions": ["aam"]
+	},
+	"application/x-authorware-seg":                                               {
+		"compressible": false, "extensions": ["aas"]
+	},
+	"application/x-bcpio":                                                        {
+		"compressible": false, "extensions": ["bcpio"]
+	},
+	"application/x-bdoc":                                                         {
+		"compressible": false, "extensions": ["bdoc"]
+	},
+	"application/x-bittorrent":                                                   {
+		"compressible": false, "extensions": ["torrent"]
+	},
+	"application/x-blorb":                                                        {
+		"compressible": false, "extensions": ["blb", "blorb"]
+	},
+	"application/x-bzip":                                                         {
+		"compressible": false, "extensions": ["bz"]
+	},
+	"application/x-bzip2":                                                        {
+		"compressible": false, "extensions": ["bz2", "boz"]
+	},
+	"application/x-cbr":                                                          {
+		"compressible": false, "extensions": [
+			"cbr", "cba", "cbt", "cbz", "cb7"
+		]
+	},
+	"application/x-cdlink":                                                       {
+		"compressible": false, "extensions": ["vcd"]
+	},
+	"application/x-cfs-compressed":                                               {
+		"compressible": false, "extensions": ["cfs"]
+	},
+	"application/x-chat":                                                         {
+		"compressible": false, "extensions": ["chat"]
+	},
+	"application/x-chess-pgn":                                                    {
+		"compressible": false, "extensions": ["pgn"]
+	},
+	"application/x-chrome-extension":                                             {
+		"compressible": false, "extensions": ["crx"]
+	},
+	"application/x-cocoa":                                                        {
+		"compressible": false, "extensions": ["cco"]
+	},
+	"application/x-conference":                                                   {
+		"compressible": false, "extensions": ["nsc"]
+	},
+	"application/x-cpio":                                                         {
+		"compressible": false, "extensions": ["cpio"]
+	},
+	"application/x-csh":                                                          {
+		"compressible": false, "extensions": ["csh"]
+	},
+	"application/x-debian-package":                                               {
+		"compressible": false, "extensions": ["deb", "udeb"]
+	},
+	"application/x-dgc-compressed":                                               {
+		"compressible": false, "extensions": ["dgc"]
+	}, "application/x-director":                                                  {
+	"compressible": false, "extensions": ["dir", "dcr", "dxr", "cst", "cct", "cxt", "w3d", "fgd", "swa"]
+}, "application/x-doom":                                                          {
+	"compressible": false, "extensions": ["wad"]
+},
+	"application/x-dtbncx+xml":                                                   {
+		"compressible": true, "extensions": ["ncx"]
+	},
+	"application/x-dtbook+xml":                                                   {
+		"compressible": true, "extensions": ["dtb"]
+	},
+	"application/x-dtbresource+xml":                                              {
+		"compressible": true, "extensions": ["res"]
+	},
+	"application/x-dvi":                                                          {
+		"compressible": false, "extensions": ["dvi"]
+	},
+	"application/x-envoy":                                                        {
+		"compressible": false, "extensions": ["evy"]
+	},
+	"application/x-eva":                                                          {
+		"compressible": false, "extensions": ["eva"]
+	},
+	"application/x-font-bdf":                                                     {
+		"compressible": false, "extensions": ["bdf"]
+	},
+	"application/x-font-ghostscript":                                             {
+		"compressible": false, "extensions": ["gsf"]
+	},
+	"application/x-font-linux-psf":                                               {
+		"compressible": false, "extensions": ["psf"]
+	},
+	"application/x-font-pcf":                                                     {
+		"compressible": false, "extensions": ["pcf"]
+	},
+	"application/x-font-snf":                                                     {
+		"compressible": false, "extensions": ["snf"]
+	},
+	"application/x-font-type1":                                                   {
+		"compressible": false, "extensions": [
+			"pfa", "pfb", "pfm", "afm"
+		]
+	},
+	"application/x-freearc":                                                      {
+		"compressible": false, "extensions": ["arc"]
+	},
+	"application/x-futuresplash":                                                 {
+		"compressible": false, "extensions": ["spl"]
+	},
+	"application/x-gca-compressed":                                               {
+		"compressible": false, "extensions": ["gca"]
+	},
+	"application/x-glulx":                                                        {
+		"compressible": false, "extensions": ["ulx"]
+	},
+	"application/x-gnumeric":                                                     {
+		"compressible": false, "extensions": ["gnumeric"]
+	},
+	"application/x-gramps-xml":                                                   {
+		"compressible": false, "extensions": ["gramps"]
+	},
+	"application/x-gtar":                                                         {
+		"compressible": false, "extensions": ["gtar"]
+	},
+	"application/x-hdf":                                                          {
+		"compressible": false, "extensions": ["hdf"]
+	},
+	"application/x-httpd-php":                                                    {
+		"compressible": true, "extensions": ["php"]
+	},
+	"application/x-install-instructions":                                         {
+		"compressible": false, "extensions": ["install"]
+	},
+	"application/x-iso9660-image":                                                {
+		"compressible": false, "extensions": ["iso"]
+	},
+	"application/x-java-archive-diff":                                            {
+		"compressible": false, "extensions": ["jardiff"]
+	},
+	"application/x-java-jnlp-file":                                               {
+		"compressible": false, "extensions": ["jnlp"]
+	},
+	"application/x-keepass2":                                                     {
+		"compressible": false, "extensions": ["kdbx"]
+	},
+	"application/x-latex":                                                        {
+		"compressible": false, "extensions": ["latex"]
+	},
+	"application/x-lua-bytecode":                                                 {
+		"compressible": false, "extensions": ["luac"]
+	},
+	"application/x-lzh-compressed":                                               {
+		"compressible": false, "extensions": ["lzh", "lha"]
+	},
+	"application/x-makeself":                                                     {
+		"compressible": false, "extensions": ["run"]
+	},
+	"application/x-mie":                                                          {
+		"compressible": false, "extensions": ["mie"]
+	},
+	"application/x-mobipocket-ebook":                                             {
+		"compressible": false, "extensions": ["prc", "mobi"]
+	},
+	"application/x-ms-application":                                               {
+		"compressible": false, "extensions": ["application"]
+	},
+	"application/x-ms-shortcut":                                                  {
+		"compressible": false, "extensions": ["lnk"]
+	},
+	"application/x-ms-wmd":                                                       {
+		"compressible": false, "extensions": ["wmd"]
+	},
+	"application/x-ms-wmz":                                                       {
+		"compressible": false, "extensions": ["wmz"]
+	},
+	"application/x-ms-xbap":                                                      {
+		"compressible": false, "extensions": ["xbap"]
+	},
+	"application/x-msaccess":                                                     {
+		"compressible": false, "extensions": ["mdb"]
+	},
+	"application/x-msbinder":                                                     {
+		"compressible": false, "extensions": ["obd"]
+	},
+	"application/x-mscardfile":                                                   {
+		"compressible": false, "extensions": ["crd"]
+	},
+	"application/x-msclip":                                                       {
+		"compressible": false, "extensions": ["clp"]
+	},
+	"application/x-msdos-program":                                                {
+		"compressible": false, "extensions": ["exe"]
+	},
+	"application/x-msdownload":                                                   {
+		"compressible": false, "extensions": [
+			"exe", "dll", "com", "bat", "msi"
+		]
+	},
+	"application/x-msmediaview":                                                  {
+		"compressible": false, "extensions": ["mvb", "m13", "m14"]
+	},
+	"application/x-msmetafile":                                                   {
+		"compressible": false, "extensions": [
+			"wmf", "wmz", "emf", "emz"
+		]
+	},
+	"application/x-msmoney":                                                      {
+		"compressible": false, "extensions": ["mny"]
+	},
+	"application/x-mspublisher":                                                  {
+		"compressible": false, "extensions": ["pub"]
+	},
+	"application/x-msschedule":                                                   {
+		"compressible": false, "extensions": ["scd"]
+	},
+	"application/x-msterminal":                                                   {
+		"compressible": false, "extensions": ["trm"]
+	},
+	"application/x-mswrite":                                                      {
+		"compressible": false, "extensions": ["wri"]
+	},
+	"application/x-netcdf":                                                       {
+		"compressible": false, "extensions": ["nc", "cdf"]
+	},
+	"application/x-ns-proxy-autoconfig":                                          {
+		"compressible": true, "extensions": ["pac"]
+	},
+	"application/x-nzb":                                                          {
+		"compressible": false, "extensions": ["nzb"]
+	},
+	"application/x-perl":                                                         {
+		"compressible": false, "extensions": ["pl", "pm"]
+	},
+	"application/x-pilot":                                                        {
+		"compressible": false, "extensions": ["prc", "pdb"]
+	},
+	"application/x-pkcs12":                                                       {
+		"compressible": false, "extensions": ["p12", "pfx"]
+	},
+	"application/x-pkcs7-certificates":                                           {
+		"compressible": false, "extensions": ["p7b", "spc"]
+	},
+	"application/x-pkcs7-certreqresp":                                            {
+		"compressible": false, "extensions": ["p7r"]
+	},
+	"application/x-rar-compressed":                                               {
+		"compressible": false, "extensions": ["rar"]
+	},
+	"application/x-sh":                                                           {
+		"compressible": true, "extensions": ["sh"]
+	},
+	"application/x-shockwave-flash":                                              {
+		"compressible": false, "extensions": ["swf"]
+	},
+	"application/x-silverlight-app":                                              {
+		"compressible": false, "extensions": ["xap"]
+	},
+	"application/x-sql":                                                          {
+		"compressible": false, "extensions": ["sql"]
+	},
+	"application/x-stuffit":                                                      {
+		"compressible": false, "extensions": ["sit"]
+	},
+	"application/x-stuffitx":                                                     {
+		"compressible": false, "extensions": ["sitx"]
+	},
+	"application/x-subrip":                                                       {
+		"compressible": false, "extensions": ["srt"]
+	},
+	"application/x-sv4cpio":                                                      {
+		"compressible": false, "extensions": ["sv4cpio"]
+	},
+	"application/x-sv4crc":                                                       {
+		"compressible": false, "extensions": ["sv4crc"]
+	},
+	"application/x-t3vm-image":                                                   {
+		"compressible": false, "extensions": ["t3"]
+	},
+	"application/x-tads":                                                         {
+		"compressible": false, "extensions": ["gam"]
+	},
+	"application/x-tar":                                                          {
+		"compressible": true, "extensions": ["tar"]
+	},
+	"application/x-tcl":                                                          {
+		"compressible": false, "extensions": ["tcl", "tk"]
+	},
+	"application/x-tex":                                                          {
+		"compressible": false, "extensions": ["tex"]
+	},
+	"application/x-tex-tfm":                                                      {
+		"compressible": false, "extensions": ["tfm"]
+	},
+	"application/x-texinfo":                                                      {
+		"compressible": false, "extensions": ["texinfo", "texi"]
+	},
+	"application/x-tgif":                                                         {
+		"compressible": false, "extensions": ["obj"]
+	},
+	"application/x-ustar":                                                        {
+		"compressible": false, "extensions": ["ustar"]
+	},
+	"application/x-virtualbox-hdd":                                               {
+		"compressible": true, "extensions": ["hdd"]
+	},
+	"application/x-virtualbox-ova":                                               {
+		"compressible": true, "extensions": ["ova"]
+	},
+	"application/x-virtualbox-ovf":                                               {
+		"compressible": true, "extensions": ["ovf"]
+	},
+	"application/x-virtualbox-vbox":                                              {
+		"compressible": true, "extensions": ["vbox"]
+	},
+	"application/x-virtualbox-vbox-extpack":                                      {
+		"compressible": false, "extensions": ["vbox-extpack"]
+	},
+	"application/x-virtualbox-vdi":                                               {
+		"compressible": true, "extensions": ["vdi"]
+	},
+	"application/x-virtualbox-vhd":                                               {
+		"compressible": true, "extensions": ["vhd"]
+	},
+	"application/x-virtualbox-vmdk":                                              {
+		"compressible": true, "extensions": ["vmdk"]
+	},
+	"application/x-wais-source":                                                  {
+		"compressible": false, "extensions": ["src"]
+	},
+	"application/x-web-app-manifest+json":                                        {
+		"compressible": true, "extensions": ["webapp"]
+	},
+	"application/x-x509-ca-cert":                                                 {
+		"compressible": false, "extensions": ["der", "crt", "pem"]
+	},
+	"application/x-xfig":                                                         {
+		"compressible": false, "extensions": ["fig"]
+	},
+	"application/x-xliff+xml":                                                    {
+		"compressible": true, "extensions": ["xlf"]
+	},
+	"application/x-xpinstall":                                                    {
+		"compressible": false, "extensions": ["xpi"]
+	},
+	"application/x-xz":                                                           {
+		"compressible": false, "extensions": ["xz"]
+	},
+	"application/x-zmachine":                                                     {
+		"compressible": false, "extensions": [
+			"z1", "z2", "z3", "z4", "z5", "z6", "z7", "z8"
+		]
+	},
+	"application/xaml+xml":                                                       {
+		"compressible": true, "extensions": ["xaml"]
+	},
+	"application/xcap-att+xml":                                                   {
+		"compressible": true, "extensions": ["xav"]
+	},
+	"application/xcap-caps+xml":                                                  {
+		"compressible": true, "extensions": ["xca"]
+	},
+	"application/xcap-diff+xml":                                                  {
+		"compressible": true, "extensions": ["xdf"]
+	},
+	"application/xcap-el+xml":                                                    {
+		"compressible": true, "extensions": ["xel"]
+	},
+	"application/xcap-error+xml":                                                 {
+		"compressible": true, "extensions": ["xer"]
+	},
+	"application/xcap-ns+xml":                                                    {
+		"compressible": true, "extensions": ["xns"]
+	},
+	"application/xenc+xml":                                                       {
+		"compressible": true, "extensions": ["xenc"]
+	},
+	"application/xhtml+xml":                                                      {
+		"compressible": true, "extensions": ["xhtml", "xht"]
+	},
+	"application/xliff+xml":                                                      {
+		"compressible": true, "extensions": ["xlf"]
+	},
+	"application/xml":                                                            {
+		"compressible": true, "extensions": [
+			"xml", "xsl", "xsd", "rng"
+		]
+	},
+	"application/xml-dtd":                                                        {
+		"compressible": true, "extensions": ["dtd"]
+	},
+	"application/xop+xml":                                                        {
+		"compressible": true, "extensions": ["xop"]
+	},
+	"application/xproc+xml":                                                      {
+		"compressible": true, "extensions": ["xpl"]
+	},
+	"application/xslt+xml":                                                       {
+		"compressible": true, "extensions": ["xslt"]
+	},
+	"application/xspf+xml":                                                       {
+		"compressible": true, "extensions": ["xspf"]
+	},
+	"application/xv+xml":                                                         {
+		"compressible": true, "extensions": [
+			"mxml", "xhvml", "xvml", "xvm"
+		]
+	},
+	"application/yang":                                                           {
+		"compressible": false, "extensions": ["yang"]
+	},
+	"application/yin+xml":                                                        {
+		"compressible": true, "extensions": ["yin"]
+	},
+	"application/zip":                                                            {
+		"compressible": false, "extensions": ["zip"]
+	},
+	"audio/3gpp":                                                                 {
+		"compressible": false, "extensions": ["3gpp"]
+	},
+	"audio/adpcm":                                                                {
+		"compressible": false, "extensions": ["adp"]
+	},
+	"audio/basic":                                                                {
+		"compressible": false, "extensions": ["au", "snd"]
+	},
+	"audio/midi":                                                                 {
+		"compressible": false, "extensions": [
+			"mid", "midi", "kar", "rmi"
+		]
+	},
+	"audio/mobile-xmf":                                                           {
+		"compressible": false, "extensions": ["mxmf"]
+	},
+	"audio/mp3":                                                                  {
+		"compressible": false, "extensions": ["mp3"]
+	},
+	"audio/mp4":                                                                  {
+		"compressible": false, "extensions": ["m4a", "mp4a"]
+	},
+	"audio/mpeg":                                                                 {
+		"compressible": false, "extensions": [
+			"mpga", "mp2", "mp2a", "mp3", "m2a", "m3a"
+		]
+	},
+	"audio/ogg":                                                                  {
+		"compressible": false, "extensions": ["oga", "ogg", "spx"]
+	},
+	"audio/s3m":                                                                  {
+		"compressible": false, "extensions": ["s3m"]
+	},
+	"audio/silk":                                                                 {
+		"compressible": false, "extensions": ["sil"]
+	},
+	"audio/vnd.dece.audio":                                                       {
+		"compressible": false, "extensions": ["uva", "uvva"]
+	},
+	"audio/vnd.dts":                                                              {
+		"compressible": false, "extensions": ["dts"]
+	},
+	"audio/vnd.rip":                                                              {
+		"compressible": false, "extensions": ["rip"]
+	},
+	"audio/wav":                                                                  {
+		"compressible": false, "extensions": ["wav"]
+	},
+	"audio/wave":                                                                 {
+		"compressible": false, "extensions": ["wav"]
+	},
+	"audio/webm":                                                                 {
+		"compressible": false, "extensions": ["weba"]
+	},
+	"audio/x-aac":                                                                {
+		"compressible": false, "extensions": ["aac"]
+	},
+	"audio/x-caf":                                                                {
+		"compressible": false, "extensions": ["caf"]
+	},
+	"audio/x-flac":                                                               {
+		"compressible": false, "extensions": ["flac"]
+	},
+	"audio/x-m4a":                                                                {
+		"compressible": false, "extensions": ["m4a"]
+	},
+	"audio/x-matroska":                                                           {
+		"compressible": false, "extensions": ["mka"]
+	},
+	"audio/x-mpegurl":                                                            {
+		"compressible": false, "extensions": ["m3u"]
+	},
+	"audio/x-ms-wax":                                                             {
+		"compressible": false, "extensions": ["wax"]
+	},
+	"audio/x-ms-wma":                                                             {
+		"compressible": false, "extensions": ["wma"]
+	},
+	"audio/x-pn-realaudio":                                                       {
+		"compressible": false, "extensions": ["ram", "ra"]
+	},
+	"audio/x-pn-realaudio-plugin":                                                {
+		"compressible": false, "extensions": ["rmp"]
+	},
+	"audio/x-realaudio":                                                          {
+		"compressible": false, "extensions": ["ra"]
+	},
+	"audio/x-wav":                                                                {
+		"compressible": false, "extensions": ["wav"]
+	},
+	"audio/xm":                                                                   {
+		"compressible": false, "extensions": ["xm"]
+	},
+	"chemical/x-cdx":                                                             {
+		"compressible": false, "extensions": ["cdx"]
+	},
+	"chemical/x-cif":                                                             {
+		"compressible": false, "extensions": ["cif"]
+	},
+	"chemical/x-cmdf":                                                            {
+		"compressible": false, "extensions": ["cmdf"]
+	},
+	"chemical/x-cml":                                                             {
+		"compressible": false, "extensions": ["cml"]
+	},
+	"chemical/x-csml":                                                            {
+		"compressible": false, "extensions": ["csml"]
+	},
+	"chemical/x-xyz":                                                             {
+		"compressible": false, "extensions": ["xyz"]
+	},
+	"font/collection":                                                            {
+		"compressible": false, "extensions": ["ttc"]
+	},
+	"font/otf":                                                                   {
+		"compressible": true, "extensions": ["otf"]
+	},
+	"font/ttf":                                                                   {
+		"compressible": true, "extensions": ["ttf"]
+	},
+	"font/woff":                                                                  {
+		"compressible": false, "extensions": ["woff"]
+	},
+	"font/woff2":                                                                 {
+		"compressible": false, "extensions": ["woff2"]
+	},
+	"image/aces":                                                                 {
+		"compressible": false, "extensions": ["exr"]
+	},
+	"image/apng":                                                                 {
+		"compressible": false, "extensions": ["apng"]
+	},
+	"image/bmp":                                                                  {
+		"compressible": true, "extensions": ["bmp"]
+	},
+	"image/cgm":                                                                  {
+		"compressible": false, "extensions": ["cgm"]
+	},
+	"image/dicom-rle":                                                            {
+		"compressible": false, "extensions": ["drle"]
+	},
+	"image/emf":                                                                  {
+		"compressible": false, "extensions": ["emf"]
+	},
+	"image/fits":                                                                 {
+		"compressible": false, "extensions": ["fits"]
+	},
+	"image/g3fax":                                                                {
+		"compressible": false, "extensions": ["g3"]
+	},
+	"image/gif":                                                                  {
+		"compressible": false, "extensions": ["gif"]
+	},
+	"image/heic":                                                                 {
+		"compressible": false, "extensions": ["heic"]
+	},
+	"image/heic-sequence":                                                        {
+		"compressible": false, "extensions": ["heics"]
+	},
+	"image/heif":                                                                 {
+		"compressible": false, "extensions": ["heif"]
+	},
+	"image/heif-sequence":                                                        {
+		"compressible": false, "extensions": ["heifs"]
+	},
+	"image/hej2k":                                                                {
+		"compressible": false, "extensions": ["hej2"]
+	},
+	"image/hsj2":                                                                 {
+		"compressible": false, "extensions": ["hsj2"]
+	},
+	"image/ief":                                                                  {
+		"compressible": false, "extensions": ["ief"]
+	},
+	"image/jls":                                                                  {
+		"compressible": false, "extensions": ["jls"]
+	},
+	"image/jp2":                                                                  {
+		"compressible": false, "extensions": ["jp2", "jpg2"]
+	},
+	"image/jpeg":                                                                 {
+		"compressible": false, "extensions": [
+			"jpeg", "jpg", "jpe"
+		]
+	},
+	"image/jph":                                                                  {
+		"compressible": false, "extensions": ["jph"]
+	},
+	"image/jphc":                                                                 {
+		"compressible": false, "extensions": ["jhc"]
+	},
+	"image/jpm":                                                                  {
+		"compressible": false, "extensions": ["jpm"]
+	},
+	"image/jpx":                                                                  {
+		"compressible": false, "extensions": ["jpx", "jpf"]
+	},
+	"image/jxr":                                                                  {
+		"compressible": false, "extensions": ["jxr"]
+	},
+	"image/jxra":                                                                 {
+		"compressible": false, "extensions": ["jxra"]
+	},
+	"image/jxrs":                                                                 {
+		"compressible": false, "extensions": ["jxrs"]
+	},
+	"image/jxs":                                                                  {
+		"compressible": false, "extensions": ["jxs"]
+	},
+	"image/jxsc":                                                                 {
+		"compressible": false, "extensions": ["jxsc"]
+	},
+	"image/jxsi":                                                                 {
+		"compressible": false, "extensions": ["jxsi"]
+	},
+	"image/jxss":                                                                 {
+		"compressible": false, "extensions": ["jxss"]
+	},
+	"image/ktx":                                                                  {
+		"compressible": false, "extensions": ["ktx"]
+	},
+	"image/png":                                                                  {
+		"compressible": false, "extensions": ["png"]
+	},
+	"image/prs.btif":                                                             {
+		"compressible": false, "extensions": ["btif"]
+	},
+	"image/prs.pti":                                                              {
+		"compressible": false, "extensions": ["pti"]
+	},
+	"image/sgi":                                                                  {
+		"compressible": false, "extensions": ["sgi"]
+	},
+	"image/svg+xml":                                                              {
+		"compressible": true, "extensions": ["svg", "svgz"]
+	},
+	"image/t38":                                                                  {
+		"compressible": false, "extensions": ["t38"]
+	},
+	"image/tiff":                                                                 {
+		"compressible": false, "extensions": ["tif", "tiff"]
+	},
+	"image/tiff-fx":                                                              {
+		"compressible": false, "extensions": ["tfx"]
+	},
+	"image/vnd.adobe.photoshop":                                                  {
+		"compressible": true, "extensions": ["psd"]
+	},
+	"image/vnd.airzip.accelerator.azv":                                           {
+		"compressible": false, "extensions": ["azv"]
+	},
+	"image/vnd.dece.graphic":                                                     {
+		"compressible": false, "extensions": [
+			"uvi", "uvvi", "uvg", "uvvg"
+		]
+	},
+	"image/vnd.djvu":                                                             {
+		"compressible": false, "extensions": ["djvu", "djv"]
+	},
+	"image/vnd.dvb.subtitle":                                                     {
+		"compressible": false, "extensions": ["sub"]
+	},
+	"image/vnd.dwg":                                                              {
+		"compressible": false, "extensions": ["dwg"]
+	},
+	"image/vnd.dxf":                                                              {
+		"compressible": false, "extensions": ["dxf"]
+	},
+	"image/vnd.fastbidsheet":                                                     {
+		"compressible": false, "extensions": ["fbs"]
+	},
+	"image/vnd.fpx":                                                              {
+		"compressible": false, "extensions": ["fpx"]
+	},
+	"image/vnd.fst":                                                              {
+		"compressible": false, "extensions": ["fst"]
+	},
+	"image/vnd.fujixerox.edmics-mmr":                                             {
+		"compressible": false, "extensions": ["mmr"]
+	},
+	"image/vnd.fujixerox.edmics-rlc":                                             {
+		"compressible": false, "extensions": ["rlc"]
+	},
+	"image/vnd.microsoft.icon":                                                   {
+		"compressible": false, "extensions": ["ico"]
+	},
+	"image/vnd.ms-dds":                                                           {
+		"compressible": false, "extensions": ["dds"]
+	},
+	"image/vnd.ms-modi":                                                          {
+		"compressible": false, "extensions": ["mdi"]
+	},
+	"image/vnd.ms-photo":                                                         {
+		"compressible": false, "extensions": ["wdp"]
+	},
+	"image/vnd.net-fpx":                                                          {
+		"compressible": false, "extensions": ["npx"]
+	},
+	"image/vnd.tencent.tap":                                                      {
+		"compressible": false, "extensions": ["tap"]
+	},
+	"image/vnd.valve.source.texture":                                             {
+		"compressible": false, "extensions": ["vtf"]
+	},
+	"image/vnd.wap.wbmp":                                                         {
+		"compressible": false, "extensions": ["wbmp"]
+	},
+	"image/vnd.xiff":                                                             {
+		"compressible": false, "extensions": ["xif"]
+	},
+	"image/vnd.zbrush.pcx":                                                       {
+		"compressible": false, "extensions": ["pcx"]
+	},
+	"image/webp":                                                                 {
+		"compressible": false, "extensions": ["webp"]
+	},
+	"image/wmf":                                                                  {
+		"compressible": false, "extensions": ["wmf"]
+	},
+	"image/x-3ds":                                                                {
+		"compressible": false, "extensions": ["3ds"]
+	},
+	"image/x-cmu-raster":                                                         {
+		"compressible": false, "extensions": ["ras"]
+	},
+	"image/x-cmx":                                                                {
+		"compressible": false, "extensions": ["cmx"]
+	},
+	"image/x-freehand":                                                           {
+		"compressible": false, "extensions": [
+			"fh", "fhc", "fh4", "fh5", "fh7"
+		]
+	},
+	"image/x-icon":                                                               {
+		"compressible": true, "extensions": ["ico"]
+	},
+	"image/x-jng":                                                                {
+		"compressible": false, "extensions": ["jng"]
+	},
+	"image/x-mrsid-image":                                                        {
+		"compressible": false, "extensions": ["sid"]
+	},
+	"image/x-ms-bmp":                                                             {
+		"compressible": true, "extensions": ["bmp"]
+	},
+	"image/x-pcx":                                                                {
+		"compressible": false, "extensions": ["pcx"]
+	},
+	"image/x-pict":                                                               {
+		"compressible": false, "extensions": ["pic", "pct"]
+	},
+	"image/x-portable-anymap":                                                    {
+		"compressible": false, "extensions": ["pnm"]
+	},
+	"image/x-portable-bitmap":                                                    {
+		"compressible": false, "extensions": ["pbm"]
+	},
+	"image/x-portable-graymap":                                                   {
+		"compressible": false, "extensions": ["pgm"]
+	},
+	"image/x-portable-pixmap":                                                    {
+		"compressible": false, "extensions": ["ppm"]
+	},
+	"image/x-rgb":                                                                {
+		"compressible": false, "extensions": ["rgb"]
+	},
+	"image/x-tga":                                                                {
+		"compressible": false, "extensions": ["tga"]
+	},
+	"image/x-xbitmap":                                                            {
+		"compressible": false, "extensions": ["xbm"]
+	},
+	"image/x-xpixmap":                                                            {
+		"compressible": false, "extensions": ["xpm"]
+	},
+	"image/x-xwindowdump":                                                        {
+		"compressible": false, "extensions": ["xwd"]
+	},
+	"message/rfc822":                                                             {
+		"compressible": true, "extensions": ["eml", "mime"]
+	},
+	"model/gltf+json":                                                            {
+		"compressible": true, "extensions": ["gltf"]
+	},
+	"model/gltf-binary":                                                          {
+		"compressible": true, "extensions": ["glb"]
+	},
+	"model/iges":                                                                 {
+		"compressible": false, "extensions": ["igs", "iges"]
+	},
+	"model/mesh":                                                                 {
+		"compressible": false, "extensions": [
+			"msh", "mesh", "silo"
+		]
+	},
+	"model/mtl":                                                                  {
+		"compressible": false, "extensions": ["mtl"]
+	},
+	"model/obj":                                                                  {
+		"compressible": false, "extensions": ["obj"]
+	},
+	"model/stl":                                                                  {
+		"compressible": false, "extensions": ["stl"]
+	},
+	"model/vnd.collada+xml":                                                      {
+		"compressible": true, "extensions": ["dae"]
+	},
+	"model/vnd.dwf":                                                              {
+		"compressible": false, "extensions": ["dwf"]
+	},
+	"model/vnd.gdl":                                                              {
+		"compressible": false, "extensions": ["gdl"]
+	},
+	"model/vnd.gtw":                                                              {
+		"compressible": false, "extensions": ["gtw"]
+	},
+	"model/vnd.mts":                                                              {
+		"compressible": false, "extensions": ["mts"]
+	},
+	"model/vnd.opengex":                                                          {
+		"compressible": false, "extensions": ["ogex"]
+	},
+	"model/vnd.parasolid.transmit.binary":                                        {
+		"compressible": false, "extensions": ["x_b"]
+	},
+	"model/vnd.parasolid.transmit.text":                                          {
+		"compressible": false, "extensions": ["x_t"]
+	},
+	"model/vnd.usdz+zip":                                                         {
+		"compressible": false, "extensions": ["usdz"]
+	},
+	"model/vnd.valve.source.compiled-map":                                        {
+		"compressible": false, "extensions": ["bsp"]
+	},
+	"model/vnd.vtu":                                                              {
+		"compressible": false, "extensions": ["vtu"]
+	},
+	"model/vrml":                                                                 {
+		"compressible": false, "extensions": ["wrl", "vrml"]
+	},
+	"model/x3d+binary":                                                           {
+		"compressible": false, "extensions": ["x3db", "x3dbz"]
+	},
+	"model/x3d+fastinfoset":                                                      {
+		"compressible": false, "extensions": ["x3db"]
+	},
+	"model/x3d+vrml":                                                             {
+		"compressible": false, "extensions": ["x3dv", "x3dvz"]
+	},
+	"model/x3d+xml":                                                              {
+		"compressible": true, "extensions": ["x3d", "x3dz"]
+	},
+	"model/x3d-vrml":                                                             {
+		"compressible": false, "extensions": ["x3dv"]
+	},
+	"text/cache-manifest":                                                        {
+		"compressible": true, "extensions": [
+			"appcache", "manifest"
+		]
+	},
+	"text/calendar":                                                              {
+		"compressible": false, "extensions": ["ics", "ifb"]
+	},
+	"text/coffeescript":                                                          {
+		"compressible": false, "extensions": [
+			"coffee", "litcoffee"
+		]
+	},
+	"text/css":                                                                   {
+		"compressible": true, "extensions": ["css"]
+	},
+	"text/csv":                                                                   {
+		"compressible": true, "extensions": ["csv"]
+	},
+	"text/html":                                                                  {
+		"compressible": true, "extensions": [
+			"html", "htm", "shtml"
+		]
+	},
+	"text/jade":                                                                  {
+		"compressible": false, "extensions": ["jade"]
+	},
+	"text/jsx":                                                                   {
+		"compressible": true, "extensions": ["jsx"]
+	},
+	"text/less":                                                                  {
+		"compressible": true, "extensions": ["less"]
+	},
+	"text/markdown":                                                              {
+		"compressible": true, "extensions": ["markdown", "md"]
+	},
+	"text/mathml":                                                                {
+		"compressible": false, "extensions": ["mml"]
+	},
+	"text/mdx":                                                                   {
+		"compressible": true, "extensions": ["mdx"]
+	}, "text/n3":                                                                 {
+	"compressible": true, "extensions": ["n3"]
+},
+	"text/plain":                                                                 {
+		"compressible": true, "extensions": [
+			"txt", "text", "conf", "def", "list", "log", "in", "ini"
+		]
+	},
+	"text/prs.lines.tag":                                                         {
+		"compressible": false, "extensions": ["dsc"]
+	},
+	"text/richtext":                                                              {
+		"compressible": true, "extensions": ["rtx"]
+	},
+	"text/rtf":                                                                   {
+		"compressible": true, "extensions": ["rtf"]
+	},
+	"text/sgml":                                                                  {
+		"compressible": false, "extensions": ["sgml", "sgm"]
+	},
+	"text/shex":                                                                  {
+		"compressible": false, "extensions": ["shex"]
+	},
+	"text/slim":                                                                  {
+		"compressible": false, "extensions": ["slim", "slm"]
+	},
+	"text/stylus":                                                                {
+		"compressible": false, "extensions": ["stylus", "styl"]
+	},
+	"text/tab-separated-values":                                                  {
+		"compressible": true, "extensions": ["tsv"]
+	},
+	"text/troff":                                                                 {
+		"compressible": false, "extensions": [
+			"t", "tr", "roff", "man", "me", "ms"
+		]
+	},
+	"text/turtle":                                                                {
+		"compressible": false, "extensions": ["ttl"]
+	},
+	"text/uri-list":                                                              {
+		"compressible": true, "extensions": [
+			"uri", "uris", "urls"
+		]
+	},
+	"text/vcard":                                                                 {
+		"compressible": true, "extensions": ["vcard"]
+	},
+	"text/vnd.curl":                                                              {
+		"compressible": false, "extensions": ["curl"]
+	},
+	"text/vnd.dvb.subtitle":                                                      {
+		"compressible": false, "extensions": ["sub"]
+	},
+	"text/vnd.fly":                                                               {
+		"compressible": false, "extensions": ["fly"]
+	},
+	"text/vnd.fmi.flexstor":                                                      {
+		"compressible": false, "extensions": ["flx"]
+	},
+	"text/vnd.graphviz":                                                          {
+		"compressible": false, "extensions": ["gv"]
+	},
+	"text/vnd.in3d.3dml":                                                         {
+		"compressible": false, "extensions": ["3dml"]
+	},
+	"text/vnd.in3d.spot":                                                         {
+		"compressible": false, "extensions": ["spot"]
+	},
+	"text/vnd.sun.j2me.app-descriptor":                                           {
+		"compressible": false, "extensions": ["jad"]
+	},
+	"text/vnd.wap.wml":                                                           {
+		"compressible": false, "extensions": ["wml"]
+	},
+	"text/vnd.wap.wmlscript":                                                     {
+		"compressible": false, "extensions": ["wmls"]
+	},
+	"text/vtt":                                                                   {
+		"compressible": true, "extensions": ["vtt"]
+	},
+	"text/x-asm":                                                                 {
+		"compressible": false, "extensions": ["s", "asm"]
+	},
+	"text/x-c":                                                                   {
+		"compressible": false, "extensions": [
+			"c", "cc", "cxx", "cpp", "h", "hh", "dic"
+		]
+	},
+	"text/x-component":                                                           {
+		"compressible": false, "extensions": ["htc"]
+	},
+	"text/x-fortran":                                                             {
+		"compressible": false, "extensions": [
+			"f", "for", "f77", "f90"
+		]
+	},
+	"text/x-handlebars-template":                                                 {
+		"compressible": false, "extensions": ["hbs"]
+	},
+	"text/x-java-source":                                                         {
+		"compressible": false, "extensions": ["java"]
+	},
+	"text/x-lua":                                                                 {
+		"compressible": false, "extensions": ["lua"]
+	},
+	"text/x-markdown":                                                            {
+		"compressible": true, "extensions": ["mkd"]
+	},
+	"text/x-nfo":                                                                 {
+		"compressible": false, "extensions": ["nfo"]
+	},
+	"text/x-opml":                                                                {
+		"compressible": false, "extensions": ["opml"]
+	},
+	"text/x-org":                                                                 {
+		"compressible": true, "extensions": ["org"]
+	},
+	"text/x-pascal":                                                              {
+		"compressible": false, "extensions": ["p", "pas"]
+	},
+	"text/x-processing":                                                          {
+		"compressible": true, "extensions": ["pde"]
+	},
+	"text/x-sass":                                                                {
+		"compressible": false, "extensions": ["sass"]
+	},
+	"text/x-scss":                                                                {
+		"compressible": false, "extensions": ["scss"]
+	},
+	"text/x-setext":                                                              {
+		"compressible": false, "extensions": ["etx"]
+	},
+	"text/x-sfv":                                                                 {
+		"compressible": false, "extensions": ["sfv"]
+	},
+	"text/x-suse-ymp":                                                            {
+		"compressible": true, "extensions": ["ymp"]
+	},
+	"text/x-uuencode":                                                            {
+		"compressible": false, "extensions": ["uu"]
+	},
+	"text/x-vcalendar":                                                           {
+		"compressible": false, "extensions": ["vcs"]
+	},
+	"text/x-vcard":                                                               {
+		"compressible": false, "extensions": ["vcf"]
+	},
+	"text/xml":                                                                   {
+		"compressible": true, "extensions": ["xml"]
+	},
+	"text/yaml":                                                                  {
+		"compressible": false, "extensions": ["yaml", "yml"]
+	},
+	"video/3gpp":                                                                 {
+		"compressible": false, "extensions": ["3gp", "3gpp"]
+	},
+	"video/3gpp2":                                                                {
+		"compressible": false, "extensions": ["3g2"]
+	},
+	"video/h261":                                                                 {
+		"compressible": false, "extensions": ["h261"]
+	},
+	"video/h263":                                                                 {
+		"compressible": false, "extensions": ["h263"]
+	},
+	"video/h264":                                                                 {
+		"compressible": false, "extensions": ["h264"]
+	},
+	"video/jpeg":                                                                 {
+		"compressible": false, "extensions": ["jpgv"]
+	},
+	"video/jpm":                                                                  {
+		"compressible": false, "extensions": ["jpm", "jpgm"]
+	},
+	"video/mj2":                                                                  {
+		"compressible": false, "extensions": ["mj2", "mjp2"]
+	},
+	"video/mp2t":                                                                 {
+		"compressible": false, "extensions": ["ts"]
+	},
+	"video/mp4":                                                                  {
+		"compressible": false, "extensions": [
+			"mp4", "mp4v", "mpg4"
+		]
+	},
+	"video/mpeg":                                                                 {
+		"compressible": false, "extensions": [
+			"mpeg", "mpg", "mpe", "m1v", "m2v"
+		]
+	},
+	"video/ogg":                                                                  {
+		"compressible": false, "extensions": ["ogv"]
+	},
+	"video/quicktime":                                                            {
+		"compressible": false, "extensions": ["qt", "mov"]
+	},
+	"video/vnd.dece.hd":                                                          {
+		"compressible": false, "extensions": ["uvh", "uvvh"]
+	},
+	"video/vnd.dece.mobile":                                                      {
+		"compressible": false, "extensions": ["uvm", "uvvm"]
+	},
+	"video/vnd.dece.pd":                                                          {
+		"compressible": false, "extensions": ["uvp", "uvvp"]
+	},
+	"video/vnd.dece.sd":                                                          {
+		"compressible": false, "extensions": ["uvs", "uvvs"]
+	},
+	"video/vnd.dece.video":                                                       {
+		"compressible": false, "extensions": ["uvv", "uvvv"]
+	},
+	"video/vnd.dvb.file":                                                         {
+		"compressible": false, "extensions": ["dvb"]
+	},
+	"video/vnd.fvt":                                                              {
+		"compressible": false, "extensions": ["fvt"]
+	},
+	"video/vnd.mpegurl":                                                          {
+		"compressible": false, "extensions": ["mxu", "m4u"]
+	},
+	"video/vnd.uvvu.mp4":                                                         {
+		"compressible": false, "extensions": ["uvu", "uvvu"]
+	},
+	"video/vnd.vivo":                                                             {
+		"compressible": false, "extensions": ["viv"]
+	},
+	"video/webm":                                                                 {
+		"compressible": false, "extensions": ["webm"]
+	},
+	"video/x-f4v":                                                                {
+		"compressible": false, "extensions": ["f4v"]
+	},
+	"video/x-fli":                                                                {
+		"compressible": false, "extensions": ["fli"]
+	},
+	"video/x-flv":                                                                {
+		"compressible": false, "extensions": ["flv"]
+	},
+	"video/x-m4v":                                                                {
+		"compressible": false, "extensions": ["m4v"]
+	},
+	"video/x-matroska":                                                           {
+		"compressible": false, "extensions": [
+			"mkv", "mk3d", "mks"
+		]
+	},
+	"video/x-mng":                                                                {
+		"compressible": false, "extensions": ["mng"]
+	},
+	"video/x-ms-asf":                                                             {
+		"compressible": false, "extensions": ["asf", "asx"]
+	},
+	"video/x-ms-vob":                                                             {
+		"compressible": false, "extensions": ["vob"]
+	},
+	"video/x-ms-wm":                                                              {
+		"compressible": false, "extensions": ["wm"]
+	},
+	"video/x-ms-wmv":                                                             {
+		"compressible": false, "extensions": ["wmv"]
+	},
+	"video/x-ms-wmx":                                                             {
+		"compressible": false, "extensions": ["wmx"]
+	},
+	"video/x-ms-wvx":                                                             {
+		"compressible": false, "extensions": ["wvx"]
+	},
+	"video/x-msvideo":                                                            {
+		"compressible": false, "extensions": ["avi"]
+	},
+	"video/x-sgi-movie":                                                          {
+		"compressible": false, "extensions": ["movie"]
+	},
+	"video/x-smv":                                                                {
+		"compressible": false, "extensions": ["smv"]
+	},
+	"x-conference/x-cooltalk":                                                    {
+		"compressible": false, "extensions": ["ice"]
+	}
+}

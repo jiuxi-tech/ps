@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpAgentMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpAgent" id="tpAgentMap">
+        <result property="agId" column="AG_ID"/>
+        <result property="agTitle" column="AG_TITLE"/>
+        <result property="agType" column="AG_TYPE"/>
+        <result property="agScope" column="AG_SCOPE"/>
+        <result property="agFrom" column="AG_FROM"/>
+        <result property="agFromName" column="AG_FROM_NAME"/>
+        <result property="agTo" column="AG_TO"/>
+        <result property="agToName" column="AG_TO_NAME"/>
+        <result property="agContext" column="AG_CONTEXT"/>
+        <result property="moduleId" column="MODULE_ID"/>
+        <result property="moduleType" column="MODULE_TYPE"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpAgent">
+        INSERT INTO tp_agent
+            (AG_ID, AG_TITLE, AG_TYPE, AG_SCOPE, AG_FROM, AG_FROM_NAME, AG_TO, AG_TO_NAME, AG_CONTEXT, MODULE_ID, MODULE_TYPE, ACTIVED, EXTEND01, EXTEND02, EXTEND03, CREATE_TIME, CREATOR, UPDATE_TIME, UPDATOR)
+        VALUES
+            (#{agId}, #{agTitle}, #{agType}, #{agScope}, #{agFrom}, #{agFromName}, #{agTo}, #{agToName}, #{agContext}, #{moduleId}, #{moduleType}, #{actived}, #{extend01}, #{extend02}, #{extend03}, #{createTime}, #{creator}, #{updateTime}, #{updator})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpAgent">
+        UPDATE tp_agent
+        <set>
+            <if test="null != agTitle">AG_TITLE = #{agTitle},</if>
+            <if test="null != agType">AG_TYPE = #{agType},</if>
+            <if test="null != agScope">AG_SCOPE = #{agScope},</if>
+            <if test="null != agFrom">AG_FROM = #{agFrom},</if>
+            <if test="null != agFromName">AG_FROM_NAME = #{agFromName},</if>
+            <if test="null != agTo">AG_TO = #{agTo},</if>
+            <if test="null != agToName">AG_TO_NAME = #{agToName},</if>
+            <if test="null != agContext">AG_CONTEXT = #{agContext},</if>
+            <if test="null != moduleId">MODULE_ID = #{moduleId},</if>
+            <if test="null != moduleType">MODULE_TYPE = #{moduleType},</if>
+            <if test="null != actived">ACTIVED = #{actived},</if>
+            <if test="null != extend01">EXTEND01 = #{extend01},</if>
+            <if test="null != extend02">EXTEND02 = #{extend02},</if>
+            <if test="null != extend03">EXTEND03 = #{extend03},</if>
+            <if test="null != createTime">CREATE_TIME = #{createTime},</if>
+            <if test="null != creator">CREATOR = #{creator},</if>
+            <if test="null != updateTime">UPDATE_TIME = #{updateTime},</if>
+            <if test="null != updator">UPDATOR = #{updator},</if>
+        </set>
+        WHERE AG_ID = #{agId}
+    </update>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpAgentQuery"
+            resultMap="tpAgentMap">
+        SELECT AG_ID, AG_TITLE, AG_TYPE, AG_SCOPE, AG_FROM, AG_FROM_NAME, AG_TO, AG_TO_NAME, AG_CONTEXT, MODULE_ID, MODULE_TYPE, ACTIVED, EXTEND01, EXTEND02, EXTEND03, CREATE_TIME, CREATOR, UPDATE_TIME, UPDATOR FROM tp_agent
+        WHERE
+        ACTIVED = 1
+        ORDER BY CREATE_TIME desc
+    </select>
+
+    <select id="remindlist" parameterType="com.jiuxi.admin.core.bean.query.TpAgentQuery"
+            resultMap="tpAgentMap">
+        select ta.AG_ID , ta.AG_TITLE , ta.AG_TYPE , ta.AG_SCOPE, ta.AG_FROM, ta.AG_FROM_NAME, ta.AG_TO, ta.AG_TO_NAME, ta.AG_CONTEXT, ta.ACTIVED, ta.EXTEND01, ta.EXTEND02, ta.EXTEND03, ta.CREATE_TIME, ta.CREATOR, ta.UPDATE_TIME, ta.UPDATOR
+        from tp_agent ta left join tp_agent_deal tad on tad.PERSON_ID = ta.AG_TO and tad.DEAL_TIME is null
+        where ta.AG_TO in
+        <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAgentVO">
+        SELECT AG_ID, AG_TITLE, AG_TYPE, AG_SCOPE, AG_FROM, AG_FROM_NAME, AG_TO, AG_TO_NAME, AG_CONTEXT, MODULE_ID, MODULE_TYPE, ACTIVED, EXTEND01, EXTEND02, EXTEND03, CREATE_TIME, CREATOR, UPDATE_TIME, UPDATOR FROM tp_agent
+        WHERE
+        ACTIVED = 1
+        and
+        AG_ID = #{agId}
+    </select>
+
+    <update id="delete" parameterType="String">
+        UPDATE tp_agent SET ACTIVED = 0 WHERE AG_ID = #{agId}
+    </update>
+
+</mapper>

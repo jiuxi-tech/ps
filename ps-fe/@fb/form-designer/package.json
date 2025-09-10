@@ -1,0 +1,52 @@
+{
+	"name": "@fb/form-designer",
+	"version": "1.0.2",
+	"description": "fbjs前端框架-管理后台模版",
+	"author": "lincong <lincong1987@gmail.com>",
+	"homepage": "",
+	"main": "src/main.js",
+	"files": [
+		"src/router",
+		"src/service",
+		"src/store",
+		"src/views",
+		"src/assets",
+		"package.json"
+	],
+	"scripts": {
+		"serve": "vue-cli-service serve --mode=local",
+		"serve-dev": "vue-cli-service serve --mode=dev",
+		"serve-local": "vue-cli-service serve --mode=local",
+		"serve-test": "vue-cli-service serve --mode=test",
+		"build": "vue-cli-service build",
+		"lint": "vue-cli-service lint",
+		"inspect": "vue-cli-service inspect",
+		"ui": "vue ui",
+		"link": "npm link fb-core && npm link fb-ui && npm link fb-theme && npm link fb-third && vue-cli-service serve --mode=dev"
+	},
+	"dependencies": {
+		"fb-core": "^1.1.471",
+		"fb-third": "^1.1.471",
+		"fb-ui": "^1.1.498"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.3.4",
+		"@babel/plugin-proposal-export-default-from": "^7.12.1",
+		"@vue/cli-plugin-babel": "~4.5.0",
+		"@vue/cli-plugin-eslint": "~4.5.0",
+		"@vue/cli-service": "~4.5.0",
+		"babel-eslint": "^10.1.0",
+		"babel-plugin-component": "^1.1.1",
+		"eslint": "^6.7.2",
+		"eslint-plugin-vue": "^6.2.2",
+		"less": "^3.12.2",
+		"less-loader": "^7.1.0",
+		"vue-template-compiler": "^2.6.12"
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead"
+	],
+	"gitHead": "646dd9d78fa56fd8d63a1626a8c771cf47252000"
+}

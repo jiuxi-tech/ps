@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpSignupMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpSignup" id="tpSignupMap">
+        <result property="partyA" column="PARTY_A"/>
+        <result property="interId" column="INTER_ID"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpSignup">
+        INSERT INTO TP_SIGNUP
+            (PARTY_A, INTER_ID, CREATE_TIME)
+        VALUES
+            (#{partyA}, #{interId}, #{createTime})
+    </insert>
+
+    <select id="selectByInterIds" resultType="com.jiuxi.admin.core.bean.vo.TpSignupVO">
+        select PARTY_A, INTER_ID, CREATE_TIME from tp_signup where in
+        <foreach collection="interIds" item="interId" index="index" open="(" close=")" separator=",">
+            #{interId}
+        </foreach>
+    </select>
+
+    <delete id="deleteByInterIds" parameterType="com.jiuxi.admin.core.bean.entity.TpSignup">
+        delete from TP_SIGNUP where INTER_ID in
+        <foreach collection="interIds" item="interId" index="index" open="(" close=")" separator=",">
+            #{interId}
+        </foreach>
+    </delete>
+
+    <delete id="delete" parameterType="com.jiuxi.admin.core.bean.entity.TpSignup">
+        delete from TP_SIGNUP where PARTY_A = #{partyA} and INTER_ID = #{interId}
+    </delete>
+
+</mapper>

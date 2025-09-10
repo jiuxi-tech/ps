@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuxi.admin.core.mapper.OrgTreeChangeHistoryMapper">
+
+    <!-- 分页查询组织机构变更历史记录 -->
+    <select id="getPage" resultType="com.jiuxi.admin.core.bean.vo.OrgTreeChangeHistoryVO">
+        SELECT 
+            h.id,
+            h.operation_type AS operationType,
+            CASE h.operation_type
+                WHEN 'CREATE' THEN '创建'
+                WHEN 'UPDATE' THEN '更新'
+                WHEN 'DELETE' THEN '删除'
+                WHEN 'QUERY' THEN '查询'
+                ELSE h.operation_type
+            END AS operationTypeName,
+            h.operation_time AS operationTime,
+            h.operator_id AS operatorUserId,
+            IFNULL(p.person_name, CONCAT('用户ID:', h.operator_id)) AS operatorUserName,
+            h.before_data AS beforeData,
+            h.after_data AS afterData,
+            h.before_full_tree AS beforeFullTree,
+            h.after_full_tree AS afterFullTree,
+            h.version,
+            h.dept_id AS deptId,
+            IFNULL(d.DEPT_FULL_NAME, '未知节点') AS orgName
+        FROM org_tree_change_history h
+        LEFT JOIN tp_person_basicinfo p ON h.operator_id = p.person_id
+        LEFT JOIN tp_dept_basicinfo d ON h.dept_id = d.DEPT_ID AND d.ACTIVED = 1
+        <where>
+            <if test="query.operationType != null and query.operationType != ''">
+                AND h.operation_type = #{query.operationType}
+            </if>
+            <if test="query.operatorId != null">
+                AND h.operator_id = #{query.operatorId}
+            </if>
+            <if test="query.operatorUserName != null and query.operatorUserName != ''">
+                AND p.person_name LIKE CONCAT('%', #{query.operatorUserName}, '%')
+            </if>
+            <if test="query.startTime != null">
+                AND h.operation_time &gt;= #{query.startTime}
+            </if>
+            <if test="query.endTime != null">
+                AND h.operation_time &lt;= #{query.endTime}
+            </if>
+        </where>
+        ORDER BY h.operation_time DESC
+    </select>
+
+</mapper>

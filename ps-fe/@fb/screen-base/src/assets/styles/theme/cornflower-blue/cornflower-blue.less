@@ -1,0 +1,222 @@
+/*!
+* theme-cornflower-blue 矢车菊蓝
+*/
+@import "../fb-mixins";
+
+html.theme-cornflower-blue {
+	// 混入蓝色通用主题
+	.blue-theme();
+
+	// 大屏 壳子 面板== 样式
+	.screen-shell {
+
+		.header {
+			background:       url("../../../img/theme/cornflower-blue/screen-header/header-logo.png") no-repeat;
+			background-size:  100% 100%;
+		}
+		.header-menu-left {
+			position: absolute;
+			top: 40px;
+			left: 130px;
+			display: flex;
+			z-index: 100;
+
+			a {
+				width: 140px;
+				height: 40px;
+				line-height: 40px;
+				padding-top: 0;
+				margin-left: 0px;
+				margin-right: 10px;
+				background: transparent;
+				background-size: cover;
+				position: relative;
+
+				&:hover {
+					font-weight: bold;
+					background: transparent;
+					color: #52FFFD;
+				}
+
+				&.active {
+					font-weight: bold;
+					background: transparent;
+					color: #52FFFD;
+
+					&:after {
+						content: '';
+						display: block;
+						position: absolute;
+						bottom: 0;
+						left: 50%;
+						transform: translateX(-50%);
+						border: 6px solid transparent;
+						border-bottom-color: #52FFFD;
+					}
+				}
+			}
+		}
+
+		.header-menu-right {
+			position: absolute;
+			top: 40px;
+			right: 130px;
+			display: flex;
+			z-index: 100;
+
+			a {
+				width: 140px;
+				height: 40px;
+				line-height: 40px;
+				padding-top: 0;
+				margin-left: 0px;
+				margin-right: 10px;
+				background: transparent;
+				background-size: cover;
+				position: relative;
+
+				&:hover {
+					font-weight: bold;
+					background: transparent;
+					color: #52FFFD;
+				}
+
+				&.active {
+					font-weight: bold;
+					background: transparent;
+					color: #52FFFD;
+
+					&:after {
+						content: '';
+						display: block;
+						position: absolute;
+						bottom: 0;
+						left: 50%;
+						transform: translateX(-50%);
+						border: 6px solid transparent;
+						border-bottom-color: #52FFFD;
+					}
+				}
+			}
+		}
+
+	}
+
+	.screen-panel {
+		.screen-panel__wrapper {
+			.screen-panel__wrapper__top {
+				height: 16px;
+				background: url("../../../img/theme/cornflower-blue/screen-panel/screen-panel__wrapper__top_bg-left.png") no-repeat;
+				background-size: 100% 100%;
+			}
+
+			.screen-panel__wrapper__border {
+				background: linear-gradient(90deg, rgba(5, 25, 57, 0.6) 0%, rgba(5, 25, 57, 0) 100%);
+				height: ~"calc(100% - 16px)";
+				top: 16px;
+				&:before,
+				&:after {
+					width: 2px;
+					background: rgba(79, 145, 255, 1);
+				}
+
+				&:after {
+					display: none;
+				}
+			}
+
+			.screen-panel__wrapper__bottom {
+				height: 2px;
+				background: linear-gradient(90deg, rgba(79, 145, 255, 1), rgba(79, 145, 255, 0));
+			}
+		}
+
+		.screen-panel__header {
+			height: 44px !important;
+			background: url("../../../img/theme/cornflower-blue/screen-panel/panel-header-bg.svg") no-repeat 13px 12px;
+			.title {
+				font-size: 18px;
+				padding: 14px 0 0 30px;
+			}
+		}
+
+		&--no-header {
+			.screen-panel__wrapper {
+				border: 2px solid rgba(79, 145, 255, .7);
+				background: linear-gradient(180deg, rgba(5, 25, 57, 0.6) 0%, rgba(5, 25, 57, 0) 100%);
+			}
+		}
+	}
+
+	.screen-panel-right {
+		.screen-panel {
+			.screen-panel__wrapper {
+				.screen-panel__wrapper__top {
+					height: 16px;
+					background: url("../../../img/theme/cornflower-blue/screen-panel/screen-panel__wrapper__top_bg-right.png") no-repeat;
+					background-size: 100% 100%;
+				}
+
+				.screen-panel__wrapper__border {
+					background: linear-gradient(90deg, rgba(5, 25, 57, 0) 0%, rgba(5, 25, 57, 0.6) 100%);
+
+					&:after {
+						display: block;
+					}
+					&:before {
+						display: none;
+					}
+				}
+
+				.screen-panel__wrapper__bottom {
+					height: 2px;
+					background: linear-gradient(270deg, rgba(79, 145, 255, 1), rgba(79, 145, 255, 0));
+				}
+			}
+
+			.screen-panel__header {
+				height: 44px !important;
+				background: url("../../../img/theme/cornflower-blue/screen-panel/panel-header-bg.svg") no-repeat 13px 12px;
+				.title {
+					font-size: 18px;
+					padding: 14px 0 0 30px;
+				}
+			}
+		}
+	}
+
+	.jpx-dialog-header .jpx-dialog-header__actions > .jpx-icon {
+		background: transparent;
+		border-radius: 3px;
+		border: none;
+		font-size: 16px !important;
+		color: #fff;
+
+		&:hover {
+			background: transparent;
+		}
+	}
+	.jpx-dialog {
+		position: absolute;
+		border: 1px solid #1568E6;
+		background: #0B1E4C;
+		border-radius: 0;
+		box-shadow: inset 0px 0px 24px 0px rgba(21, 104, 230, .7);
+	}
+	.jpx-dialog-header .jpx-dialog-header__title__main {
+		&:before {
+			display: none;
+		}
+	}
+}
+
+
+
+
+body.dev {
+    .jpx-container {
+		&:hover {
+			outline: 1px dashed rgba(68, 255, 0, 0.48);
+		}
+    }
+}

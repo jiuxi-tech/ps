@@ -1,0 +1,61 @@
+@FbUiPrefix: jpx;
+// 卡片之间距
+@--gutter: 8px;
+
+.clearfix {
+	&:before {
+		content: '';
+		display: table;
+		visibility: hidden;
+		overflow: hidden;
+		height: 0;
+	}
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+		visibility: hidden;
+		overflow: hidden;
+		height: 0;
+	}
+}
+
+.tx-demo-page {
+	padding: @--gutter;
+	color: #313C47;
+	font-size: 14px;
+
+	> div {
+		margin-bottom: @--gutter;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+// 弹出框高度，宽度，按钮样式控制
+.tp-dialog {
+	width: 100%;
+	height: 100%;
+
+	.tp-dialog-top {
+		width: 100%;
+		height: calc(100% - 63px);
+		overflow-y: auto;
+		padding-top: 10px;
+	}
+
+	.tp-dialog-bottom {
+		box-sizing: border-box;
+		text-align: right;
+		background-color: #FFFFFF;
+		position: relative;
+
+		height: 63px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 16px;
+		border-top: 1px solid #ccc
+	}
+}

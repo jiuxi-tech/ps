@@ -1,0 +1,86 @@
+/*!
+* utils
+* (c) 2021 lincong1987
+*/
+
+@import "../config";
+
+.absolute ( @left:0, @top: 0, @width:0, @height:0) {
+    position: absolute;
+    top: @top + 0px;
+    left: @left + 0px;
+    width: @width + 0px;
+    height: @height + 0px;
+}
+
+.absolute_right (@right:0, @top: 0, @width:0, @height:0) {
+    position: absolute;
+    top: @top + 0px;
+    right: @right + 0px;
+    width: @width + 0px;
+    height: @height + 0px;
+}
+
+.panel (@name, @index:1, @left:0, @top: 0, @width:0, @height:0) {
+
+    #@{name}_@{index}_wrapper {
+	position: absolute;
+	top: @top + 0px;
+	left: @left + 0px;
+	width: @width + 0px;
+	height: @height + 0px;
+	z-index: @index + 100;
+    }
+
+    #@{name}_@{index}_wrapper when (@dev = true) {
+	/* dev mode */
+	border: 1px dashed #EEEEEE;
+    }
+
+    #@{name}_@{index}_header {
+	position: absolute;
+	top: @top + 0px;
+	left: @left + 0px;
+	width: @width + 0px;
+	height: @panel-header;
+	z-index: @index + 200;
+    }
+
+    #@{name}_@{index} {
+	@panel-header-top: @top + @panel-header;
+	@panel-header-height: @height + @panel-header;
+
+	position: absolute;
+	top: @top + @panel-header;
+	left: @left + 0px;
+	width: @width + 0px;
+	height: @height - @panel-header;
+	z-index: @index + 300;
+    }
+
+    #@{name}_@{index} when (@dev = true) {
+	/* dev mode */
+	border: 1px dashed #FF858580;
+    }
+
+}
+
+.dev(@color : #8DFF8575, @bg : transparent) when (@dev = true) {
+    /* dev mode */
+    box-shadow: 0 0 0 1px #8dff8575;
+    border: 1px dashed @color;
+    background: @bg;
+}
+
+.blue_box_bg() {
+	background: linear-gradient(to bottom, rgba(6, 45, 139, 0.8), rgba(6, 45, 139, 0.8)) 2px 2px no-repeat,
+	linear-gradient(to bottom, rgba(83, 255, 253, 1), rgba(110, 255, 254, 0)) left top no-repeat,
+	linear-gradient(to bottom, rgba(83, 255, 253, 1), rgba(110, 255, 254, 0)) right top no-repeat,
+	linear-gradient(to bottom, rgba(83, 255, 253, 1), rgba(83, 255, 253, 1)) left top no-repeat,
+	linear-gradient(to left, rgba(110, 255, 254, 0), rgba(83, 255, 253, 1), rgba(110, 255, 254, 0)) left bottom no-repeat;
+	background-size: calc(100% - 4px) calc(100% - 4px), 2px 100%, 2px 100%, 100% 2px, 100% 2px;
+}
+
+.transition() {
+  transition: all .3s;
+}

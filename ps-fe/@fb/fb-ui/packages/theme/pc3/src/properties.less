@@ -1,0 +1,391 @@
+/*!
+* property
+* (c) 2021 lincong1987
+*/
+
+@import "common/var";
+
+
+.@{prefix}-properties {
+
+	.@{prefix}-properties__body {
+
+		width:         100%;
+		overflow:      hidden;
+		border-radius: 4px;
+
+		// table dom
+		.@{prefix}-properties__table {
+
+			width:        100%;
+			table-layout: fixed;
+
+
+			// tr
+			.@{prefix}-properties__row {
+				display: flex;
+
+				> th,
+				> td {
+					display: flex;
+					word-break: break-all;
+				}
+			}
+
+		}
+	}
+
+}
+
+
+.@{prefix}-properties-item__label {
+	font-size:     13px;
+	color:         #666666;
+	padding-right: 8px;
+
+
+	//&:after {
+	//	color:    #666666;
+	//	position: relative;
+	//	margin:   0 8px 0 0;
+	//	content:  " ";
+	//}
+
+	.@{prefix}-properties-item__label__colon__text {
+		display: table-cell;
+	}
+
+	.@{prefix}-properties-item__label__colon__colon {
+		display: table-cell;
+		opacity: 0;
+		width:   17px;
+	}
+
+	.@{prefix}-properties-item__label__label-extra {
+		display:    table-cell;
+		text-align: center;
+	}
+
+
+}
+
+.@{prefix}-properties-item__content {
+	font-size:    13px;
+	color:        #313C47;
+}
+
+
+// item 就是th或td
+.@{prefix}-properties-item {
+
+	vertical-align: top;
+	padding-bottom: 16px;
+
+	&--valign-top {
+		vertical-align: top;
+		align-items: start;
+	}
+
+	&--valign-middle {
+		vertical-align: middle;
+		align-items: center;
+	}
+
+	&--valign-bottom {
+		vertical-align: bottom;
+		align-items: end;
+	}
+
+	&:after,
+	&:before {
+		content: "";
+		display: table;
+	}
+
+	&--colon {
+
+		.@{prefix}-properties-item__label__colon {
+			width:       17px;
+			text-align:  right;
+			font-family: SimSun, serif;
+			font-size:   @--font-size-m;
+			display:     table-cell;
+		}
+	}
+
+	&--label-left {
+
+		.@{prefix}-properties-item__label {
+			text-align: left;
+		}
+	}
+
+	&--label-center {
+
+		.@{prefix}-properties-item__label {
+			text-align: center;
+		}
+	}
+
+	&--label-right {
+
+		.@{prefix}-properties-item__label {
+			text-align: right;
+		}
+	}
+
+
+	&--content-left {
+		.@{prefix}-properties-item__content {
+			text-align: left;
+		}
+	}
+
+	&--content-center {
+
+		.@{prefix}-properties-item__content {
+			text-align: center;
+		}
+	}
+
+	&--content-right {
+
+		.@{prefix}-properties-item__content {
+			text-align: right;
+		}
+	}
+
+	&:last-child {
+		padding-bottom: 16px;
+	}
+
+
+	//	display:      table;
+	//	width:        100%;
+	//	table-layout: fixed;
+	//
+	&--content--ellipsis {
+
+		.@{prefix}-properties-item__content {
+			overflow:      hidden;
+			text-overflow: ellipsis;
+			white-space:   nowrap;
+			word-break:    normal;
+		}
+	}
+
+	//
+
+
+	//&:last-child {
+	//	padding-bottom: 16px;
+	//}
+
+
+	//&.@{prefix}-properties-item--content--ellipsis {
+	//
+	//	background-color: red;
+	//
+	//	.@{prefix}-properties-item__content {
+	//		overflow:      hidden;
+	//		text-overflow: ellipsis;
+	//		white-space:   nowrap;
+	//		word-break:    normal;
+	//	}
+	//}
+
+
+}
+
+
+
+.@{prefix}-properties--form {
+
+	//.@{prefix}-properties-item__label {
+	//	display: table-cell;
+	//	//word-break: break-all;
+	//}
+	//
+	//.@{prefix}-properties-item__content {
+	//	display: table-cell;
+	//	//word-break: break-all;
+	//}
+	//
+
+
+
+}
+
+.@{prefix}-properties--table {
+
+	//.@{prefix}-properties-item__label {
+	//	display: table-cell;
+	//	//word-break: break-all;
+	//}
+	//
+	//.@{prefix}-properties-item__content {
+	//	display: table-cell;
+	//	//word-break: break-all;
+	//}
+	//
+
+
+
+}
+
+
+.@{prefix}-properties--bordered {
+	table-layout: auto;
+
+
+	.@{prefix}-properties-item__label {
+		font-size:      13px;
+		vertical-align: middle;
+		background:     #F9F9F9;
+		padding:        9px 10px;
+	}
+
+	.@{prefix}-properties-item__content {
+		font-size:      13px;
+		vertical-align: middle;
+		background:     #FFFFFF;
+		padding:        9px 10px;
+	}
+
+	.@{prefix}-properties__body .@{prefix}-properties__table {
+	}
+
+	.@{prefix}-properties__body {
+		border-radius: 0;
+	}
+
+	.@{prefix}-properties__body .@{prefix}-properties__table .@{prefix}-properties__row > th,
+	.@{prefix}-properties__body .@{prefix}-properties__table .@{prefix}-properties__row > td {
+		border:  1px solid #E8E8E8;
+		padding:        9px 10px;
+	}
+
+
+	// 处理 table 模式下 最后一行的内边距
+	.@{prefix}-properties__body {
+		> .@{prefix}-row {
+
+			&:before,
+			&:after {
+				display:    none;
+				width:      0;
+				clear:      none;
+				visibility: hidden;
+				font-size:  0;
+				height:     auto;
+			}
+
+			.@{prefix}-properties-item {
+				border:         1px solid #E8E8E8;
+
+				.@{prefix}-properties-item__label {
+
+					display:        table-cell;
+					position:       relative;
+					border-right:   1px solid #E8E8E8;
+					vertical-align: top;
+
+				}
+
+				.@{prefix}-properties-item__content {
+					display:        table-cell;
+					vertical-align: top;
+				}
+			}
+
+
+			& + .@{prefix}-row--property-fieldset {
+				border-top: 1px solid #E8E8E8;
+
+				> .@{prefix}-col {
+					> .@{prefix}-form-fieldset {
+						&:first-child {
+							margin: 16px 0;
+						}
+					}
+				}
+			}
+
+		}
+
+
+	}
+
+
+}
+
+
+.@{prefix}-properties--s {
+	.@{prefix}-properties--bordered {
+		.@{prefix}-properties-item__label {
+			padding: 4px 6px;
+		}
+
+		.@{prefix}-properties-item__content {
+			padding: 4px 6px;
+		}
+
+		.@{prefix}-properties__body .@{prefix}-properties__table .@{prefix}-properties__row > th,
+		.@{prefix}-properties__body .@{prefix}-properties__table .@{prefix}-properties__row > td {
+
+			.@{prefix}-properties-item__label {
+				padding: 4px 6px;
+			}
+
+			.@{prefix}-properties-item__content {
+				padding: 4px 6px;
+			}
+		}
+
+		// 处理 table 模式下 最后一行的内边距
+		.@{prefix}-properties__body {
+			> .@{prefix}-row {
+				& + .@{prefix}-row--property-fieldset {
+
+					> .@{prefix}-col {
+						> .@{prefix}-form-fieldset {
+							&:first-child {
+								margin: 8px 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.@{prefix}-properties--l {
+}
+
+// 兼容 Safari 浏览器
+// Safari 下有个问题 table-layout: fixed; 时，样式异常。
+//@media screen and (min-color-index: 0) and (-webkit-min-device-pixel-ratio: 0) {
+//
+//	.xxx {
+//		color: red
+//	}
+//
+//
+//	.@{prefix}-properties--bordered {
+//
+//		// 处理 table 模式下 最后一行的内边距
+//		.@{prefix}-properties__body {
+//			> .@{prefix}-row {
+//				table-layout: auto;
+//
+//
+//				.@{prefix}-properties-item {
+//					table-layout: auto;
+//					border:       1px solid red;
+//				}
+//			}
+//
+//		}
+//	}
+//}

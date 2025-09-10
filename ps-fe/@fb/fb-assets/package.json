@@ -1,0 +1,22 @@
+{
+	"name": "fb-assets",
+	"version": "1.1.681",
+	"description": "> TODO: description",
+	"author": "lincong <lincong1987@gmail.com>",
+	"homepage": "",
+	"license": "ISC",
+	"main": "src/index.js",
+	"directories": {
+		"lib": "lib",
+		"test": "__tests__"
+	},
+	"files": [
+		"lib",
+		"src",
+		"package.json"
+	],
+	"scripts": {
+		"test": "echo \"Error: run tests from root\" && exit 1"
+	},
+	"gitHead": "09e5549133ec555c18b4442a80eb5ca3d70e48e2"
+}

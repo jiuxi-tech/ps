@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.monitor.server.core.mapper.TpMonitorConfigMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.monitor.server.core.bean.entity.TpMonitorConfig" id="tpMonitorConfigMap">
+        <result property="configId" column="config_id"/>
+        <result property="configName" column="config_name"/>
+        <result property="configValue" column="config_value"/>
+        <result property="configDesc" column="config_desc"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="actived" column="actived"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updator" column="updator"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="extend01" column="extend01"/>
+        <result property="extend02" column="extend02"/>
+        <result property="extend03" column="extend03"/>
+        <result property="extend04" column="extend04"/>
+        <result property="extend05" column="extend05"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.monitor.server.core.bean.entity.TpMonitorConfig">
+        INSERT INTO tp_monitor_config
+            (config_id, cpu_threshold, memory_threshold, disk_threshold, send_mail, principal, mobile, email, tenant_id, actived, creator, create_time, updator, update_time, extend01, extend02, extend03, extend04, extend05)
+        VALUES
+            (#{configId}, #{cpuThreshold}, #{memoryThreshold}, #{diskThreshold}, #{sendMail}, #{principal}, #{mobile}, #{email}, #{tenantId}, #{actived}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{extend01}, #{extend02}, #{extend03}, #{extend04}, #{extend05})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.monitor.server.core.bean.entity.TpMonitorConfig">
+        UPDATE tp_monitor_config
+        <set>
+            <if test="null != cpuThreshold">cpu_threshold = #{cpuThreshold},</if>
+            <if test="null != memoryThreshold">memory_threshold = #{memoryThreshold},</if>
+            <if test="null != diskThreshold">disk_threshold = #{diskThreshold},</if>
+            <if test="null != sendMail">send_mail = #{sendMail},</if>
+            <if test="null != principal">principal = #{principal},</if>
+            <if test="null != mobile">mobile = #{mobile},</if>
+            <if test="null != email">email = #{email},</if>
+            <if test="null != tenantId">tenant_id = #{tenantId},</if>
+            <if test="null != actived">actived = #{actived},</if>
+            <if test="null != creator">creator = #{creator},</if>
+            <if test="null != createTime">create_time = #{createTime},</if>
+            <if test="null != updator">updator = #{updator},</if>
+            <if test="null != updateTime">update_time = #{updateTime},</if>
+            <if test="null != extend01">extend01 = #{extend01},</if>
+            <if test="null != extend02">extend02 = #{extend02},</if>
+            <if test="null != extend03">extend03 = #{extend03},</if>
+            <if test="null != extend04">extend04 = #{extend04},</if>
+            <if test="null != extend05">extend05 = #{extend05},</if>
+        </set>
+        WHERE config_id = #{configId}
+    </update>
+
+    <select id="getOne"
+            resultType="com.jiuxi.monitor.server.core.bean.vo.TpMonitorConfigVO">
+        select *
+        from tp_monitor_config
+        where actived = 1
+        order by update_time desc
+        limit 1
+    </select>
+
+</mapper>

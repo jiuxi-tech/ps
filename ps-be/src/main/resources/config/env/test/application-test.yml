@@ -1,0 +1,52 @@
+############################################################
+#############  测试环境配置
+#############  Test Environment Configuration
+############################################################
+
+server:
+  port: 8083
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 500
+    max-http-form-post-size: 10MB
+  servlet:
+    context-path: /ps-be
+  max-http-header-size: 10MB
+
+# Spring Boot测试环境配置
+spring:
+  # 测试环境禁用DevTools
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+
+############################################################
+#############  测试环境日志配置
+############################################################  
+logging:
+  level:
+    # 测试环境适中日志级别
+    root: INFO
+    com.jiuxi: INFO
+    # 数据库相关日志
+    org.mybatis: WARN
+    com.baomidou.mybatisplus: WARN
+    com.alibaba.druid: WARN
+    org.apache.ibatis: WARN
+    org.springframework.jdbc: WARN
+    org.springframework.transaction: INFO
+
+############################################################
+#############  测试环境特定配置
+############################################################
+# 测试环境配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env
+
+# 测试环境JVM配置建议
+# -Xms1024m -Xmx2048m -XX:+UseG1GC -XX:MaxGCPauseMillis=200

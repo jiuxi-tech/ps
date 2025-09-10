@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpPersonRoleMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpPersonRole" id="tpPersonRoleMap">
+        <result property="personId" column="PERSON_ID"/>
+        <result property="roleId" column="ROLE_ID"/>
+        <result property="deptId" column="DEPT_ID"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpPersonRole">
+        INSERT INTO tp_person_role
+            (PERSON_ID, ROLE_ID, DEPT_ID)
+		VALUES
+			(#{personId}, #{roleId}, #{deptId})
+    </insert>
+
+    <select id="selectByPersonIdAndDeptId" resultType="com.jiuxi.admin.core.bean.vo.TpPersonRoleVO">
+        select tpr.PERSON_ID as personId, tpr.ROLE_ID as roleId, tr.ROLE_NAME as roleName from tp_person_role tpr
+        left join tp_role tr on tpr.ROLE_ID = tr.ROLE_ID
+        where tpr.DEPT_ID = #{deptId}
+        and
+        tpr.PERSON_ID = #{personId}
+    </select>
+
+    <select id="selectByRoleId" resultType="com.jiuxi.admin.core.bean.vo.TpPersonRoleVO">
+        select tpr.PERSON_ID as personId, tpr.ROLE_ID as roleId from tp_person_role tpr
+        left join tp_person_basicinfo tpb on tpr.PERSON_ID = tpb.PERSON_ID
+        where tpb.ACTIVED = 1
+        and tpr.ROLE_ID = #{roleId}
+    </select>
+
+    <!--  根据部门和人员id删除【人员-角色】  -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tp_person_role
+        where DEPT_ID = #{deptId}
+          and PERSON_ID = #{personId}
+    </delete>
+
+    <!-- 根据角色id删除【人员-角色】 -->
+    <delete id="deleteByRoleId" parameterType="string">
+        DELETE FROM tp_person_role
+        where ROLE_ID = #{roleId}
+    </delete>
+
+    <delete id="deleteByPersonIdAndDeptIds">
+        DELETE FROM tp_person_role where PERSON_ID = #{personId} and
+        DEPT_ID in
+        <foreach collection="deptIds" item="deptId" index="index" open="(" close=")" separator=",">
+            #{deptId}
+        </foreach>
+    </delete>
+
+</mapper>

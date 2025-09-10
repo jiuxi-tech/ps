@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mysql -->
+<mapper namespace="com.jiuxi.admin.core.mapper.TpOperateLogMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpOperateLog" id="tpOperateLogMap">
+        <result property="logId" column="LOG_ID"/>
+        <result property="personId" column="PERSON_ID"/>
+        <result property="moduleCode" column="MODULE_CODE"/>
+        <result property="operterTime" column="OPERTER_TIME"/>
+        <result property="operterType" column="OPERTER_TYPE"/>
+        <result property="operterRid" column="OPERTER_RID"/>
+        <result property="operterIp" column="OPERTER_IP"/>
+        <result property="operterBrowser" column="OPERTER_BROWSER"/>
+        <result property="username" column="USERNAME"/>
+        <result property="ascnId" column="ASCN_ID"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="cityCode" column="CITY_CODE"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpOperateLog">
+        INSERT INTO tp_operate_log
+            (LOG_ID, PERSON_ID, MODULE_CODE, OPERTER_TIME, OPERTER_TYPE, OPERTER_RID, OPERTER_IP, OPERTER_BROWSER, USERNAME, ASCN_ID, CATEGORY, CITY_CODE, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+        VALUES
+            (#{logId}, #{personId}, #{moduleCode}, #{operterTime}, #{operterType}, #{operterRid}, #{operterIp}, #{operterBrowser}, #{username}, #{ascnId}, #{category}, #{cityCode}, #{actived}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpOperateLogQuery" resultType="com.jiuxi.admin.core.bean.vo.TpOperateLogVO">
+        SELECT
+          tol.LOG_ID as logId
+        , tol.PERSON_ID as personId
+        , tol.MODULE_CODE as moduleCode
+        , tol.OPERTER_TIME as operterTime
+        , tol.OPERTER_TYPE as operterType
+        , tol.OPERTER_RID as operterRid
+        , tol.OPERTER_IP as operterIp
+        , tol.OPERTER_BROWSER as operterBrowser
+        , tol.USERNAME as username
+        , tol.ASCN_ID as ascnId
+        , tol.CATEGORY as category
+        , tol.CITY_CODE as cityCode
+        , tol.ACTIVED as actived
+        , tol.CREATOR as creator
+        , tol.CREATE_TIME as createTime
+        , tol.UPDATOR as updator
+        , tol.UPDATE_TIME as updateTime
+        , tol.EXTEND01 as extend01
+        , tol.EXTEND02 as extend02
+        , tol.EXTEND03 as extend03
+        FROM tp_operate_log tol
+        WHERE 1=1
+        <if test="null != query.operterTimeStart">
+            and tol.OPERTER_TIME >= #{query.operterTimeStart}
+        </if>
+        <if test="null != query.operterTimeEnd">
+            and tol.OPERTER_TIME &lt;= #{query.operterTimeEnd}
+        </if>
+        <if test="null != query.moduleCode and query.moduleCode != ''">
+            and tol.MODULE_CODE = #{query.moduleCode}
+        </if>
+        <if test="null != query.operterType and query.operterType != ''">
+            and tol.OPERTER_TYPE = #{query.operterType}
+        </if>
+        <if test="null != query.category and query.category != ''">
+            and tol.CATEGORY = #{query.category}
+        </if>
+        <if test="null != query.cityCode and query.cityCode != ''">
+            and tol.CITY_CODE like concat(#{query.cityCode} ,'%')
+        </if>
+        <if test="null != query.username and query.username != ''">
+            and tol.USERNAME = #{query.username}
+        </if>
+        <if test="null != query.personId and query.personId != ''">
+            and tol.PERSON_ID = #{query.personId}
+        </if>
+        <if test="null != query.operterRid and query.operterRid != ''">
+            and tol.OPERTER_RID = #{query.operterRid}
+        </if>
+        <if test="null != query.operterIp and query.operterIp != ''">
+            and tol.OPERTER_IP = #{query.operterIp}
+        </if>
+        ORDER BY tol.OPERTER_TIME desc
+    </select>
+
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpOperateLogVO">
+        SELECT
+          tol.LOG_ID as logId
+        , tol.PERSON_ID as personId
+        , tol.MODULE_CODE as moduleCode
+        , tol.OPERTER_TIME as operterTime
+        , tol.OPERTER_TYPE as operterType
+        , tol.OPERTER_RID as operterRid
+        , tol.OPERTER_IP as operterIp
+        , tol.OPERTER_BROWSER as operterBrowser
+        , tol.USERNAME as username
+        , tol.ASCN_ID as ascnId
+        , tol.CATEGORY as category
+        , tol.CITY_CODE as cityCode
+        , tol.ACTIVED as actived
+        , tol.CREATOR as creator
+        , tol.CREATE_TIME as createTime
+        , tol.UPDATOR as updator
+        , tol.UPDATE_TIME as updateTime
+        , tol.EXTEND01 as extend01
+        , tol.EXTEND02 as extend02
+        , tol.EXTEND03 as extend03
+        FROM tp_operate_log tol
+        WHERE tol.LOG_ID = #{id}
+    </select>
+
+</mapper>

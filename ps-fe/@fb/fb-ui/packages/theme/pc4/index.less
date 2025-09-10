@@ -1,0 +1,36 @@
+/*!
+* index
+* (c) 2024 lincong1987
+*/
+@import "config";
+@import "colors";
+@import "font";
+@import "base";
+@import "light";
+@import "dark";
+
+
+// 基础配置
+:root,
+:root.@{base-theme-name} {
+    .base-colors();
+    .theme-base();
+    .base-font();
+    .base-icon-font();
+}
+
+// 浅色主题
+:root,
+:root.@{light-theme-name} {
+    .theme-light();
+}
+
+// 深色主题
+:root.@{dark-theme-name} {
+    .theme-dark();
+}
+
+@import "./components/ripple";
+@import "./components/button/index";
+
+

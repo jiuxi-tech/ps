@@ -1,0 +1,112 @@
+/*!
+* fb-page-tree-table
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-page-tree-table {
+
+	height:     100%;
+	width:      100%;
+	position:   relative;
+	background: #F0EFF5;
+	padding:    8px;
+
+	.@{prefix}-page-tree-table__tree-panel {
+		.@{prefix}-page-tree-table__tree-card {
+			.@{prefix}-card__body {
+				overflow: hidden;
+
+				&:hover {
+					overflow: auto;
+				}
+			}
+
+
+		}
+	}
+
+	.@{prefix}-page-tree-table__form-panel {
+
+		.@{prefix}-page-tree-table__form-card {
+			background: #FFFFFF;
+
+			.@{prefix}-card__header {
+				.@{prefix}-card__header__actions {
+					right: auto;
+					left: 8px;
+				}
+			}
+
+			.@{prefix}-card__body {
+				padding: 0;
+
+
+				.@{prefix}-page-tree-table-card {
+
+					height:   100%;
+					width:    100%;
+					position: relative;
+					padding:  16px;
+
+					.@{prefix}-page-tree-table__query-panel {
+						background:    #F9F9F9;
+						border-radius: 4px;
+						padding:       0px 16px 0px 16px;
+					}
+
+					.@{prefix}-page-tree-table__list-panel {
+						background:    #FFFFFF;
+						border-radius: 4px;
+					}
+
+					.@{prefix}-page-tree-table__list-panel__header {
+						position: relative;
+						height:   52px;
+
+						.@{prefix}-page-tree-table__list-panel__header__buttons {
+							position: absolute;
+							top:      0;
+							left:     0;
+							height:   52px;
+							padding:  12px 0;
+
+							> .@{prefix}-button {
+								margin-right: 8px;
+							}
+						}
+
+						.@{prefix}-page-tree-table__list-panel__header__actions {
+							position: absolute;
+							top:      0;
+							right:    0;
+							height:   52px;
+							padding:  12px 0;
+
+							> .@{prefix}-button {
+								margin-left: 8px;
+							}
+						}
+					}
+
+					.@{prefix}-page-tree-table__list-panel__table {
+						min-height: 100px;
+					}
+
+					.@{prefix}-page-tree-table__list-panel__pager {
+						text-align: right;
+						padding:    12px 0;
+					}
+
+
+				}
+
+
+			}
+
+		}
+
+	}
+
+}

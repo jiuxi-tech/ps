@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.module.org.infra.persistence.mapper.DepartmentMapper">
+
+    <!-- 部门持久化对象结果映射 -->
+    <resultMap type="com.jiuxi.module.org.infra.persistence.entity.DepartmentPO" id="departmentPOMap">
+        <result property="deptId" column="DEPT_ID"/>
+        <result property="pdeptId" column="PDEPT_ID"/>
+        <result property="deptLevelcode" column="DEPT_LEVELCODE"/>
+        <result property="deptNo" column="DEPT_NO"/>
+        <result property="deptFullName" column="DEPT_FULL_NAME"/>
+        <result property="deptSimpleName" column="DEPT_SIMPLE_NAME"/>
+        <result property="deptType" column="DEPT_TYPE"/>
+        <result property="deptDesc" column="DEPT_DESC"/>
+        <result property="orderIndex" column="ORDER_INDEX"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="cityCode" column="CITY_CODE"/>
+        <result property="principalName" column="PRINCIPAL_NAME"/>
+        <result property="principalTel" column="PRINCIPAL_TEL"/>
+        <result property="ascnId" column="ASCN_ID"/>
+        <result property="leaf" column="LEAF"/>
+        <result property="enabled" column="ENABLED"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+        <result property="extend04" column="EXTEND04"/>
+        <result property="extend05" column="EXTEND05"/>
+    </resultMap>
+
+    <!-- 插入部门 -->
+    <insert id="insert" parameterType="com.jiuxi.module.org.infra.persistence.entity.DepartmentPO">
+        INSERT INTO tp_dept_basicinfo
+        (DEPT_ID, PDEPT_ID, DEPT_LEVELCODE, DEPT_NO, DEPT_FULL_NAME, DEPT_SIMPLE_NAME, DEPT_TYPE, DEPT_DESC,
+         ORDER_INDEX, PRINCIPAL_NAME, PRINCIPAL_TEL, CATEGORY, CITY_CODE, ASCN_ID,
+         LEAF, ENABLED, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, TENANT_ID, EXTEND01, EXTEND02, EXTEND03,
+         EXTEND04, EXTEND05)
+        VALUES (#{deptId}, #{pdeptId}, #{deptLevelcode}, #{deptNo}, #{deptFullName}, #{deptSimpleName}, #{deptType},
+                #{deptDesc}, #{orderIndex}, #{principalName}, #{principalTel}, #{category}, #{cityCode}, #{ascnId},
+                #{leaf}, #{enabled}, #{actived}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{tenantId}, #{extend01},
+                #{extend02}, #{extend03}, #{extend04}, #{extend05})
+    </insert>
+
+    <!-- 根据ID更新部门 -->
+    <update id="updateById" parameterType="com.jiuxi.module.org.infra.persistence.entity.DepartmentPO">
+        UPDATE tp_dept_basicinfo
+        <set>
+            <if test="pdeptId != null">PDEPT_ID = #{pdeptId},</if>
+            <if test="deptLevelcode != null">DEPT_LEVELCODE = #{deptLevelcode},</if>
+            <if test="deptNo != null">DEPT_NO = #{deptNo},</if>
+            <if test="deptFullName != null">DEPT_FULL_NAME = #{deptFullName},</if>
+            <if test="deptSimpleName != null">DEPT_SIMPLE_NAME = #{deptSimpleName},</if>
+            <if test="deptType != null">DEPT_TYPE = #{deptType},</if>
+            <if test="deptDesc != null">DEPT_DESC = #{deptDesc},</if>
+            <if test="orderIndex != null">ORDER_INDEX = #{orderIndex},</if>
+            <if test="principalName != null">PRINCIPAL_NAME = #{principalName},</if>
+            <if test="principalTel != null">PRINCIPAL_TEL = #{principalTel},</if>
+            <if test="cityCode != null">CITY_CODE = #{cityCode},</if>
+            <if test="ascnId != null">ASCN_ID = #{ascnId},</if>
+            <if test="enabled != null">ENABLED = #{enabled},</if>
+            <if test="actived != null">ACTIVED = #{actived},</if>
+            <if test="updator != null">UPDATOR = #{updator},</if>
+            <if test="updateTime != null">UPDATE_TIME = #{updateTime},</if>
+            <if test="extend01 != null">EXTEND01 = #{extend01},</if>
+            <if test="extend02 != null">EXTEND02 = #{extend02},</if>
+            <if test="extend03 != null">EXTEND03 = #{extend03},</if>
+            <if test="extend04 != null">EXTEND04 = #{extend04},</if>
+            <if test="extend05 != null">EXTEND05 = #{extend05}</if>
+        </set>
+        WHERE DEPT_ID = #{deptId} AND ACTIVED = 1
+    </update>
+
+    <!-- 根据ID查询部门 -->
+    <select id="selectById" parameterType="string" resultMap="departmentPOMap">
+        SELECT * FROM tp_dept_basicinfo 
+        WHERE DEPT_ID = #{deptId} AND ACTIVED = 1
+    </select>
+
+    <!-- 根据父部门ID查询子部门 -->
+    <select id="selectByParentId" parameterType="string" resultMap="departmentPOMap">
+        SELECT * FROM tp_dept_basicinfo 
+        WHERE PDEPT_ID = #{parentDeptId} AND ACTIVED = 1
+        ORDER BY ORDER_INDEX ASC, DEPT_FULL_NAME ASC
+    </select>
+
+    <!-- 根据租户ID查询根部门 -->
+    <select id="selectRootDepartments" parameterType="string" resultMap="departmentPOMap">
+        SELECT * FROM tp_dept_basicinfo 
+        WHERE (PDEPT_ID IS NULL OR PDEPT_ID = '') 
+        AND TENANT_ID = #{tenantId} AND ACTIVED = 1
+        ORDER BY ORDER_INDEX ASC, DEPT_FULL_NAME ASC
+    </select>
+
+    <!-- 根据租户ID查询所有部门 -->
+    <select id="selectByTenantId" parameterType="string" resultMap="departmentPOMap">
+        SELECT * FROM tp_dept_basicinfo 
+        WHERE TENANT_ID = #{tenantId} AND ACTIVED = 1
+        ORDER BY DEPT_LEVELCODE ASC, ORDER_INDEX ASC
+    </select>
+
+    <!-- 根据部门名称查询部门 -->
+    <select id="selectByName" resultMap="departmentPOMap">
+        SELECT * FROM tp_dept_basicinfo 
+        WHERE (DEPT_FULL_NAME = #{deptName} OR DEPT_SIMPLE_NAME = #{deptName})
+        AND TENANT_ID = #{tenantId} AND ACTIVED = 1
+        LIMIT 1
+    </select>
+
+    <!-- 检查部门名称是否存在 -->
+    <select id="countByName" resultType="int">
+        SELECT COUNT(1) FROM tp_dept_basicinfo 
+        WHERE (DEPT_FULL_NAME = #{deptName} OR DEPT_SIMPLE_NAME = #{deptName})
+        AND TENANT_ID = #{tenantId} AND ACTIVED = 1
+        <if test="excludeDeptId != null and excludeDeptId != ''">
+            AND DEPT_ID != #{excludeDeptId}
+        </if>
+    </select>
+
+    <!-- 逻辑删除部门 -->
+    <update id="deleteById">
+        UPDATE tp_dept_basicinfo 
+        SET ACTIVED = 0, UPDATOR = #{updator}, UPDATE_TIME = #{updateTime}
+        WHERE DEPT_ID = #{deptId}
+    </update>
+
+    <!-- 批量逻辑删除部门 -->
+    <update id="deleteByIds">
+        UPDATE tp_dept_basicinfo 
+        SET ACTIVED = 0, UPDATOR = #{updator}, UPDATE_TIME = #{updateTime}
+        WHERE DEPT_ID IN
+        <foreach item="deptId" collection="deptIds" open="(" separator="," close=")">
+            #{deptId}
+        </foreach>
+    </update>
+
+    <!-- 根据部门路径查询所有子部门 -->
+    <select id="selectDescendants" parameterType="string" resultMap="departmentPOMap">
+        SELECT * FROM tp_dept_basicinfo 
+        WHERE DEPT_LEVELCODE LIKE CONCAT(#{deptPath}, '%') AND ACTIVED = 1
+        ORDER BY DEPT_LEVELCODE ASC
+    </select>
+
+    <!-- 统计部门下的用户数量 -->
+    <select id="countUsersByDeptId" parameterType="string" resultType="long">
+        SELECT COUNT(DISTINCT tpb.PERSON_ID) 
+        FROM tp_person_basicinfo tpb
+        INNER JOIN tp_person_dept tpd ON tpb.PERSON_ID = tpd.PERSON_ID
+        WHERE tpd.DEPT_ID = #{deptId} AND tpb.ACTIVED = 1
+    </select>
+
+    <!-- 获取部门树形结构 -->
+    <select id="selectDepartmentTree" parameterType="string" resultMap="departmentPOMap">
+        SELECT * FROM tp_dept_basicinfo 
+        WHERE TENANT_ID = #{tenantId} AND ACTIVED = 1
+        ORDER BY DEPT_LEVELCODE ASC, ORDER_INDEX ASC
+    </select>
+
+</mapper>

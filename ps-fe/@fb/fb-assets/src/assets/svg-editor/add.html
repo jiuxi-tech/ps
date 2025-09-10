@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="renderer" content="webkit" />
+	<meta name="force-rendering" content="webkit" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>风险分布图[新增]</title>
+
+	<link href="./Plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="./Plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+	<link href="./Plugins/bootstrap-validator/css/bootstrapValidator.min.css" rel="stylesheet" />
+	<link href="./Plugins/fontawesome/css/font-awesome.min.css?v=1.0" rel="stylesheet" />
+
+	<!--[if lte IE 9]>
+	<link href="./Plugins/uploadify/uploadify.css" rel="stylesheet" />
+	<![endif]-->
+	<!--[if gt IE 9]>
+    <link href="./Plugins/fileInput/css/fileinput.min.css" rel="stylesheet" />
+    <!--<![endif]-->
+	<![if !IE]>
+	<link href="./Plugins/fileInput/css/fileinput.min.css" rel="stylesheet" />
+	<![endif]>
+
+	<link href="./Plugins/ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+
+	<script src="./Plugins/jquery3.6/jquery-3.6.1.min.js"></script>
+	<script src="./Plugins/jquery3.6/jquery-migrate-3.4.0.js"></script>
+	<script src="./Plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="./Plugins/bootstrap-table/bootstrap-table.js?v=374"></script>
+	<script src="./Plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js?v=1"></script>
+	<script src="./Plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
+
+	<script type="text/javascript" src="./Plugins/signalR/jquery.signalR-2.2.2.js"></script>
+	<script src="./signalr/hubs" type="text/javascript"></script>
+
+	<script src="./Plugins/fileInput/js/fileinput.min.js"></script>
+	<script src="./Plugins/fileInput/js/locales/zh.js"></script>
+
+	<script src="./Plugins/ztree/jquery.ztree.core.min.js?v=374"></script>
+	<script src="./Plugins/ztree/jquery.ztree.excheck.min.js?v=374"></script>
+	<script src="./Plugins/ztree/jquery.ztree.exedit.min.js?v=374"></script>
+
+
+	<script src="./Plugins/layer/layer.js"></script>
+	<script src="./Assets/JS/common.js?v=374&d=6"></script>
+	<link href="./Assets/Css/common.css?v=374" rel="stylesheet" type="text/css" />
+	<link href="./Assets/Css/bootstrap.ext.css?v=374" rel="stylesheet" type="text/css" />
+	<link href="./Assets/Css/site.css?v=374" rel="stylesheet" type="text/css" />
+
+
+
+	<style>
+        body {
+            min-width: 800px;
+        }
+	</style>
+
+
+</head>
+<body>
+
+
+
+<ol class="breadcrumb">
+	<i class="fa fa-link"></i>
+	<li>风险管控与隐患治理</li>
+	<li>风险分级管控</li>
+	<li><a style="cursor:pointer;" onclick="breadTurnUrl('/RiskMapLevel/List','060408')">风险分布图绘制</a></li>
+	<li><a href="./index?companyCode=75628" onclick="return false;">风险分布图新增</a></li>
+	<a onclick="window.history.go(-1)" class="fr mr20 back">
+		<i class="fa fa-mail-reply fs14">
+		</i>
+		返回
+	</a>
+	<a onclick="location.reload()" class="fr mr20 back">
+		<i class="fa fa-refresh  mr5 fs14">
+		</i>
+		刷新
+	</a>
+</ol>
+<script>
+	function breadTurnUrl(url, menuNo) {
+		var iframe = window.top.document.getElementById("iframecontent");
+		if (iframe) {
+			var companyCode = iframe.attributes.companyCode.value;
+			var params = "menuNo=" + menuNo + "&companyCode=" + companyCode;
+			var url = url.indexOf("?") > 0 ? (url + "&" + params) : (url + "?" + params);
+			window.location.href = url;
+		}
+	}
+</script>
+
+<style>
+    .bt-radio {
+        max-width: 600px;
+    }
+
+    .risk-drag {
+    }
+
+    .risk-drag div {
+        float: left;
+        line-height: 34px;
+    }
+
+    .risk-drag .risk-img {
+        width: 25px;
+    }
+
+    .risk-drag .risk-op-warning {
+        float: left;
+        width: 300px;
+        line-height: 34px;
+    }
+
+    .risk-drag .risk-op-warning .fa {
+        font-size: 16px;
+        color: darkorange;
+    }
+
+    .riskLevel4, .riskLevel5, .riskLevel4:hover, .riskLevel5:hover {
+        background-color: #00B0F0 !important;
+        color: #fff;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+    }
+
+    .riskLevel3, .riskLevel3:hover {
+        background-color: #FFFF00 !important;
+        color: #000;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+    }
+
+    .riskLevel2, .riskLevel2:hover {
+        background-color: #FFC000 !important;
+        color: #fff;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+    }
+
+    .riskLevel1, .riskLevel1:hover {
+        background-color: #FF0000 !important;
+        color: #fff;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+    }
+
+    .map-content {
+        width: 680px;
+        height: 520px;
+        margin: 0 20px 0 20px;
+        border: 1px dashed #808080;
+    }
+
+    .map-commonrp {
+        min-height: 90px;
+        display: inline-block;
+        width: 680px;
+        margin: 0px 20px 0 20px;
+        border: 1px dashed #808080;
+        border-top: none;
+    }
+
+
+    .map-commonrp-title {
+        width: 680px;
+        height: 30px;
+        font-size: 16px;
+        text-align: center;
+        border-bottom: 1px dashed #808080;
+    }
+
+
+    .rp-content {
+        width: 680px;
+        min-height: 60px;
+        margin-top: 5px;
+    }
+
+    .rp-content .rp-single {
+        font-size: 14px;
+        cursor: pointer;
+        float: left;
+        width: 165px;
+    }
+
+    .bt-form-ct {
+        max-width: 1000px;
+    }
+
+    .tab-pane .page0::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .tab-pane .page0::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        background: #999;
+    }
+
+    .tab-pane .page0::-webkit-scrollbar-track { /*滚动条里面轨道*/
+        -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
+        border-radius: 2px;
+        background: #EDEDED;
+    }
+</style>
+
+
+
+<div class="layer">
+
+	<div class="bt-nav-tabs-ct" id="3"><ul class="nav nav-tabs"><li class="nav-item  active"><a data-toggle="tab" href="#3_1">风险分布图[新增]</a></li></ul><div class="tab-content"><div class="tab-pane  active" id="3_1">
+		<div class="row page0" style="position:relative;overflow-x: auto;">
+			<div class="leftPart" style="width:720px;float:left"><div class="bt-form-ct"><form action="/RiskMapLevel/Save?companyCode=75628" class="bt-form form-horizontal row" data-callbackfunc="onSaved" data-joinparamfunc="joinParam" id="form1" method="POST" role="form"><div class="bt-ct col-xs-12"><div><input class="BT-hidden" id="ID" name="ID" type="hidden" value="0"></input></div><div><input class="BT-hidden" id="MapCode" name="MapCode" type="hidden" value="MC2023011200001"></input></div><div><input class="BT-hidden" id="CompanyCode" name="CompanyCode" type="hidden" value="75628"></input></div><div class="form-group col-xs-12"><label class="control-label" for="EvaType" style="width:100px;"><span class='control-label-title'>风险类型</span></label><div class="control-ct" style="margin-left: 120px;"><div class="bt-radio" data-currentchangedcallback="typeChangeCallBack" data-toggle="buttons" data-value="" for="EvaType" id="EvaType"><label class="radio-inline btn radio-inline-horitzontal active" for="EvaType_1"><input checked="true" id="EvaType_1" name="EvaType" title="现状风险" type="radio" value="1"></input><span>现状风险</span></label><label class="radio-inline btn radio-inline-horitzontal" for="EvaType_2"><input id="EvaType_2" name="EvaType" title="固有风险" type="radio" value="2"></input><span>固有风险</span></label></div></div></div><div class="form-group col-xs-12 form-control-left"><label class="control-label" for="MapName" style="width:100px;"><span class='must-input'>*</span><span class='control-label-title'>名称</span></label><div class="control-ct" style="margin-left: 120px;"><div class="input-group" style="width:400px;"><input autocomplete="off" class="form-control bt-input" data-bv-notEmpty="true" data-bv-notEmpty-message="请输入名称" id="MapName" name="MapName" placeholder="请输入分布图名称" type="text"></input></div></div></div><div class="form-group col-xs-12 form-control-left"><label class="control-label" for="OrgCode" style="width:100px;"><span class='control-label-title'>所属部门</span></label><div class="control-ct" style="margin-left: 120px;"><div class="input-group bt-choose" style="width:400px;"><input class="bt-hidden" id="OrgCode" name="OrgCode" type="hidden" value=""></input><input autocomplete="off" class="form-control" data-callback="onOrgChoosed" data-choosetype="choose" data-firstdataurl="/UserOrg/GetQueryupText?isFull=true" data-idfield="OrgCode" data-namefield="OrgFullName" data-showkey="True" data-url="/UserOrg/Window?dataType=Dept&amp;companyCode=75628" placeholder="" readonly="true" type="text"></input><span class="input-group-addon icon-group-th-list"><i class='glyphicon glyphicon-th-list'></i></span><span class="input-group-addon icon-group-remove"><i class='glyphicon glyphicon-remove'></i></span></div></div></div><div class="form-group col-xs-12 nocaption"><label class="control-label" for=""><span class='control-label-title'></span></label><div class="control-ct">
+				<div class="risk-drag ml50">
+					<div draggable="true">
+						<img class="risk-img" draggable="false" src="./Assets/Images/Risk/big2.png" />
+					</div>
+					<div>风险点</div>
+					<div class="risk-op-warning ml10">
+						<i class="fa fa-question-circle-o"></i>
+						提示：请拖动至对应的位置上即可
+					</div>
+				</div>
+				<div class="map-content" style="overflow-y: auto;">
+				</div>
+				<div class="map-commonrp">
+					<div class="map-commonrp-title">
+						<b>通用风险</b>
+					</div>
+					<div class="rp-content">
+
+					</div>
+				</div>
+			</div></div><div class="form-group col-xs-12"><label class="control-label" for="" style="width:20px;"><span class='control-label-title'>　</span></label><div class="control-ct buttons" style="margin-left: 40px;"><a class="btn btn-danger " id="btn-edit" type="button"><i class='glyphicon glyphicon-edit'></i>绘制</a><button class="btn btn-primary  hide" id="btn-save" type="submit"><i class='glyphicon glyphicon-save'></i>保存</button><a class="btn btn-primary " data-url="/RiskMapLevel/List?companyCode=75628" href="/RiskMapLevel/List?companyCode=75628" type="button">返回</a><a class="btn btn-danger  ajax-link hide" data-callback="onDelete" data-confirm="您确定要删除当前的风险分布图吗" data-url="/RiskMapLevel/Delete" href="/RiskMapLevel/Delete" id="btn-delete" type="button">删除当前风险分布图</a><a class="btn btn-primary  hide" id="btn-downloadPng" type="button">下载图片</a><a class="btn btn-primary  hide" id="btn-downloadSvg" type="button">下载SVG矢量图</a></div></div></div></form></div></div>
+			<div id="setDiv" class="rightPart" style="display:none;position:absolute;float:left;left:720px;min-width:500px">
+				<div class="bt-form-ct"><form action="/RiskMapLevel/AddPost" class="bt-form form-horizontal row" id="form2" method="POST" role="form"><div class="bt-ct col-xs-12"><div><input class="BT-hidden" id="ObjectID" name="ObjectID" type="hidden"></input></div><div><input class="BT-hidden" id="ObjectType" name="ObjectType" type="hidden"></input></div><div class="form-group col-xs-12 nocaption"><div class="control-ct buttons"><a class="btn btn-primary  window-link mb0 ml10" data-callback="onSelectOrgCallBack" data-datahandler="beforeSaveCheckA" data-url="/UserOrg/Window?multi=false&amp;companyCode=75628" href="/UserOrg/Window?multi=false&amp;companyCode=75628" id="btn-bind-org" type="button">绑定部门</a><a class="btn btn-primary  window-link mb0 ml10" data-callback="onSelectRPCallBack" data-datahandler="beforeSaveCheckB" data-url="/RiskPoint/Window?viewName=WindowForMapLevel&amp;companyCode=75628&amp;multi=true" href="/RiskPoint/Window?viewName=WindowForMapLevel&amp;companyCode=75628&amp;multi=true" id="btn-bind-rp" type="button">绑定风险点</a><a class="btn btn-danger  mb0 ml10" id="btn-remove-rp" type="button">移除风险点</a><a class="btn btn-danger  mb0 ml10" data-datahandler="beforeSaveCheckC" id="btn-deletebind-batch" type="button">批量取消绑定</a></div></div></div></form></div>
+				<div id="deptBind"><div class="bt-table-ct"><div class="bs-bars" id="btBindDeptTable_toolbar"><div class="bt-condition-form-ct"><form action="" class="bt-form form-horizontal row" method="GET" role="form"><div class="bt-ct"><div class="form-group col-xs-12 form-control-join"><label class="control-label" for="BindType" style="width:120px;"><span class='control-label-title'>绑定类型</span>：</label><div class="control-ct" style=""><div class="bt-radio" data-show-empty="true" data-toggle="buttons" data-value="" for="BindType|=-string" id="BindType"><label class="radio-inline btn radio-inline-horitzontal active" for="BindType|=-string_"><input checked="true" id="BindType|=-string_" name="BindType|=-string" title="不限" type="radio" value=""></input><span>不限</span></label><label class="radio-inline btn radio-inline-horitzontal" for="BindType|=-string_Org"><input id="BindType|=-string_Org" name="BindType|=-string" title="部门" type="radio" value="Org"></input><span>部门</span></label><label class="radio-inline btn radio-inline-horitzontal" for="BindType|=-string_RiskPoint"><input id="BindType|=-string_RiskPoint" name="BindType|=-string" title="风险点" type="radio" value="RiskPoint"></input><span>风险点</span></label></div></div><div class="  join-ct fl"><div class="control-ct buttons  btn-group"></div></div></div></div></form></div></div><div class="ln mb10"></div><table class="bt-table" data-checkbox-header="true" data-click-to-select="true" data-limit="10" data-onCheckButtonState="oncheckbuttonstate" data-pagination="True" data-showfooter="False" data-single-select="false" data-tempurl="/RiskMapLevelObjectRelation/GetPageData?companyCode=75628" id="btBindDeptTable"><thead><tr><th class="noExl" data-checkbox="true" data-valign="middle"></th><th data-align="center" data-field="BindCode" data-formatter="bindCodeFormatter" data-halign="center" data-valign="middle" data-width="50">##</th><th data-align="left" data-field="BindType" data-formatter="bindTypeFormatter" data-halign="left" data-valign="middle" data-width="70">绑定类型</th><th data-align="center" data-field="BindName" data-halign="center" data-valign="middle" data-width="150">名称</th><th class=" noExl" data-click-to-select="false" data-field="Operate" data-formatter="btBindDeptTable_buttonFormatter" data-search-formatter="&lt;a class=&quot;btn btn-sm btn-danger  ajax-link &quot; data-callback=&quot;onDeleteLevelObjectCallBack&quot; data-confirm=&quot;确定取消绑定？&quot; href=&quot;/RiskMapLevelObjectRelation/DeletePost?id={{d.ID}}&quot;>取消绑定&lt;/a>&lt;a class=&quot;btn btn-sm btn-primary  window-link viewDanger &quot; event=&quot;viewDanger&quot; href=&quot;/DangerCheckTaskDetail/Window?viewName=WindowDangerListForRiskMapLevel&amp;amp;companyCode=75628&amp;amp;BindType={{d.BindType}}&amp;amp;BindCode={{d.BindCode}}&quot;>查看隐患&lt;/a>&lt;a class=&quot;btn btn-sm btn-info  window-link &quot; event=&quot;isRP&quot; href=&quot;/RiskPoint/WindowAll?RPCode={{d.BindCode}}&amp;amp;companyCode=75628&quot;>告知卡&lt;/a>" data-searchable="false" data-valign="middle" data-width="300">操作</th></tr></thead></table></div></div>
+				<div id="deptRP" style="display:none"><div class="bt-table-ct"><table class="bt-table" data-checkbox-header="true" data-click-to-select="true" data-limit="20" data-pagination="True" data-showfooter="False" data-single-select="false" data-tempurl="/RiskPoint/GetPageData?dataType=WindowMapLevel&amp;companyCode=75628" id="btDeptRP"><thead><tr><th class="noExl" data-checkbox="true" data-valign="middle"></th><th class="noExl" data-field="RowNo" data-formatter="btDeptRP_rownoFormatter" data-valign="middle" data-width="40">#</th><th data-field="RPCode" data-formatter="iconFormatter" data-valign="middle" data-width="50">##</th><th data-field="RiskPointName" data-valign="middle" data-width="150">风险点</th><th data-align="center" data-field="EvaluationValue" data-formatter="evaFormatter" data-halign="center" data-valign="middle" data-width="130">固有风险</th><th data-align="center" data-field="EvaluationResultValue" data-formatter="evaFormatter" data-halign="center" data-valign="middle" data-width="130">现状风险</th></tr></thead></table></div></div>
+			</div>
+		</div>
+	</div></div></div>
+</div>
+<script type="text/javascript" src="./Plugins/method-draw/src/embedapi.js"></script>
+<script>
+
+	//var mapData = [];
+	var isEditable = false;
+	var evaType = "1";
+
+	$(function () {
+
+		setPageInfo('0');
+	})
+
+	function beforeSaveCheckA() {
+		var id = $("input[name=ID]").val();
+		if (id == 0) {
+			$.showError("请先保存风险分布图后再绑定部门");
+			return false;
+		}
+	}
+
+	function beforeSaveCheckB() {
+		var id = $("input[name=ID]").val();
+		if (id == 0) {
+			$.showError("请先保存风险分布图后再绑定风险点");
+			return false;
+		}
+	}
+
+	//function beforeSaveCheckC() {
+	//    var id = $("input[name=ID]").val();
+	//    if (id == 0) {
+	//        $.showError("请先保存风险分布图后再批量取消绑定");
+	//        return false;
+	//    }
+	//}
+
+	//function onOrgChoosed(data) {
+	//    if (data) {
+	//        orgCode = data[0].OrgFullName;
+	//    }
+	//}
+
+	function typeChangeCallBack(value) {
+		evaType = value;
+		var id = $("input[name=ID]").val();
+		setPageInfo(id);
+	}
+
+	function oncheckbuttonstate(button, event, row) {
+		switch (event) {
+			case "viewRP": return row.BindType == "Org" ? 0 : -2;
+			case "isRP": return row.BindType == "RiskPoint" && row.NCardCnt>0 ? 0 : -2;
+			case "viewDanger": return row.HiddenDangerCnt > 0 ? 0 : -2;
+		}
+		return true;
+	}
+
+	function onSaveDetailSetCallBack(result) {
+		return true;
+	}
+
+	function goList() {
+		location.href = "/RiskMapLevel/List";
+	}
+
+	function onDeleteLevelObjectCallBack(result) {
+		if (result.success)
+		{
+			$("#btBindDeptTable").bootstrapTable("refresh");
+			var mapCode = $("#MapCode").val();
+			var objectID = $("#ObjectID").val();
+			//setSvgProperty(mapCode, objectID);
+			$.loadingPost("/RiskMapLevelObject/GetEntity?companyCode=75628", { MapCode: mapCode, ObjectID: objectID }, function (result) {
+				setSingleSvgProperty(result.data);
+			})
+		}
+
+	}
+
+	function bindCodeFormatter(value, row, index) {
+		if (row.BindType == "RiskPoint")
+		{
+			var name = row.BindName;
+			var rpname = name;
+			if (name.indexOf("-")>-1) {
+				rpname = name.substring(name.indexOf("-")+1);
+			}
+			var pid = row.PID;
+			var rpHtml = '<div class="risk-drag ml0"><div id="' + value + '" rpname="' + rpname + '"  accessKey="' + pid + '" title="' + name + '" draggable="true"><img class="risk-img" draggable="false" src="../.../Assets/Images/Risk/big2.png" /></div></div>';
+			return rpHtml;
+		}
+		else
+		{
+			return "";
+		}
+	}
+
+	function bindTypeFormatter(value, row, index) {
+		if (value == "RiskPoint") {
+			return "风险点";
+		}
+		else if (value == "Equipment") {
+			return "设备";
+		}
+		else {
+			return "部门";
+		}
+	}
+
+	function onSaved(result) {
+		// var value = $("#ID").data("dropdown").getValue();
+		//var value = $("input[name='ID']:checked").val();
+		//evaType= $("input[name=EvaType]:checked").val();
+		//$("input[name='ID']:checked").next().html($("#MapName").val());
+		//if (value == "0") {
+		//    mapData.insert(1, e.data);
+		//    location.reload();
+		//}
+		//else {
+		//    mapData.forEach(function (item) {
+		//        if (item.ID == value) {
+		//            $.extend(item, e.data);
+		//        }
+		//    })
+		//    onCheckChanged(value);
+		//}
+		if (result.success) {
+			var value = result.data.ID;
+			setPageInfo(value);
+			isEditable = false;
+			window.location = "/RiskMapLevel/Edit?companycode=75628&id=" + value;
+		}
+		else {
+			$.showError(result.errorText);
+		}
+	}
+
+	function onDelete(e) {
+		var value = $("input[name='ID']:checked").val();
+		$("input[name='ID']:checked").parent().remove();
+		var $target0 = $("input[name=ID][value=0]");
+		$(".radio-inline.btn.radio-inline-horitzontal").removeClass("active");
+		$target0.prop("checked", true);
+		$target0.parent().addClass("active");
+		setPageInfo(0);
+		location.href = "/RiskMapLevel/List?companycode=75628";
+	}
+
+	function joinParam(params) {
+		//removeDashArray();
+		var id = $("input[name=ID]").val();
+		if (evaType == "1") {
+			params.MapContent = escape($(".map-content").html());
+			if (id > 0)
+			{
+				evaType = "2";
+				var mapCode = $("#MapCode").val();
+				setSvgProperty(mapCode);
+			}
+			params.MapContent2 = escape($(".map-content").html());
+		}
+		else
+		{
+			params.MapContent2 = escape($(".map-content").html());
+			if (id > 0) {
+				evaType = "1";
+				var mapCode = $("#MapCode").val();
+				setSvgProperty(mapCode);
+			}
+			params.MapContent = escape($(".map-content").html());
+		}
+
+		var objectids = [];
+		$("g>rect,circle,ellipse,line,polyline,polygon,path").each(function (i) {
+			params["ObjectIds[" + i + "]"] = $(this).attr("id")|| "";
+		})
+	}
+
+	function setPageInfo(value) {
+		$("#MapName").show();
+		$("#MapName").parents(".control-ct").prev().show();
+		// $("#MapAttach").parents(".form-group").removeClass("hide");
+		$("#btn-save").removeClass("hide");
+		$("#btn-delete").removeClass("hide");
+		$("#btn-preview").removeClass("hide");
+		$("#btn-downloadPng").removeClass("hide");
+		$("#btn-downloadSvg").removeClass("hide");
+
+		if (value == "0") {
+			$("#btn-delete").hide();
+			$("#btn-preview").hide();
+			$("#btn-downloadPng").hide();
+			$("#btn-downloadSvg").hide();
+			$("#MapName").val("");
+			$(".map-content").html("");
+			$("#setDiv").hide();
+			$(".rp-content").html("");
+		}
+		else
+		{
+			var evaType2 = $("input[name=EvaType]:checked").val();
+			$("#btn-delete").show();
+			$("#btn-delete").attr("href", "/RiskMapLevel/DeletePost?id=" + value);
+			$("#btn-preview").show();
+			$("#btn-downloadPng").data("url", "/RiskMapLevel/ExportImage?companyCode=75628&id=" + value + "&evaType=" + evaType2);
+			$("#btn-downloadPng").show();
+			$("#btn-downloadSvg").data("url", "/RiskMapLevel/ExportSvg?companyCode=75628&id=" + value + "&evaType=" + evaType2);
+			$("#btn-downloadSvg").show();
+			//$("#btn-preview").attr("href", "/RiskMapLevel/PreView?id=" + value);
+			loadMapLevel(value);
+		}
+	}
+
+	function loadMapLevel(value) {
+		$.ajaxSettings.async = false; //关闭异步
+		$.get("/RiskMapLevel/GetMapLevel?companyCode=75628", { id: value }, function (result) {
+			var item = result.data;
+			if (item.ID == value) {
+				$("#MapName").val(item.MapName);
+				$("#MapCode").val(item.MapCode);
+				if (item.MapContent) {
+					$(".map-content").html(unescape(item.MapContent));
+				}
+				var svgWidth = $(".map-content").find("svg").attr("width");
+				setMapContentWidth(parseInt(svgWidth) );
+				setSvgProperty(item.MapCode);
+				loadRPContent(item.MapCode);
+				return;
+			}
+		})
+		$.ajaxSettings.async = true; //开启异步
+	}
+
+	function setMapContentWidth(width) {
+		if (width > 950) width = 950;
+		width = width+ 20;
+		$(".map-content").css("width", width + "px");
+		$(".map-commonrp").css("width", width + "px");
+		$(".map-commonrp-title").css("width", width + "px");
+		$(".rp-content").css("width", width + "px");
+		$(".leftPart").css("width", (width + 20) + "px");
+		$(".rightPart").css("left", (width + 40) + "px");
+	}
+
+	$("form").on("click", "#btn-edit", function () {
+		if ($.isNullOrEmpty($("#MapName").val())) {
+			$.showError("请先填写名称");
+			return;
+		}
+		//removeDashArray();
+		//clearSvgProProperty();
+		var value = $("input[name='ID']:checked").val();
+		isEditable = true;
+		layer.open({
+			type: 1
+			, content: '<iframe src="./index.html?companyCode=75628" style="width:100%;height:100%" id="svgedit" onload="init_embed()"></iframe>'
+			, title: "分布图绘制"
+			, area: ['1200px', '700px']
+			, btn: ['保存', '关闭']
+			, maxmin: true
+			, yes: function (index, layero) {
+				svgCanvas.getSvgString()(handleSvgData);
+				isEditable = false;
+				layer.close(index);
+			}
+			, end: function () {
+				isEditable = false;
+				return true;
+			}
+		});
+	})
+
+	var svgCanvas = null;
+
+	function init_embed() {
+		debugger;
+		var frame = document.getElementById('svgedit');
+		svgCanvas = new embedded_svg_edit(frame);
+		var doc;
+		doc = frame.contentDocument;
+		if (!doc) {
+			doc = frame.contentWindow.document;
+		}
+		loadSvg();
+	}
+
+	function handleSvgData(data, error) {
+		if (error) {
+			return "";
+		}
+		else {
+			data = data.replace(/Layer 1/, "风险四色图");
+			$(".map-content").html(data);
+			$(".map-content image").each(function () {
+				var me = $(this);
+				var base64 = me.attr("xlink:href");
+				dealImage(base64, 2048, function (resultBaseData) {
+					me.attr("xlink:href", resultBaseData);
+				});
+			})
+			$(".map-content svg path").each(function () {
+				if (!$(this).attr("d")) {
+					$(this).remove();
+				}
+			})
+			// $("#btn-save").click();
+		}
+	}
+
+	function dealImage(base64, w, callback) {
+		var newImage = new Image();
+		var quality = 1;    //压缩系数0-1之间
+		newImage.src = base64;
+		newImage.setAttribute("crossOrigin", 'Anonymous');	//url为外域时需要
+		var imgWidth, imgHeight;
+		newImage.onload = function () {
+			imgWidth = this.width;
+			imgHeight = this.height;
+			if (imgWidth < w) return;
+			var canvas = document.createElement("canvas");
+			var ctx = canvas.getContext("2d");
+			if (Math.max(imgWidth, imgHeight) > w) {
+				if (imgWidth > imgHeight) {
+					canvas.width = w;
+					canvas.height = w * imgHeight / imgWidth;
+				} else {
+					canvas.height = w;
+					canvas.width = w * imgWidth / imgHeight;
+				}
+			} else {
+				canvas.width = imgWidth;
+				canvas.height = imgHeight;
+				quality = 0.6;
+			}
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+			var base64 = canvas.toDataURL("image/jpeg", quality); //压缩语句
+			// 如想确保图片压缩到自己想要的尺寸,如要求在50-150kb之间，请加以下语句，quality初始值根据情况自定
+			// while (base64.length / 1024 > 150) {
+			// 	quality -= 0.01;
+			// 	base64 = canvas.toDataURL("image/jpeg", quality);
+			// }
+			// 防止最后一次压缩低于最低尺寸，只要quality递减合理，无需考虑
+			// while (base64.length / 1024 < 50) {
+			// 	quality += 0.001;
+			// 	base64 = canvas.toDataURL("image/jpeg", quality);
+			// }
+			callback(base64);//必须通过回调函数返回，否则无法及时拿到该值
+		}
+	}
+
+	//function compress(source_img_obj, quality, output_format) {
+	//    var mime_type = "image/jpeg";
+	//    if (output_format != undefined && output_format == "png") {
+	//        mime_type = "image/png";
+	//    }
+
+
+	//    var cvs = document.createElement('canvas');
+	//    //naturalWidth真实图片的宽度
+	//    cvs.width = source_img_obj.naturalWidth;
+	//    cvs.height = source_img_obj.naturalHeight;
+	//    var ctx = cvs.getContext("2d").drawImage(source_img_obj, 0, 0);
+	//    return cvs.toDataURL(mime_type, quality / 100);
+	//}
+
+	function loadSvg() {
+		var html = $(".map-content").html();
+		var reg = new RegExp('xmlns:xml="http://www.w3.org/XML/1998/namespace"', "g");//g,表示全部替换。
+		html = html.replace(reg, "");
+		if (html) {
+			svgCanvas.setSvgString(html);
+		}
+		else {
+			svgCanvas.setSvgString("");
+		}
+	}
+
+	function saveSvg() {
+		svgCanvas.getSvgString()(handleSvgData);
+	}
+
+	function setSingleSvgProperty(data)
+	{
+		var $object = $("#" + data.ObjectID);
+		var riskColor = "";
+		if (evaType == "1") {
+			riskColor = data.RiskColor;
+		}
+		else {
+			riskColor = data.RiskColor2;
+		}
+
+		if (riskColor && riskColor != '#fff') {
+			$object.attr("stroke-width", "0.1");
+			$object.attr("opacity", "1");
+			$object.attr("fill", riskColor);
+		}
+		else {
+			$object.attr("stroke-width", "0.5");
+			$object.attr("opacity", "1");
+			$object.attr("fill", "#fff");
+		}
+	}
+
+	function setSvgProperty(mapCode) {
+		$.ajaxSettings.async = false; //关闭异步
+		$.get("/RiskMapLevelObject/GetAllMapLevelObject?companyCode=75628" , { MapCode: mapCode }, function (result) {
+			var objectData = result.data;
+			$("g>rect,circle,ellipse,line,polyline,polygon,path").each(function () {
+				var id = $(this).attr("id");
+				var arr = $.grep(objectData, function (item) {
+					return item.ObjectID == id;
+				})
+				if (arr && arr.length > 0 && arr[0].IsBind == true) {
+					var riskColor = "";
+					if (evaType == "1")
+					{
+						riskColor = arr[0].RiskColor;
+					}
+					else {
+						riskColor = arr[0].RiskColor2;
+					}
+
+					if (!$.isNullOrEmpty(riskColor)) {
+						$(this).attr("fill", riskColor);
+					}
+					$(this).attr("stroke-width", "0.1");
+					$(this).attr("opacity", "1");
+					//$(this).attr("fill", "#fff");
+				}
+				else {
+					$(this).attr("stroke-width", "0.5");
+					$(this).attr("opacity", "1");
+					$(this).attr("fill", "#fff");
+				}
+			})
+		})
+		$.ajaxSettings.async = true; //开始异步
+	}
+
+	$("form").on("click", "g>rect,circle,ellipse,line,polyline,polygon,path", function () {
+		//removeDashArray();
+		//$(".border_dashed").attr("stroke", "#000");
+		//$(this).attr("stroke-dasharray", "5,2,2,2,2,2");
+		var id = $(this).attr("id");
+		$("#ObjectID").val(id);
+		if (id == "canvas_background") {
+			return;
+		}
+		initObject();
+	})
+
+	//$(".map-commonrp").on("click", ".rp-single", function () {
+	//    removeDashArray();
+	//    var id = $(this).attr("id");
+	//    $("#ObjectID").val(id);
+	//    initObject();
+	//})
+
+	function removeDashArray() {
+		//$("g>rect,circle,ellipse,line,polyline,polygon,path").each(function () {
+		//    $(this).removeAttr("stroke-dasharray");
+		//})
+	}
+
+	function clearSvgProProperty() {
+		$("g>rect,circle,ellipse,line,polyline,polygon,path").each(function () {
+			$(this).attr("stroke-width", "0.1");
+			$(this).attr("opacity", "1");
+			$(this).attr("fill", "#fff");
+		})
+	}
+
+	function initObject() {
+		var mapCode = $("#MapCode").val();
+		var objectID = $("#ObjectID").val();
+		if (!$.isNullOrEmpty(objectID)) {
+			$("#setDiv").show();
+		}
+		else {
+			$("#setDiv").hide();
+		}
+
+		$.post("/RiskMapLevelObject/GetEntity?companyCode=75628", { MapCode: mapCode, ObjectID: objectID }, function (result) {
+			if (result.success) {
+				$("#ObjectType").val(result.data.ObjectType);
+				$("#ObjectName").val(result.data.ObjectName);
+				initControl(result.data.ObjectType);
+			}
+		}, "json");
+
+		$("#btBindDeptTable").bootstrapTable('refresh', {
+			url: "/RiskMapLevelObjectRelation/GetPageData?CompanyCode=75628&mapCode=" + mapCode + "&objectID=" + objectID,
+		});
+	}
+
+	var pid = "";
+	$(".layer").on("click", ".viewRiskPoint", function () {
+		var orgCode = $(this).data("orgcode");
+		pid = $(this).data("pid");
+		showDeptRiskPoint(orgCode);
+	})
+
+	$(".layer").on("click", "#btn-remove-rp", function () {
+		var objectID = $("#ObjectID").val();
+		$("#" + objectID).remove();
+		$("#setDiv").hide();
+	})
+
+	$(".layer").on("click", "#btn-deletebind-batch", function () {
+		var me = $(this);
+		var id = $("input[name=ID]").val();
+		if (id == 0) {
+			$.showError("请先保存风险分布图后再批量取消绑定");
+			return false;
+		}
+		$.showConfirm("确认取消绑定选中行？", function (result) {
+			if (result) {
+				var $table = $("#btBindDeptTable");
+				var data = $table.bootstrapTable('getSelections');
+				if (data.length == 0) {
+					$.showError("请先选中行");
+					return false;
+				}
+				var ids = {};
+				for (var i = 0; i < data.length; i++) {
+					ids["ids[" + i + "]"] = data[i].ID;
+				}
+
+				$.post("/RiskMapLevelObjectRelation/BatchDelete?companyCode=75628", ids, function (result) {
+					if (result.success) {
+						$("#btBindDeptTable").bootstrapTable("refresh");
+						var mapCode = $("#MapCode").val();
+						var objectID = $("#ObjectID").val();
+						$.loadingPost("/RiskMapLevelObject/GetEntity", { MapCode: mapCode, ObjectID: objectID }, function (result) {
+							setSingleSvgProperty(result.data);
+						})
+					}
+				})
+			}
+		})
+	})
+
+	function showDeptRiskPoint(orgCode) {
+		$("#deptBind").hide();
+		$("#deptRP").show();
+		$("#btDeptRP").bootstrapTable('refresh', {
+			url: "/RiskPoint/GetPageData?dataType=WindowMapLevel&companyCode=75628&OrgCode=" + orgCode,
+		});
+	}
+
+	function initControl(value) {
+		if (value == "RiskPoint") {
+			$("#btn-bind-rp").show();
+			$("#btn-remove-rp").show();
+			$("#btn-bind-rp").changeUrlParam("multi", "false");
+			$("#btn-bind-org").hide();
+			$("#btn-bind-equip").hide();
+		}
+		else {
+			$("#btn-bind-rp").show();
+			$("#btn-bind-rp").changeUrlParam("multi", "true");
+			$("#btn-remove-rp").hide();
+			$("#btn-bind-org").show();
+			$("#btn-bind-equip").show();
+		}
+
+		$("#deptBind").show();
+		$("#deptRP").hide();
+	}
+
+
+	//function onObjectTypeCheckChanged(value) {
+	//    initControl(value);
+	//    var mapCode = $("#MapCode").val();
+	//    var objectID = $("#ObjectID").val();
+	//    $.post("/RiskMapLevelObject/ChangeObject", { MapCode: mapCode, ObjectID: objectID, ObjectType: value },
+	//        function (result) {
+	//        }, "json");
+	//}
+
+	$(".layer").on("change", "#ObjectName", function () {
+		var value = $(this).val();
+		onObjectNameCheckChanged(value);
+	})
+
+	function onObjectNameCheckChanged(value) {
+		var mapCode = $("#MapCode").val();
+		var objectID = $("#ObjectID").val();
+		$.post("/RiskMapLevelObject/ChangeObject?companyCode=75628", { MapCode: mapCode, ObjectID: objectID, ObjectName: value },
+			function (result) {
+			}, "json")
+	}
+
+	function onSelectRPCallBack(data) {
+		var saveData = [];
+		var mapCode = $("#MapCode").val();
+		var objectID = $("#ObjectID").val();
+		var type = $("#ObjectType").val();
+		var bindType = "RiskPoint";
+		for (var i = 0; i < data.length; i++) {
+			saveData.push({ MapCode: mapCode, ObjectID: objectID, BindType: bindType, BindCode: data[i].RPCode, BindName: data[i].RiskPointName });
+		}
+		saveObjectRelation(saveData, type);
+		isEditable = true;
+
+	}
+
+	function onSelectOrgCallBack(data) {
+		var saveData = [];
+		var mapCode = $("#MapCode").val();
+		var objectID = $("#ObjectID").val();
+		var type = $("#ObjectType").val();
+		var bindType = "Org";
+		for (var i = 0; i < data.length; i++) {
+			saveData.push({ MapCode: mapCode, ObjectID: objectID, BindType: bindType, BindCode: data[i].OrgCode, BindName: data[i].OrgName });
+		}
+		saveObjectRelation(saveData, type);
+		isEditable = true;
+	}
+
+	function onSelectEquipCallBack(data) {
+		var saveData = [];
+		var mapCode = $("#MapCode").val();
+		var objectID = $("#ObjectID").val();
+		var type = $("#ObjectType").val();
+		var bindType = "Equipment";
+		for (var i = 0; i < data.length; i++) {
+			saveData.push({ MapCode: mapCode, ObjectID: objectID, BindType: bindType, BindCode: data[i].EquipmentCode, BindName: data[i].EquipmentName });
+		}
+		saveObjectRelation(saveData, type);
+		isEditable = true;
+	}
+
+	function saveObjectRelation(saveData, type) {
+		var mapCode = $("#MapCode").val();
+		var objectID = $("#ObjectID").val();
+		$.post("/RiskMapLevelObjectRelation/SaveList?companyCode=75628", { list: saveData, type: type }, function (result) {
+			if (result.success) {
+				//setSvgFill(mapCode, objectID);
+				//setSvgProperty(mapCode, objectID);
+				setSingleSvgProperty(result.data);
+				$("#btBindDeptTable").bootstrapTable("refresh");
+			}
+			else if (result.errorText) {
+				$.showError(result.errorText);
+			}
+		}, 'json');
+	}
+
+	//$("#btn-preview").click(function () {
+	//    var value = $("input[name='ID']:checked").val();
+	//    layer.open({
+	//        type: 2,
+	//        title: false,
+	//        area: ['740px', '600px'],
+	//        shade: 0.3,
+	//        closeBtn: 1,
+	//        zIndex:999,
+	//        shadeClose: true,
+	//        content: '/RiskMapLevel/PreView?id=' + value,
+	//        yes: function (index, layero) {
+	//            layer.close(index);
+	//        },
+	//        cancel: function () {
+	//            return true;
+	//        }
+	//    });
+	//})
+
+	function iconFormatter(value, row, index) {
+		var name = row.OrgName + "-" + row.RiskPointName;
+		var rpHtml = '<div class="risk-drag ml0"><div id="' + value + '" rpname="' + row.RiskPointName + '" accessKey="' + pid + '" title="' + name + '" draggable="true"><img class="risk-img" draggable="false" src=".../Assets/Images/Risk/big2.png" /></div></div>';
+		return rpHtml;
+	}
+
+	function evaFormatter(value, row, index) {
+		var cls = "";
+		var name = "";
+		switch (value) {
+			case "A/1级":
+				cls = "riskLevel1";
+				name = "重大风险";
+				break;
+			case "B/2级":
+				cls = "riskLevel2";
+				name = "较大风险";
+				break;
+			case "C/3级":
+				cls = "riskLevel3";
+				name = "一般风险";
+				break;
+			case "D/4级":
+				cls = "riskLevel4";
+				name = "低风险";
+				break;
+			case "E/5级":
+				cls = "riskLevel5";
+				name = "稍有危险";
+				break;
+			default: break;
+		}
+		return "<div class='" + cls + "'>" + name + "</div>";
+	}
+
+	$(".bt-form-ct").on("drop", ".map-content svg", function (ev) {
+		var mapCode = $("#MapCode").val();
+		var transfer = ev.originalEvent.dataTransfer;
+		var bindCode = transfer.getData("id");
+		var pid = transfer.getData("pid");
+		var bindName = transfer.getData("name");
+		//var item = $(this);
+		var strokeWidth = 1;
+		if (pid) strokeWidth = 0.1;
+		var left = ev.originalEvent.offsetX - transfer.getData("offsetX");
+		var top = ev.originalEvent.offsetY - transfer.getData("offsetY");
+		var id = "svg_" + new Date().format("yyyyMMddhmmssS");
+		var riskPath = '<path id="' + id + '" stroke-width="' + strokeWidth + '" opacity="1" fill="#fff" stroke="#000" d="m' + (left + 10) + ',' + top + 'c-3.86586,0 -6.99999,2.75235 -6.99999,6.1473c0,3.39577 6.99999,14.85271 6.99999,14.85271s6.99999,-11.45693 6.99999,-14.85271c0,-3.39495 -3.1332,-6.1473 -6.99999,-6.1473zm0,9.0849c-1.84706,0 -3.34506,-1.31471 -3.34506,-2.93759s1.498,-2.93759 3.34506,-2.93759s3.34506,1.31553 3.34506,2.93759s-1.498,2.93759 -3.34506,2.93759z"></path>';
+		$(".map-content>svg>g").append(riskPath);
+
+		var svgHtml = $(".map-content").html();
+		$(".map-content").html(svgHtml);
+		$.post("/RiskMapLevelObject/ChangeObject?companyCode=75628", { MapCode: mapCode, ObjectID: id, ObjectType: "RiskPoint" },
+			function (result) {
+				if (result.success) {
+					if (bindCode) {
+						var saveData = [{ MapCode: mapCode, ObjectID: id, BindType: "RiskPoint", BindCode: bindCode, BindName: bindName, PID: pid }];
+						saveObjectRelation(saveData, "RiskPoint");
+						//setSvgProperty(mapCode, id);
+						setSingleSvgProperty(result.data);
+					}
+				}
+				else {
+					console.log(result.errorText);
+				}
+			}, "json"
+		);
+		ev.preventDefault();
+	})
+
+	$(".bt-form-ct").on("drop", ".map-commonrp .rp-content", function (ev) {
+		var mapCode = $("#MapCode").val();
+		var transfer = ev.originalEvent.dataTransfer;
+		var bindCode = transfer.getData("id");
+		var pid = transfer.getData("pid");
+		// var bindName = transfer.getData("name");
+		var rpName = transfer.getData("rpname");
+		if (bindCode) {
+			var mapCode = $("#MapCode").val();
+			$.post("/RiskMapLevelCommonRP/AddPost?companyCode=75628", { MapCode: mapCode, RPCode: bindCode, RPName: rpName }, function (result) {
+				if (result.success) {
+					$(".rp-content").append(GetRPContentItem(result.data));
+				}
+				else if (result.errorText) {
+					$.showError(result.errorText);
+				}
+			}, 'json');
+		}
+	})
+
+	function GetRPContentItem(item) {
+		var riskColor = "";
+		if (evaType == "1") {
+			riskColor = item.RiskColor;
+		}
+		else {
+			riskColor = item.RiskColor2;
+		}
+		var itemHtml = '<div class="rp-single" data-id="' + item.ID + '">'
+			+ '<span class="glyphicon glyphicon-map-marker ml10" style="color:' + riskColor + '"></span>'
+			+ '<span class="ml2">' + item.RPName + '<a class="ajax-link" data-confirm="确认删除该风险点?" data-callback="ondeleteCommonRPCallBack" href="/RiskMapLevelCommonRP/DeletePost?id=' + item.ID + '"><i class="glyphicon glyphicon-remove ml5" style="display:none"></i></a></span>'
+			+ '</div>';
+		return itemHtml;
+	}
+
+	function loadRPContent(mapCode) {
+		$.loadingGet("/RiskMapLevelCommonRP/GetAllCommonRP?companyCode=75628", { MapCode: mapCode }, function (result) {
+			var data = result.data;
+			var html = "";
+			data.forEach(function (item, i) {
+				html += GetRPContentItem(item);
+			})
+			$(".rp-content").html(html);
+		});
+	}
+
+	$(".map-content,.map-commonrp").on("dragover", function (ev) {
+		ev.preventDefault();
+	})
+
+	$(".rp-content").on("mouseover", ".rp-single", function () {
+		$(this).find("i").show();
+	})
+
+	$(".rp-content").on("mouseout", ".rp-single", function () {
+		$(this).find("i").hide();
+	})
+
+	function ondeleteCommonRPCallBack(result) {
+		if (result.success) {
+			$(this).parents(".rp-single").remove();
+		}
+	}
+
+	$("#btn-downloadPng").on("click", function () {
+		var href = $(this).data("url");
+		if (isEditable) {
+			$.showConfirm("当前的风险四色图尚未完成保存，确定要下载？", function (result) {
+				if (result) {
+					// isEditable == false;
+					location.href = href;
+				}
+			})
+		}
+		else {
+			location.href = href;
+		}
+
+	})
+
+	$("#btn-downloadSvg").on("click", function () {
+		var href = $(this).data("url");
+		if (isEditable) {
+			$.showConfirm("当前的风险四色图尚未完成保存，确定要下载？", function (result) {
+				if (result) {
+					//isEditable == false;
+					location.href = href;
+				}
+			})
+		}
+		else {
+			location.href = href;
+		}
+	})
+
+	$(".layer").on("dragstart", ".risk-drag div", function (ev) {
+		ev.originalEvent.dataTransfer.setData("id", ev.target.id);
+		ev.originalEvent.dataTransfer.setData("pid", ev.target.accessKey);
+		ev.originalEvent.dataTransfer.setData("name", ev.target.title);
+		ev.originalEvent.dataTransfer.setData("rpname", ev.target.attributes["rpname"]);
+		if (ev.target.attributes["rpname"]) {
+			ev.originalEvent.dataTransfer.setData("rpname", ev.target.attributes["rpname"].nodeValue);
+		}
+		ev.originalEvent.dataTransfer.setData("oinit_embedffsetX", ev.originalEvent.offsetX);
+		ev.originalEvent.dataTransfer.setData("offsetY", ev.originalEvent.offsetY);
+	})
+
+	//绑定beforeunload事件
+	$(window).bind('beforeunload', function () {
+		if (isEditable) {
+			if (confirm("您输入的内容尚未保存，确定离开此页面吗？")) {
+				return true;
+			}
+			else {
+				parent.closeContentLoading();
+				return false;
+			}
+		}
+	});
+
+</script>
+
+<script src="./Plugins/svg/svg.js"></script>
+<script src="./Plugins/svg/svg.draggy.js"></script>
+<script>
+	$(function () {
+		var isFindUrl = 'True';
+		if (isFindUrl == "True") {
+			var menuno = '060408';
+			if (window.parent.initLeftMenu) {
+				window.parent.initLeftMenu(menuno);
+			}
+		}
+	})
+
+</script>
+</body>
+</html>

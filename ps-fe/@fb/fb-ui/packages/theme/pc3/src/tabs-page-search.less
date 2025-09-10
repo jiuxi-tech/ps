@@ -1,0 +1,78 @@
+/*!
+* fb-tabs-page-search
+* (c) 2020 lincong1987
+*/
+@import "common/var";
+
+.@{prefix}-tabs-page-search {
+	height:     100%;
+	width:      100%;
+	position:   relative;
+	background: #F0EFF5;
+	padding:    @--gutter;
+
+	.@{prefix}-page-search {
+		padding: 0;
+	}
+
+	.@{prefix}-tabs-page-search__tabs-panel {
+		background:    #FFFFFF;
+		border-radius: 4px;
+		padding:       0px @--gutter;
+		margin-bottom:    @--gutter;
+	}
+
+
+	.@{prefix}-tabs-page-search__query-panel {
+		margin-top:    @--gutter;
+		background:    #FFFFFF;
+		border-radius: 4px;
+		padding:       0px @--gutter;
+	}
+
+	.@{prefix}-tabs-page-search__list-panel {
+		margin-top:    @--gutter;
+		background:    #FFFFFF;
+		border-radius: 4px;
+		padding:       0px @--gutter;
+	}
+
+	.@{prefix}-tabs-page-search__list-panel__header {
+		position: relative;
+		height:   52px;
+
+		.@{prefix}-tabs-page-search__list-panel__header__buttons {
+			position: absolute;
+			top:      0;
+			left:     0;
+			height:   52px;
+			padding:  12px 0;
+
+			> .@{prefix}-button {
+				margin-right: 8px;
+			}
+		}
+
+		.@{prefix}-tabs-page-search__list-panel__header__actions {
+			position: absolute;
+			top:      0;
+			right:    0;
+			height:   52px;
+			padding:  12px 0;
+
+			> .@{prefix}-button {
+				margin-left: 8px;
+			}
+		}
+	}
+
+	.@{prefix}-tabs-page-search__list-panel__table {
+		min-height: 100px;
+	}
+
+	.@{prefix}-tabs-page-search__list-panel__pager {
+		text-align: right;
+		padding:    12px 0;
+	}
+
+}

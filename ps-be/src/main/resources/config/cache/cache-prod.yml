@@ -1,0 +1,36 @@
+############################################################
+#############  生产环境缓存配置
+#############  Production Cache Configuration
+############################################################
+
+spring:
+  ###########################################################
+  ############ Redis 配置
+  ###########################################################
+  redis:
+    # 生产环境使用环境变量配置Redis
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD}
+    database: ${REDIS_DATABASE:0}
+    timeout: 10000ms
+    ssl: ${REDIS_SSL:false}
+    jedis:
+      pool:
+        max-active: 100
+        max-wait: 10000ms
+        max-idle: 20
+        min-idle: 5
+        time-between-eviction-runs: 60000ms
+  
+  # Redisson 配置
+  redisson:
+    config: classpath:redis/redisson-cluster.yml
+
+############################################################
+#############  EhCache 配置
+############################################################
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:config/cache/ehcache-prod.xml

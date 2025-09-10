@@ -1,0 +1,426 @@
+@import "common/var";
+@import "mixins/utils";
+
+
+.@{prefix}-textarea {
+	position:       relative;
+	font-size:      0;
+	display:        inline-block;
+	width:          100%;
+	vertical-align: top;
+
+	&.@{prefix}-textarea--readonly,
+	&.@{prefix}-textarea--disabled {
+		.@{prefix}-textarea__icon {
+			cursor: default;
+		}
+	}
+
+	&.@{prefix}-textarea-group {
+		display:         table;
+		width:           100%;
+		border-collapse: separate;
+		position:        relative;
+		font-size:       12px;
+
+		.@{prefix}-textarea__el {
+			display: table-cell;
+		}
+	}
+
+	&.@{prefix}-textarea-group--prepend {
+		.@{prefix}-textarea__el {
+			border-bottom-left-radius: 0 !important;
+			border-top-left-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-textarea-group--append {
+		.@{prefix}-textarea__el {
+			border-bottom-right-radius: 0 !important;
+			border-top-right-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-textarea-group--prepend-button {
+		.@{prefix}-textarea__el {
+			border-bottom-left-radius: 0 !important;
+			border-top-left-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-textarea-group--append-button {
+		.@{prefix}-textarea__el {
+			border-bottom-right-radius: 0 !important;
+			border-top-right-radius:    0 !important;
+		}
+	}
+
+	&.@{prefix}-textarea-group--maxlength {
+		.@{prefix}-textarea__el {
+		}
+	}
+
+
+	.@{prefix}-textarea__prepend,
+	.@{prefix}-textarea__append {
+		display:          table-cell;
+		width:            1px;
+		padding:          4px 8px;
+		vertical-align:   middle;
+		white-space:      nowrap;
+		font-size:        inherit;
+		font-weight:      400;
+		line-height:      1;
+		color:            @--font-color-base;
+		text-align:       center;
+		background-color: @--input-append-background-color;
+		border:           1px solid @--input-border-color;
+		border-radius:    @--border-radius-base;
+	}
+
+	.@{prefix}-textarea__prepend {
+		background-color: @--input-prepend-background-color;
+	}
+
+	.@{prefix}-textarea__prepend {
+		border-bottom-right-radius: 0 !important;
+		border-top-right-radius:    0 !important;
+		border-right:               0;
+	}
+
+	.@{prefix}-textarea__append {
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius:    0 !important;
+		border-left:               0;
+	}
+
+
+	.@{prefix}-textarea__content + .@{prefix}-textarea__maxlength {
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius:    0 !important;
+		border-bottom--radius:     0 !important;
+		border-top-right-radius:   0 !important;
+		border-left:               0;
+		border-right:              1px solid @--input-border-color;
+		border-top:                1px solid @--input-border-color;
+		border-bottom:             1px solid @--input-border-color;
+
+		&:last-child {
+			background:                 transparent;
+			border-top-right-radius:    @--border-radius-base !important;
+			border-bottom-right-radius: @--border-radius-base !important;
+			border-left:                0;
+			border-right:               1px solid @--input-border-color;
+		}
+	}
+
+	.@{prefix}-textarea__content + .@{prefix}-textarea__append {
+		border-bottom-left-radius: 0 !important;
+		border-top-left-radius:    0 !important;
+		border-left:               0;
+	}
+
+	// 文本框
+
+	.@{prefix}-textarea__content {
+		position:  relative;
+		// 原因是子元素的   display: inline-block; 所以要设置其父标签的文字大小为0不然会有间隙
+		font-size: 0;
+
+		.@{prefix}-textarea__el {
+			font-family:        @--font-family;
+
+			padding:            8px 12px;
+
+			display:            inline-block;
+			width:              100%;
+			height:             auto;
+			min-height:         30px;
+			max-width:          100%;
+
+			outline:            0;
+			border:             1px solid @--input-border-color;
+			border-radius:      @--border-radius-base;
+
+			color:              @--input-font-color;
+			background-color:   @--input-background-color;
+			background-image:   none;
+
+			cursor:             text;
+			transition:         @--box-shadow-transition-base;
+
+			word-wrap:          break-word;
+			word-break:         break-all;
+			overflow:           auto;
+
+			-webkit-appearance: none;
+
+
+			&::-moz-placeholder {
+				letter-spacing: normal;
+				color:          @--input-placeholder-color;
+			}
+
+			&:-ms-input-placeholder {
+				letter-spacing: normal;
+				color:          @--input-placeholder-color;
+			}
+
+			&::-webkit-input-placeholder {
+				letter-spacing: normal;
+				color:          @--input-placeholder-color;
+			}
+
+			&:hover {
+				border-color: @--border-color-primary;
+			}
+
+			&:focus {
+				border-color: @--border-color-primary;
+				box-shadow:   @--box-shadow-focus;
+			}
+
+			&[readonly] {
+				cursor:           auto;
+				background-color: @--input-disabled-background;
+				color:            @--input-disabled-color;
+
+				&:hover,
+				&:focus {
+					border-color: @--input-disabled-border;
+					box-shadow:   none;
+				}
+			}
+
+			&[disabled] {
+				opacity:          1;
+				border-color:     @--input-disabled-border;
+				background-color: @--input-disabled-background;
+				color:            @--input-disabled-color;
+				cursor:           not-allowed;
+
+				&:hover,
+				&:focus {
+					border-color: @--input-disabled-border;
+					box-shadow:   none;
+				}
+			}
+
+			&:not(:last-child) {
+				border-bottom-right-radius: 0 !important;
+				border-top-right-radius:    0 !important;
+			}
+		}
+
+		.@{prefix}-textarea__icon {
+			width:       32px;
+			height:      32px;
+			line-height: 32px;
+			font-size:   16px;
+			text-align:  center;
+			color:       @--font-color-secondary;
+			cursor:      pointer;
+			position:    absolute;
+			right:       0;
+			z-index:     1;
+		}
+
+		.@{prefix}-textarea__icon + .@{prefix}-textarea__icon {
+			right: 32px;
+		}
+
+		.@{prefix}-textarea__icon + .@{prefix}-textarea__icon + .@{prefix}-textarea__icon {
+			right: 64px;
+		}
+
+		.@{prefix}-textarea__icon + .@{prefix}-textarea__el {
+			padding-right: 32px;
+		}
+
+		.@{prefix}-textarea__icon + .@{prefix}-textarea__icon + .@{prefix}-textarea__el {
+			padding-right: 64px;
+		}
+
+	}
+
+
+	.@{prefix}-textarea__prepend-button {
+		display: table-cell;
+
+		.@{prefix}-button {
+			border-left:               0;
+			border-top-left-radius:    0;
+			border-bottom-left-radius: 0;
+		}
+	}
+
+	.@{prefix}-textarea__append-button {
+		display:        table-cell;
+		width:          1px;
+		vertical-align: middle;
+		white-space:    nowrap;
+		font-size:      inherit;
+		font-weight:    400;
+		line-height:    1;
+		color:          @--font-color-base;
+		text-align:     center;
+		background:     transparent;
+
+		.@{prefix}-button {
+			border-left:               0;
+			border-top-left-radius:    0;
+			border-bottom-left-radius: 0;
+		}
+
+	}
+
+
+	&.@{prefix}-textarea--s {
+		.size (@--font-size-s, 24px);
+	}
+
+	&.@{prefix}-textarea--m {
+		.size (@--font-size-m, 30px);
+	}
+
+	&.@{prefix}-textarea--l {
+		.size (@--font-size-l, 36px);
+	}
+
+
+	&.@{prefix}-textarea--round {
+		&.@{prefix}-textarea--s {
+			.round(12px);
+		}
+
+		&.@{prefix}-textarea--m {
+			.round(15px);
+		}
+
+		&.@{prefix}-textarea--l {
+			.round(28px);
+		}
+	}
+
+}
+
+
+.size (@font-size, @size) {
+	.@{prefix}-textarea__content {
+		.@{prefix}-textarea__el {
+			font-size: @font-size;
+			//height:      @size;
+			//line-height: @size;
+		}
+
+		.@{prefix}-textarea__icon {
+			width:       @size;
+			height:      @size;
+			line-height: @size;
+			font-size:   @font-size;
+		}
+
+		.@{prefix}-textarea__icon + .@{prefix}-textarea__icon {
+			right: @size + 4px;
+		}
+
+		.@{prefix}-textarea__icon + .@{prefix}-textarea__icon + .@{prefix}-textarea__icon {
+			right: @size * 2 + 4px;
+		}
+
+		.@{prefix}-textarea__icon + .@{prefix}-textarea__el {
+			padding-right: @size;
+		}
+
+		.@{prefix}-textarea__icon + .@{prefix}-textarea__icon + .@{prefix}-textarea__el {
+			padding-right: @size * 2;
+		}
+
+
+		.@{prefix}-textarea__maxlength {
+			display:          block;
+			padding:          0 8px;
+			height:           @font-size;
+			line-height:      1.5;
+			font-size:        @font-size;
+			text-align:       right;
+			color:            @--font-color-secondary;
+			cursor:           pointer;
+			position:         absolute;
+			bottom:           12px;
+			right:            1px;
+			z-index:          1;
+			background-color: @--color-white;
+		}
+
+		.@{prefix}-textarea__icon + .@{prefix}-textarea__maxlength {
+			padding-right: @size;
+		}
+
+	}
+
+
+}
+
+.round (@radius) {
+
+	.@{prefix}-textarea__prepend {
+		&:first-child {
+			border-top-left-radius:    @radius !important;
+			border-bottom-left-radius: @radius !important;
+		}
+	}
+
+	.@{prefix}-textarea__prepend-button {
+		&:first-child {
+			border-top-left-radius:    @radius !important;
+			border-bottom-left-radius: @radius !important;
+		}
+	}
+
+	.@{prefix}-textarea__content {
+
+		.@{prefix}-textarea__maxlength {
+			//border-radius: @radius;
+		}
+
+
+		&:first-child {
+			.@{prefix}-textarea__el {
+				border-top-left-radius:    @radius !important;
+				border-bottom-left-radius: @radius !important;
+			}
+		}
+
+		&:last-child {
+			.@{prefix}-textarea__el {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+
+		+ .@{prefix}-textarea__maxlength {
+			&:last-child {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+
+		+ .@{prefix}-textarea__append-button {
+			&:last-child {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+
+		+ .@{prefix}-textarea__append {
+			&:last-child {
+				border-top-right-radius:    @radius !important;
+				border-bottom-right-radius: @radius !important;
+			}
+		}
+	}
+
+}
+

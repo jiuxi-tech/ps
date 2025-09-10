@@ -1,0 +1,173 @@
+/*!
+* theme-sky-blue 皇室蓝
+*/
+@import "../fb-mixins";
+
+html.theme-royal-blue {
+	// 混入蓝色通用主题
+	.blue-theme();
+
+	// 大屏 壳子 面板== 样式
+	.screen-shell {
+		background:       url("../../../img/theme/royal-blue/wrapper-bg.png") no-repeat;
+		background-size:  100% 100%;
+
+		.header {
+			background: url("../../../img/theme/royal-blue/screen-header/header-logo.png") center no-repeat;
+		}
+		.header-menu-date {
+			top: 3px;
+			font-size: 16px;
+		}
+		.header-menu-left {
+			position: absolute;
+			top: 29px;
+			left: 106px;
+			display: flex;
+			z-index: 100;
+
+			a {
+				width: 140px;
+				height: 40px;
+				line-height: 40px;
+				padding-top: 0;
+				margin-left: 0px;
+				margin-right: 10px;
+				background: url(../../../img/theme/royal-blue/screen-header/header-menu-bg.png) no-repeat;
+				background-size: cover;
+
+
+				&.active {
+					font-weight: bold;
+					background: url(../../../img/theme/royal-blue/screen-header/header-menu-bg-active.png) no-repeat;
+				}
+
+				&:hover {
+					background: url(../../../img/theme/royal-blue/screen-header/header-menu-bg-active.png) no-repeat;
+				}
+			}
+		}
+
+		.header-menu-right {
+			position: absolute;
+			top: 29px;
+			right: 106px;
+			display: flex;
+			z-index: 999;
+
+			a {
+				width: 140px;
+				height: 40px;
+				line-height: 40px;
+				padding-top: 0;
+				margin-left: 10px;
+				background: url(../../../img/theme/royal-blue/screen-header/header-menu-bg.png) no-repeat;
+				background-size: cover;
+
+
+				&.active {
+					font-weight: bold;
+					background: url(../../../img/theme/royal-blue/screen-header/header-menu-bg-active.png) no-repeat;
+				}
+
+				&:hover {
+					background: url(../../../img/theme/royal-blue/screen-header/header-menu-bg-active.png) no-repeat;
+				}
+			}
+
+		}
+
+
+	}
+
+	.screen-panel {
+		.screen-panel__wrapper {
+			background: linear-gradient(90deg, #20BD83, #20BD83) left top no-repeat,
+			linear-gradient(90deg, #20BD83, #20BD83) right top no-repeat,
+			linear-gradient(90deg, #20BD83, #20BD83) left bottom no-repeat,
+			linear-gradient(90deg, #20BD83, #20BD83) right bottom no-repeat,
+			linear-gradient(270deg, rgba(0, 176, 233, 0) 0%, #0094DC 49%, rgba(0, 120, 207, 0) 100%) left 2px no-repeat,
+			linear-gradient(360deg, rgba(0, 176, 233, 0) 0%, #0094DC 49%, rgba(0, 120, 207, 0) 100%) calc(100% - 2px) top no-repeat,
+			linear-gradient(270deg, rgba(0, 176, 233, 0) 0%, #0094DC 49%, rgba(0, 120, 207, 0) 100%) left calc(100% - 2px) no-repeat,
+			linear-gradient(360deg, rgba(0, 176, 233, 0) 0%, #0094DC 49%, rgba(0, 120, 207, 0) 100%) 2px bottom no-repeat;
+			background-size: 8px 8px,
+			8px 8px,
+			8px 8px,
+			8px 8px,
+			100% 2px, 2px 100%, 100% 2px, 2px 100%;
+
+			.screen-panel__wrapper__top {
+				display: none !important;
+			}
+
+			.screen-panel__wrapper__border {
+				display: none !important;
+			}
+
+			.screen-panel__wrapper__bottom {
+				display: none !important;
+			}
+		}
+
+		.screen-panel__header {
+			background: transparent;
+			text-align: center;
+
+			.title {
+				font-family: MicrosoftYaHeiSemibold;
+				font-size: 20px;
+				color: #FFFFFF;
+				padding: 0px;
+				position: initial;
+				width: 280px;
+				height: 38px;
+				background: url("../../../img/theme/royal-blue/screen-panel/panel-header-bg.png") center no-repeat;
+				margin-top: 3px;
+			}
+		}
+
+		&--no-header {
+			.screen-panel__wrapper {
+				border: none;
+				border-radius: 0px;
+			}
+		}
+	}
+
+
+	.jpx-dialog-header .jpx-dialog-header__actions > .jpx-icon {
+		border-radius: 50%;
+		background: #32C5FF;
+		font-size: 16px !important;
+	}
+	.jpx-dialog {
+		position: absolute;
+		border: 1px solid #0165D0;
+		background: linear-gradient(to left, #00DFFF, #00DFFF) left top no-repeat, linear-gradient(to bottom, #00DFFF, #00DFFF) left top no-repeat,
+		linear-gradient(to left, #00DFFF, #00DFFF) right top no-repeat, linear-gradient(to bottom, #00DFFF, #00DFFF) right top no-repeat,
+		linear-gradient(to left, #00DFFF, #00DFFF) left bottom no-repeat, linear-gradient(to bottom, #00DFFF, #00DFFF) left bottom no-repeat,
+		linear-gradient(to left, #00DFFF, #00DFFF) right bottom no-repeat, linear-gradient(to left, #00DFFF, #00DFFF) right bottom no-repeat;
+		background-size: 2px 18px, 18px 2px, 2px 18px, 18px 2px;
+		background-color: #00175A;
+		border-radius: 0;
+		box-shadow: 0px 0px 24px 0px rgba(5, 17, 71, 0.2);
+	}
+	.jpx-dialog-header .jpx-dialog-header__title__main {
+		color: #fff;
+
+		&:before {
+			display: none;
+		}
+	}
+}
+
+
+
+
+body.dev {
+    .jpx-container {
+		&:hover {
+			outline: 1px dashed rgba(68, 255, 0, 0.48);
+		}
+    }
+}

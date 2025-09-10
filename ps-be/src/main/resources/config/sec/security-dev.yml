@@ -1,0 +1,152 @@
+############################################################
+#############  开发环境安全配置
+#############  Development Security Configuration
+############################################################
+
+##########################################################################
+#############  安全认证配置
+##########################################################################
+topinfo:
+  # 安全配置
+  security:
+    # 启用鉴权控制
+    enable: true
+    # 密码传输是否加密，默认不加密
+    password-encryption: true
+    # 认证配置
+    authentication:
+      # 配置不需要认证的路径
+      excludePaths:
+        - /static/**
+        - /sys/captcha/**
+        - /sys/file/preview-pdf
+        - /sys/person/account-findpwd
+        - /sys/person/check-vcode
+        - /sys/**
+        - /sys/person/getUserInfo
+        # 图形验证
+        - /**
+        - /api/**
+        - /app/sys/captcha/verification-image
+        - /platform/captcha/get-slider-captcha
+        # 附件下载
+        - /sys/file/download
+        - /app/sys/file/download
+        - /app/**
+        - /api/**
+        - /platform/**
+        - /app/sys/file/upload
+        - /app/trainoffline/**
+        - /gdemergencyvehicle/sgddcreservation/**
+        - /common/clientlogin/getPhoneByLoginName
+        - /common/clientlogin/sendMsg
+        - /common/clientlogin/checkPhoneCode
+        - /taskcheck/siccheckpoint/**
+        - /taskcheck/sicchecktask/**
+        # 开发环境额外路径
+        - /druid/**
+        - /actuator/**
+
+############################################################
+#############  文件服务器配置
+############################################################
+  jdfs:
+    client:
+      # 模式： 本地模式（local）-默认，服务器模式（server）
+      model: local
+      local:
+        logical-disk:
+          # 逻辑盘名称
+          D1:
+            # 开发环境存储目录
+            dir: D:\upload\jdfs
+            # 盘的读写 rw
+            status: rw
+
+############################################################
+#############  Keycloak 配置（开发环境）
+############################################################
+keycloak:
+  # Keycloak 服务器地址
+  server-url: http://localhost:18080
+  # Realm 名称
+  realm: ps-realm
+  sso:
+    # 启用 Keycloak SSO
+    enabled: true
+    # Keycloak 服务器地址
+    server-url: http://localhost:18080
+    # Realm 名称
+    realm: ps-realm
+    # 客户端 ID
+    client-id: ps-be
+    # 客户端密钥（开发环境可以明文，生产环境使用环境变量）
+    client-secret: xMXvDGzby4Z48szob7i2fuZlZy5Wlqrh
+    # 回调重定向配置
+    redirect:
+      # 登录成功后重定向地址
+      success-url: http://localhost:10801/#/sso/login
+      # 登录失败后重定向地址
+      error-url: http://localhost:10801/#/login 
+    # JWT 验证配置
+    jwt:
+      # 是否验证 Token 过期时间
+      verify-expiration: true
+      # 是否验证签发者
+      verify-issuer: true
+      # 是否验证受众
+      verify-audience: false
+      # Token 缓存时间（秒）
+      cache-ttl: 300
+    # 用户信息头配置（从 Nginx 代理获取）
+    user-header:
+      # 用户 ID 头名称
+      user-id-header: X-User-Id
+      # 用户名头名称
+      username-header: X-Username
+      # 邮箱头名称
+      email-header: X-User-Email
+      # 姓名头名称
+      name-header: X-User-Name
+      # 角色头名称
+      roles-header: X-User-Roles
+      # 权限头名称
+      permissions-header: X-User-Permissions
+  # 管理员配置
+  admin:
+    # 管理员客户端ID
+    client-id: admin-cli
+    # 管理员用户名
+    username: admin
+    # 管理员密码
+    password: admin123
+
+############################################################
+#############  邮件服务配置（开发环境）
+############################################################
+spring:
+  mail:
+    # SMTP服务器地址
+    host: smtp.163.com
+    # SMTP服务器端口（163邮箱SSL端口）
+    port: 465
+    # 发送邮件的邮箱账号
+    username: 18069853753@163.com
+    # 邮箱密码或授权码
+    password: WQbFDS7fdK92fKcU
+    # 邮件编码
+    default-encoding: UTF-8
+    # SMTP配置
+    properties:
+      mail:
+        smtp:
+          # 启用SMTP认证
+          auth: true
+          # 启用SSL加密
+          ssl:
+            enable: true
+          # SSL端口
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false

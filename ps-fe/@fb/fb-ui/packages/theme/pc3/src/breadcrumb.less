@@ -1,0 +1,109 @@
+/*!
+* breadcrumb
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-breadcrumb {
+	box-sizing:            border-box;
+	margin:                0;
+	padding:               0;
+	font-variant:          tabular-nums;
+	line-height:           1.5;
+	list-style:            none;
+	font-feature-settings: "tnum";
+	color:                 @--color-text-secondary;
+	font-size:             @--font-size-m;
+
+	.@{prefix}-breadcrumb-item {
+
+		.@{prefix}-breadcrumb-link,
+		> a {
+			color:      @--color-text-secondary;
+			transition: color 0.3s;
+
+			&:hover {
+				color: @--link-hover-color;
+			}
+
+			> .@{prefix}-icon + span {
+				margin-left: 4px;
+			}
+
+			&--no-href {
+				&:hover {
+					color: @--color-text-secondary;
+				}
+			}
+
+			&.@{prefix}-breadcrumb-link--underline-on {
+				text-decoration: underline;
+			}
+
+			&.@{prefix}-breadcrumb-link--underline-off {
+				text-decoration: none;
+			}
+
+			&.@{prefix}-breadcrumb-link--underline-hover {
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		.@{prefix}-breadcrumb-separator {
+			margin: 0 8px;
+			color:  @--color-grey-7;
+		}
+
+
+		// 最后的元素要有火柴头的概念
+		&:last-child {
+
+			color: @--color-text-emphasize;
+
+			.@{prefix}-breadcrumb-link,
+			> a {
+				color: @--color-text-emphasize
+			}
+
+			.@{prefix}-breadcrumb-separator {
+				display: none
+			}
+		}
+
+
+	}
+
+	&.@{prefix}-breadcrumb--size-xs {
+		font-size: @--font-size-xs;
+	}
+
+	&.@{prefix}-breadcrumb--size-s {
+		font-size: @--font-size-s;
+	}
+
+	&.@{prefix}-breadcrumb--size-l {
+		font-size: @--font-size-l;
+	}
+
+	&.@{prefix}-breadcrumb--size-xl {
+		font-size: @--font-size-xl;
+	}
+
+	&.@{prefix}-breadcrumb--size-xxl {
+		font-size: @--font-size-xxl;
+	}
+
+	&.@{prefix}-breadcrumb--size-xxxl {
+		font-size: @--font-size-xxxl;
+	}
+}
+
+
+
+
+

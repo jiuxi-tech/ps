@@ -1,0 +1,53 @@
+/*!
+* sign.less
+* (c) 2022 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-sign-wrapper {
+
+}
+
+.@{prefix}-sign-signer {
+	&__header {
+		height:        26px;
+		display:       flex;
+		align-items:   flex-end;
+		margin-bottom: 4px;
+
+		&__icon {
+			color: @--color-grey-8;
+			line-height: inherit;
+		}
+
+		&__title {
+			color: @--color-grey-8;
+			line-height: inherit;
+		}
+
+		&__title_desc {
+			line-height: inherit;
+			color: @--color-grey-8;
+		}
+
+	}
+
+	&__canvas {
+		border:        3px dashed @--color-grey-6;
+		border-radius: 8px;
+		//height: calc(100% - 6px);
+		//width: calc(100% - 6px);
+
+		&:hover {
+			border: 3px dashed @--color-brand;
+		}
+	}
+
+	&__actions {
+		height:     30px;
+		text-align: center;
+	}
+
+}
+

@@ -1,0 +1,53 @@
+/*
+ This file 'animation' is part of Firebird Integrated Solution 1.0
+
+ Copyright (c) 2020 Lincong
+
+ Contact:  
+        Email: lincong1987@gmail.com
+
+        QQ: 159257119
+ 
+ See Usage at http://www.cleverlin.com/firebird
+
+ Create date: 2020-06-14 21:31
+ */
+.transition (@time:0.8s) {
+  transition: all @time cubic-bezier(0.52, 0.16, 0.24, 1);
+}
+
+
+@keyframes breath2 {
+  //0% {
+  //opacity: 1;
+  //}
+  //50% {
+  //opacity: 0.8;
+  //}
+  //100% {
+  //opacity: 1;
+  //}
+}
+
+@keyframes opacity1 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes menu-scale2 {
+  0% {
+    transform: scale(1);
+    transition-timing-function: ease;
+  }
+  50% {
+    transform: scale(1.1);
+    filter: blur(1px);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

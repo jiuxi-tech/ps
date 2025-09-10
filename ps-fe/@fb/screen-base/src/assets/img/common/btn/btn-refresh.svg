@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>返回</title>
+    <defs>
+        <linearGradient x1="1.00027095%" y1="48.999729%" x2="98.999729%" y2="48.999729%" id="linearGradient-1">
+            <stop stop-color="#2161E5" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#2161E5" stop-opacity="0.6" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-1.11022302e-14%" y1="50%" x2="100%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#02EFFF" offset="0%"></stop>
+            <stop stop-color="#01DBFE" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+        <path d="M40,32 L32,40 L8,40 L0,32 L0,8 L8,0 L32,0 L40,8 L40,32 Z" id="path-3"></path>
+        <filter x="-6.2%" y="-6.2%" width="112.5%" height="112.5%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="2" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.085522622   0 0 0 0 0.147634021   0 0 0 0 0.625717474  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="v1.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="221-危化生产风险态势-企业" transform="translate(-340.000000, -106.000000)">
+            <g id="返回" transform="translate(340.000000, 106.000000)">
+                <g id="形状结合">
+                    <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <path stroke="url(#linearGradient-2)" stroke-width="1" d="M31.7928932,0.5 L39.5,8.20710678 L39.5,31.7928932 L31.7928932,39.5 L8.20710678,39.5 L0.5,31.7928932 L0.5,8.20710678 L8.20710678,0.5 L31.7928932,0.5 Z" stroke-linejoin="square"></path>
+                </g>
+                <g id="图标/01-基础/refresh" transform="translate(10.000000, 10.000000)" fill="#FFFFFF">
+                    <path d="M19.0625,0.625 C18.545,0.625 18.125,1.04375 18.125,1.5625 L18.125,4.16875 C16.26375,1.56875 13.270625,0 10,0 C4.48625,0 0,4.4875 0,10 C0,15.5125 4.48625,20 10,20 C14.064375,20 17.694375,17.575 19.24625,13.8125 C19.345,13.575 19.3375,13.31875 19.245625,13.1 C19.154375,12.875 18.9775,12.6875 18.7375,12.5875 C18.49875,12.49375 18.2425,12.5 18.020625,12.5875 C17.799375,12.68125 17.6125,12.8625 17.513125,13.1 C16.251875,16.15 13.3025,18.125 10,18.125 C5.52,18.125 1.875,14.48125 1.875,10 C1.875,5.51875 5.52,1.875 10,1.875 C12.80375,1.875 15.356875,3.29375 16.843125,5.625 L14.0625,5.625 C13.545,5.625 13.125,6.04375 13.125,6.5625 C13.125,7.08125 13.545,7.5 14.0625,7.5 L19.0625,7.5 C19.58,7.5 20,7.08125 20,6.5625 L20,1.5625 C20,1.04375 19.58,0.625 19.0625,0.625 L19.0625,0.625 Z" id="刷新"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

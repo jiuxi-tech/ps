@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpPersonBasicinfo" id="tpPersonBasicinfoMap">
+        <result property="personId" column="PERSON_ID"/>
+        <result property="personName" column="PERSON_NAME"/>
+        <result property="profilePhoto" column="PROFILE_PHOTO"/>
+        <result property="personNo" column="PERSON_NO"/>
+        <result property="sex" column="SEX"/>
+        <result property="sexName" column="SEX_NAME"/>
+        <result property="idtype" column="IDTYPE"/>
+        <result property="idcard" column="IDCARD"/>
+        <result property="nativePlace" column="NATIVE_PLACE"/>
+        <result property="safeprinNation" column="SAFEPRIN_NATION"/>
+        <result property="safeprinNationName" column="SAFEPRIN_NATION_NAME"/>
+        <result property="resume" column="RESUME"/>
+        <result property="birthday" column="BIRTHDAY"/>
+        <result property="phone" column="PHONE"/>
+        <result property="tel" column="TEL"/>
+        <result property="email" column="EMAIL"/>
+        <result property="office" column="OFFICE"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="ascnId" column="ASCN_ID"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <!-- 当根据账号查询的时候，关联账号表。如果不根据账号查询，不需要关联账号表。 -->
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpPersonBasicQuery"
+            resultType="com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO">
+        select tpb.PERSON_ID,
+        tpb.PERSON_NAME,
+        tpb.PROFILE_PHOTO,
+        tpb.PERSON_NO,
+        tpb.SEX,
+        CASE tpb.SEX when 0 then '保密' when 1 then '男' when 2 then '女' else '' END as SEX_NAME,
+        tpb.IDTYPE,
+        tpb.IDCARD,
+        tpb.PHONE,
+        tpb.TEL,
+        tpb.OFFICE,
+        tdp.ASCN_ID,
+        tpb.TENANT_ID,
+        tdp.DEPT_ID as deptId,
+        tdp.DEPT_SIMPLE_NAME as deptSimpleName,
+        tdp.DEPT_FULL_NAME as deptFullName,
+        tpd.DEFAULT_DEPT,
+        CASE tpd.DEFAULT_DEPT when 1 then '主部门' else '兼职部门' END as defaultDeptName
+        from tp_person_basicinfo tpb
+        left join tp_person_dept tpd on tpb.PERSON_ID = tpd.PERSON_ID
+        left join tp_dept_basicinfo tdp on tpd.dept_id = tdp.dept_id and tdp.ACTIVED = 1
+        <if test="query.username != null and query.username != ''">
+            left join tp_account ta on tpb.PERSON_ID = ta.PERSON_ID and ta.ACTIVED = 1
+        </if>
+        where
+        tpb.ACTIVED = 1
+        and tpb.PERSON_ID != '1111111111111111111'
+        <if test="query.deptId != null and query.deptId != ''">
+            AND tpd.DEPT_ID = #{query.deptId}
+        </if>
+        <if test="query.deptLevelcode != null and query.deptLevelcode != ''">
+            AND tdp.DEPT_LEVELCODE like CONCAT(#{query.deptLevelcode}, '%')
+        </if>
+        <if test="query.personName != null and query.personName != ''">
+            AND tpb.PERSON_NAME like CONCAT('%', #{query.personName}, '%')
+        </if>
+        <if test="query.sex != null">
+            and tpb.SEX = #{query.sex}
+        </if>
+        <if test="query.phone != null and query.phone != ''">
+            and tpb.PHONE like CONCAT(#{query.phone}, '%')
+        </if>
+        <if test="query.category != null">
+            and tpb.CATEGORY = #{query.category}
+        </if>
+        <if test="query.username != null and query.username != ''">
+            and ta.USERNAME = #{query.username}
+        </if>
+    </select>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpPersonBasicinfo">
+        INSERT INTO tp_person_basicinfo
+            (PERSON_ID, PERSON_NAME, PROFILE_PHOTO, PERSON_NO, SEX, IDTYPE, IDCARD, NATIVE_PLACE, SAFEPRIN_NATION, RESUME, BIRTHDAY, PHONE, TEL, EMAIL, OFFICE, ACTIVED, CATEGORY, ASCN_ID, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, TENANT_ID, EXTEND01, EXTEND02, EXTEND03)
+		VALUES
+			(#{personId}, #{personName}, #{profilePhoto}, #{personNo}, #{sex}, #{idtype}, #{idcard}, #{nativePlace}, #{safeprinNation}, #{resume}, #{birthday}, 
+			<choose>
+				<when test="phone != null and phone != ''">#{encryptedPhone}</when>
+				<otherwise>null</otherwise>
+			</choose>, #{tel}, #{email}, #{office}, 1, #{category}, #{ascnId}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{tenantId}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <select id="view" parameterType="string"
+            resultType="com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO">
+        select tpb.PERSON_ID, tpb.PERSON_NAME, tpb.PROFILE_PHOTO, tpb.PERSON_NO, tpb.SEX,
+        CASE tpb.SEX when 0 then '保密'
+                     when 1 then '男'
+                     when 2 then '女'
+                     else '' END as SEX_NAME,
+        tpb.IDTYPE, td1.DIC_NAME as idtypeName, tpb.IDCARD, tpb.NATIVE_PLACE, tc.CITY_NAME as nativePlaceName,
+        tpb.SAFEPRIN_NATION, td.DIC_NAME as SAFEPRIN_NATION_NAME, tpb.RESUME, tpb.BIRTHDAY, tpb.PHONE, tpb.TEL, tpb.EMAIL, tpb.OFFICE, tpb.ACTIVED,
+        tpb.CATEGORY, tpb.ASCN_ID, tpb.CREATOR, tpb.CREATE_TIME, tpb.UPDATOR, tpb.UPDATE_TIME, tpb.TENANT_ID,
+        tpb.EXTEND01, tpb.EXTEND02, tpb.EXTEND03
+        from tp_person_basicinfo tpb
+        left join tp_dictionary td on tpb.SAFEPRIN_NATION = td.DIC_CODE
+        left join tp_dictionary td1 on tpb.IDTYPE = td1.DIC_CODE
+        left join tp_city tc on tpb.NATIVE_PLACE = tc.CITY_ID
+        where tpb.PERSON_ID = #{personId}
+        and
+        tpb.ACTIVED = 1
+    </select>
+   <!-- 查询出在该单位所有部门下的所有主部门关联关系的人员id -->
+    <select id="selectPersonIdByAscnId" parameterType="java.lang.String" resultType="java.lang.String">
+        select tpb.PERSON_ID
+          from tp_person_basicinfo tpb
+         inner join tp_person_dept tpd
+            on tpb.PERSON_ID = tpd.PERSON_ID
+         inner join tp_dept_basicinfo tdb
+            on tdb.dept_id=tpd.DEPT_ID
+        WHERE tdb.ASCN_ID = #{ascnId}
+          and tpd.DEFAULT_DEPT=1
+          and tdb.ACTIVED = 1
+          and tpb.ACTIVED = 1
+    </select>
+
+    <select id="selectByPhone" parameterType="java.lang.String"
+            resultType="com.jiuxi.admin.core.bean.entity.TpPersonBasicinfo">
+        select tpb.PERSON_ID, tpb.PERSON_NAME, tpb.PHONE from tp_person_basicinfo tpb WHERE tpb.PHONE = #{phone} and tpb.ACTIVED = 1 limit 1
+    </select>
+
+    <select id="selectByPhoneAndPersonId" parameterType="java.lang.String"
+            resultType="com.jiuxi.admin.core.bean.entity.TpPersonBasicinfo">
+        select tpb.PERSON_ID, tpb.PERSON_NAME, tpb.PHONE from tp_person_basicinfo tpb
+        WHERE tpb.ACTIVED = 1
+        and tpb.PHONE = #{phone}
+        <if test="null != personId and '' != personId">and tpb.PERSON_ID != #{personId}</if>
+        limit 1
+    </select>
+
+    <select id="selectByEmail" parameterType="java.lang.String"
+            resultType="com.jiuxi.admin.core.bean.entity.TpPersonBasicinfo">
+        select tpb.PERSON_ID, tpb.PERSON_NAME, tpb.EMAIL from tp_person_basicinfo tpb WHERE tpb.EMAIL = #{email} and tpb.ACTIVED = 1 limit 1
+    </select>
+    <select id="getBaseInfoByIdCard" resultType="com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO"
+            parameterType="java.lang.String">
+        select *
+          from tp_person_basicinfo tpb
+         where tpb.IDCARD = #{idcard}
+           and tpb.ACTIVED = 1
+    </select>
+
+    <update id="update">
+        update tp_person_basicinfo
+        <set>
+            <if test="null != personName and '' != personName">PERSON_NAME = #{personName},</if>
+            <if test="null != profilePhoto">PROFILE_PHOTO = #{profilePhoto},</if>
+            <if test="null != personNo">PERSON_NO = #{personNo},</if>
+            <if test="null != sex">SEX = #{sex},</if>
+            <if test="null != idtype">IDTYPE = #{idtype},</if>
+            <if test="null != idcard">IDCARD = #{idcard},</if>
+            <if test="null != nativePlace">NATIVE_PLACE = #{nativePlace},</if>
+            <if test="null != safeprinNation">SAFEPRIN_NATION = #{safeprinNation},</if>
+            <if test="null != resume">RESUME = #{resume},</if>
+            <if test="null != birthday">BIRTHDAY = #{birthday},</if>
+            <if test="null != phone">PHONE = 
+			<choose>
+				<when test="phone != ''">#{encryptedPhone}</when>
+				<otherwise>null</otherwise>
+			</choose>,</if>
+            <if test="null != tel">TEL = #{tel},</if>
+            <if test="null != email">EMAIL = #{email},</if>
+            <if test="null != office">OFFICE = #{office},</if>
+            <if test="null != actived">ACTIVED = #{actived},</if>
+            <if test="null != category">CATEGORY = #{category},</if>
+            <if test="null != ascnId and '' != ascnId">ASCN_ID = #{ascnId},</if>
+            <if test="null != updator and '' != updator">UPDATOR = #{updator},</if>
+            <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+            <if test="null != extend01">EXTEND01 = #{extend01},</if>
+            <if test="null != extend02">EXTEND02 = #{extend02},</if>
+            <if test="null != extend03">EXTEND03 = #{extend03},</if>
+            UPDATE_TIME = #{updateTime}
+        </set>
+        <where>
+            PERSON_ID = #{personId}
+            and
+            ACTIVED = 1
+        </where>
+    </update>
+    <!--部门类型变更时，批量更新用户的单位id-->
+    <update id="updateAscnIdByDeptIds">
+        update tp_person_basicinfo tpb set tpb.ASCN_ID = #{ascnId} where tpb.ASCN_ID = #{oldAscnId} and
+        tpb.PERSON_ID in (select tpd1.PERSON_ID from tp_person_dept tpd1 where tpd1.DEPT_ID in
+        <foreach item="item" index="index" collection="deptIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and DEFAULT_DEPT = 1
+        )
+    </update>
+
+    <!-- 根据单位id，删除人员信息   -->
+    <update id="deletePersonDeptByAscnId" parameterType="string">
+        UPDATE tp_person_basicinfo
+           SET  ACTIVED = 0
+              , UPDATOR = #{updator}
+              , UPDATE_TIME = #{updateTime}
+              , PHONE = concat(PHONE, '#', #{updateTime})
+        WHERE ASCN_ID = #{ascnId}
+    </update>
+
+    <update id="deleteByPersonId">
+        update tp_person_basicinfo set ACTIVED = 0, UPDATOR = #{updator}, UPDATE_TIME = #{updateTime}, PHONE = #{phone} where PERSON_ID = #{personId} and ACTIVED = 1
+    </update>
+
+</mapper>

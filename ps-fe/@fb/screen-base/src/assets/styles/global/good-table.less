@@ -1,0 +1,189 @@
+/*
+ This file 'list' is part of Firebird Integrated Solution 1.0
+
+ Copyright (c) 2020 Lincong
+
+ Contact:  
+        Email: lincong1987@gmail.com
+
+        QQ: 159257119
+ 
+ See Usage at http://www.cleverlin.com/firebird
+
+ Create date: 2020-06-03 07:06
+ */
+
+.good-table {
+    
+    
+    .good-table-header {
+	table {
+	    table-layout: fixed;
+	    width: 100%;
+	    border-collapse: collapse;
+	    
+	    thead {
+		tr {
+		    th {
+			border: 1px solid #0f2f73;
+			background: #101f5b;
+			color: #97B8C9;
+			font-size: 16px;
+			padding: 6px 22px;
+			&.no-padding {
+			    padding: 0;
+			}
+		    }
+		}
+	    }
+	}
+    }
+    
+    .good-table-body {
+	table {
+	    table-layout: fixed;
+	    width: 100%;
+	    border-collapse: collapse;
+	    tbody {
+		tr {
+		    td {
+			border-bottom: 1px solid #0f2f73;
+			background: #091234;
+			color: #97B8C9;
+			font-size: 16px;
+			padding: 6px 22px;
+			border-bottom: 1px solid #0A1D5F;
+			&.no-padding {
+			    padding: 0;
+			}
+		    }
+		}
+	    }
+	}
+    }
+    
+    .good-table-footer {
+	table {
+	    table-layout: fixed;
+	    width: 100%;
+	    
+	    footer {
+		tr {
+		    td {
+			&.no-padding {
+			    padding: 0;
+			}
+		    }
+		}
+	    }
+	}
+    }
+    
+    
+    &.scroll {
+	.good-table-body {
+	    overflow: auto;
+	}
+    }
+    
+    &.table-striped {
+	.good-table-body {
+	    overflow: auto;
+	}
+    }
+    &.table-bordered {
+	.good-table-body {
+	    overflow: auto;
+	}
+    }
+    &.table-hover {
+	.good-table-body {
+	    overflow: auto;
+	}
+    }
+}
+
+
+.pager2 {
+    display: block;
+    border: none 0;
+    margin: 10px 0;
+    color: #000000;
+    padding: 0 0 0 5px;
+    height: 45px;
+    
+    ul.pager {
+	display: block;
+	border: none 0;
+	margin: 10px 0;
+	color: #000000;
+	padding: 0 0 0 5px;
+	height: 25px;
+	list-style: none;
+	
+	li {
+	    float: left;
+	    list-style: none;
+	    
+	    a {
+		list-style: none;
+		float: left;
+		background: #0e1f52;
+		border: 1px solid #18399f;
+		text-decoration: none;
+		margin: 0 5px 0 0;
+		color: #64b9eb;
+		padding: 4px 8px;
+		cursor: pointer;
+		border-radius: 3px;
+		
+	    }
+	    
+	    &.disabled {
+		a {
+		    border: 1px solid #18399f;
+		    color: #92a8bb;
+		    box-shadow: 0px 1px 1px #18399f;
+		    cursor: not-allowed;
+		    background: #0e1f52;
+		}
+	    }
+	    
+	    &.active {
+		a {
+		    border: 1px solid #18399f;
+		    background: #18399f;
+		    color: #92a8bb;
+		}
+	    }
+	    
+	    &.detail {
+		a {
+		    border: 1px solid #ffffff;
+		    box-shadow: 0px 1px 1px #ffffff;
+		    cursor: auto;
+		    background: none;
+		    color: #64b9eb;
+		}
+	    }
+	    
+	    &:hover {
+		a {
+		    border: 1px solid #08C;
+		}
+	    }
+	    
+	    span {
+		&.label {
+		    &.label-default {
+			padding: 10px;
+			color: #64b9eb;
+		    }
+		}
+	    }
+	    
+	}
+	
+    }
+    
+}

@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpParameterConfigMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpParameterConfig" id="tpParameterConfigMap">
+        <result property="pmId" column="PM_ID"/>
+        <result property="pmKey" column="PM_KEY"/>
+        <result property="pmName" column="PM_NAME"/>
+        <result property="pmVal" column="PM_VAL"/>
+        <result property="pmDesc" column="PM_DESC"/>
+        <result property="orderIndex" column="ORDER_INDEX"/>
+        <result property="enabled" column="ENABLED"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <insert id="add" parameterType="com.jiuxi.admin.core.bean.entity.TpParameterConfig">
+        INSERT INTO tp_parameter_config
+        (PM_ID, PM_KEY, PM_NAME, PM_VAL, PM_DESC, ORDER_INDEX, ENABLED, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+        VALUES (#{pmId}, #{pmKey}, #{pmName}, #{pmVal}, #{pmDesc}, #{orderIndex}, #{enabled}, #{actived}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpParameterConfig">
+        UPDATE tp_parameter_config
+        <set>
+            <if test="null != pmKey and '' != pmKey">PM_KEY = #{pmKey},</if>
+            <if test="null != pmName and '' != pmName">PM_NAME = #{pmName},</if>
+            <if test="null != pmVal and '' != pmVal">PM_VAL = #{pmVal},</if>
+            <if test="null != pmDesc and '' != pmDesc">PM_DESC = #{pmDesc},</if>
+            <if test="null != orderIndex">ORDER_INDEX = #{orderIndex},</if>
+            <if test="null != enabled">ENABLED = #{enabled},</if>
+            <if test="null != updator and '' != updator">UPDATOR = #{updator},</if>
+            <if test="null != updateTime and '' != updateTime">UPDATE_TIME = #{updateTime},</if>
+            <if test="null != extend01 and '' != extend01">EXTEND01 = #{extend01},</if>
+            <if test="null != extend02 and '' != extend02">EXTEND02 = #{extend02},</if>
+            <if test="null != extend03 and '' != extend03">EXTEND03 = #{extend03},</if>
+        </set>
+        WHERE PM_ID = #{pmId}
+    </update>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpParameterConfigQuery"
+            resultType="com.jiuxi.admin.core.bean.vo.TpParameterConfigVO">
+        SELECT tpc.PM_ID
+        , tpc.PM_KEY
+        , tpc.PM_NAME
+        , tpc.PM_VAL
+        , tpc.PM_DESC
+        , tpc.ORDER_INDEX
+        , tpc.CREATOR
+        , tpc.ENABLED
+        , tpc.ACTIVED
+        , tpc.EXTEND01
+        , tpc.EXTEND02
+        , tpc.EXTEND03
+        FROM tp_parameter_config tpc
+        WHERE tpc.ACTIVED = 1
+        <if test="query.pmKey != null and query.pmKey != ''">
+            AND tpc.PM_KEY = #{query.pmKey}
+        </if>
+        <if test="query.pmName != null and query.pmName != ''">
+            AND tpc.PM_NAME like CONCAT('%',#{query.pmName},'%')
+        </if>
+        order by ORDER_INDEX
+    </select>
+
+    <select id="view" parameterType="String"
+            resultType="com.jiuxi.admin.core.bean.vo.TpParameterConfigVO">
+        SELECT tpc.PM_ID
+             , tpc.PM_KEY
+             , tpc.PM_NAME
+             , tpc.PM_VAL
+             , tpc.PM_DESC
+             , tpc.ORDER_INDEX
+             , tpc.CREATOR
+             , tpc.ENABLED
+             , tpc.ACTIVED
+             , tpc.EXTEND01
+             , tpc.EXTEND02
+             , tpc.EXTEND03
+        FROM tp_parameter_config tpc
+        WHERE tpc.ACTIVED = 1
+          and tpc.PM_ID = #{pmId}
+    </select>
+
+    <update id="delete" parameterType="String">
+        UPDATE tp_parameter_config
+        SET ACTIVED = 0, PM_KEY = #{pmKey}
+        WHERE PM_ID = #{id}
+    </update>
+
+    <select id="viewByPmKey" parameterType="String"
+            resultType="com.jiuxi.admin.core.bean.vo.TpParameterConfigVO">
+        select *
+        from tp_parameter_config
+        where PM_KEY = #{pmKey}
+          and ACTIVED = 1
+    </select>
+
+</mapper>

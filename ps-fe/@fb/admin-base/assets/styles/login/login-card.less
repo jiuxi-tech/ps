@@ -1,0 +1,91 @@
+@import "../common.less";
+// 登录组件卡片通用
+.loginCardCom () {
+	width:         360px;
+	height:        462px;
+	background:    #FFFFFF;
+	box-shadow:    0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+	z-index:       100;
+	
+}
+
+.login-dialog {
+	.loginCardCom();
+
+	.login-form__caption {
+		margin-bottom: 36px;
+	}
+
+	.login-form {
+
+		padding: 0 24px;
+		.@{FbUiPrefix}-form-item {
+			padding-bottom: 24px;
+		}
+
+		&__caption {
+			height:      32px;
+			font-size:   24px;
+			color:       #313C47;
+			line-height: 32px;
+			padding:     32px 0;
+			text-align:  center;
+		}
+	}
+
+	::v-deep.@{FbUiPrefix}-tabs .@{FbUiPrefix}-tabs-header .@{FbUiPrefix}-tabs-header-container {
+		border: none;
+		.@{FbUiPrefix}-tabs-items {
+			float: none;
+			margin: 0 auto;
+
+			.@{FbUiPrefix}-tabs-header-item {
+				font-size: 16px;
+			}
+		}
+	}
+
+
+}
+
+.register-btn {
+	float: right;
+}
+
+.login-card-bottom {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 360px;
+	height: 56px;
+	background: #F9F9F9;
+	border-radius: 0px 0px 4px 4px;
+	padding: 17px 24px;
+
+	.@{FbUiPrefix}-icon {
+		color: #0284FE;
+		margin-right: 8px;
+		vertical-align: -1px;
+	}
+
+	.login-card-bottom-left {
+		float: left;
+		line-height: 22px;
+
+		span {
+			color: #8F8E94;
+			font-size: 13px;
+		}
+	}
+
+	.login-card-bottom-right {
+		float: right;
+		line-height: 22px;
+
+		span {
+			color: #0284FE;
+			font-size: 13px;
+		}
+	}
+}

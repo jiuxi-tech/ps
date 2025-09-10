@@ -1,0 +1,574 @@
+.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f8f9fa;
+  }
+}
+
+.user-profile {
+  background: #ffffff;
+  min-height: 100vh;
+  padding: 0;
+
+  .profile-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+
+    .profile-header {
+      position: relative;
+      background: #ffffff;
+      border-bottom: 1px solid #f0f0f0;
+      color: #333333;
+      overflow: hidden;
+
+      .header-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23000000" opacity="0.05"><polygon points="0,0 1000,0 1000,100 0,80"/></svg>') no-repeat bottom;
+        background-size: cover;
+      }
+
+      .header-content {
+        position: relative;
+        padding: 40px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+
+        .avatar-section {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+
+          .avatar-wrapper {
+            position: relative;
+
+            .avatar-container {
+              position: relative;
+              width: 120px;
+              height: 120px;
+              border-radius: 50%;
+              overflow: hidden;
+              border: 4px solid #0284FE;
+              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+              cursor: pointer;
+              transition: all 0.3s ease;
+
+              &:hover {
+                transform: scale(1.05);
+                border-color: rgba(24, 144, 255, 0.6);
+
+                .avatar-overlay {
+                  opacity: 1;
+                }
+              }
+
+              .avatar {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+
+              .avatar-placeholder {
+                width: 100%;
+                height: 100%;
+                background: rgba(24, 144, 255, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .avatar-icon {
+                  font-size: 48px;
+                  color: #666666;
+                }
+              }
+
+              .avatar-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.6);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+
+                .camera-icon {
+                  font-size: 24px;
+                  color: #333333;
+                }
+              }
+            }
+          }
+
+          .user-info {
+            .user-name {
+              font-size: 32px;
+              font-weight: 700;
+              margin: 0 0 12px 0;
+              text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+              
+              .role-name {
+                font-size: 18px;
+                font-weight: 400;
+                color: #666666;
+                margin-left: 8px;
+                text-shadow: none;
+              }
+            }
+
+            .user-details {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+
+              .detail-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 16px;
+                color: #666666;
+
+                .detail-icon {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+
+        .header-actions {
+          .edit-btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 25px;
+            background: #0284FE;
+            border: 1px solid #0284FE;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+              background: #0165D0;
+              border-color: #0165D0;
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(2, 132, 254, 0.3);
+            }
+
+            .fb-icon {
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+    }
+
+    .info-grid {
+      padding: 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: -20px;
+
+      // 响应式布局 - 严格限制最大列数
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
+      }
+
+      @media (min-width: 769px) and (max-width: 1200px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      @media (min-width: 1201px) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+
+      .info-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+
+        // 设置卡片显示顺序
+        &:nth-child(1) { order: 1; } // 基本信息
+        &:nth-child(2) { order: 2; } // 联系信息
+        &:nth-child(3) { order: 3; } // 工作信息
+        &:nth-child(4) { order: 4; } // 教育信息
+        &:nth-child(5) { order: 5; } // 其他信息
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+          border-color: #e0e0e0;
+        }
+
+        &.full-width {
+          grid-column: 1 / 4; // 明确限制为3列
+          // order已在上面的nth-child中设置，这里不需要重复设置
+          
+          @media (max-width: 768px) {
+            grid-column: 1;
+          }
+          
+          @media (min-width: 769px) and (max-width: 1200px) {
+            grid-column: 1 / 3; // 2列布局时跨越2列
+          }
+          
+          @media (min-width: 1201px) {
+            grid-column: 1 / 4; // 3列布局时跨越3列
+          }
+        }
+
+        .card-header {
+          padding: 24px 24px 16px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          border-bottom: 1px solid #f0f2f5;
+          border-radius: 16px 16px 0 0;
+          margin: -1px -1px 0 -1px;
+
+          .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+
+            &.basic-info {
+              background: #0284FE;
+              color: white;
+            }
+
+            &.contact-info {
+              background: #16a34a;
+              color: white;
+            }
+
+            &.work-info {
+              background: #ea580c;
+              color: white;
+            }
+
+            &.education-info {
+              background: #9333ea;
+              color: white;
+            }
+
+            &.other-info {
+              background: #ec4899;
+              color: white;
+            }
+          }
+
+          .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0;
+          }
+
+          // 基本信息 - 蓝色主题
+          &:has(.basic-info) {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-bottom: 1px solid #93c5fd;
+          }
+
+          // 联系方式 - 绿色主题
+          &:has(.contact-info) {
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            border-bottom: 1px solid #86efac;
+          }
+
+          // 工作信息 - 橙色主题
+          &:has(.work-info) {
+            background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+            border-bottom: 1px solid #fb923c;
+          }
+
+          // 教育背景 - 紫色主题
+          &:has(.education-info) {
+            background: linear-gradient(135deg, #e9d5ff 0%, #d8b4fe 100%);
+            border-bottom: 1px solid #c084fc;
+          }
+
+          // 其他信息 - 粉色主题
+          &:has(.other-info) {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            border-bottom: 1px solid #f9a8d4;
+          }
+        }
+
+        .card-body {
+          padding: 24px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+
+          .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            &.full-width {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 8px;
+
+              .info-value.address {
+                width: 100%;
+                padding: 12px;
+                background: #f8f9fa;
+                border-radius: 8px;
+                border: 1px solid #e9ecef;
+                word-break: break-all;
+                text-align: left;
+              }
+            }
+
+            .info-label {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 14px;
+              color: #666;
+              font-weight: 500;
+              min-width: 120px;
+
+              .label-icon {
+                font-size: 16px;
+                color: #999;
+              }
+            }
+
+            .info-value {
+              font-size: 14px;
+              color: #333;
+              font-weight: 400;
+              text-align: right;
+              word-break: break-all;
+              
+              .role-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: flex-end;
+                
+                .role-tag {
+                  font-size: 12px;
+                  padding: 4px 8px;
+                  border-radius: 4px;
+                  background: #e6f7ff;
+                  color: #1890ff;
+                  border: 1px solid #91d5ff;
+                  white-space: nowrap;
+                }
+              }
+            }
+          }
+
+
+        }
+      }
+    }
+  }
+
+  // 响应式设计
+  @media (max-width: 1200px) {
+    .profile-container {
+      .info-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        padding: 24px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .profile-container {
+      .profile-header {
+        .header-content {
+          flex-direction: column;
+          text-align: center;
+          padding: 32px 20px;
+
+          .avatar-section {
+            flex-direction: column;
+            gap: 16px;
+
+            .user-info {
+              text-align: center;
+
+              .user-details {
+                align-items: center;
+              }
+            }
+          }
+        }
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 16px;
+
+        .info-card {
+          .card-body {
+            padding: 20px;
+
+            .info-row {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 4px;
+
+              .info-label {
+                min-width: auto;
+              }
+
+              .info-value {
+                text-align: left;
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // 编辑对话框样式
+  .profile-edit-dialog {
+    .fb-dialog__header {
+       background: #ffffff;
+       color: #333333;
+       padding: 20px 24px;
+       border-radius: 12px 12px 0 0;
+       border-bottom: 1px solid #f0f0f0;
+
+      .fb-dialog__title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333333;
+      }
+
+      .fb-dialog__close {
+        color: #666666;
+        font-size: 20px;
+
+        &:hover {
+          color: #333333;
+        }
+      }
+    }
+
+    .fb-dialog__body {
+      padding: 32px 24px;
+      background: #ffffff;
+
+      .fb-form {
+        .fb-form-item {
+          margin-bottom: 24px;
+
+          .fb-form-item__label {
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+          }
+
+          .fb-form-item__content {
+            .fb-input,
+            .fb-select,
+            .fb-date-picker,
+            .fb-textarea {
+              border-radius: 8px;
+              border: 1px solid #e1e5e9;
+              transition: all 0.3s ease;
+
+              &:focus,
+               &:hover {
+                 border-color: #0284FE;
+                 box-shadow: 0 0 0 2px rgba(2, 132, 254, 0.1);
+               }
+            }
+
+            .fb-textarea {
+              min-height: 100px;
+              resize: vertical;
+            }
+          }
+        }
+      }
+    }
+
+    .fb-dialog__footer {
+      padding: 16px 24px;
+      background: #ffffff;
+      border-top: 1px solid #f0f0f0;
+      border-radius: 0 0 12px 12px;
+
+      .fb-button {
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+
+        &.fb-button--primary {
+           background: #0284FE;
+           border: none;
+
+           &:hover {
+             background: #0165D0;
+             transform: translateY(-1px);
+             box-shadow: 0 4px 12px rgba(2, 132, 254, 0.3);
+           }
+         }
+
+        &.fb-button--default {
+          background: white;
+          border: 1px solid #d9d9d9;
+          color: #666;
+
+          &:hover {
+             border-color: #0284FE;
+             color: #0284FE;
+           }
+        }
+      }
+    }
+  }
+}
+
+.fb-dialog {
+  .fb-form {
+    .fb-form-item {
+      margin-bottom: 16px;
+    }
+  }
+}

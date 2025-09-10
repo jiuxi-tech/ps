@@ -1,0 +1,58 @@
+/*!
+* form
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-form {
+	display: block;
+
+	.@{prefix}-form__caption {
+		height:       22px;
+		font-size:    14px;
+		color:        #313C47;
+		line-height:  22px;
+		border-left:  2px solid #0284FE;
+		padding-left: 8px;
+	}
+
+
+	.@{prefix}-form-item--position-left,
+	.@{prefix}-form-item--position-top {
+		.@{prefix}-form-item__label {
+			text-align:    left;
+			padding-right: 0;
+		}
+	}
+
+	.@{prefix}-form-item--position-top {
+		.@{prefix}-form-item__label {
+			float:          none;
+			height:         auto;
+			line-height:    1.2;
+			padding-right:  0;
+			padding-bottom: 10px;
+
+
+			&--fixed {
+				table-layout: fixed;
+				width:        100%;
+			}
+
+			.@{prefix}-form-item__label__required {
+				//text-align: left;
+				//display:    inline-block;
+			}
+		}
+	}
+
+	&.@{prefix}-form--mode-query {
+		padding:   16px 0 8px 0;
+		font-size: 0;
+
+		.@{prefix}-form-item {
+			padding-bottom: 8px;
+		}
+	}
+}

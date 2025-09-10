@@ -1,0 +1,505 @@
+/*!
+* suggest
+* (c) 2020 lincong1987
+*/
+
+@import "common/var";
+
+.@{prefix}-suggest {
+	display:        inline-block;
+	width:          100%;
+	vertical-align: middle;
+	color:          @--color-text-secondary;
+	font-size:      13px;
+	position:       relative;
+	line-height:    1;
+
+	.@{prefix}-suggest__container {
+		position: relative;
+	}
+
+	.@{prefix}-suggest__input {
+		display:          inline-block;
+		width:            100%;
+		border:           1px solid @--input-border-color;
+		outline:          0;
+		background-image: none;
+		line-height:      @--font-size-m;
+		font-size:        @--font-size-m;
+		border-radius:    @--border-radius-base;
+		color:            @--input-font-color;
+		background-color: @--input-background-color;
+		cursor:           text;
+		transition:       border .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out;
+
+		&::-moz-placeholder {
+			letter-spacing: normal;
+			color:          @--input-placeholder-color;
+		}
+
+		&:-ms-input-placeholder {
+			letter-spacing: normal;
+			color:          @--input-placeholder-color;
+		}
+
+		&::-webkit-input-placeholder {
+			letter-spacing: normal;
+			color:          @--input-placeholder-color;
+		}
+
+
+		&:hover {
+			border-color: @--border-color-primary;
+		}
+
+		&:focus {
+			border-color: @--border-color-primary;
+			box-shadow:   @--box-shadow-focus;
+		}
+
+		&[readonly] {
+			cursor:           auto;
+			background-color: @--input-disabled-background;
+			color:            @--input-color-disabled;
+
+			&:hover,
+			&:focus {
+				border-color: @--input-disabled-border;
+				box-shadow:   none;
+			}
+		}
+
+		&[disabled] {
+			opacity:          1;
+			border-color:     @--input-disabled-border;
+			background-color: @--input-disabled-background;
+			color:            @--input-disabled-color;
+			cursor:           not-allowed;
+
+			&:hover,
+			&:focus {
+				border-color: @--input-disabled-border;
+				box-shadow:   none;
+			}
+		}
+
+	}
+
+	/*
+	.@{prefix}-suggest__input {
+		position:         relative;
+		width:            100%;
+		outline:          0;
+		font-size:        13px;
+		border-radius:    4px;
+		background-color: #FFFFFF;
+		user-select:      none;
+		cursor:           pointer;
+		transition:       all .2s ease-in-out;
+
+		height:        28px;
+		line-height:   28px;
+		padding-left:  12px;
+		padding-right: 24px;
+		border: none;
+
+		&:hover,
+		&:focus {
+
+			border-color: @--color-brand;
+
+			.@{prefix}-suggest__selection-icons__down,
+			.@{prefix}-suggest__selection-icons__clear {
+				color: @--color-brand;
+			}
+		}
+
+		&:focus {
+			box-shadow: 0px 0px 0px 2px opacity(@--color-brand, 0.25);
+		}
+	}
+	*/
+
+
+	.@{prefix}-suggest__selection-icons {
+		position: absolute;
+		right:    8px;
+		top:      0px;
+		bottom:   0px;
+		width:    12px;
+	}
+
+	.@{prefix}-suggest__selection-icons__down,
+	.@{prefix}-suggest__selection-icons__clear {
+		position:   absolute;
+		left:       0;
+		right:      0;
+		top:        50%;
+		transform:  translateY(-50%);
+		color:      #999999;
+		z-index:    1;
+		font-size:  14px;
+		transition: transform 0.3s
+	}
+
+	.@{prefix}-suggest__selection-icons__clear {
+		&:hover {
+			transform: translateY(-50%);
+		}
+	}
+
+	.@{prefix}-suggest__selection-icons__clear {
+		z-index: 2;
+	}
+
+	.@{prefix}-suggest__placeholder,
+	.@{prefix}-suggest__selected-value {
+		display:       block;
+		width:         100%;
+		height:        28px;
+		line-height:   28px;
+		font-size:     13px;
+		overflow:      hidden;
+		text-overflow: ellipsis;
+		white-space:   nowrap;
+		padding-left:  12px;
+		padding-right: 24px;
+		border:        0;
+		border-radius: 4px;
+	}
+
+	.@{prefix}-suggest__selected-value {
+		//color: @--color-text-title;
+		color: @--input-font-color;
+	}
+
+	.@{prefix}-suggest__placeholder {
+		color: @--color-text-secondary;
+	}
+}
+
+
+// 搜索框
+.@{prefix}-suggest__selected-input {
+	display:       block;
+	width:         100%;
+	height:        28px;
+	line-height:   28px;
+	padding-left:  8px;
+	padding-right: 24px;
+	margin-bottom: 5px;
+	font-size:     13px;
+	border:        0;
+	outline:       0;
+	border-bottom: 1px solid @--input-border-color;
+	color:         @--color-text-secondary;
+	overflow:      hidden;
+	text-overflow: ellipsis;
+	white-space:   nowrap;
+}
+
+.@{prefix}-suggest__dropdown {
+	//position:         absolute;
+	//top:              32px;
+	width:            100%;
+	max-height:       200px;
+	margin:           5px 0;
+	padding:          5px 0;
+	overflow-y:       auto;
+	overflow-x:       hidden;
+	background-color: #FFFFFF;
+	z-index:          @--index-select;
+	border-radius:    4px;
+	box-shadow:       @--select-dropdown-shadow;
+
+	&.no-options {
+		max-height: 250px;
+	}
+
+	&.has-pager {
+		position: relative;
+
+		.@{prefix}-suggest__dropdown-list {
+		}
+
+		.@{prefix}-suggest-pager {
+			position:   sticky;
+			bottom:     0;
+			padding:    4px 0;
+			background: #FFFFFF;
+			width:      100%;
+		}
+
+	}
+}
+
+.@{prefix}-suggest__dropdown__empty {
+	margin:     12px auto;
+	text-align: center;
+}
+
+.@{prefix}-suggest__dropdown__loading {
+	margin:     12px auto;
+	text-align: center;
+}
+
+.@{prefix}-suggest__dropdown-list {
+	margin:  0;
+	padding: 0;
+}
+
+.@{prefix}-suggest-option {
+	margin:        0;
+	padding:       7px 16px;
+	//color:         #313C47;
+	color:         @--input-font-color;
+	font-size:     12px !important;
+	line-height:   normal;
+	white-space:   nowrap;
+	text-overflow: ellipsis;
+	overflow:      hidden;
+	list-style:    none;
+	cursor:        pointer;
+	clear:         both;
+	transition:    background, transform .2s ease-in-out;
+
+	&.focus {
+		background: #E6F7FF;
+	}
+
+	&.@{prefix}-suggest-option--selected,
+	&.@{prefix}-suggest-option--selected.focus {
+		background: #E6F7FF;
+		color:      #313C47;
+	}
+
+	&.@{prefix}-suggest-option--disabled,
+	&.@{prefix}-suggest-option--disabled.focus {
+		color:      #BFBFBF;;
+		cursor:     not-allowed;
+		background: transparent;
+	}
+
+	&.@{prefix}-suggest-option--focus,
+	&.@{prefix}-suggest-option--focus.focus {
+		background: #E6F7FF;
+		color:      #313C47;
+		opacity:    0.8;
+		//transform:  translateX(4px);
+	}
+}
+
+// 下拉分页
+.@{prefix}-suggest__pager {
+	margin:      0;
+	padding:     0px 16px;
+	color:       @--color-text-secondary;
+	font-size:   16px;
+	line-height: normal;
+	white-space: nowrap;
+	list-style:  none;
+	clear:       both;
+	text-align:  center;
+
+	.@{prefix}-button {
+		margin-right: 8px;
+		margin-left:  8px;
+	}
+}
+
+.@{prefix}-suggest--visible {
+
+	.@{prefix}-suggest__selection-icons__down {
+		transform: translateY(-50%) rotate(180deg);
+	}
+
+	.@{prefix}-suggest__selection {
+		border-color: @--color-brand;
+		box-shadow:   0px 0px 0px 2px rgba(2, 132, 254, 0.25);
+
+		.@{prefix}-suggest__selection-icons__down,
+		.@{prefix}-suggest__selection-icons__clear {
+			color: @--color-brand;
+		}
+	}
+}
+
+.@{prefix}-suggest--disabled {
+	background-color: #F5F5F5;
+
+	.@{prefix}-suggest__selection {
+		cursor:           not-allowed;
+		background-color: #F5F5F5;
+
+		.@{prefix}-suggest__selected-value {
+			color: @--input-color-disabled;
+		}
+
+		&:hover,
+		&:focus {
+			border-color: #D3D3D3;
+			box-shadow:   none;
+
+			.@{prefix}-suggest__selection-icons__down,
+			.@{prefix}-suggest__selection-icons__clear {
+				color: #BFBFBF;
+			}
+		}
+	}
+}
+
+.@{prefix}-suggest--readonly {
+	.@{prefix}-suggest__selection {
+		cursor:           default;
+		background-color: @--input-disabled-background;
+
+		.@{prefix}-suggest__selected-value {
+			color: @--input-color-disabled;
+		}
+
+		&:hover,
+		&:focus {
+			border-color: #D3D3D3;
+			box-shadow:   none;
+
+			.@{prefix}-suggest__selection-icons__down,
+			.@{prefix}-suggest__selection-icons__clear {
+				color: #BFBFBF;
+			}
+		}
+	}
+}
+
+.@{prefix}-suggest--multiple {
+
+
+	.@{prefix}-suggest--multiple--selected {
+		min-height: 28px;
+		font-size:  0;
+	}
+
+	.@{prefix}-suggest__selected-value {
+		max-width:        80%;
+		position:         relative;
+		display:          inline-block;
+		padding:          0 6px;
+		padding-right:    22px;
+		margin:           4px 2px 4px 4px;
+		font-size:        12px;
+		height:           20px;
+		line-height:      20px;
+		width:            auto;
+		background-color: #F0EFF5;
+		transition:       background-color, box-shadow 0.3s;
+
+
+		.@{prefix}-suggest__selected-value__clear {
+			position:   absolute;
+			right:      6px;
+			top:        11px;
+			left:       auto;
+			color:      #999999;
+			transform:  translateY(-50%) scale(0.8);
+			transition: transform 0.3s;
+
+			&:hover {
+				transform: translateY(-50%) scale(1);
+			}
+		}
+
+
+		&:hover {
+			background-color: #E2DEF3;
+			box-shadow:       0px 0px 0px 2px rgba(2, 132, 254, 0.25);
+		}
+
+		&.@{prefix}-suggest__collapse-tags-num {
+			padding-right: 6px;
+		}
+	}
+
+	.@{prefix}-suggest-option {
+
+		position:     relative;
+		padding-left: 36px;
+
+		&::before {
+			content:          "";
+			display:          block;
+			position:         absolute;
+			height:           16px;
+			width:            16px;
+			left:             10px;
+			background-color: #FFFFFF;
+			border:           @--checkbox-input-border;
+			border-radius:    2px;
+			transition:       all .2s ease-in-out;
+		}
+
+		&::after {
+			position:      absolute;
+			left:          16px;
+			top:           10px;
+			height:        8px;
+			width:         4px;
+			border-bottom: 2px solid #FFFFFF;
+			border-right:  2px solid #FFFFFF;;
+			content:       "";
+			transition:    all .2s ease-in-out;
+			opacity:       0;
+			transform:     rotate(45deg) scale(0);
+		}
+
+
+		&.@{prefix}-suggest-option--selected {
+
+			&::before {
+				border-color:     @--color-brand;
+				background-color: @--color-brand;
+			}
+
+			&::after {
+				opacity:   1;
+				transform: rotate(45deg) scale(1);
+			}
+		}
+	}
+}
+
+
+.@{prefix}-suggest--size-m {
+}
+
+.@{prefix}-suggest--size-s {
+	.@{prefix}-suggest__placeholder,
+	.@{prefix}-suggest__selected-value {
+		height:        22px;
+		line-height:   22px;
+		font-size:     13px;
+		padding-left:  12px;
+		padding-right: 16px;
+	}
+
+	.@{prefix}-suggest-option {
+		padding: 4px 12px;
+	}
+}
+
+.@{prefix}-suggest--size-l {
+	.@{prefix}-suggest__placeholder,
+	.@{prefix}-suggest__selected-value {
+		height:        34px;
+		line-height:   34px;
+		font-size:     16px;
+		padding-left:  12px;
+		padding-right: 16px;
+	}
+
+	.@{prefix}-suggest-option {
+		padding:   8px 12px;
+		font-size: 14px !important;
+	}
+}
+
+.@{prefix}-suggest--size-xl {
+}

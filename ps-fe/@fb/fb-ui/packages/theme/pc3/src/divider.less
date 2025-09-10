@@ -1,0 +1,149 @@
+@import "common/var";
+
+
+.@{prefix}-divider {
+
+	position:   relative;
+	box-sizing: border-box;
+	background: @--card-border-color; //#f0f0f0;
+
+
+	&.@{prefix}-divider--horizontal {
+		display: block;
+		height:  1px;
+		width:   100%;
+
+
+		&.@{prefix}-divider--xxxs {
+			margin: 4px 0;
+		}
+
+		&.@{prefix}-divider--xxs {
+			margin: 8px 0;
+		}
+
+		&.@{prefix}-divider--xs {
+			margin: 10px 0;
+		}
+
+		&.@{prefix}-divider--s {
+			margin: 12px 0;
+		}
+
+		&.@{prefix}-divider--m {
+			margin: 16px 0;
+		}
+
+		&.@{prefix}-divider--l {
+			margin: 20px 0;
+		}
+
+		&.@{prefix}-divider--xl {
+			margin: 24px 0;
+		}
+
+		&.@{prefix}-divider--xxl {
+			margin: 30px 0;
+		}
+	}
+
+	&.@{prefix}-divider--vertical {
+		display:        inline-block;
+		width:          1px;
+		height:         1em;
+		margin:         0 8px;
+		vertical-align: middle;
+		position:       relative;
+	}
+
+	&.@{prefix}-divider--label-left {
+	}
+
+	&.@{prefix}-divider--label-center {
+	}
+
+	&.@{prefix}-divider--label-right {
+	}
+
+
+
+
+	&.@{prefix}-divider--dashed {
+		background:   none;
+		border:       dashed @--card-border-color;
+		border-width: 1px 0 0;
+	}
+
+
+	.@{prefix}-divider__label {
+
+		color:      @--font-color-base;
+		position:   absolute;
+		background: @--color-white;
+		padding:    0 20px;
+		font-size:  14px;
+
+		&.@{prefix}-divider__label--left {
+			left:      20px;
+			transform: translateY(-50%);
+		}
+
+		&.@{prefix}-divider__label--center {
+			left:      50%;
+			transform: translateX(-50%) translateY(-50%)
+		}
+
+		&.@{prefix}-divider__label--right {
+			right:     20px;
+			transform: translateY(-50%);
+		}
+
+	}
+
+}
+
+
+//@include b(divider) {
+//  background-color: $--border-color-base;
+//  position: relative;
+//
+//  @include m(horizontal) {
+//    display: block;
+//    height: 1px;
+//    width: 100%;
+//    margin: 24px 0;
+//  }
+//
+//  @include m(vertical) {
+//    display: inline-block;
+//    width: 1px;
+//    height: 1em;
+//    margin: 0 8px;
+//    vertical-align: middle;
+//    position: relative;
+//  }
+//
+//  @include e(text) {
+//    position: absolute;
+//    background-color: $--color-white;
+//    padding: 0 20px;
+//    font-weight: 500;
+//    color: $--color-text-primary;
+//    font-size: 14px;
+//
+//    @include when(left) {
+//      left: 20px;
+//      transform: translateY(-50%);
+//    }
+//
+//    @include when(center)  {
+//      left: 50%;
+//      transform: translateX(-50%) translateY(-50%);
+//    }
+//
+//    @include when(right)  {
+//      right: 20px;
+//      transform: translateY(-50%);
+//    }
+//  }
+//}
