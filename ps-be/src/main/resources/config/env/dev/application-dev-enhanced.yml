@@ -1,0 +1,278 @@
+############################################################
+#############  开发环境增强配置文件
+#############  Development Environment Enhanced Configuration
+#############  
+#############  此文件使用新的统一配置架构
+#############  覆盖 application-base.yml 中的默认配置
+############################################################
+
+# 开发环境应用配置覆盖
+app:
+  info:
+    description: PS-BMP Backend System (Development)
+  
+  # 开发环境监控配置
+  monitor:
+    server-url: http://localhost:8082/ps-be
+    client-id: ps-bmp-backend-dev
+  
+  # 开发环境数据库配置
+  database:
+    datasource:
+      url: jdbc:mariadb://alilaoba.cn:13307/ps-bmp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: W4HV=QxtHz
+    
+    # 开发环境使用较小的连接池
+    pool:
+      max-active: 200
+      min-idle: 3
+    
+    # 开发环境启用性能监控
+    mybatis:
+      performance-interceptor-enabled: true
+      slow-sql-threshold: 2000
+  
+  # 开发环境缓存配置
+  cache:
+    redis:
+      host: localhost
+      port: 6379
+      password: ""
+      database: 0
+    
+    # 开发环境启用缓存统计
+    strategy:
+      enable-statistics: true
+      default-ttl: 1800  # 开发环境使用较短的缓存时间
+  
+  # 开发环境安全配置
+  security:
+    # 开发环境额外的排除路径
+    authentication:
+      exclude-paths:
+        - /static/**
+        - /sys/captcha/**
+        - /actuator/**
+        - /druid/**
+        - /api/**
+        - /app/**
+        - /platform/**
+        - /**  # 开发环境临时开放所有路径
+    
+    keycloak:
+      server-url: http://localhost:18080
+      sso:
+        client-secret: xMXvDGzby4Z48szob7i2fuZlZy5Wlqrh
+        redirect:
+          success-url: http://localhost:10801/#/sso/login
+          error-url: http://localhost:10801/#/login
+    
+    # 开发环境文件服务配置
+    file-service:
+      local:
+        base-dir: D:\upload\jdfs
+        max-file-size: 50MB
+
+############################################################
+#############  Spring Boot 开发环境配置
+############################################################
+server:
+  port: 8082
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    max-http-form-post-size: 10MB
+  servlet:
+    context-path: /ps-be
+  max-http-header-size: 10MB
+
+spring:
+  main:
+    allow-circular-references: true
+  
+  # 开发环境数据源配置（向后兼容）
+  datasource:
+    driver-class-name: ${app.database.datasource.driver-class-name}
+    url: ${app.database.datasource.url}
+    username: ${app.database.datasource.username}
+    password: ${app.database.datasource.password}
+    druid:
+      initial-size: ${app.database.pool.initial-size}
+      min-idle: ${app.database.pool.min-idle}
+      max-active: ${app.database.pool.max-active}
+      validation-query: ${app.database.datasource.validation-query}
+      test-while-idle: ${app.database.pool.test-while-idle}
+      test-on-borrow: ${app.database.pool.test-on-borrow}
+      test-on-return: ${app.database.pool.test-on-return}
+      stat-view-servlet:
+        enabled: ${app.database.monitor.enabled}
+        url-pattern: ${app.database.monitor.url-pattern}
+        reset-enable: ${app.database.monitor.reset-enable}
+      web-stat-filter:
+        enabled: ${app.database.monitor.web-stat-filter.enabled}
+        url-pattern: ${app.database.monitor.web-stat-filter.url-pattern}
+        exclusions: ${app.database.monitor.web-stat-filter.exclusions}
+  
+  # 开发环境Redis配置（向后兼容）
+  redis:
+    host: ${app.cache.redis.host}
+    port: ${app.cache.redis.port}
+    password: ${app.cache.redis.password}
+    database: ${app.cache.redis.database}
+    timeout: ${app.cache.redis.timeout}ms
+    jedis:
+      pool:
+        max-active: ${app.cache.redis.pool.max-active}
+        max-wait: ${app.cache.redis.pool.max-wait}ms
+        max-idle: ${app.cache.redis.pool.max-idle}
+        min-idle: ${app.cache.redis.pool.min-idle}
+  
+  # 开发环境缓存配置
+  cache:
+    type: ${app.cache.local.type}
+    ehcache:
+      config: ${app.cache.local.ehcache-config}
+  
+  # Redisson 配置
+  redisson:
+    config: classpath:redis/redisson-single.yml
+  
+  # 开发环境邮件配置
+  mail:
+    host: smtp.163.com
+    port: 465
+    username: 18069853753@163.com
+    password: WQbFDS7fdK92fKcU
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+  
+  # DevTools配置 - 启用热重载
+  devtools:
+    restart:
+      enabled: true
+      exclude: static/**,public/**
+    livereload:
+      enabled: true
+      port: 35729
+
+############################################################
+#############  开发环境日志配置
+############################################################  
+logging:
+  level:
+    root: INFO
+    # 开发环境显示详细的业务日志
+    com.jiuxi.admin: DEBUG
+    com.jiuxi.shared: DEBUG
+    com.jiuxi.module: DEBUG
+    # MyBatis SQL日志
+    org.mybatis: DEBUG
+    com.baomidou.mybatisplus: DEBUG
+    # 数据库连接池日志
+    com.alibaba.druid: DEBUG
+    # SQL执行日志
+    org.apache.ibatis: DEBUG
+    org.springframework.jdbc: DEBUG
+    org.springframework.jdbc.core: DEBUG
+    org.springframework.transaction: DEBUG
+    org.springframework.jdbc.datasource: DEBUG
+    # 监控模块日志
+    com.jiuxi.monitor: DEBUG
+
+############################################################
+#############  开发环境特定配置
+############################################################
+debug: false
+
+############################################################
+#############  传统配置兼容（保持向后兼容性）
+############################################################
+topinfo:
+  mybatis:
+    datacenterId: ${app.database.mybatis.datacenter-id}
+    machineId: ${app.database.mybatis.machine-id}
+    datasource-config:
+      url: ${app.database.datasource.url}
+      username: ${app.database.datasource.username}
+      password: ${app.database.datasource.password}
+      minIdle: ${app.database.pool.min-idle}
+      maxActive: ${app.database.pool.max-active}
+      validationQuery: ${app.database.datasource.validation-query}
+    tenant: ${app.database.mybatis.tenant}
+    ignore-tenant-tables: ${app.database.mybatis.ignore-tenant-tables}
+  
+  security:
+    enable: ${app.security.basic.enabled}
+    password-encryption: ${app.security.basic.password-encryption}
+    authentication:
+      excludePaths: ${app.security.authentication.exclude-paths}
+  
+  jdfs:
+    client:
+      model: ${app.security.file-service.mode}
+      local:
+        logical-disk:
+          D1:
+            dir: ${app.security.file-service.local.base-dir}
+            status: rw
+
+############################################################
+#############  Keycloak 配置（开发环境）
+############################################################
+keycloak:
+  server-url: ${app.security.keycloak.server-url}
+  realm: ${app.security.keycloak.realm}
+  sso:
+    enabled: ${app.security.keycloak.sso.enabled}
+    server-url: ${app.security.keycloak.server-url}
+    realm: ${app.security.keycloak.realm}
+    client-id: ${app.security.keycloak.sso.client-id}
+    client-secret: ${app.security.keycloak.sso.client-secret}
+    redirect:
+      success-url: ${app.security.keycloak.sso.redirect.success-url}
+      error-url: ${app.security.keycloak.sso.redirect.error-url}
+    jwt:
+      verify-expiration: ${app.security.jwt.verify-expiration}
+      verify-issuer: ${app.security.jwt.verify-issuer}
+      verify-audience: ${app.security.jwt.verify-audience}
+      cache-ttl: ${app.security.jwt.cache-ttl}
+    user-header:
+      user-id-header: ${app.security.keycloak.sso.user-header.user-id-header}
+      username-header: ${app.security.keycloak.sso.user-header.username-header}
+      email-header: ${app.security.keycloak.sso.user-header.email-header}
+      name-header: ${app.security.keycloak.sso.user-header.name-header}
+      roles-header: ${app.security.keycloak.sso.user-header.roles-header}
+      permissions-header: ${app.security.keycloak.sso.user-header.permissions-header}
+  admin:
+    client-id: ${app.security.keycloak.admin.client-id}
+    username: ${app.security.keycloak.admin.username}
+    password: ${app.security.keycloak.admin.password}
+
+############################################################
+#############  监控配置
+############################################################
+jiuxi:
+  platform:
+    plugin:
+      monitor:
+        server-url: ${app.monitor.server-url}
+        system-desc: ${app.monitor.system-desc}
+        client-id: ${app.monitor.client-id}
+        connection-timeout: ${app.monitor.connection-timeout}
+        read-timeout: ${app.monitor.read-timeout}
+        mail-config:
+          user: 18069853753@163.com
+          password: WQbFDS7fdK92fKcU
+          smtp: smtp.163.com
+          port: 465

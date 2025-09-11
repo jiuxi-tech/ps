@@ -1,0 +1,285 @@
+############################################################
+#############  PS-BE 统一配置文件基础模板
+#############  
+#############  此文件定义了所有环境通用的配置属性结构
+#############  各环境可通过覆盖相应属性进行定制
+############################################################
+
+# 应用基础配置
+app:
+  info:
+    name: ps-be
+    version: 2.2.2-SNAPSHOT
+    description: PS-BMP Backend System
+    encoding: UTF-8
+    author: System
+    contact: admin@jiuxi.com
+  
+  # 文件上传配置
+  upload:
+    max-file-size: 50MB
+    max-request-size: 100MB
+    allowed-types:
+      - image/jpeg
+      - image/png
+      - image/gif
+      - image/bmp
+      - application/pdf
+      - application/msword
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+      - application/vnd.ms-excel
+      - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    upload-dir: /upload
+  
+  # 国际化配置
+  i18n:
+    basename:
+      - i18n/messages
+      - i18n/validation
+    encoding: UTF-8
+    cache-duration: 3600
+    fallback-to-system-locale: true
+    default-locale: zh_CN
+  
+  # 监控配置
+  monitor:
+    enabled: true
+    system-desc: PS-BMP后端系统
+    connection-timeout: 3000
+    read-timeout: 5000
+
+  # 数据库配置
+  database:
+    datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      validation-query: SELECT 1
+      connection-timeout: 30000
+      max-lifetime: 1800000
+    
+    pool:
+      initial-size: 5
+      min-idle: 5
+      max-active: 500
+      max-wait: 60000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+    
+    mybatis:
+      datacenter-id: 0
+      machine-id: 0
+      tenant: false
+      ignore-tenant-tables:
+        - test
+      page-limit: 1000
+      page-helper-enabled: true
+      performance-interceptor-enabled: false
+      slow-sql-threshold: 3000
+    
+    monitor:
+      enabled: true
+      url-pattern: /druid/*
+      reset-enable: false
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+
+  # 缓存配置
+  cache:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 3000
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+      cluster:
+        enabled: false
+        nodes: []
+        max-redirects: 3
+      sentinel:
+        enabled: false
+        nodes: []
+    
+    local:
+      type: ehcache
+      ehcache-config: classpath:config/cache/ehcache.xml
+      caffeine:
+        maximum-size: 1000
+        expire-after-write: 3600
+        expire-after-access: 1800
+        initial-capacity: 100
+    
+    distributed-lock:
+      enabled: true
+      wait-time: 3000
+      lease-time: 30000
+      key-prefix: "lock:"
+      watchdog: true
+    
+    strategy:
+      default-ttl: 3600
+      short-ttl: 300
+      long-ttl: 86400
+      enable-statistics: true
+      refresh-strategy: async
+      warmup:
+        enabled: false
+        delay: 30
+        data-sources: []
+
+  # 安全配置
+  security:
+    basic:
+      enabled: true
+      password-encryption: true
+      session-timeout: 3600
+      csrf-enabled: true
+      xss-enabled: true
+    
+    authentication:
+      exclude-paths:
+        - /static/**
+        - /sys/captcha/**
+        - /actuator/**
+        - /druid/**
+      max-retry-attempts: 3
+      lockout-duration: 30
+      captcha-enabled: true
+      captcha-expiry: 300
+    
+    keycloak:
+      server-url: http://localhost:18080
+      realm: ps-realm
+      sso:
+        enabled: true
+        client-id: ps-be
+        redirect:
+          success-url: http://localhost:10801/#/sso/login
+          error-url: http://localhost:10801/#/login
+          logout-url: http://localhost:10801/#/logout
+        user-header:
+          user-id-header: X-User-Id
+          username-header: X-Username
+          email-header: X-User-Email
+          name-header: X-User-Name
+          roles-header: X-User-Roles
+          permissions-header: X-User-Permissions
+      admin:
+        client-id: admin-cli
+        username: admin
+        password: admin123
+        connection-timeout: 5000
+        read-timeout: 10000
+    
+    jwt:
+      verify-expiration: true
+      verify-issuer: true
+      verify-audience: false
+      cache-ttl: 300
+      secret: ps-be-jwt-secret-key-2024
+      expiration: 3600
+      refresh-expiration: 7200
+      token-header: Authorization
+      token-prefix: "Bearer "
+    
+    file-service:
+      mode: local
+      local:
+        base-dir: /upload/jdfs
+        url-prefix: /files
+        max-file-size: 100MB
+        allowed-extensions:
+          - jpg
+          - jpeg
+          - png
+          - gif
+          - bmp
+          - pdf
+          - doc
+          - docx
+          - xls
+          - xlsx
+          - ppt
+          - pptx
+          - txt
+          - zip
+          - rar
+      remote:
+        server-url: http://localhost:8080
+        bucket-name: ps-files
+    
+    encryption:
+      password-algorithm: BCrypt
+      bcrypt-strength: 10
+      aes-key: ps-be-aes-key-2024
+      rsa-key-length: 2048
+      sm:
+        enabled: false
+
+############################################################
+#############  Spring Boot 基础配置
+############################################################
+spring:
+  application:
+    name: ${app.info.name}
+    id: ${app.info.name}
+  
+  main:
+    allow-bean-definition-overriding: true
+  
+  servlet:
+    multipart:
+      max-file-size: ${app.upload.max-file-size}
+      max-request-size: ${app.upload.max-request-size}
+  
+  resources:
+    static-locations: classpath:/static/,classpath:/views/
+  
+  mvc:
+    static-path-pattern: /static/**
+  
+  messages:
+    basename: ${app.i18n.basename}
+    encoding: ${app.i18n.encoding}
+    cache-duration: ${app.i18n.cache-duration}
+    fallback-to-system-locale: ${app.i18n.fallback-to-system-locale}
+
+############################################################
+#############  Actuator 监控配置
+############################################################
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,conditions
+  endpoint:
+    health:
+      show-details: when_authorized
+
+############################################################
+#############  应用信息配置
+############################################################
+info:
+  app:
+    name: ${app.info.name}
+    description: ${app.info.description}
+    version: ${app.info.version}
+    encoding: ${app.info.encoding}
+    java:
+      version: ${java.version}
+
+############################################################
+#############  日志配置
+############################################################
+logging:
+  config: classpath:config/log/logback-spring.xml
+  level:
+    root: INFO
+    com.jiuxi: INFO

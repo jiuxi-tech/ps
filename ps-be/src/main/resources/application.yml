@@ -1,79 +1,69 @@
 ############################################################
-#############  PS BMP Backend Application 主配置文件
+#############  PS-BE Backend Application 主配置文件
 #############  
-#############  按环境切换配置：
-#############  开发： dev
-#############  测试： test  
-#############  生产： prod
+#############  统一配置管理架构 v2.2.2-SNAPSHOT
+#############  
+#############  配置分层说明：
+#############  1. application-base.yml    - 基础配置模板
+#############  2. application-{env}.yml   - 环境特定配置 
+#############  3. application.yml         - 主配置文件（本文件）
+#############  
+#############  环境切换：
+#############  开发环境： dev
+#############  测试环境： test  
+#############  生产环境： prod
 ############################################################
 
 spring:
-  # 配置文件导入和环境切换
+  # 配置文件导入和环境管理
   config:
-    import: 
+    import:
+      # 临时禁用基础配置模板，直接使用环境特定配置进行测试
+      # - "classpath:config/application-base.yml"
+      # 导入环境特定配置
       - "classpath:config/env/${spring.profiles.active}/application-${spring.profiles.active}.yml"
-      - "classpath:config/db/database-${spring.profiles.active}.yml"
-      - "classpath:config/cache/cache-${spring.profiles.active}.yml"
-      - "classpath:config/sec/security-${spring.profiles.active}.yml"
+      # 保持向后兼容：导入原有配置文件（优先级更高）
+      - "optional:classpath:config/db/database-${spring.profiles.active}.yml"
+      - "optional:classpath:config/cache/cache-${spring.profiles.active}.yml"
+      - "optional:classpath:config/sec/security-${spring.profiles.active}.yml"
+  
+  # 激活的环境配置
   profiles:
     active: dev
-  application:
+
+############################################################
+#############  新配置架构说明
+############################################################
+# 新的配置管理使用 @ConfigurationProperties 注解类：
+#
+# 1. ApplicationConfig  - 应用基础配置 (app.*)
+# 2. DatabaseConfig     - 数据库配置 (app.database.*)
+# 3. CacheConfig        - 缓存配置 (app.cache.*) 
+# 4. SecurityConfig     - 安全配置 (app.security.*)
+# 5. ConfigurationManager - 配置管理器
+#
+# 所有配置属性都在 app.* 命名空间下，便于统一管理和验证
+############################################################
+
+# 新配置架构示例（最小配置集）
+app:
+  info:
     name: ps-be
-    id: ps-be
-  main:
-    allow-bean-definition-overriding: true
-  servlet:
-    multipart:
-      # 单个上传数据大小
-      max-file-size: 50MB
-      # 总上传数据大小
-      max-request-size: 100MB
-  resources:
-    # 多个逗号隔开 classpath:/static/,classpath:/views/
-    static-locations: classpath:/static/,classpath:/views/
-  # 将/static/**访问映射到 static-locations 目录中
-  mvc:
-     static-path-pattern: /static/**
-
-############################################################
-#############  国际化配置
-############################################################
-  messages:
-    # 支持多个国际化资源文件
-    basename: i18n/messages,i18n/validation
-    encoding: UTF-8
-    cache-duration: 3600
-    fallback-to-system-locale: true
-
-############################################################
-#############  Actuator 监控配置
-############################################################
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,conditions
-  endpoint:
-    health:
-      show-details: when_authorized
-
-############################################################
-#############  应用基础信息
-############################################################
-info:
-  app:
-    name: ${spring.application.name}
-    description: ps-be
     version: 2.2.2-SNAPSHOT
-    encoding: UTF-8
-    java:
-      version: ${java.version}
+    description: "PS-BMP Backend System - Enhanced Configuration"
+  monitor:
+    enabled: true
+    server-url: http://localhost:8082/ps-be
+    client-id: ps-bmp-backend-enhanced
+  # 简化的安全配置用于测试
+  security:
+    jwt:
+      secret: ps-be-jwt-secret-key-2024-enhanced-configuration-system-test
 
 ############################################################
-#############  默认日志配置（各环境可覆盖）
-############################################################  
-logging:
-  config: classpath:config/log/logback-spring.xml
-  level:
-    root: INFO
-    com.jiuxi: INFO
+#############  向后兼容性说明
+############################################################
+# 原有的配置文件仍然保持有效，新配置系统与旧配置并存
+# 迁移过程中可以逐步将配置迁移到新的配置属性中
+# 旧配置优先级高于新配置，确保不影响现有功能
+############################################################

@@ -8,7 +8,10 @@ import com.jiuxi.common.bean.ErrorCode;
  * @Author: System
  * @Date: 2025/01/07
  * @Copyright: 2025 www.jiuxi.com Inc. All rights reserved.
+ * 
+ * @deprecated 请使用 {@link com.jiuxi.shared.common.exception.BusinessException} 替代
  */
+@Deprecated
 public class BusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;

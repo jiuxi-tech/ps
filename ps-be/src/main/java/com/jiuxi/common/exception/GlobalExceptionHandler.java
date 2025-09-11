@@ -26,8 +26,11 @@ import java.util.Set;
  * @Author: System
  * @Date: 2025/01/07
  * @Copyright: 2025 www.jiuxi.com Inc. All rights reserved.
+ * 
+ * @deprecated 请使用 {@link com.jiuxi.shared.common.handler.GlobalExceptionHandler} 替代
  */
-@RestControllerAdvice
+@Deprecated
+@RestControllerAdvice("com.jiuxi.common")
 public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
