@@ -162,15 +162,7 @@ public class IpAccessControlInterceptor implements HandlerInterceptor {
         }
         return TpIpAccessLog.DENY_REASON_OTHER;
     }
-    
 
-    
-
-    
-
-    
-
-    
     /**
      * 访问结果内部类
      */
