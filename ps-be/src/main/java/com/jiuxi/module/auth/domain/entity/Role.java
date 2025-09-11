@@ -70,6 +70,31 @@ public class Role {
     private DataScope dataScope;
     
     /**
+     * 数据权限实体
+     */
+    private DataPermission dataPermission;
+    
+    /**
+     * 父角色ID（用于权限继承）
+     */
+    private String parentRoleId;
+    
+    /**
+     * 角色层级
+     */
+    private Integer roleLevel;
+    
+    /**
+     * 角色路径（用于权限继承计算）
+     */
+    private String rolePath;
+    
+    /**
+     * 是否继承父角色权限
+     */
+    private Boolean inheritParentPermissions;
+    
+    /**
      * 排序序号
      */
     private Integer orderIndex;
@@ -98,6 +123,8 @@ public class Role {
         this.status = RoleStatus.ACTIVE;
         this.builtIn = false;
         this.dataScope = DataScope.DEPT;
+        this.inheritParentPermissions = true;
+        this.roleLevel = 1;
     }
     
     public Role(String roleCode, String roleName, RoleType roleType) {
@@ -204,6 +231,78 @@ public class Role {
      */
     public void setAsBuiltIn() {
         this.builtIn = true;
+    }
+    
+    /**
+     * 设置父角色
+     */
+    public void setParentRole(String parentRoleId, Integer parentRoleLevel, String parentRolePath) {
+        this.parentRoleId = parentRoleId;
+        this.roleLevel = parentRoleLevel != null ? parentRoleLevel + 1 : 1;
+        this.rolePath = buildRolePath(parentRolePath, this.roleId);
+    }
+    
+    /**
+     * 构建角色路径
+     */
+    private String buildRolePath(String parentRolePath, String currentRoleId) {
+        if (parentRolePath == null || parentRolePath.trim().isEmpty()) {
+            return currentRoleId;
+        }
+        return parentRolePath + "/" + currentRoleId;
+    }
+    
+    /**
+     * 检查是否继承父角色权限
+     */
+    public boolean shouldInheritParentPermissions() {
+        return Boolean.TRUE.equals(this.inheritParentPermissions) && this.parentRoleId != null;
+    }
+    
+    /**
+     * 启用权限继承
+     */
+    public void enablePermissionInheritance() {
+        this.inheritParentPermissions = true;
+    }
+    
+    /**
+     * 禁用权限继承
+     */
+    public void disablePermissionInheritance() {
+        this.inheritParentPermissions = false;
+    }
+    
+    /**
+     * 检查是否是子角色
+     */
+    public boolean isChildRole() {
+        return this.parentRoleId != null && !this.parentRoleId.trim().isEmpty();
+    }
+    
+    /**
+     * 检查是否是根角色
+     */
+    public boolean isRootRole() {
+        return this.parentRoleId == null || this.parentRoleId.trim().isEmpty();
+    }
+    
+    /**
+     * 获取所有有效权限（包括继承的权限）
+     * 注意：此方法需要在应用服务层实现完整的权限继承逻辑
+     */
+    public List<Permission> getAllEffectivePermissions() {
+        // 返回直接权限，继承权限的合并需要在领域服务中实现
+        return new ArrayList<>(this.permissions);
+    }
+    
+    /**
+     * 获取所有有效菜单（包括继承的菜单）
+     * 注意：此方法需要在应用服务层实现完整的菜单继承逻辑
+     */
+    public List<Menu> getAllEffectiveMenus() {
+        // 返回直接菜单，继承菜单的合并需要在领域服务中实现
+        return new ArrayList<>(this.menus);
     }
     
     // Getters and Setters
@@ -341,6 +440,46 @@ public class Role {
     
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
+    }
+    
+    public DataPermission getDataPermission() {
+        return dataPermission;
+    }
+    
+    public void setDataPermission(DataPermission dataPermission) {
+        this.dataPermission = dataPermission;
+    }
+    
+    public String getParentRoleId() {
+        return parentRoleId;
+    }
+    
+    public void setParentRoleId(String parentRoleId) {
+        this.parentRoleId = parentRoleId;
+    }
+    
+    public Integer getRoleLevel() {
+        return roleLevel;
+    }
+    
+    public void setRoleLevel(Integer roleLevel) {
+        this.roleLevel = roleLevel;
+    }
+    
+    public String getRolePath() {
+        return rolePath;
+    }
+    
+    public void setRolePath(String rolePath) {
+        this.rolePath = rolePath;
+    }
+    
+    public Boolean getInheritParentPermissions() {
+        return inheritParentPermissions;
+    }
+    
+    public void setInheritParentPermissions(Boolean inheritParentPermissions) {
+        this.inheritParentPermissions = inheritParentPermissions;
     }
     
     @Override
