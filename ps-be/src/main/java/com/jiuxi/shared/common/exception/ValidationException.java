@@ -111,6 +111,14 @@ public class ValidationException extends BaseException {
     }
 
     /**
+     * 静态工厂方法 - 使用错误代码和消息
+     */
+    public static ValidationException of(String errorCode, String message) {
+        ValidationException ex = new ValidationException(message);
+        return ex;
+    }
+
+    /**
      * 静态工厂方法
      */
     public static ValidationException of(String message, Map<String, List<String>> validationErrors) {

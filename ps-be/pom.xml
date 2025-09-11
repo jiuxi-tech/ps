@@ -4,18 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.7.18</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <groupId>com.topinfo.basic.platform</groupId>
     <artifactId>ps-bmp-backend</artifactId>
     <version>2.2.2-SNAPSHOT</version>
@@ -25,36 +13,96 @@
     <description>Backend application for PS BMP system</description>
 
     <properties>
+        <!-- 项目配置 -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <!-- 主要框架版本 -->
+        <spring-boot.version>2.7.18</spring-boot.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+        
+        <!-- 数据库和连接池版本 -->
+        <mariadb.version>3.1.4</mariadb.version>
+        <druid.version>1.2.20</druid.version>
+        
+        <!-- 安全和认证版本 -->
+        <shiro.version>1.10.1</shiro.version>
+        <keycloak.version>22.0.5</keycloak.version>
+        <jjwt.version>0.11.5</jjwt.version>
+        <auth0-jwt.version>4.2.1</auth0-jwt.version>
+        <bcprov.version>1.70</bcprov.version>
+        
+        <!-- 工具库版本 -->
+        <hutool.version>5.8.16</hutool.version>
+        <fastjson.version>1.2.83</fastjson.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <lombok.version>1.18.26</lombok.version>
+        <okhttp.version>4.10.0</okhttp.version>
+        <httpclient.version>4.5.14</httpclient.version>
+        <jsoup.version>1.15.4</jsoup.version>
+        
+        <!-- 地理空间库版本 -->
+        <spatial4j.version>0.7</spatial4j.version>
+        <jts-core.version>1.15.0</jts-core.version>
+        
+        <!-- 系统监控版本 -->
+        <oshi.version>6.4.0</oshi.version>
+        <jna.version>5.12.1</jna.version>
+        
+        <!-- 文档处理版本 -->
+        <poi.version>5.2.4</poi.version>
+        
+        <!-- 日志版本 -->
+        <commons-logging.version>1.2</commons-logging.version>
+        
+        <!-- 已弃用的组件 -->
         <topinfo-platform.version>2.2.2-SNAPSHOT</topinfo-platform.version>
-
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot BOM - 统一管理Spring Boot相关依赖版本 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-        <!-- Spring Boot Starters -->
+        <!-- ========================================= -->
+        <!-- Spring Boot 核心启动器                    -->
+        <!-- ========================================= -->
+        
+        <!-- Web应用启动器 - 包含Spring MVC、Tomcat、Jackson等 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         
+        <!-- JDBC支持 - 数据库连接和事务管理 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         
+        <!-- AOP支持 - 面向切面编程，用于日志、事务等 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         
+        <!-- 数据验证 - JSR-303 Bean Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         
-        <!-- Spring Boot DevTools for hot reload -->
+        <!-- 开发工具 - 热重载、LiveReload等 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -62,78 +110,82 @@
             <optional>true</optional>
         </dependency>
         
-        <!-- Spring Boot Mail Starter -->
+        <!-- 邮件发送支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         
-        <!-- Spring Boot Security Starter -->
+        <!-- Spring Security安全框架 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         
-        <!-- Spring Boot Thymeleaf Starter -->
+        <!-- Thymeleaf模板引擎 - 用于服务端渲染 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         
-        <!-- Spring TX for DuplicateKeyException -->
+        <!-- Spring 事务管理 - 处理DuplicateKeyException等 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
         </dependency>
+
+        <!-- ========================================= -->
+        <!-- 缓存和数据存储                            -->
+        <!-- ========================================= -->
         
-        <!-- Apache Commons Logging -->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.2</version>
-        </dependency>
-        
-        <!-- OSHI for system information -->
-        <dependency>
-            <groupId>com.github.oshi</groupId>
-            <artifactId>oshi-core</artifactId>
-            <version>6.4.0</version>
-        </dependency>
-        
-        <!-- JNA for OSHI -->
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
-            <version>5.12.1</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna-platform</artifactId>
-            <version>5.12.1</version>
-        </dependency>
-        
-        <!-- Spring Data Redis -->
+        <!-- Redis支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         
-        <!-- Redisson -->
-        <!-- <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.17.7</version>
-        </dependency> -->
+        <!-- 缓存抽象 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
         
-        <!-- MyBatis Plus -->
+        <!-- EhCache本地缓存实现 -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+
+        <!-- ========================================= -->
+        <!-- 数据库和持久层                            -->
+        <!-- ========================================= -->
+        
+        <!-- MyBatis Plus - 增强版MyBatis -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.3.1</version>
+            <version>${mybatis-plus.version}</version>
         </dependency>
         
-        <!-- Jackson for JSON processing -->
+        <!-- MariaDB/MySQL JDBC驱动 -->
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>${mariadb.version}</version>
+        </dependency>
+
+        <!-- Druid数据源 - 阿里巴巴数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+
+        <!-- ========================================= -->
+        <!-- JSON处理                                 -->
+        <!-- ========================================= -->
+        
+        <!-- Jackson核心库 - Spring Boot默认JSON处理器 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -149,29 +201,192 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
 
-
-
-        <!-- External Dependencies -->
-        <dependency>
-            <groupId>org.locationtech.spatial4j</groupId>
-            <artifactId>spatial4j</artifactId>
-            <version>0.7</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.locationtech.jts</groupId>
-            <artifactId>jts-core</artifactId>
-            <version>1.15.0</version>
-        </dependency>
-
-        <!-- External dependencies - removed unavailable topinfo dependencies -->
-
+        <!-- FastJSON - 阿里巴巴JSON处理库 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.83</version>
+            <version>${fastjson.version}</version>
         </dependency>
 
+        <!-- ========================================= -->
+        <!-- 安全和认证                               -->
+        <!-- ========================================= -->
+        
+        <!-- Apache Shiro安全框架 -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring-boot-web-starter</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+        
+        <!-- Keycloak管理客户端 - 用户管理和认证 -->
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-admin-client</artifactId>
+            <version>${keycloak.version}</version>
+        </dependency>
+        
+        <!-- Keycloak核心库 -->
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-core</artifactId>
+            <version>${keycloak.version}</version>
+        </dependency>
+        
+        <!-- JWT处理库 - 主要JWT库 -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- Auth0 JWT库 - 备用JWT处理库 -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${auth0-jwt.version}</version>
+        </dependency>
+        
+        <!-- BouncyCastle加密库 - 提供额外的加密算法支持 -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>${bcprov.version}</version>
+        </dependency>
+
+        <!-- ========================================= -->
+        <!-- 网络和HTTP客户端                         -->
+        <!-- ========================================= -->
+        
+        <!-- OkHttp客户端 -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+        </dependency>
+        
+        <!-- Apache HttpClient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+
+        <!-- ========================================= -->
+        <!-- 工具类库                                 -->
+        <!-- ========================================= -->
+        
+        <!-- Hutool工具类库 - 中国人开发的Java工具包 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+        
+        <!-- Apache Commons Lang3 - 常用工具类 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        
+        <!-- JSoup - HTML解析和XSS过滤 -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
+        </dependency>
+        
+        <!-- Lombok - 简化Java代码 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ========================================= -->
+        <!-- 地理空间处理                             -->
+        <!-- ========================================= -->
+        
+        <!-- Spatial4j - 地理空间库 -->
+        <dependency>
+            <groupId>org.locationtech.spatial4j</groupId>
+            <artifactId>spatial4j</artifactId>
+            <version>${spatial4j.version}</version>
+        </dependency>
+        
+        <!-- JTS几何库 -->
+        <dependency>
+            <groupId>org.locationtech.jts</groupId>
+            <artifactId>jts-core</artifactId>
+            <version>${jts-core.version}</version>
+        </dependency>
+
+        <!-- ========================================= -->
+        <!-- 系统监控和信息获取                        -->
+        <!-- ========================================= -->
+        
+        <!-- OSHI系统信息库 - 获取系统硬件信息 -->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>${oshi.version}</version>
+        </dependency>
+        
+        <!-- JNA - Java调用本地库 -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>${jna.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>${jna.version}</version>
+        </dependency>
+
+        <!-- ========================================= -->
+        <!-- 文档处理                                 -->
+        <!-- ========================================= -->
+        
+        <!-- Apache POI - Excel文档处理 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <!-- ========================================= -->
+        <!-- 日志处理                                 -->
+        <!-- ========================================= -->
+        
+        <!-- Apache Commons Logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons-logging.version}</version>
+        </dependency>
+        
+        <!-- Logback日志实现 - Spring Boot默认日志框架 -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -181,156 +396,40 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
         </dependency>
-
-        <!-- Removed topinfo-platform-plugin-api as it's not available -->
-
-        <!-- MariaDB JDBC驱动 -->
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-        </dependency>
-
-        <!-- Druid数据源 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.20</version>
-        </dependency>
-
+        
+        <!-- Spring Expression Language -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
         </dependency>
 
+        <!-- ========================================= -->
+        <!-- 测试依赖                                 -->
+        <!-- ========================================= -->
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- EhCache依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
+        <!-- ========================================= -->
+        <!-- 已注释的依赖（保留用于参考）               -->
+        <!-- ========================================= -->
         
+        <!-- Redisson - Redis分布式服务（当前未使用） -->
+        <!-- 
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.17.7</version>
         </dependency>
-        
-        <!-- Hutool工具类库 -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.16</version>
-        </dependency>
-        
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- OkHttp -->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.10.0</version>
-        </dependency>
-        
-        <!-- JWT -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>0.11.5</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.5</version>
-            <scope>runtime</scope>
-        </dependency>
-        
-        <!-- BouncyCastle -->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.70</version>
-        </dependency>
-        
-        <!-- Auth0 JWT -->
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-        
-        <!-- Apache HttpClient -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.14</version>
-        </dependency>
-        
-        <!-- Apache Commons Lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
-        </dependency>
-        
-        <!-- JSoup for HTML parsing and XSS filtering -->
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.15.4</version>
-        </dependency>
-        
-        <!-- Apache Shiro -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring-boot-web-starter</artifactId>
-            <version>1.10.1</version>
-        </dependency>
-        
-        <!-- Keycloak Admin Client -->
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-admin-client</artifactId>
-            <version>22.0.5</version>
-        </dependency>
-        
-        <!-- Keycloak Core -->
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-core</artifactId>
-            <version>22.0.5</version>
-        </dependency>
-        
-        <!-- Apache POI for Excel processing -->
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>5.2.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>5.2.4</version>
-        </dependency>
+        -->
     </dependencies>
 
     <build>
         <resources>
+            <!-- 主资源目录 -->
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
@@ -338,7 +437,8 @@
                 </includes>
                 <filtering>false</filtering>
             </resource>
-           <!-- 将sql文件整体打包到META-INF目录中 -->
+            
+            <!-- SQL脚本资源 - 将sql文件整体打包到META-INF目录中 -->
             <resource>
                 <directory>sql</directory>
                 <includes>
@@ -347,8 +447,9 @@
                 <targetPath>META-INF/sql</targetPath>
             </resource>
         </resources>
+        
         <plugins>
-            <!-- 解决failOnMissingWebXml错误 -->
+            <!-- Maven WAR插件 - 解决failOnMissingWebXml错误 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -357,6 +458,8 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+            
+            <!-- Maven编译器插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -370,10 +473,12 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
+            
+            <!-- Spring Boot Maven插件 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.7.18</version>
+                <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.jiuxi.Application</mainClass>
                 </configuration>
