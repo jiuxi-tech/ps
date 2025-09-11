@@ -77,4 +77,24 @@ public interface UserRepository {
      * 删除用户（逻辑删除）
      */
     void deleteById(String userId);
+    
+    /**
+     * 分页查询用户
+     */
+    List<User> findUsers(String tenantId, String deptId, String keyword, Integer pageNum, Integer pageSize);
+    
+    /**
+     * 统计用户数量
+     */
+    long countUsers(String tenantId, String deptId, String keyword);
+    
+    /**
+     * 查找有账户的用户
+     */
+    List<User> findUsersWithAccount(String tenantId);
+    
+    /**
+     * 查找某个状态的用户
+     */
+    List<User> findByStatus(Integer status, String tenantId);
 }
