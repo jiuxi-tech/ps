@@ -19,7 +19,12 @@ public class Department {
     private String deptId;
     
     /**
-     * 部门名称
+     * 部门编号
+     */
+    private String deptNo;
+    
+    /**
+     * 部门名称（对应deptFullName）
      */
     private String deptName;
     
@@ -39,6 +44,11 @@ public class Department {
     private String parentDeptId;
     
     /**
+     * 部门层级编码（对应deptLevelcode）
+     */
+    private String deptLevelCode;
+    
+    /**
      * 部门层级路径
      */
     private String deptPath;
@@ -49,7 +59,7 @@ public class Department {
     private Integer deptLevel;
     
     /**
-     * 排序序号
+     * 排序序号（对应orderIndex）
      */
     private Integer orderIndex;
     
@@ -64,9 +74,14 @@ public class Department {
     private DepartmentType type;
     
     /**
-     * 部门负责人
+     * 部门负责人ID
      */
     private String managerId;
+    
+    /**
+     * 部门负责人（对应principalName）
+     */
+    private String principalName;
     
     /**
      * 联系电话
@@ -82,6 +97,41 @@ public class Department {
      * 部门描述
      */
     private String description;
+    
+    /**
+     * 负责人电话（对应principalTel）
+     */
+    private String principalTel;
+    
+    /**
+     * 部门类别 政府or企业（对应category）
+     */
+    private Integer category;
+    
+    /**
+     * 行政区划code（对应cityCode）
+     */
+    private String cityCode;
+    
+    /**
+     * 所属机构（单位）id（对应ascnId）
+     */
+    private String ascnId;
+    
+    /**
+     * 是否启用（对应enabled）
+     */
+    private Integer enabled;
+    
+    /**
+     * 是否叶子节点（对应leaf）
+     */
+    private Integer leaf;
+    
+    /**
+     * 部门描述（对应deptDesc）
+     */
+    private String deptDesc;
     
     /**
      * 子部门列表
@@ -230,6 +280,14 @@ public class Department {
         return deptId;
     }
     
+    public String getDeptNo() {
+        return deptNo;
+    }
+    
+    public void setDeptNo(String deptNo) {
+        this.deptNo = deptNo;
+    }
+    
     public void setDeptId(String deptId) {
         this.deptId = deptId;
     }
@@ -280,6 +338,14 @@ public class Department {
     
     public void setDeptLevel(Integer deptLevel) {
         this.deptLevel = deptLevel;
+    }
+    
+    public String getDeptLevelCode() {
+        return deptLevelCode;
+    }
+    
+    public void setDeptLevelCode(String deptLevelCode) {
+        this.deptLevelCode = deptLevelCode;
     }
     
     public Integer getOrderIndex() {
@@ -336,6 +402,70 @@ public class Department {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public String getPrincipalName() {
+        return principalName;
+    }
+    
+    public void setPrincipalName(String principalName) {
+        this.principalName = principalName;
+    }
+    
+    public String getPrincipalTel() {
+        return principalTel;
+    }
+    
+    public void setPrincipalTel(String principalTel) {
+        this.principalTel = principalTel;
+    }
+    
+    public Integer getCategory() {
+        return category;
+    }
+    
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
+    
+    public String getCityCode() {
+        return cityCode;
+    }
+    
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+    
+    public String getAscnId() {
+        return ascnId;
+    }
+    
+    public void setAscnId(String ascnId) {
+        this.ascnId = ascnId;
+    }
+    
+    public Integer getEnabled() {
+        return enabled;
+    }
+    
+    public void setEnabled(Integer enabled) {
+        this.enabled = enabled;
+    }
+    
+    public Integer getLeaf() {
+        return leaf;
+    }
+    
+    public void setLeaf(Integer leaf) {
+        this.leaf = leaf;
+    }
+    
+    public String getDeptDesc() {
+        return deptDesc;
+    }
+    
+    public void setDeptDesc(String deptDesc) {
+        this.deptDesc = deptDesc;
     }
     
     public List<Department> getChildren() {
