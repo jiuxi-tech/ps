@@ -174,9 +174,62 @@ public class UserApplicationService {
      */
     @Transactional(readOnly = true)
     public List<UserResponseDTO> getUserPage(UserQueryDTO queryDTO) {
-        // 这里需要在基础设施层实现具体的分页查询逻辑
-        // 暂时返回空实现，待基础设施层完成后补充
-        throw new UnsupportedOperationException("分页查询功能待基础设施层实现");
+        // 构建查询关键字
+        String keyword = buildSearchKeyword(queryDTO);
+        
+        // 调用仓储层分页查询
+        List<User> users = userRepository.findUsers(
+            queryDTO.getTenantId(),
+            queryDTO.getDeptId(), 
+            keyword,
+            queryDTO.getCurrent(),
+            queryDTO.getSize()
+        );
+        
+        // 转换为响应DTO
+        return users.stream()
+                .map(userAssembler::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+    
+    /**
+     * 构建搜索关键字
+     */
+    private String buildSearchKeyword(UserQueryDTO queryDTO) {
+        StringBuilder keyword = new StringBuilder();
+        
+        if (queryDTO.getPersonName() != null && !queryDTO.getPersonName().trim().isEmpty()) {
+            if (keyword.length() > 0) keyword.append(" ");
+            keyword.append(queryDTO.getPersonName().trim());
+        }
+        
+        if (queryDTO.getPhone() != null && !queryDTO.getPhone().trim().isEmpty()) {
+            if (keyword.length() > 0) keyword.append(" ");
+            keyword.append(queryDTO.getPhone().trim());
+        }
+        
+        if (queryDTO.getUsername() != null && !queryDTO.getUsername().trim().isEmpty()) {
+            if (keyword.length() > 0) keyword.append(" ");
+            keyword.append(queryDTO.getUsername().trim());
+        }
+        
+        return keyword.length() > 0 ? keyword.toString() : null;
+    }
+    
+    /**
+     * 查询用户总数
+     */
+    @Transactional(readOnly = true)
+    public long getUserCount(UserQueryDTO queryDTO) {
+        // 构建查询关键字
+        String keyword = buildSearchKeyword(queryDTO);
+        
+        // 调用仓储层查询总数
+        return userRepository.countUsers(
+            queryDTO.getTenantId(),
+            queryDTO.getDeptId(),
+            keyword
+        );
     }
     
     /**

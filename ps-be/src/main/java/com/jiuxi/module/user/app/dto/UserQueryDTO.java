@@ -8,6 +8,7 @@ package com.jiuxi.module.user.app.dto;
  */
 public class UserQueryDTO {
     
+    private String tenantId;
     private String deptId;
     private String personName;
     private String phone;
@@ -21,6 +22,14 @@ public class UserQueryDTO {
     private Integer size = 10;
     
     // Getters and Setters
+    public String getTenantId() {
+        return tenantId;
+    }
+    
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+    
     public String getDeptId() {
         return deptId;
     }
