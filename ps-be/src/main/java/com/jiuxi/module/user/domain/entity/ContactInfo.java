@@ -1,5 +1,8 @@
 package com.jiuxi.module.user.domain.entity;
 
+import com.jiuxi.module.user.domain.valueobject.Email;
+import com.jiuxi.module.user.domain.valueobject.PhoneNumber;
+
 import java.util.Objects;
 
 /**
@@ -13,12 +16,12 @@ public class ContactInfo {
     /**
      * 手机号码
      */
-    private String phone;
+    private PhoneNumber phone;
     
     /**
      * 邮箱地址
      */
-    private String email;
+    private Email email;
     
     /**
      * 固定电话
@@ -35,14 +38,14 @@ public class ContactInfo {
     }
     
     public ContactInfo(String phone, String email, String tel) {
-        this.phone = phone;
-        this.email = email;
+        this.phone = phone != null ? PhoneNumber.of(phone) : PhoneNumber.empty();
+        this.email = email != null ? Email.of(email) : Email.empty();
         this.tel = tel;
     }
     
     public ContactInfo(String phone, String email, String tel, String address) {
-        this.phone = phone;
-        this.email = email;
+        this.phone = phone != null ? PhoneNumber.of(phone) : PhoneNumber.empty();
+        this.email = email != null ? Email.of(email) : Email.empty();
         this.tel = tel;
         this.address = address;
     }
@@ -51,58 +54,60 @@ public class ContactInfo {
      * 检查手机号是否有效
      */
     public boolean isValidPhone() {
-        return phone != null && phone.matches("^1[3-9]\\d{9}$");
+        return phone != null && phone.isValid();
     }
     
     /**
      * 检查邮箱是否有效
      */
     public boolean isValidEmail() {
-        if (email == null || email.trim().isEmpty()) {
-            return false;
-        }
-        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+        return email != null && email.isValid();
     }
     
     /**
      * 获取脱敏手机号
      */
     public String getMaskedPhone() {
-        if (phone == null || phone.length() < 11) {
-            return phone;
-        }
-        return phone.substring(0, 3) + "****" + phone.substring(7);
+        return phone != null ? phone.getMaskedValue() : "";
     }
     
     /**
      * 获取脱敏邮箱
      */
     public String getMaskedEmail() {
-        if (email == null || !email.contains("@")) {
-            return email;
-        }
-        String[] parts = email.split("@");
-        String localPart = parts[0];
-        if (localPart.length() <= 2) {
-            return localPart + "***@" + parts[1];
-        }
-        return localPart.substring(0, 2) + "***@" + parts[1];
+        return email != null ? email.getMaskedValue() : "";
     }
     
     // Getters and Setters
     public String getPhone() {
-        return phone;
+        return phone != null ? phone.getValue() : null;
     }
     
     public void setPhone(String phone) {
+        this.phone = phone != null ? PhoneNumber.of(phone) : PhoneNumber.empty();
+    }
+    
+    public PhoneNumber getPhoneValue() {
+        return phone;
+    }
+    
+    public void setPhoneValue(PhoneNumber phone) {
         this.phone = phone;
     }
     
     public String getEmail() {
-        return email;
+        return email != null ? email.getValue() : null;
     }
     
     public void setEmail(String email) {
+        this.email = email != null ? Email.of(email) : Email.empty();
+    }
+    
+    public Email getEmailValue() {
+        return email;
+    }
+    
+    public void setEmailValue(Email email) {
         this.email = email;
     }
     

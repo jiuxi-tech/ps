@@ -1,6 +1,13 @@
 package com.jiuxi.module.user.domain.entity;
 
+import com.jiuxi.module.user.domain.event.UserCreatedEvent;
+import com.jiuxi.module.user.domain.event.UserAccountCreatedEvent;
+import com.jiuxi.module.user.domain.event.UserProfileUpdatedEvent;
+import com.jiuxi.module.user.domain.event.UserEvent;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -64,6 +71,11 @@ public class User {
      */
     private String tenantId;
     
+    /**
+     * 未发布的领域事件
+     */
+    private final List<UserEvent> domainEvents = new ArrayList<>();
+    
     // 构造器
     public User() {
     }
@@ -76,21 +88,65 @@ public class User {
     }
     
     /**
+     * 创建新用户（工厂方法）
+     */
+    public static User create(String personId, UserProfile profile, UserCategory category, String creator, String tenantId) {
+        User user = new User();
+        user.personId = personId;
+        user.profile = profile;
+        user.category = category;
+        user.status = UserStatus.ACTIVE;
+        user.creator = creator;
+        user.createTime = LocalDateTime.now();
+        user.tenantId = tenantId;
+        
+        // 发布用户创建事件
+        user.addDomainEvent(new UserCreatedEvent(
+            personId, 
+            profile != null ? profile.getPersonName() : null, 
+            category, 
+            creator, 
+            tenantId
+        ));
+        
+        return user;
+    }
+    
+    /**
      * 创建用户账户
      */
-    public void createAccount(String username, String password) {
+    public void createAccount(String username, String password, String creator) {
         if (this.account != null) {
             throw new IllegalStateException("用户已存在账户");
         }
         this.account = new UserAccount(username, password, this.personId);
+        this.updateTime = LocalDateTime.now();
+        this.updator = creator;
+        
+        // 发布账户创建事件
+        addDomainEvent(new UserAccountCreatedEvent(
+            this.personId, 
+            this.account.getAccountId(), 
+            username, 
+            creator
+        ));
     }
     
     /**
      * 更新用户资料
      */
-    public void updateProfile(UserProfile newProfile) {
+    public void updateProfile(UserProfile newProfile, String updator, String[] updatedFields, String reason) {
         this.profile = newProfile;
         this.updateTime = LocalDateTime.now();
+        this.updator = updator;
+        
+        // 发布资料更新事件
+        addDomainEvent(new UserProfileUpdatedEvent(
+            this.personId, 
+            updator, 
+            updatedFields, 
+            reason
+        ));
     }
     
     /**
@@ -121,6 +177,34 @@ public class User {
      */
     public boolean hasAccount() {
         return this.account != null;
+    }
+    
+    /**
+     * 添加领域事件
+     */
+    private void addDomainEvent(UserEvent event) {
+        this.domainEvents.add(event);
+    }
+    
+    /**
+     * 获取未发布的领域事件
+     */
+    public List<UserEvent> getDomainEvents() {
+        return new ArrayList<>(domainEvents);
+    }
+    
+    /**
+     * 清除已发布的领域事件
+     */
+    public void clearDomainEvents() {
+        this.domainEvents.clear();
+    }
+    
+    /**
+     * 检查是否有未发布的事件
+     */
+    public boolean hasDomainEvents() {
+        return !domainEvents.isEmpty();
     }
     
     // Getters and Setters

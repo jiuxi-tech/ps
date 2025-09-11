@@ -64,7 +64,7 @@ public class UserApplicationService {
         userDomainService.validateUserCreation(user.getProfile(), createDTO.getUsername(), tenantId);
         
         // 创建账户
-        user.createAccount(createDTO.getUsername(), createDTO.getPassword());
+        user.createAccount(createDTO.getUsername(), createDTO.getPassword(), operator);
         
         // 设置审计信息
         user.setCreator(operator);
@@ -73,8 +73,8 @@ public class UserApplicationService {
         // 保存用户
         User savedUser = userRepository.save(user);
         
-        // 发布领域事件
-        eventPublisher.publishEvent(new UserCreatedEvent(savedUser, operator));
+        // 发布领域事件已在User.create()方法中处理，此处无需重复发布
+        // eventPublisher.publishEvent(new UserCreatedEvent(savedUser, operator));
         
         return savedUser.getPersonId();
     }

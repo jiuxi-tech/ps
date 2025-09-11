@@ -1,45 +1,82 @@
 package com.jiuxi.module.user.domain.event;
 
-import com.jiuxi.module.user.domain.entity.User;
-import java.time.LocalDateTime;
+import com.jiuxi.module.user.domain.entity.UserCategory;
 
 /**
  * 用户创建事件
  * 
- * @author DDD Refactor
- * @date 2025-09-06
+ * @author DDD Refactor Phase 4.3.1.1
+ * @date 2025-09-11
  */
-public class UserCreatedEvent {
+public class UserCreatedEvent extends UserEvent {
     
-    private final User user;
-    private final String operator;
-    private final LocalDateTime occurredOn;
+    /**
+     * 用户名称
+     */
+    private final String personName;
     
-    public UserCreatedEvent(User user, String operator) {
-        this.user = user;
-        this.operator = operator;
-        this.occurredOn = LocalDateTime.now();
+    /**
+     * 用户类别
+     */
+    private final UserCategory category;
+    
+    /**
+     * 创建者
+     */
+    private final String creator;
+    
+    /**
+     * 租户ID
+     */
+    private final String tenantId;
+    
+    public UserCreatedEvent(String personId, String personName, UserCategory category, String creator, String tenantId) {
+        super(personId);
+        this.personName = personName;
+        this.category = category;
+        this.creator = creator;
+        this.tenantId = tenantId;
     }
     
-    public User getUser() {
-        return user;
+    public String getPersonName() {
+        return personName;
     }
     
-    public String getOperator() {
-        return operator;
+    public UserCategory getCategory() {
+        return category;
     }
     
-    public LocalDateTime getOccurredOn() {
-        return occurredOn;
+    public String getCreator() {
+        return creator;
+    }
+    
+    public String getTenantId() {
+        return tenantId;
+    }
+    
+    @Override
+    public String getEventType() {
+        return "USER_CREATED";
+    }
+    
+    @Override
+    public String getEventDescription() {
+        return String.format("用户 %s 已创建，类别：%s，创建者：%s", 
+                           personName, 
+                           category != null ? category.getDescription() : "未知", 
+                           creator);
     }
     
     @Override
     public String toString() {
         return "UserCreatedEvent{" +
-                "userId='" + user.getPersonId() + '\'' +
-                ", userName='" + user.getProfile().getPersonName() + '\'' +
-                ", operator='" + operator + '\'' +
-                ", occurredOn=" + occurredOn +
+                "eventId='" + getEventId() + '\'' +
+                ", personId='" + getPersonId() + '\'' +
+                ", personName='" + personName + '\'' +
+                ", category=" + category +
+                ", creator='" + creator + '\'' +
+                ", tenantId='" + tenantId + '\'' +
+                ", occurredOn=" + getOccurredOn() +
                 '}';
     }
 }

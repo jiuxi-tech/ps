@@ -86,7 +86,7 @@ public class UserAssembler {
         profile.setProfilePhoto(dto.getProfilePhoto());
         profile.setContactInfo(contactInfo);
         
-        user.updateProfile(profile);
+        user.updateProfile(profile, "system", new String[]{"profile"}, "资料更新");
     }
     
     /**

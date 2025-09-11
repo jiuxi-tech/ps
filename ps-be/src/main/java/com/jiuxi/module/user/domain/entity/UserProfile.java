@@ -1,5 +1,9 @@
 package com.jiuxi.module.user.domain.entity;
 
+import com.jiuxi.module.user.domain.valueobject.UserName;
+import com.jiuxi.module.user.domain.valueobject.Email;
+import com.jiuxi.module.user.domain.valueobject.PhoneNumber;
+
 import java.util.Objects;
 
 /**
@@ -13,7 +17,7 @@ public class UserProfile {
     /**
      * 用户姓名
      */
-    private String personName;
+    private UserName personName;
     
     /**
      * 头像地址
@@ -75,12 +79,12 @@ public class UserProfile {
     }
     
     public UserProfile(String personName, String phone) {
-        this.personName = personName;
+        this.personName = UserName.of(personName);
         this.contactInfo = new ContactInfo(phone, null, null);
     }
     
     public UserProfile(String personName, String phone, String email, String tel) {
-        this.personName = personName;
+        this.personName = UserName.of(personName);
         this.contactInfo = new ContactInfo(phone, email, tel);
     }
     
@@ -95,7 +99,7 @@ public class UserProfile {
      * 检查是否有效用户名
      */
     public boolean isValidName() {
-        return personName != null && !personName.trim().isEmpty();
+        return personName != null && personName.isValid();
     }
     
     /**
@@ -113,10 +117,18 @@ public class UserProfile {
     
     // Getters and Setters
     public String getPersonName() {
-        return personName;
+        return personName != null ? personName.getValue() : null;
     }
     
     public void setPersonName(String personName) {
+        this.personName = personName != null ? UserName.of(personName) : null;
+    }
+    
+    public UserName getPersonNameValue() {
+        return personName;
+    }
+    
+    public void setPersonNameValue(UserName personName) {
         this.personName = personName;
     }
     
