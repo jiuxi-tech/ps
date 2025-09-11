@@ -4,6 +4,7 @@ import com.jiuxi.module.sys.domain.entity.ConfigStatus;
 import com.jiuxi.module.sys.domain.entity.ConfigType;
 import com.jiuxi.module.sys.domain.valueobject.ConfigKey;
 import com.jiuxi.module.sys.domain.valueobject.ConfigValue;
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ import java.util.regex.Pattern;
  * @author DDD Refactor
  * @date 2025-09-11
  */
+@Service
 public class ConfigValidationService {
     
     /**
