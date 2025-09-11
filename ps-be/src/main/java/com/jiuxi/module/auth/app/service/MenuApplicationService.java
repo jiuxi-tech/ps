@@ -238,4 +238,37 @@ public class MenuApplicationService {
     public List<Menu> getChildMenus(String parentMenuId, String tenantId) {
         return menuRepository.getChildMenus(parentMenuId, tenantId);
     }
+    
+    /**
+     * 批量获取菜单
+     * @param menuIds 菜单ID列表
+     * @param tenantId 租户ID
+     * @return 菜单列表
+     */
+    @Transactional(readOnly = true)
+    public List<Menu> getMenusByIds(List<String> menuIds, String tenantId) {
+        return menuRepository.findByIds(menuIds, tenantId);
+    }
+    
+    
+    /**
+     * 批量删除菜单
+     * @param menuIds 菜单ID列表
+     */
+    public void deleteMenus(List<String> menuIds) {
+        for (String menuId : menuIds) {
+            deleteMenu(menuId);
+        }
+    }
+    
+    /**
+     * 检查菜单编码是否存在
+     * @param menuCode 菜单编码
+     * @param tenantId 租户ID
+     * @return 是否存在
+     */
+    @Transactional(readOnly = true)
+    public boolean isMenuCodeExists(String menuCode, String tenantId) {
+        return menuRepository.findByMenuCode(menuCode, tenantId).isPresent();
+    }
 }

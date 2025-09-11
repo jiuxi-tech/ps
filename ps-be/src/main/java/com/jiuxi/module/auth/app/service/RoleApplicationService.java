@@ -4,9 +4,13 @@ import com.jiuxi.module.auth.domain.entity.Role;
 import com.jiuxi.module.auth.domain.entity.Permission;
 import com.jiuxi.module.auth.domain.entity.Menu;
 import com.jiuxi.module.auth.domain.repo.RoleRepository;
+import com.jiuxi.module.auth.domain.repo.PermissionRepository;
+import com.jiuxi.module.auth.domain.repo.MenuRepository;
 import com.jiuxi.module.auth.domain.service.RoleDomainService;
+import com.jiuxi.module.auth.domain.service.PermissionCacheService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,11 +29,21 @@ import java.util.UUID;
 public class RoleApplicationService {
     
     private final RoleRepository roleRepository;
+    private final PermissionRepository permissionRepository;
+    private final MenuRepository menuRepository;
     private final RoleDomainService roleDomainService;
+    private final PermissionCacheService permissionCacheService;
     
-    public RoleApplicationService(RoleRepository roleRepository, RoleDomainService roleDomainService) {
+    public RoleApplicationService(RoleRepository roleRepository,
+                                PermissionRepository permissionRepository,
+                                MenuRepository menuRepository,
+                                RoleDomainService roleDomainService,
+                                PermissionCacheService permissionCacheService) {
         this.roleRepository = roleRepository;
+        this.permissionRepository = permissionRepository;
+        this.menuRepository = menuRepository;
         this.roleDomainService = roleDomainService;
+        this.permissionCacheService = permissionCacheService;
     }
     
     /**
@@ -47,15 +61,38 @@ public class RoleApplicationService {
         Role role = new Role(roleCode, roleName, roleDomainService.getDefaultRoleType());
         role.setRoleId(UUID.randomUUID().toString());
         role.setRoleDesc(roleDesc);
-        role.setCreator(operator);
-        role.setCreateTime(LocalDateTime.now());
         role.setTenantId(tenantId);
         
-        // 业务规则验证
-        roleDomainService.validateForCreate(role, tenantId);
+        // 使用领域服务创建角色（包含业务规则验证）
+        Role savedRole = roleDomainService.createRole(role, operator);
         
-        // 保存角色
-        Role savedRole = roleRepository.save(role);
+        return savedRole.getRoleId();
+    }
+    
+    /**
+     * 创建带父角色的角色
+     * @param roleCode 角色编码
+     * @param roleName 角色名称
+     * @param roleDesc 角色描述
+     * @param parentRoleId 父角色ID
+     * @param inheritParentPermissions 是否继承父角色权限
+     * @param operator 操作者
+     * @param tenantId 租户ID
+     * @return 角色ID
+     */
+    public String createRoleWithParent(String roleCode, String roleName, String roleDesc,
+                                     String parentRoleId, Boolean inheritParentPermissions,
+                                     String operator, String tenantId) {
+        // 创建角色聚合根
+        Role role = new Role(roleCode, roleName, roleDomainService.getDefaultRoleType());
+        role.setRoleId(UUID.randomUUID().toString());
+        role.setRoleDesc(roleDesc);
+        role.setParentRoleId(parentRoleId);
+        role.setInheritParentPermissions(inheritParentPermissions != null ? inheritParentPermissions : true);
+        role.setTenantId(tenantId);
+        
+        // 使用领域服务创建角色（包含业务规则验证和父角色关系处理）
+        Role savedRole = roleDomainService.createRole(role, operator);
         
         return savedRole.getRoleId();
     }
@@ -151,36 +188,66 @@ public class RoleApplicationService {
      * 为角色分配权限
      * @param roleId 角色ID
      * @param permissionIds 权限ID列表
+     * @param operator 操作者
+     */
+    public void assignPermissionsToRole(String roleId, List<String> permissionIds, String operator) {
+        // 使用领域服务分配权限（包含业务规则验证和缓存更新）
+        roleDomainService.assignPermissions(roleId, permissionIds, null, operator);
+    }
+    
+    /**
+     * 为角色分配权限（保持向后兼容）
+     * @param roleId 角色ID
+     * @param permissionIds 权限ID列表
      */
     public void assignPermissionsToRole(String roleId, List<String> permissionIds) {
-        Optional<Role> roleOpt = roleRepository.findById(roleId);
-        if (roleOpt.isEmpty()) {
-            throw new IllegalArgumentException("角色不存在: " + roleId);
-        }
-        
-        Role role = roleOpt.get();
-        
-        // 清空现有权限
-        role.clearPermissions();
-        
-        // 添加新权限
-        for (String permissionId : permissionIds) {
-            // 这里应该从权限仓储中获取权限对象
-            // 为简化示例，创建一个临时权限对象
-            Permission permission = new Permission();
-            permission.setPermissionId(permissionId);
-            role.addPermission(permission);
-        }
-        
-        roleRepository.save(role);
+        // 使用默认操作者调用增强版本
+        assignPermissionsToRole(roleId, permissionIds, "system");
     }
     
     /**
      * 为角色分配菜单
      * @param roleId 角色ID
      * @param menuIds 菜单ID列表
+     * @param operator 操作者
+     */
+    public void assignMenusToRole(String roleId, List<String> menuIds, String operator) {
+        // 使用领域服务分配菜单（包含业务规则验证和缓存更新）
+        roleDomainService.assignPermissions(roleId, null, menuIds, operator);
+    }
+    
+    /**
+     * 为角色分配菜单（保持向后兼容）
+     * @param roleId 角色ID
+     * @param menuIds 菜单ID列表
      */
     public void assignMenusToRole(String roleId, List<String> menuIds) {
+        // 使用默认操作者调用增强版本
+        assignMenusToRole(roleId, menuIds, "system");
+    }
+    
+    /**
+     * 为角色分配权限和菜单
+     * @param roleId 角色ID
+     * @param permissionIds 权限ID列表
+     * @param menuIds 菜单ID列表
+     * @param operator 操作者
+     */
+    public void assignPermissionsAndMenusToRole(String roleId, List<String> permissionIds, 
+                                               List<String> menuIds, String operator) {
+        // 使用领域服务分配权限和菜单（包含业务规则验证和缓存更新）
+        roleDomainService.assignPermissions(roleId, permissionIds, menuIds, operator);
+    }
+    
+    /**
+     * 更新角色层级关系
+     * @param roleId 角色ID
+     * @param parentRoleId 新的父角色ID
+     * @param inheritParentPermissions 是否继承父角色权限
+     * @param operator 操作者
+     */
+    public void updateRoleHierarchy(String roleId, String parentRoleId, 
+                                   Boolean inheritParentPermissions, String operator) {
         Optional<Role> roleOpt = roleRepository.findById(roleId);
         if (roleOpt.isEmpty()) {
             throw new IllegalArgumentException("角色不存在: " + roleId);
@@ -188,19 +255,66 @@ public class RoleApplicationService {
         
         Role role = roleOpt.get();
         
-        // 清空现有菜单
-        role.clearMenus();
-        
-        // 添加新菜单
-        for (String menuId : menuIds) {
-            // 这里应该从菜单仓储中获取菜单对象
-            // 为简化示例，创建一个临时菜单对象
-            Menu menu = new Menu();
-            menu.setMenuId(menuId);
-            role.addMenu(menu);
+        // 更新权限继承设置
+        if (inheritParentPermissions != null) {
+            if (inheritParentPermissions) {
+                role.enablePermissionInheritance();
+            } else {
+                role.disablePermissionInheritance();
+            }
         }
         
-        roleRepository.save(role);
+        // 使用领域服务更新层级关系
+        roleDomainService.updateRoleHierarchy(role, parentRoleId, operator);
+    }
+    
+    /**
+     * 获取角色的所有有效权限（包括继承权限）
+     * @param roleId 角色ID
+     * @return 权限列表
+     */
+    @Transactional(readOnly = true)
+    public List<Permission> getRoleEffectivePermissions(String roleId) {
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new IllegalArgumentException("角色不存在: " + roleId));
+        
+        return roleDomainService.getRoleEffectivePermissions(role);
+    }
+    
+    /**
+     * 获取角色的所有有效菜单（包括继承菜单）
+     * @param roleId 角色ID
+     * @return 菜单列表
+     */
+    @Transactional(readOnly = true)
+    public List<Menu> getRoleEffectiveMenus(String roleId) {
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new IllegalArgumentException("角色不存在: " + roleId));
+        
+        return roleDomainService.getRoleEffectiveMenus(role);
+    }
+    
+    /**
+     * 获取角色的子角色列表
+     * @param roleId 角色ID
+     * @return 子角色列表
+     */
+    @Transactional(readOnly = true)
+    public List<Role> getChildRoles(String roleId) {
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new IllegalArgumentException("角色不存在: " + roleId));
+        
+        return roleRepository.findByParentRoleId(roleId, role.getTenantId());
+    }
+    
+    /**
+     * 获取租户的所有根角色
+     * @param tenantId 租户ID
+     * @return 根角色列表
+     */
+    @Transactional(readOnly = true)
+    public List<Role> getRootRoles(String tenantId) {
+        return roleRepository.findRootRoles(tenantId);
     }
     
     /**
