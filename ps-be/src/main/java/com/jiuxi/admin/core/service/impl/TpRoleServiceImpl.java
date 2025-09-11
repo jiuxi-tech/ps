@@ -183,16 +183,11 @@ public class TpRoleServiceImpl implements TpRoleService {
             // 修改时间
             bean.setUpdateTime(now);
 
-            switch (category) {
-                case TpConstant.Category.ORG:
-                    bean.setCategory(TpConstant.Category.ORG);
-                    break;
-                case TpConstant.Category.ENT:
-                    bean.setRoleType(1);
-                    bean.setCategory(TpConstant.Category.ENT);
-                    break;
-                default:
-                    break;
+            if (category == TpConstant.Category.ORG) {
+                bean.setCategory(TpConstant.Category.ORG);
+            } else if (category == TpConstant.Category.ENT) {
+                bean.setRoleType(1);
+                bean.setCategory(TpConstant.Category.ENT);
             }
 
             // 新增角色
