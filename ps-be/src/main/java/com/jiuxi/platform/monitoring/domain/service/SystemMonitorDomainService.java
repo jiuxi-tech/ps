@@ -1,6 +1,8 @@
 package com.jiuxi.platform.monitoring.domain.service;
 
 import com.jiuxi.platform.monitoring.domain.entity.SystemMetrics;
+import com.jiuxi.platform.monitoring.domain.entity.MetricsRecord;
+import com.jiuxi.platform.monitoring.domain.repository.MetricsRepository;
 import com.jiuxi.platform.monitoring.domain.valueobject.MetricValue;
 import com.jiuxi.platform.monitoring.domain.valueobject.HealthStatus;
 import com.jiuxi.platform.monitoring.infrastructure.collector.MetricsCollector;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,11 +26,13 @@ public class SystemMonitorDomainService {
     
     private final Map<String, SystemMetrics> systemMetricsCache;
     private final List<MetricsCollector> metricsCollectors;
+    private final MetricsRepository metricsRepository;
     
     @Autowired
-    public SystemMonitorDomainService(List<MetricsCollector> metricsCollectors) {
+    public SystemMonitorDomainService(List<MetricsCollector> metricsCollectors, MetricsRepository metricsRepository) {
         this.systemMetricsCache = new ConcurrentHashMap<>();
         this.metricsCollectors = metricsCollectors;
+        this.metricsRepository = metricsRepository;
     }
     
     /**
@@ -43,6 +48,9 @@ public class SystemMonitorDomainService {
                 if (collector.isEnabled()) {
                     List<MetricValue> metrics = collector.collectMetrics();
                     systemMetrics.updateMetrics(metrics);
+                    
+                    // 持久化指标数据
+                    persistMetrics(instanceId, metrics);
                 }
             } catch (Exception e) {
                 System.err.println("收集器 " + collector.getCollectorName() + " 执行失败: " + e.getMessage());
@@ -217,6 +225,25 @@ public class SystemMonitorDomainService {
         
         return new MonitoringSummary(totalInstances, healthyInstances, warningInstances, 
                 unhealthyInstances, unknownInstances, metricsCollectors.size());
+    }
+    
+    /**
+     * 持久化指标数据
+     */
+    private void persistMetrics(String instanceId, List<MetricValue> metrics) {
+        try {
+            List<MetricsRecord> records = new ArrayList<>();
+            for (MetricValue metric : metrics) {
+                MetricsRecord record = new MetricsRecord(instanceId, metric);
+                records.add(record);
+            }
+            
+            if (!records.isEmpty()) {
+                metricsRepository.batchSave(records);
+            }
+        } catch (Exception e) {
+            System.err.println("持久化指标数据失败: " + e.getMessage());
+        }
     }
     
     /**
