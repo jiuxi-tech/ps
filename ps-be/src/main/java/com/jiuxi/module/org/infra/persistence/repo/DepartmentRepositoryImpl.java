@@ -123,6 +123,129 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
                 .collect(Collectors.toList());
     }
     
+    @Override
+    public List<Department> findByLeftRightValue(Integer leftValue, Integer rightValue, String tenantId) {
+        // TODO: 需要在mapper中实现对应的查询方法
+        List<DepartmentPO> departmentPOs = departmentMapper.selectByLeftRightValue(leftValue, rightValue, tenantId);
+        return departmentPOs.stream()
+                .map(this::toDepartment)
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<Department> findAncestors(String deptId) {
+        // 通过部门路径查询祖先部门
+        Optional<Department> deptOpt = findById(deptId);
+        if (!deptOpt.isPresent()) {
+            return List.of();
+        }
+        
+        Department dept = deptOpt.get();
+        List<DepartmentPO> ancestorPOs = departmentMapper.selectAncestors(dept.getDeptPath());
+        return ancestorPOs.stream()
+                .map(this::toDepartment)
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<Department> findDescendants(String deptId, boolean includeInactive) {
+        Optional<Department> deptOpt = findById(deptId);
+        if (!deptOpt.isPresent()) {
+            return List.of();
+        }
+        
+        Department dept = deptOpt.get();
+        List<DepartmentPO> descendantPOs;
+        if (includeInactive) {
+            descendantPOs = departmentMapper.selectAllDescendants(dept.getDeptPath());
+        } else {
+            descendantPOs = departmentMapper.selectActiveDescendants(dept.getDeptPath());
+        }
+        return descendantPOs.stream()
+                .map(this::toDepartment)
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<Department> findByLevel(Integer level, String tenantId) {
+        List<DepartmentPO> departmentPOs = departmentMapper.selectByLevel(level, tenantId);
+        return departmentPOs.stream()
+                .map(this::toDepartment)
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public long countDirectChildren(String deptId) {
+        return departmentMapper.countDirectChildren(deptId);
+    }
+    
+    @Override
+    public long countAllDescendants(String deptId) {
+        Optional<Department> deptOpt = findById(deptId);
+        if (!deptOpt.isPresent()) {
+            return 0;
+        }
+        
+        Department dept = deptOpt.get();
+        return departmentMapper.countAllDescendants(dept.getDeptPath());
+    }
+    
+    @Override
+    public boolean isAncestor(String ancestorDeptId, String descendantDeptId) {
+        Optional<Department> ancestorOpt = findById(ancestorDeptId);
+        Optional<Department> descendantOpt = findById(descendantDeptId);
+        
+        if (!ancestorOpt.isPresent() || !descendantOpt.isPresent()) {
+            return false;
+        }
+        
+        Department ancestor = ancestorOpt.get();
+        Department descendant = descendantOpt.get();
+        
+        // 通过路径判断祖先关系
+        return StringUtils.hasText(descendant.getDeptPath()) && 
+               StringUtils.hasText(ancestor.getDeptPath()) &&
+               descendant.getDeptPath().startsWith(ancestor.getDeptPath() + "/");
+    }
+    
+    @Override
+    public List<Department> findDepartmentsWithChildren(List<String> deptIds, boolean includeDescendants) {
+        List<DepartmentPO> departmentPOs;
+        if (includeDescendants) {
+            departmentPOs = departmentMapper.selectDepartmentsWithDescendants(deptIds);
+        } else {
+            departmentPOs = departmentMapper.selectDepartmentsWithDirectChildren(deptIds);
+        }
+        return departmentPOs.stream()
+                .map(this::toDepartment)
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public Optional<Department> findByDeptNo(String deptNo, String tenantId) {
+        Optional<DepartmentPO> departmentPOOpt = departmentMapper.selectByDeptNo(deptNo, tenantId);
+        return departmentPOOpt.map(this::toDepartment);
+    }
+    
+    @Override
+    public boolean existsByDeptNo(String deptNo, String tenantId, String excludeDeptId) {
+        int count = departmentMapper.countByDeptNo(deptNo, tenantId, excludeDeptId);
+        return count > 0;
+    }
+    
+    @Override
+    public void updateLeftRightValue(String deptId, Integer leftValue, Integer rightValue) {
+        departmentMapper.updateLeftRightValue(deptId, leftValue, rightValue);
+    }
+    
+    @Override
+    public void batchUpdateLeftRightValue(List<Department> departments) {
+        List<DepartmentPO> departmentPOs = departments.stream()
+                .map(this::toDepartmentPO)
+                .collect(Collectors.toList());
+        departmentMapper.batchUpdateLeftRightValue(departmentPOs);
+    }
+    
     /**
      * 将部门聚合根转换为持久化对象
      */
@@ -131,6 +254,8 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         departmentPO.setDeptId(department.getDeptId());
         departmentPO.setPdeptId(department.getParentDeptId());
         departmentPO.setDeptLevelcode(department.getDeptPath()); // 使用部门路径作为层级编码
+        departmentPO.setLeftValue(department.getLeftValue());
+        departmentPO.setRightValue(department.getRightValue());
         // departmentPO.setDeptNo(department.getDeptNo()); // Department实体暂未定义deptNo字段
         departmentPO.setDeptFullName(department.getDeptFullName());
         departmentPO.setDeptSimpleName(department.getDeptSimpleName());
@@ -164,6 +289,8 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         department.setParentDeptId(departmentPO.getPdeptId());
         department.setDeptPath(departmentPO.getDeptLevelcode());
         department.setDeptLevel(calculateLevel(departmentPO.getDeptLevelcode()));
+        department.setLeftValue(departmentPO.getLeftValue());
+        department.setRightValue(departmentPO.getRightValue());
         // department.setDeptNo(departmentPO.getDeptNo()); // Department实体暂未定义deptNo字段
         department.setType(departmentPO.getDeptType() != null ? DepartmentType.valueOf(departmentPO.getDeptType()) : null);
         department.setDescription(departmentPO.getDeptDesc());

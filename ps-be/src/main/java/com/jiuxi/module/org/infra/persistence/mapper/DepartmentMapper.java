@@ -115,4 +115,101 @@ public interface DepartmentMapper {
      * @return 部门列表（按层级排序）
      */
     List<DepartmentPO> selectDepartmentTree(@Param("tenantId") String tenantId);
+    
+    /**
+     * 根据左右值编码查询子部门
+     * @param leftValue 左值
+     * @param rightValue 右值
+     * @param tenantId 租户ID
+     * @return 子部门列表
+     */
+    List<DepartmentPO> selectByLeftRightValue(@Param("leftValue") Integer leftValue, @Param("rightValue") Integer rightValue, @Param("tenantId") String tenantId);
+    
+    /**
+     * 查询指定部门的祖先部门
+     * @param deptPath 部门路径
+     * @return 祖先部门列表
+     */
+    List<DepartmentPO> selectAncestors(@Param("deptPath") String deptPath);
+    
+    /**
+     * 查询所有后代部门（包含停用）
+     * @param deptPath 部门路径前缀
+     * @return 后代部门列表
+     */
+    List<DepartmentPO> selectAllDescendants(@Param("deptPath") String deptPath);
+    
+    /**
+     * 查询激活的后代部门
+     * @param deptPath 部门路径前缀
+     * @return 激活的后代部门列表
+     */
+    List<DepartmentPO> selectActiveDescendants(@Param("deptPath") String deptPath);
+    
+    /**
+     * 根据层级查询部门
+     * @param level 部门层级
+     * @param tenantId 租户ID
+     * @return 指定层级的部门列表
+     */
+    List<DepartmentPO> selectByLevel(@Param("level") Integer level, @Param("tenantId") String tenantId);
+    
+    /**
+     * 统计直接子部门数量
+     * @param deptId 部门ID
+     * @return 直接子部门数量
+     */
+    long countDirectChildren(@Param("deptId") String deptId);
+    
+    /**
+     * 统计所有后代部门数量
+     * @param deptPath 部门路径前缀
+     * @return 所有后代部门数量
+     */
+    long countAllDescendants(@Param("deptPath") String deptPath);
+    
+    /**
+     * 查询部门及其后代部门
+     * @param deptIds 部门ID列表
+     * @return 部门及后代部门列表
+     */
+    List<DepartmentPO> selectDepartmentsWithDescendants(@Param("deptIds") List<String> deptIds);
+    
+    /**
+     * 查询部门及其直接子部门
+     * @param deptIds 部门ID列表
+     * @return 部门及直接子部门列表
+     */
+    List<DepartmentPO> selectDepartmentsWithDirectChildren(@Param("deptIds") List<String> deptIds);
+    
+    /**
+     * 根据部门编号查询部门
+     * @param deptNo 部门编号
+     * @param tenantId 租户ID
+     * @return 部门持久化对象
+     */
+    Optional<DepartmentPO> selectByDeptNo(@Param("deptNo") String deptNo, @Param("tenantId") String tenantId);
+    
+    /**
+     * 检查部门编号是否存在
+     * @param deptNo 部门编号
+     * @param tenantId 租户ID
+     * @param excludeDeptId 排除的部门ID
+     * @return 存在的数量
+     */
+    int countByDeptNo(@Param("deptNo") String deptNo, @Param("tenantId") String tenantId, @Param("excludeDeptId") String excludeDeptId);
+    
+    /**
+     * 更新部门的左右值编码
+     * @param deptId 部门ID
+     * @param leftValue 左值
+     * @param rightValue 右值
+     */
+    void updateLeftRightValue(@Param("deptId") String deptId, @Param("leftValue") Integer leftValue, @Param("rightValue") Integer rightValue);
+    
+    /**
+     * 批量更新部门的左右值编码
+     * @param departments 部门列表
+     */
+    void batchUpdateLeftRightValue(@Param("departments") List<DepartmentPO> departments);
 }

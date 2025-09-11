@@ -59,6 +59,16 @@ public class Department {
     private Integer deptLevel;
     
     /**
+     * 左值（用于嵌套集合模型的树形查询优化）
+     */
+    private Integer leftValue;
+    
+    /**
+     * 右值（用于嵌套集合模型的树形查询优化）
+     */
+    private Integer rightValue;
+    
+    /**
      * 排序序号（对应orderIndex）
      */
     private Integer orderIndex;
@@ -338,6 +348,22 @@ public class Department {
     
     public void setDeptLevel(Integer deptLevel) {
         this.deptLevel = deptLevel;
+    }
+    
+    public Integer getLeftValue() {
+        return leftValue;
+    }
+    
+    public void setLeftValue(Integer leftValue) {
+        this.leftValue = leftValue;
+    }
+    
+    public Integer getRightValue() {
+        return rightValue;
+    }
+    
+    public void setRightValue(Integer rightValue) {
+        this.rightValue = rightValue;
     }
     
     public String getDeptLevelCode() {

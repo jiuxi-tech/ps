@@ -367,4 +367,44 @@ public class DepartmentPO {
     public void setExtend05(String extend05) {
         this.extend05 = extend05;
     }
+    
+    /**
+     * 获取左值（用于嵌套集合模型的树形查询优化）
+     * 使用extend01字段存储
+     */
+    public Integer getLeftValue() {
+        try {
+            return extend01 != null ? Integer.parseInt(extend01) : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+    
+    /**
+     * 设置左值（用于嵌套集合模型的树形查询优化）
+     * 使用extend01字段存储
+     */
+    public void setLeftValue(Integer leftValue) {
+        this.extend01 = leftValue != null ? leftValue.toString() : null;
+    }
+    
+    /**
+     * 获取右值（用于嵌套集合模型的树形查询优化）
+     * 使用extend02字段存储
+     */
+    public Integer getRightValue() {
+        try {
+            return extend02 != null ? Integer.parseInt(extend02) : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+    
+    /**
+     * 设置右值（用于嵌套集合模型的树形查询优化）
+     * 使用extend02字段存储
+     */
+    public void setRightValue(Integer rightValue) {
+        this.extend02 = rightValue != null ? rightValue.toString() : null;
+    }
 }

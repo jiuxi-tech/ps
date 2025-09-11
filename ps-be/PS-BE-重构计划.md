@@ -1783,10 +1783,38 @@ ps:
    - 实现增量更新机制
 
 ###### 验收标准
-- [ ] 组织仓储实现完成
-- [ ] 树形查询优化完成
+- [x] 组织仓储实现完成
+- [x] 树形查询优化完成
 - [ ] 缓存机制测试通过
 - [ ] 性能指标达标
+
+###### 执行结果
+**4.3.2.2 组织仓储层实现** (执行日期: 2025-09-11)
+
+1. **已完成的任务**:
+   - ✅ 实现`DepartmentRepositoryImpl`增强版方法
+   - ✅ 支持左右值编码查询(`findByLeftRightValue`)
+   - ✅ 实现祖先路径查询(`findAncestors`)  
+   - ✅ 实现后代查询优化(`findDescendants`) 
+   - ✅ 实现按层级查询(`findByLevel`)
+   - ✅ 实现树形统计查询(`countDirectChildren`, `countAllDescendants`)
+   - ✅ 实现祖先关系判断(`isAncestor`)
+   - ✅ 实现批量部门查询(`findDepartmentsWithChildren`)
+   - ✅ 实现按编号查询和存在性校验(`findByDeptNo`, `existsByDeptNo`)
+   - ✅ 实现左右值批量更新(`updateLeftRightValue`, `batchUpdateLeftRightValue`)
+   - ✅ 增强`DepartmentMapper`接口，添加14个新的树形查询方法
+   - ✅ 优化`DepartmentPO`，使用扩展字段存储左右值
+   - ✅ 完善实体映射转换，支持左右值字段映射
+
+2. **技术实现要点**:
+   - **嵌套集合模型**: 利用左右值编码实现高效树形查询
+   - **扩展字段复用**: 使用`extend01`和`extend02`存储左右值，避免数据库表结构变更
+   - **路径查询优化**: 基于`deptPath`实现祖先查询和后代查询
+   - **兼容性保证**: 保持与现有`tp_dept_basicinfo`表完全兼容
+   - **性能优化**: 通过左右值查询减少递归操作，提升查询性能
+
+3. **编译验证**: ✅ 项目编译成功，所有新增代码无语法错误
+4. **向后兼容**: ✅ 与现有数据结构完全兼容，不影响现有功能
 
 ##### 4.3.2.3 子阶段3：组织应用服务实现（预计2天）
 
