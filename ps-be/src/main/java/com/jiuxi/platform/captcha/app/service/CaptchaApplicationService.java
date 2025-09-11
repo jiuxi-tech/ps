@@ -8,6 +8,8 @@ import com.jiuxi.platform.captcha.infrastructure.cache.CaptchaCacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -23,14 +25,19 @@ import java.util.HashMap;
 @Service
 public class CaptchaApplicationService {
     
+    private static final Logger logger = LoggerFactory.getLogger(CaptchaApplicationService.class);
+    
     private final List<CaptchaGenerator> captchaGenerators;
     private final CaptchaCacheRepository cacheRepository;
+    private final CaptchaValidationService validationService;
     
     @Autowired
     public CaptchaApplicationService(List<CaptchaGenerator> captchaGenerators,
-                                   CaptchaCacheRepository cacheRepository) {
+                                   CaptchaCacheRepository cacheRepository,
+                                   CaptchaValidationService validationService) {
         this.captchaGenerators = captchaGenerators;
         this.cacheRepository = cacheRepository;
+        this.validationService = validationService;
     }
     
     /**
@@ -59,29 +66,28 @@ public class CaptchaApplicationService {
      * 验证验证码答案
      */
     public VerificationResponse verifyAnswer(String challengeId, Double x, Double y) {
+        return verifyAnswer(challengeId, x, y, null);
+    }
+    
+    /**
+     * 验证验证码答案（带IP信息）
+     */
+    public VerificationResponse verifyAnswer(String challengeId, Double x, Double y, String clientIp) {
         try {
-            CaptchaChallenge challenge = cacheRepository.getChallenge(challengeId);
-            if (challenge == null) {
-                return VerificationResponse.fail("验证码不存在或已过期");
-            }
+            // 使用新的验证服务
+            CaptchaValidationService.ValidationResult result = 
+                validationService.verifyAnswer(challengeId, x, y, clientIp);
             
-            if (!challenge.canAttempt()) {
-                return VerificationResponse.fail("验证码已过期或超过最大尝试次数");
-            }
-            
-            CaptchaCoordinate userAnswer = new CaptchaCoordinate(x.intValue(), y.intValue());
-            boolean verified = challenge.verifyAnswer(userAnswer);
-            
-            if (verified) {
-                String ticket = challenge.generateTicket();
-                // 票据有效期30分钟
-                cacheRepository.saveTicket(ticket, 30);
-                return VerificationResponse.success(ticket);
+            if (result.isSuccess()) {
+                logger.info("验证码验证成功: {} from IP: {}", challengeId, clientIp);
+                return VerificationResponse.success(result.getTicket());
             } else {
-                return VerificationResponse.fail("验证失败，剩余尝试次数: " + challenge.getRemainingAttempts());
+                logger.warn("验证码验证失败: {} from IP: {} - {}", challengeId, clientIp, result.getMessage());
+                return VerificationResponse.fail(result.getMessage());
             }
             
         } catch (Exception e) {
+            logger.error("验证码验证异常: {} from IP: {}", challengeId, clientIp, e);
             return VerificationResponse.fail("验证过程出错: " + e.getMessage());
         }
     }
@@ -122,17 +128,17 @@ public class CaptchaApplicationService {
     }
     
     /**
-     * 验证票据
+     * 验证票据（不消费）
      */
     public boolean verifyTicket(String ticket) {
-        return cacheRepository.verifyTicket(ticket);
+        return validationService.verifyTicket(ticket);
     }
     
     /**
      * 使用票据（一次性使用）
      */
     public boolean consumeTicket(String ticket) {
-        return cacheRepository.consumeTicket(ticket);
+        return validationService.consumeTicket(ticket);
     }
     
     /**
@@ -143,6 +149,10 @@ public class CaptchaApplicationService {
         
         CaptchaCacheRepository.CacheStatistics cacheStats = cacheRepository.getStatistics();
         stats.put("cacheStatistics", cacheStats);
+        
+        // 添加健康状态信息
+        CaptchaCacheRepository.CacheHealthStatus healthStatus = cacheRepository.getHealthStatus();
+        stats.put("healthStatus", healthStatus);
         
         Map<String, Object> generators = new HashMap<>();
         for (CaptchaGenerator generator : captchaGenerators) {
@@ -156,14 +166,52 @@ public class CaptchaApplicationService {
     }
     
     /**
+     * 获取缓存健康状态
+     */
+    public CaptchaCacheRepository.CacheHealthStatus getHealthStatus() {
+        return cacheRepository.getHealthStatus();
+    }
+    
+    /**
+     * 获取详细统计报告
+     */
+    public String getDetailedStatisticsReport() {
+        return cacheRepository.getDetailedStatisticsReport();
+    }
+    
+    /**
+     * 检查IP是否被阻止
+     */
+    public boolean isIpBlocked(String clientIp) {
+        return cacheRepository.isIpBlocked(clientIp);
+    }
+    
+    /**
+     * 获取IP验证统计
+     */
+    public CaptchaValidationService.ValidationStatistics getIpValidationStatistics(String clientIp) {
+        return validationService.getValidationStatistics(clientIp);
+    }
+    
+    /**
+     * 重置IP失败计数
+     */
+    public void resetIpFailureCount(String clientIp) {
+        cacheRepository.resetIpFailureCount(clientIp);
+        logger.info("已重置IP失败计数: {}", clientIp);
+    }
+    
+    /**
      * 定期清理过期数据
      */
     @Scheduled(fixedRate = 300000) // 每5分钟执行一次
     public void cleanupExpiredData() {
         try {
             cacheRepository.cleanupExpired();
+            validationService.cleanupExpiredStatistics();
+            logger.debug("过期数据清理完成");
         } catch (Exception e) {
-            System.err.println("清理过期验证码数据失败: " + e.getMessage());
+            logger.error("清理过期验证码数据失败", e);
         }
     }
     
