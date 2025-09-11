@@ -10,11 +10,13 @@ import com.jiuxi.module.user.app.dto.UserQueryDTO;
 import com.jiuxi.module.user.app.dto.UserResponseDTO;
 import com.jiuxi.module.user.app.dto.UserUpdateDTO;
 import com.jiuxi.module.user.app.service.UserApplicationService;
+import com.jiuxi.module.user.interfaces.web.dto.PageResult;
 import com.jiuxi.security.core.entity.vo.PersonVO;
 import com.jiuxi.security.core.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/users")
 @Authorization
+@Slf4j
 public class UserController {
 
     /**
@@ -69,9 +72,16 @@ public class UserController {
             @RequestHeader("X-Tenant-Id") String tenantId) {
         
         try {
+            log.info("Creating user: username={}, operator={}, tenantId={}", 
+                    createDTO.getUsername(), operator, tenantId);
             String personId = userApplicationService.createUser(createDTO, tenantId, operator);
+            log.info("User created successfully: personId={}", personId);
             return JsonResponse.buildSuccess(personId);
+        } catch (IllegalArgumentException e) {
+            log.warn("User creation validation failed: {}", e.getMessage());
+            return JsonResponse.buildFailure("用户创建失败: " + e.getMessage());
         } catch (Exception e) {
+            log.error("User creation error: {}", e.getMessage(), e);
             return JsonResponse.buildFailure("用户创建失败: " + e.getMessage());
         }
     }
@@ -210,12 +220,28 @@ public class UserController {
      * 分页查询用户列表
      */
     @PostMapping("/search")
-    public JsonResponse searchUsers(@RequestBody UserQueryDTO queryDTO) {
+    public JsonResponse searchUsers(
+            @RequestBody UserQueryDTO queryDTO,
+            @RequestHeader("X-Tenant-Id") String tenantId) {
         try {
+            // 设置租户ID
+            if (queryDTO.getTenantId() == null || queryDTO.getTenantId().isEmpty()) {
+                queryDTO.setTenantId(tenantId);
+            }
+            
+            // 获取分页数据
             List<UserResponseDTO> users = userApplicationService.getUserPage(queryDTO);
-            return JsonResponse.buildSuccess(users);
-        } catch (UnsupportedOperationException e) {
-            return JsonResponse.buildFailure("分页查询功能正在开发中");
+            long total = userApplicationService.getUserCount(queryDTO);
+            
+            // 构建分页结果
+            PageResult<UserResponseDTO> pageResult = new PageResult<>();
+            pageResult.setData(users);
+            pageResult.setTotal(total);
+            pageResult.setCurrent(queryDTO.getCurrent());
+            pageResult.setSize(queryDTO.getSize());
+            pageResult.setPages((total + queryDTO.getSize() - 1) / queryDTO.getSize());
+            
+            return JsonResponse.buildSuccess(pageResult);
         } catch (Exception e) {
             return JsonResponse.buildFailure("查询用户失败: " + e.getMessage());
         }

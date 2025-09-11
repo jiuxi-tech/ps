@@ -4,7 +4,10 @@ import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.core.core.annotation.Authorization;
 import com.jiuxi.core.core.annotation.IgnoreAuthorization;
 import com.jiuxi.module.user.app.service.UserApplicationService;
+import com.jiuxi.module.user.interfaces.web.dto.ChangePasswordRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/user-accounts")
 @Authorization
+@Slf4j
 public class UserAccountController {
 
     /**
@@ -38,9 +42,15 @@ public class UserAccountController {
             @RequestHeader("X-User-Person-Id") String operator) {
         
         try {
+            log.info("Resetting password for user: personId={}, operator={}", personId, operator);
             userApplicationService.resetPassword(personId, newPassword, operator);
+            log.info("Password reset successfully for user: personId={}", personId);
             return JsonResponse.buildSuccess("密码重置成功");
+        } catch (IllegalArgumentException e) {
+            log.warn("Password reset validation failed: {}", e.getMessage());
+            return JsonResponse.buildFailure("密码重置失败: " + e.getMessage());
         } catch (Exception e) {
+            log.error("Password reset error: {}", e.getMessage(), e);
             return JsonResponse.buildFailure("密码重置失败: " + e.getMessage());
         }
     }
@@ -51,16 +61,26 @@ public class UserAccountController {
     @PutMapping("/change-password")
     @IgnoreAuthorization
     public JsonResponse changePassword(
-            @RequestParam String oldPassword,
-            @RequestParam String newPassword,
+            @Validated @RequestBody ChangePasswordRequest request,
             @RequestHeader("X-User-Person-Id") String personId) {
         
         try {
-            // 这里需要验证旧密码的逻辑
-            // 目前简化处理，直接重置
-            userApplicationService.resetPassword(personId, newPassword, personId);
+            // 验证新密码和确认密码是否一致
+            if (!request.isPasswordMatch()) {
+                return JsonResponse.buildFailure("新密码和确认密码不一致");
+            }
+            
+            log.info("User changing password: personId={}", personId);
+            // 这里需要验证旧密码的逻辑，目前简化处理，直接重置
+            // TODO: 添加旧密码验证逻辑
+            userApplicationService.resetPassword(personId, request.getNewPassword(), personId);
+            log.info("Password changed successfully: personId={}", personId);
             return JsonResponse.buildSuccess("密码修改成功");
+        } catch (IllegalArgumentException e) {
+            log.warn("Password change validation failed: {}", e.getMessage());
+            return JsonResponse.buildFailure("密码修改失败: " + e.getMessage());
         } catch (Exception e) {
+            log.error("Password change error: {}", e.getMessage(), e);
             return JsonResponse.buildFailure("密码修改失败: " + e.getMessage());
         }
     }
