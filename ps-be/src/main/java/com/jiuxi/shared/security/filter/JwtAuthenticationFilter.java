@@ -2,6 +2,7 @@ package com.jiuxi.shared.security.filter;
 
 import com.jiuxi.shared.security.authentication.JwtAuthenticationToken;
 import com.jiuxi.shared.security.config.SecurityProperties;
+import com.jiuxi.shared.security.config.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,11 +32,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final AuthenticationManager authenticationManager;
     private final SecurityProperties securityProperties;
+    private final TokenService tokenService;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, 
-                                 SecurityProperties securityProperties) {
+                                 SecurityProperties securityProperties,
+                                 TokenService tokenService) {
         this.authenticationManager = authenticationManager;
         this.securityProperties = securityProperties;
+        this.tokenService = tokenService;
     }
 
     @Override
@@ -53,17 +57,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = extractToken(request);
             
             if (StringUtils.hasText(token)) {
-                // 创建认证Token
-                JwtAuthenticationToken authToken = new JwtAuthenticationToken(token);
+                // 使用TokenService进行快速验证
+                TokenService.TokenValidationResult validationResult = tokenService.validateToken(token);
                 
-                // 执行认证
-                Authentication authentication = authenticationManager.authenticate(authToken);
-                
-                // 设置认证结果到SecurityContext
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                
-                logger.debug("JWT authentication successful for token: {}...", 
-                    token.length() > 10 ? token.substring(0, 10) : token);
+                if (validationResult.isValid()) {
+                    // 令牌有效，创建认证Token
+                    JwtAuthenticationToken authToken = new JwtAuthenticationToken(token);
+                    
+                    // 执行认证
+                    Authentication authentication = authenticationManager.authenticate(authToken);
+                    
+                    // 设置认证结果到SecurityContext
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    
+                    logger.debug("JWT authentication successful for token: {}...", 
+                        token.length() > 10 ? token.substring(0, 10) : token);
+                } else {
+                    // 令牌无效
+                    logger.debug("Token validation failed: {}", validationResult.getMessage());
+                    SecurityContextHolder.clearContext();
+                    
+                    if (securityProperties.getAuthentication().isEnabled()) {
+                        handleAuthenticationFailure(request, response, 
+                            new AuthenticationException("Invalid token: " + validationResult.getMessage()) {});
+                        return;
+                    }
+                }
             } else {
                 // 没有Token的情况
                 if (securityProperties.getAuthentication().isEnabled()) {

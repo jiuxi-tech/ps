@@ -55,6 +55,9 @@ public class UnifiedSecurityConfig {
     
     @Autowired(required = false)
     private PermissionEvaluator customPermissionEvaluator;
+    
+    @Autowired(required = false)
+    private TokenService tokenService;
 
     /**
      * 密码编码器
@@ -175,7 +178,7 @@ public class UnifiedSecurityConfig {
      */
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(authenticationManager(), securityProperties);
+        return new JwtAuthenticationFilter(authenticationManager(), securityProperties, tokenService);
     }
 
     /**
