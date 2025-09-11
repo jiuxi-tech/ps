@@ -38,6 +38,16 @@ public class SecurityProperties {
     private Session session = new Session();
 
     /**
+     * 审计配置
+     */
+    private Audit audit = new Audit();
+
+    /**
+     * 统一安全功能开关
+     */
+    private Unified unified = new Unified();
+
+    /**
      * 认证配置
      */
     public static class Authentication {
@@ -648,6 +658,118 @@ public class SecurityProperties {
         }
     }
 
+    /**
+     * 审计配置
+     */
+    public static class Audit {
+        /**
+         * 是否启用审计，默认启用
+         */
+        private boolean enabled = true;
+
+        /**
+         * 是否启用异步审计，默认启用
+         */
+        private boolean asyncEnabled = true;
+
+        /**
+         * 审计事件保留天数，默认30天
+         */
+        private int retentionDays = 30;
+
+        /**
+         * 是否启用高风险事件实时告警，默认启用
+         */
+        private boolean realTimeAlertEnabled = true;
+
+        /**
+         * 审计队列最大大小，默认10万条
+         */
+        private int maxQueueSize = 100000;
+
+        /**
+         * 是否启用事件过滤，默认启用
+         */
+        private boolean filterEnabled = true;
+
+        /**
+         * 低级别事件记录概率（0.0-1.0），默认0.1（10%）
+         */
+        private double lowLevelEventRate = 0.1;
+
+        /**
+         * 批量处理大小，默认100
+         */
+        private int batchSize = 100;
+
+        /**
+         * 批量处理间隔（毫秒），默认5秒
+         */
+        private int batchInterval = 5000;
+
+        // getters and setters
+        public boolean isEnabled() { return enabled; }
+        public void setEnabled(boolean enabled) { this.enabled = enabled; }
+
+        public boolean isAsyncEnabled() { return asyncEnabled; }
+        public void setAsyncEnabled(boolean asyncEnabled) { this.asyncEnabled = asyncEnabled; }
+
+        public int getRetentionDays() { return retentionDays; }
+        public void setRetentionDays(int retentionDays) { this.retentionDays = retentionDays; }
+
+        public boolean isRealTimeAlertEnabled() { return realTimeAlertEnabled; }
+        public void setRealTimeAlertEnabled(boolean realTimeAlertEnabled) { 
+            this.realTimeAlertEnabled = realTimeAlertEnabled; 
+        }
+
+        public int getMaxQueueSize() { return maxQueueSize; }
+        public void setMaxQueueSize(int maxQueueSize) { this.maxQueueSize = maxQueueSize; }
+
+        public boolean isFilterEnabled() { return filterEnabled; }
+        public void setFilterEnabled(boolean filterEnabled) { this.filterEnabled = filterEnabled; }
+
+        public double getLowLevelEventRate() { return lowLevelEventRate; }
+        public void setLowLevelEventRate(double lowLevelEventRate) { 
+            this.lowLevelEventRate = lowLevelEventRate; 
+        }
+
+        public int getBatchSize() { return batchSize; }
+        public void setBatchSize(int batchSize) { this.batchSize = batchSize; }
+
+        public int getBatchInterval() { return batchInterval; }
+        public void setBatchInterval(int batchInterval) { this.batchInterval = batchInterval; }
+    }
+
+    /**
+     * 统一安全功能配置
+     */
+    public static class Unified {
+        /**
+         * 是否启用统一安全功能，默认禁用
+         */
+        private boolean enabled = false;
+
+        /**
+         * 统一安全功能版本
+         */
+        private String version = "4.2.5";
+
+        /**
+         * 是否启用调试模式，默认禁用
+         */
+        private boolean debug = false;
+
+        // getters and setters
+        public boolean isEnabled() { return enabled; }
+        public void setEnabled(boolean enabled) { this.enabled = enabled; }
+
+        public String getVersion() { return version; }
+        public void setVersion(String version) { this.version = version; }
+
+        public boolean isDebug() { return debug; }
+        public void setDebug(boolean debug) { this.debug = debug; }
+    }
+
     // Main getters and setters
     public Authentication getAuthentication() {
         return authentication;
@@ -687,5 +809,21 @@ public class SecurityProperties {
 
     public void setSession(Session session) {
         this.session = session;
+    }
+
+    public Audit getAudit() {
+        return audit;
+    }
+
+    public void setAudit(Audit audit) {
+        this.audit = audit;
+    }
+
+    public Unified getUnified() {
+        return unified;
+    }
+
+    public void setUnified(Unified unified) {
+        this.unified = unified;
     }
 }

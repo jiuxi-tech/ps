@@ -1,0 +1,43 @@
+############################################################
+#############  安全审计体系配置 - 开发环境
+#############  Security Audit System Configuration - Dev
+############################################################
+
+ps:
+  security:
+    # 统一安全功能开关
+    unified:
+      enabled: false  # 默认关闭，需要时手动开启
+      version: "4.2.5"
+      debug: true     # 开发环境启用调试模式
+    
+    # 审计配置
+    audit:
+      enabled: true
+      async-enabled: true
+      retention-days: 30
+      real-time-alert-enabled: true
+      max-queue-size: 100000
+      filter-enabled: true
+      low-level-event-rate: 0.1  # 10%的低级别事件被记录
+      batch-size: 100
+      batch-interval: 5000
+
+############################################################
+#############  审计日志配置
+############################################################
+logging:
+  level:
+    # 审计相关日志级别
+    com.jiuxi.shared.security.audit: DEBUG
+    AUDIT: INFO
+    SECURITY: WARN
+
+############################################################
+#############  说明
+############################################################
+# 1. 统一安全功能默认关闭，避免影响现有系统
+# 2. 需要启用审计功能时，设置 ps.security.unified.enabled=true
+# 3. 审计事件将存储在Redis中，保留30天
+# 4. 高风险事件会实时记录到SECURITY日志
+# 5. 开发环境启用详细的审计日志便于调试
