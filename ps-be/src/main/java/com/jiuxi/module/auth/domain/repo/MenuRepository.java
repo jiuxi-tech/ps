@@ -55,4 +55,12 @@ public interface MenuRepository {
      * @return 子菜单列表
      */
     List<Menu> getChildMenus(String parentMenuId, String tenantId);
+    
+    /**
+     * 批量查找菜单
+     * @param menuIds 菜单ID列表
+     * @param tenantId 租户ID
+     * @return 菜单列表
+     */
+    List<Menu> findByIds(List<String> menuIds, String tenantId);
 }

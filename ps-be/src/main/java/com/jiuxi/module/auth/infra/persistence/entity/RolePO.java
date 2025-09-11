@@ -92,6 +92,30 @@ public class RolePO {
     private LocalDateTime updateTime;
     
     /**
+     * 父角色ID（用于权限继承）
+     */
+    @TableField("parent_role_id")
+    private String parentRoleId;
+    
+    /**
+     * 角色层级
+     */
+    @TableField("role_level")
+    private Integer roleLevel;
+    
+    /**
+     * 角色路径（用于权限继承计算）
+     */
+    @TableField("role_path")
+    private String rolePath;
+    
+    /**
+     * 是否继承父角色权限
+     */
+    @TableField("inherit_parent_permissions")
+    private Boolean inheritParentPermissions;
+    
+    /**
      * 租户ID
      */
     @TableField("tenant_id")
@@ -231,5 +255,37 @@ public class RolePO {
     
     public void setDeleted(Integer deleted) {
         this.deleted = deleted;
+    }
+    
+    public String getParentRoleId() {
+        return parentRoleId;
+    }
+    
+    public void setParentRoleId(String parentRoleId) {
+        this.parentRoleId = parentRoleId;
+    }
+    
+    public Integer getRoleLevel() {
+        return roleLevel;
+    }
+    
+    public void setRoleLevel(Integer roleLevel) {
+        this.roleLevel = roleLevel;
+    }
+    
+    public String getRolePath() {
+        return rolePath;
+    }
+    
+    public void setRolePath(String rolePath) {
+        this.rolePath = rolePath;
+    }
+    
+    public Boolean getInheritParentPermissions() {
+        return inheritParentPermissions;
+    }
+    
+    public void setInheritParentPermissions(Boolean inheritParentPermissions) {
+        this.inheritParentPermissions = inheritParentPermissions;
     }
 }

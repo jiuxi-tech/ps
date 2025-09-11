@@ -7,8 +7,11 @@ import com.jiuxi.module.auth.domain.repo.RoleRepository;
 import com.jiuxi.module.auth.infra.persistence.entity.RolePO;
 import com.jiuxi.module.auth.infra.persistence.mapper.RoleMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 角色仓储实现
@@ -78,6 +81,78 @@ public class RoleRepositoryImpl extends ServiceImpl<RoleMapper, RolePO> implemen
     }
     
     /**
+     * 根据父角色ID查找子角色列表
+     */
+    @Override
+    public List<Role> findByParentRoleId(String parentRoleId, String tenantId) {
+        QueryWrapper<RolePO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("parent_role_id", parentRoleId);
+        queryWrapper.eq("tenant_id", tenantId);
+        queryWrapper.orderByAsc("role_level", "order_index");
+        
+        List<RolePO> rolePOs = roleMapper.selectList(queryWrapper);
+        return rolePOs.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+    
+    /**
+     * 根据角色路径查找角色层次结构
+     */
+    @Override
+    public List<Role> findByRolePathPrefix(String rolePathPrefix, String tenantId) {
+        QueryWrapper<RolePO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.likeRight("role_path", rolePathPrefix);
+        queryWrapper.eq("tenant_id", tenantId);
+        queryWrapper.orderByAsc("role_level", "role_path");
+        
+        List<RolePO> rolePOs = roleMapper.selectList(queryWrapper);
+        return rolePOs.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+    
+    /**
+     * 查找所有根角色（没有父角色的角色）
+     */
+    @Override
+    public List<Role> findRootRoles(String tenantId) {
+        QueryWrapper<RolePO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.and(wrapper -> wrapper.isNull("parent_role_id").or().eq("parent_role_id", ""));
+        queryWrapper.eq("tenant_id", tenantId);
+        queryWrapper.orderByAsc("order_index");
+        
+        List<RolePO> rolePOs = roleMapper.selectList(queryWrapper);
+        return rolePOs.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+    
+    /**
+     * 根据租户ID查找所有激活的角色
+     */
+    @Override
+    public List<Role> findActiveRolesByTenant(String tenantId) {
+        QueryWrapper<RolePO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status", "ACTIVE");
+        queryWrapper.eq("tenant_id", tenantId);
+        queryWrapper.orderByAsc("role_level", "order_index");
+        
+        List<RolePO> rolePOs = roleMapper.selectList(queryWrapper);
+        return rolePOs.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+    
+    /**
+     * 检查角色编码是否存在
+     */
+    @Override
+    public boolean existsByRoleCode(String roleCode, String tenantId, String excludeRoleId) {
+        QueryWrapper<RolePO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("role_code", roleCode);
+        queryWrapper.eq("tenant_id", tenantId);
+        
+        if (StringUtils.hasText(excludeRoleId)) {
+            queryWrapper.ne("id", excludeRoleId);
+        }
+        
+        return roleMapper.selectCount(queryWrapper) > 0;
+    }
+    
+    /**
      * 将Role实体转换为RolePO
      * @param role 角色实体
      * @return 角色持久化对象
@@ -103,6 +178,12 @@ public class RoleRepositoryImpl extends ServiceImpl<RoleMapper, RolePO> implemen
         rolePO.setUpdator(role.getUpdator());
         rolePO.setUpdateTime(role.getUpdateTime());
         rolePO.setTenantId(role.getTenantId());
+        
+        // 权限继承相关字段
+        rolePO.setParentRoleId(role.getParentRoleId());
+        rolePO.setRoleLevel(role.getRoleLevel());
+        rolePO.setRolePath(role.getRolePath());
+        rolePO.setInheritParentPermissions(role.getInheritParentPermissions());
         
         return rolePO;
     }
@@ -136,6 +217,12 @@ public class RoleRepositoryImpl extends ServiceImpl<RoleMapper, RolePO> implemen
         role.setUpdator(rolePO.getUpdator());
         role.setUpdateTime(rolePO.getUpdateTime());
         role.setTenantId(rolePO.getTenantId());
+        
+        // 权限继承相关字段
+        role.setParentRoleId(rolePO.getParentRoleId());
+        role.setRoleLevel(rolePO.getRoleLevel());
+        role.setRolePath(rolePO.getRolePath());
+        role.setInheritParentPermissions(rolePO.getInheritParentPermissions());
         
         return role;
     }

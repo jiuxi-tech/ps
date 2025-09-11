@@ -1,6 +1,7 @@
 package com.jiuxi.module.auth.domain.repo;
 
 import com.jiuxi.module.auth.domain.entity.Role;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -39,4 +40,43 @@ public interface RoleRepository {
      * @return 角色Optional
      */
     Optional<Role> findByRoleCode(String roleCode, String tenantId);
+    
+    /**
+     * 根据父角色ID查找子角色列表
+     * @param parentRoleId 父角色ID
+     * @param tenantId 租户ID
+     * @return 子角色列表
+     */
+    List<Role> findByParentRoleId(String parentRoleId, String tenantId);
+    
+    /**
+     * 根据角色路径查找角色层次结构
+     * @param rolePathPrefix 角色路径前缀
+     * @param tenantId 租户ID
+     * @return 角色列表
+     */
+    List<Role> findByRolePathPrefix(String rolePathPrefix, String tenantId);
+    
+    /**
+     * 查找所有根角色（没有父角色的角色）
+     * @param tenantId 租户ID
+     * @return 根角色列表
+     */
+    List<Role> findRootRoles(String tenantId);
+    
+    /**
+     * 根据租户ID查找所有激活的角色
+     * @param tenantId 租户ID
+     * @return 角色列表
+     */
+    List<Role> findActiveRolesByTenant(String tenantId);
+    
+    /**
+     * 检查角色编码是否存在
+     * @param roleCode 角色编码
+     * @param tenantId 租户ID
+     * @param excludeRoleId 排除的角色ID（用于更新时检查）
+     * @return 是否存在
+     */
+    boolean existsByRoleCode(String roleCode, String tenantId, String excludeRoleId);
 }

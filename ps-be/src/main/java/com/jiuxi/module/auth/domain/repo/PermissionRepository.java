@@ -1,6 +1,8 @@
 package com.jiuxi.module.auth.domain.repo;
 
 import com.jiuxi.module.auth.domain.entity.Permission;
+import com.jiuxi.module.auth.domain.entity.PermissionType;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -39,4 +41,45 @@ public interface PermissionRepository {
      * @return 权限Optional
      */
     Optional<Permission> findByPermissionCode(String permissionCode, String tenantId);
+    
+    /**
+     * 根据权限类型查找权限列表
+     * @param permissionType 权限类型
+     * @param tenantId 租户ID
+     * @return 权限列表
+     */
+    List<Permission> findByPermissionType(PermissionType permissionType, String tenantId);
+    
+    /**
+     * 根据资源URI查找API权限
+     * @param resourceUri 资源URI
+     * @param httpMethod 请求方法
+     * @param tenantId 租户ID
+     * @return 权限列表
+     */
+    List<Permission> findApiPermissionsByResource(String resourceUri, String httpMethod, String tenantId);
+    
+    /**
+     * 根据租户ID查找所有激活的权限
+     * @param tenantId 租户ID
+     * @return 权限列表
+     */
+    List<Permission> findActivePermissionsByTenant(String tenantId);
+    
+    /**
+     * 批量查找权限
+     * @param permissionIds 权限ID列表
+     * @param tenantId 租户ID
+     * @return 权限列表
+     */
+    List<Permission> findByIds(List<String> permissionIds, String tenantId);
+    
+    /**
+     * 检查权限编码是否存在
+     * @param permissionCode 权限编码
+     * @param tenantId 租户ID
+     * @param excludePermissionId 排除的权限ID（用于更新时检查）
+     * @return 是否存在
+     */
+    boolean existsByPermissionCode(String permissionCode, String tenantId, String excludePermissionId);
 }

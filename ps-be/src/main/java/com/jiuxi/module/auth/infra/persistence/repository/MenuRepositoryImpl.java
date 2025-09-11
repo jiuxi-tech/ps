@@ -107,6 +107,24 @@ public class MenuRepositoryImpl extends ServiceImpl<MenuMapper, MenuPO> implemen
     }
     
     /**
+     * 批量查找菜单
+     */
+    @Override
+    public List<Menu> findByIds(List<String> menuIds, String tenantId) {
+        if (menuIds == null || menuIds.isEmpty()) {
+            return java.util.Collections.emptyList();
+        }
+        
+        QueryWrapper<MenuPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("id", menuIds);
+        queryWrapper.eq("tenant_id", tenantId);
+        queryWrapper.orderByAsc("order_index");
+        
+        List<MenuPO> menuPOs = menuMapper.selectList(queryWrapper);
+        return menuPOs.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+    
+    /**
      * 将Menu实体转换为MenuPO
      * @param menu 菜单实体
      * @return 菜单持久化对象

@@ -3,12 +3,16 @@ package com.jiuxi.module.auth.infra.persistence.repository;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jiuxi.module.auth.domain.entity.Permission;
+import com.jiuxi.module.auth.domain.entity.PermissionType;
 import com.jiuxi.module.auth.domain.repo.PermissionRepository;
 import com.jiuxi.module.auth.infra.persistence.entity.PermissionPO;
 import com.jiuxi.module.auth.infra.persistence.mapper.PermissionMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 权限仓储实现
@@ -75,6 +79,87 @@ public class PermissionRepositoryImpl extends ServiceImpl<PermissionMapper, Perm
         queryWrapper.eq("tenant_id", tenantId);
         PermissionPO permissionPO = permissionMapper.selectOne(queryWrapper);
         return Optional.ofNullable(permissionPO).map(this::toEntity);
+    }
+    
+    /**
+     * 根据权限类型查找权限列表
+     */
+    @Override
+    public List<Permission> findByPermissionType(PermissionType permissionType, String tenantId) {
+        QueryWrapper<PermissionPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("permission_type", permissionType.getCode());
+        queryWrapper.eq("tenant_id", tenantId);
+        queryWrapper.eq("status", "ACTIVE");
+        queryWrapper.orderByAsc("order_index");
+        
+        List<PermissionPO> permissionPOs = permissionMapper.selectList(queryWrapper);
+        return permissionPOs.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+    
+    /**
+     * 根据资源URI查找API权限
+     */
+    @Override
+    public List<Permission> findApiPermissionsByResource(String resourceUri, String httpMethod, String tenantId) {
+        QueryWrapper<PermissionPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("permission_type", PermissionType.API.getCode());
+        queryWrapper.eq("permission_uri", resourceUri);
+        if (StringUtils.hasText(httpMethod)) {
+            queryWrapper.eq("permission_method", httpMethod.toUpperCase());
+        }
+        queryWrapper.eq("tenant_id", tenantId);
+        queryWrapper.eq("status", "ACTIVE");
+        
+        List<PermissionPO> permissionPOs = permissionMapper.selectList(queryWrapper);
+        return permissionPOs.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+    
+    /**
+     * 根据租户ID查找所有激活的权限
+     */
+    @Override
+    public List<Permission> findActivePermissionsByTenant(String tenantId) {
+        QueryWrapper<PermissionPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status", "ACTIVE");
+        queryWrapper.eq("tenant_id", tenantId);
+        queryWrapper.orderByAsc("permission_type", "order_index");
+        
+        List<PermissionPO> permissionPOs = permissionMapper.selectList(queryWrapper);
+        return permissionPOs.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+    
+    /**
+     * 批量查找权限
+     */
+    @Override
+    public List<Permission> findByIds(List<String> permissionIds, String tenantId) {
+        if (permissionIds == null || permissionIds.isEmpty()) {
+            return java.util.Collections.emptyList();
+        }
+        
+        QueryWrapper<PermissionPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("id", permissionIds);
+        queryWrapper.eq("tenant_id", tenantId);
+        queryWrapper.orderByAsc("permission_type", "order_index");
+        
+        List<PermissionPO> permissionPOs = permissionMapper.selectList(queryWrapper);
+        return permissionPOs.stream().map(this::toEntity).collect(Collectors.toList());
+    }
+    
+    /**
+     * 检查权限编码是否存在
+     */
+    @Override
+    public boolean existsByPermissionCode(String permissionCode, String tenantId, String excludePermissionId) {
+        QueryWrapper<PermissionPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("permission_code", permissionCode);
+        queryWrapper.eq("tenant_id", tenantId);
+        
+        if (StringUtils.hasText(excludePermissionId)) {
+            queryWrapper.ne("id", excludePermissionId);
+        }
+        
+        return permissionMapper.selectCount(queryWrapper) > 0;
     }
     
     /**
