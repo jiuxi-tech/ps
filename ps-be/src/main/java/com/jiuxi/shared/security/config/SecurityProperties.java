@@ -370,6 +370,36 @@ public class SecurityProperties {
         private String clientSecret;
 
         /**
+         * 管理员用户名
+         */
+        private String adminUsername = "admin";
+
+        /**
+         * 管理员密码
+         */
+        private String adminPassword = "admin123";
+
+        /**
+         * 连接超时时间（毫秒）
+         */
+        private int connectionTimeout = 5000;
+
+        /**
+         * 读取超时时间（毫秒）
+         */
+        private int readTimeout = 10000;
+
+        /**
+         * 连接请求超时时间（毫秒）
+         */
+        private int connectionRequestTimeout = 3000;
+
+        /**
+         * 是否启用用户同步
+         */
+        private boolean syncEnabled = false;
+
+        /**
          * 用户信息头配置
          */
         private UserHeader userHeader = new UserHeader();
@@ -502,6 +532,54 @@ public class SecurityProperties {
 
         public void setRedirect(Redirect redirect) {
             this.redirect = redirect;
+        }
+
+        public String getAdminUsername() {
+            return adminUsername;
+        }
+
+        public void setAdminUsername(String adminUsername) {
+            this.adminUsername = adminUsername;
+        }
+
+        public String getAdminPassword() {
+            return adminPassword;
+        }
+
+        public void setAdminPassword(String adminPassword) {
+            this.adminPassword = adminPassword;
+        }
+
+        public int getConnectionTimeout() {
+            return connectionTimeout;
+        }
+
+        public void setConnectionTimeout(int connectionTimeout) {
+            this.connectionTimeout = connectionTimeout;
+        }
+
+        public int getReadTimeout() {
+            return readTimeout;
+        }
+
+        public void setReadTimeout(int readTimeout) {
+            this.readTimeout = readTimeout;
+        }
+
+        public int getConnectionRequestTimeout() {
+            return connectionRequestTimeout;
+        }
+
+        public void setConnectionRequestTimeout(int connectionRequestTimeout) {
+            this.connectionRequestTimeout = connectionRequestTimeout;
+        }
+
+        public boolean isSyncEnabled() {
+            return syncEnabled;
+        }
+
+        public void setSyncEnabled(boolean syncEnabled) {
+            this.syncEnabled = syncEnabled;
         }
 
         /**
