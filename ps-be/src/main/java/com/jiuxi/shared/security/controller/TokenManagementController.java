@@ -1,6 +1,6 @@
 package com.jiuxi.shared.security.controller;
 
-import com.jiuxi.common.bean.ApiResponse;
+import com.jiuxi.shared.common.base.response.BaseResponse;
 import com.jiuxi.shared.security.config.TokenService;
 import com.jiuxi.shared.security.config.TokenStorageManager;
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ public class TokenManagementController {
      */
     @PostMapping("/generate")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<TokenService.TokenInfo>> generateToken(
+    public ResponseEntity<BaseResponse<TokenService.TokenInfo>> generateToken(
             @RequestBody TokenGenerationRequest request) {
         
         try {
@@ -53,12 +53,12 @@ public class TokenManagementController {
             
             TokenService.TokenInfo tokenInfo = tokenService.generateToken(userInfo, request.getCustomClaims());
             
-            return ResponseEntity.ok(ApiResponse.success(tokenInfo));
+            return ResponseEntity.ok(BaseResponse.success(tokenInfo));
 
         } catch (Exception e) {
             logger.error("Error generating token", e);
             return ResponseEntity.badRequest()
-                .body(ApiResponse.error("Token generation failed: " + e.getMessage()));
+                .body(BaseResponse.error("Token generation failed: " + e.getMessage()));
         }
     }
 
@@ -67,7 +67,7 @@ public class TokenManagementController {
      */
     @PostMapping("/validate")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<Map<String, Object>>> validateToken(
+    public ResponseEntity<BaseResponse<Map<String, Object>>> validateToken(
             @RequestBody TokenValidationRequest request) {
         
         try {
@@ -81,12 +81,12 @@ public class TokenManagementController {
                 response.put("tokenInfo", result.getTokenInfo());
             }
             
-            return ResponseEntity.ok(ApiResponse.success(response));
+            return ResponseEntity.ok(BaseResponse.success(response));
 
         } catch (Exception e) {
             logger.error("Error validating token", e);
             return ResponseEntity.badRequest()
-                .body(ApiResponse.error("Token validation failed: " + e.getMessage()));
+                .body(BaseResponse.error("Token validation failed: " + e.getMessage()));
         }
     }
 
@@ -95,18 +95,18 @@ public class TokenManagementController {
      */
     @PostMapping("/refresh")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public ResponseEntity<ApiResponse<TokenService.TokenInfo>> refreshToken(
+    public ResponseEntity<BaseResponse<TokenService.TokenInfo>> refreshToken(
             @RequestBody TokenRefreshRequest request) {
         
         try {
             TokenService.TokenInfo tokenInfo = tokenService.refreshToken(request.getRefreshToken());
             
-            return ResponseEntity.ok(ApiResponse.success(tokenInfo));
+            return ResponseEntity.ok(BaseResponse.success(tokenInfo));
 
         } catch (Exception e) {
             logger.error("Error refreshing token", e);
             return ResponseEntity.badRequest()
-                .body(ApiResponse.error("Token refresh failed: " + e.getMessage()));
+                .body(BaseResponse.error("Token refresh failed: " + e.getMessage()));
         }
     }
 
@@ -115,18 +115,18 @@ public class TokenManagementController {
      */
     @PostMapping("/revoke")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<String>> revokeToken(
+    public ResponseEntity<BaseResponse<String>> revokeToken(
             @RequestBody TokenRevocationRequest request) {
         
         try {
             tokenService.revokeToken(request.getToken());
             
-            return ResponseEntity.ok(ApiResponse.success("Token revoked successfully"));
+            return ResponseEntity.ok(BaseResponse.success("Token revoked successfully"));
 
         } catch (Exception e) {
             logger.error("Error revoking token", e);
             return ResponseEntity.badRequest()
-                .body(ApiResponse.error("Token revocation failed: " + e.getMessage()));
+                .body(BaseResponse.error("Token revocation failed: " + e.getMessage()));
         }
     }
 
@@ -135,7 +135,7 @@ public class TokenManagementController {
      */
     @PostMapping("/revoke-user/{userId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<String>> revokeUserTokens(@PathVariable String userId) {
+    public ResponseEntity<BaseResponse<String>> revokeUserTokens(@PathVariable String userId) {
         
         try {
             tokenService.revokeUserTokens(userId);
@@ -144,12 +144,12 @@ public class TokenManagementController {
                 tokenStorageManager.revokeUserTokens(userId);
             }
             
-            return ResponseEntity.ok(ApiResponse.success("All user tokens revoked successfully"));
+            return ResponseEntity.ok(BaseResponse.success("All user tokens revoked successfully"));
 
         } catch (Exception e) {
             logger.error("Error revoking user tokens for user: {}", userId, e);
             return ResponseEntity.badRequest()
-                .body(ApiResponse.error("User tokens revocation failed: " + e.getMessage()));
+                .body(BaseResponse.error("User tokens revocation failed: " + e.getMessage()));
         }
     }
 
@@ -158,22 +158,22 @@ public class TokenManagementController {
      */
     @GetMapping("/statistics")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<Object>> getTokenStatistics() {
+    public ResponseEntity<BaseResponse<Object>> getTokenStatistics() {
         
         try {
             if (tokenStorageManager != null) {
                 TokenStorageManager.TokenStatistics stats = tokenStorageManager.getTokenStatistics();
-                return ResponseEntity.ok(ApiResponse.success(stats));
+                return ResponseEntity.ok(BaseResponse.success(stats));
             } else {
                 Map<String, String> message = new HashMap<>();
                 message.put("message", "Token storage manager not available (Redis not configured)");
-                return ResponseEntity.ok(ApiResponse.success(message));
+                return ResponseEntity.ok(BaseResponse.success(message));
             }
 
         } catch (Exception e) {
             logger.error("Error retrieving token statistics", e);
             return ResponseEntity.badRequest()
-                .body(ApiResponse.error("Failed to retrieve token statistics: " + e.getMessage()));
+                .body(BaseResponse.error("Failed to retrieve token statistics: " + e.getMessage()));
         }
     }
 
@@ -182,7 +182,7 @@ public class TokenManagementController {
      */
     @PostMapping("/cleanup")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<String>> cleanupExpiredTokens() {
+    public ResponseEntity<BaseResponse<String>> cleanupExpiredTokens() {
         
         try {
             tokenService.cleanupExpiredTokens();
@@ -191,12 +191,12 @@ public class TokenManagementController {
                 tokenStorageManager.cleanupExpiredTokens();
             }
             
-            return ResponseEntity.ok(ApiResponse.success("Expired tokens cleanup completed"));
+            return ResponseEntity.ok(BaseResponse.success("Expired tokens cleanup completed"));
 
         } catch (Exception e) {
             logger.error("Error during token cleanup", e);
             return ResponseEntity.badRequest()
-                .body(ApiResponse.error("Token cleanup failed: " + e.getMessage()));
+                .body(BaseResponse.error("Token cleanup failed: " + e.getMessage()));
         }
     }
 

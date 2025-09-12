@@ -15,6 +15,11 @@ public final class ApiConstants {
     public static final String API_VERSION_V1 = "/api/v1";
 
     /**
+     * 路径前缀
+     */
+    public static final String TEST_PREFIX = "/test";
+
+    /**
      * 响应码
      */
     public static final class ResponseCode {

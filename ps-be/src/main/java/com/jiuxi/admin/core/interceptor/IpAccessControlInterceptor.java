@@ -3,7 +3,7 @@ package com.jiuxi.admin.core.interceptor;
 import com.jiuxi.admin.core.bean.entity.TpIpAccessLog;
 import com.jiuxi.admin.core.service.TpIpAccessLogService;
 import com.jiuxi.admin.core.util.IpAccessControlUtil;
-import com.jiuxi.config.IpAccessConfigCache;
+import com.jiuxi.shared.config.cache.IpAccessConfigCache;
 import com.jiuxi.common.bean.JsonResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

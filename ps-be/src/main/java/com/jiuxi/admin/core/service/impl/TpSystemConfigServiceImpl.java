@@ -7,7 +7,7 @@ import com.jiuxi.admin.core.bean.query.TpSystemConfigQuery;
 import com.jiuxi.admin.core.bean.vo.TpSystemConfigVO;
 import com.jiuxi.admin.core.mapper.TpSystemConfigMapper;
 import com.jiuxi.admin.core.service.TpSystemConfigService;
-import com.jiuxi.config.ConfigChangeEvent;
+import com.jiuxi.shared.config.events.ConfigChangeEvent;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;

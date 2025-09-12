@@ -7,7 +7,7 @@ import com.jiuxi.admin.core.bean.query.TpIpAccessLogQuery;
 import com.jiuxi.admin.core.bean.vo.TpIpAccessLogVO;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.core.core.annotation.Authorization;
-import com.jiuxi.config.IpAccessConfigCache;
+import com.jiuxi.shared.config.cache.IpAccessConfigCache;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

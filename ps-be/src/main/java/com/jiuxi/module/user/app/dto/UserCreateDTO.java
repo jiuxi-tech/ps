@@ -1,9 +1,9 @@
 package com.jiuxi.module.user.app.dto;
 
-import com.jiuxi.common.validation.annotations.Phone;
-import com.jiuxi.common.validation.annotations.IdCard;
-import com.jiuxi.common.validation.groups.AddGroup;
-import com.jiuxi.common.validation.groups.UpdateGroup;
+import com.jiuxi.shared.common.validation.annotations.Phone;
+import com.jiuxi.shared.common.validation.annotations.IdCard;
+import com.jiuxi.shared.common.validation.groups.AddGroup;
+import com.jiuxi.shared.common.validation.groups.UpdateGroup;
 
 import javax.validation.constraints.*;
 import javax.validation.constraints.Email;

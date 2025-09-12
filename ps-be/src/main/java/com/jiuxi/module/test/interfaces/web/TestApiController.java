@@ -8,8 +8,8 @@ import com.jiuxi.common.constants.ApiConstants;
 import com.jiuxi.common.exception.BusinessException;
 import com.jiuxi.common.exception.ValidationException;
 import com.jiuxi.common.util.ValidationUtils;
-import com.jiuxi.common.validation.groups.AddGroup;
-import com.jiuxi.common.validation.groups.UpdateGroup;
+import com.jiuxi.shared.common.validation.groups.AddGroup;
+import com.jiuxi.shared.common.validation.groups.UpdateGroup;
 import com.jiuxi.module.user.app.dto.UserCreateDTO;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +32,7 @@ import java.util.List;
 public class TestApiController {
 
     /**
-     * 测试成功响应（JsonResponse）
+     * 测试成功响应（ApiResponse）
      */
     @GetMapping("/test_json_success")
     public JsonResponse testJsonSuccess() {
