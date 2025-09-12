@@ -4,7 +4,7 @@ import com.jiuxi.common.constant.TpConstant;
 import com.jiuxi.admin.core.event.TpAccountEvent;
 import com.jiuxi.admin.core.listener.service.TpAccountEventService;
 import com.jiuxi.common.util.CommonDateUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;

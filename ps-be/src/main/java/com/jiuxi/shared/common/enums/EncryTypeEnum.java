@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.enums;
+package com.jiuxi.shared.common.enums;
 
 /**
  * 加密类型

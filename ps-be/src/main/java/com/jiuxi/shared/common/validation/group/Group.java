@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.validator.group;
+package com.jiuxi.shared.common.validation.group;
 
 import javax.validation.GroupSequence;
 

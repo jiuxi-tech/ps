@@ -3,7 +3,7 @@ package com.jiuxi.admin.core.controller.pc;
 import cn.hutool.core.util.StrUtil;
 import com.jiuxi.admin.core.service.TpAccountService;
 import com.jiuxi.common.bean.JsonResponse;
-import com.jiuxi.core.core.annotation.IgnoreAuthorization;
+import com.jiuxi.shared.common.annotation.IgnoreAuthorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

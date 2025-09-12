@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.jackson;
+package com.jiuxi.shared.common.serializer;
 
 import cn.hutool.crypto.asymmetric.KeyType;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import com.jiuxi.common.util.AesUtils;
 import com.jiuxi.common.util.SmUtils;
-import com.jiuxi.core.core.annotation.Encryption;
-import com.jiuxi.core.core.enums.EncryTypeEnum;
+import com.jiuxi.shared.common.annotation.Encryption;
+import com.jiuxi.shared.common.enums.EncryTypeEnum;
 
 import java.io.IOException;
 import java.util.Objects;

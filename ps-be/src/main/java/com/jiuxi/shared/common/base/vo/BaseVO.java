@@ -1,4 +1,4 @@
-package com.jiuxi.core.bean;
+package com.jiuxi.shared.common.base.vo;
 
 /**
  * @ClassName: BaseVO

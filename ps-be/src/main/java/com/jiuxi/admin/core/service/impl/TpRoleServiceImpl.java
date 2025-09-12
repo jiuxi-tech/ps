@@ -22,7 +22,7 @@ import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.CommonDateUtil;
 import com.jiuxi.common.util.CommonTreeUtil;
 import com.jiuxi.common.util.SnowflakeIdUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.core.core.event.TpRoleAuthorizationEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

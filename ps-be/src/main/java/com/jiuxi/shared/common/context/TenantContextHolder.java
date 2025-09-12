@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.context;
+package com.jiuxi.shared.common.context;
 
 /**
  * @ClassName: TenantContextHolder

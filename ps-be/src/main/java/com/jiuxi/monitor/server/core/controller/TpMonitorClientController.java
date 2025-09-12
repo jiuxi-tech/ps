@@ -2,7 +2,7 @@ package com.jiuxi.monitor.server.core.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.jiuxi.common.bean.JsonResponse;
-import com.jiuxi.core.core.annotation.Authorization;
+import com.jiuxi.shared.common.annotation.Authorization;
 import com.jiuxi.monitor.server.bean.ClientHeartbeatInfo;
 import com.jiuxi.monitor.server.core.service.MonitorServerService;
 import org.slf4j.Logger;

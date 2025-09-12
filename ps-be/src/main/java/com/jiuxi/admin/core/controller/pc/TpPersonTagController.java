@@ -2,8 +2,8 @@ package com.jiuxi.admin.core.controller.pc;
 
 import com.jiuxi.admin.core.bean.vo.TpPersonTagVO;
 import com.jiuxi.admin.core.service.TpPersonTagService;
-import com.jiuxi.core.core.annotation.Authorization;
-import com.jiuxi.core.core.annotation.IgnoreAuthorization;
+import com.jiuxi.shared.common.annotation.Authorization;
+import com.jiuxi.shared.common.annotation.IgnoreAuthorization;
 import com.jiuxi.common.bean.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
 package com.jiuxi.security.core.entity.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jiuxi.core.bean.BaseVO;
+import com.jiuxi.shared.common.base.vo.BaseVO;
 
 import java.io.Serializable;
 import java.util.List;

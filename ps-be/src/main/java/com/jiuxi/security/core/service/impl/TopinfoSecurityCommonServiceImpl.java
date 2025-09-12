@@ -11,7 +11,7 @@ import com.jiuxi.common.constant.TpConstant;
 import com.jiuxi.common.util.CommonRequestUtil;
 import com.jiuxi.common.util.JwtTokenUtils;
 import com.jiuxi.common.util.JwtUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.autoconfig.SecurityConfigurationProperties;
 import com.jiuxi.security.bean.Authentication;
 import com.jiuxi.security.core.entity.vo.AccountThirdVO;

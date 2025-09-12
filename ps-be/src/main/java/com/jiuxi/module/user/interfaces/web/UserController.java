@@ -1,10 +1,10 @@
 package com.jiuxi.module.user.interfaces.web;
 
 import com.jiuxi.common.bean.JsonResponse;
-import com.jiuxi.core.core.annotation.Authorization;
-import com.jiuxi.core.core.annotation.IgnoreAuthorization;
-import com.jiuxi.core.core.validator.group.AddGroup;
-import com.jiuxi.core.core.validator.group.UpdateGroup;
+import com.jiuxi.shared.common.annotation.Authorization;
+import com.jiuxi.shared.common.annotation.IgnoreAuthorization;
+import com.jiuxi.shared.common.validation.group.AddGroup;
+import com.jiuxi.shared.common.validation.group.UpdateGroup;
 import com.jiuxi.module.user.app.dto.UserCreateDTO;
 import com.jiuxi.module.user.app.dto.UserQueryDTO;
 import com.jiuxi.module.user.app.dto.UserResponseDTO;

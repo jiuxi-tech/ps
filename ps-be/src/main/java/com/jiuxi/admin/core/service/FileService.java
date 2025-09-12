@@ -1,7 +1,7 @@
 package com.jiuxi.admin.core.service;
 
 import com.jiuxi.admin.core.bean.entity.TpAttachinfo;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;

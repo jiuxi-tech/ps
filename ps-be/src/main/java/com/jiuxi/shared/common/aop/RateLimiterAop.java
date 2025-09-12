@@ -1,9 +1,9 @@
-package com.jiuxi.core.core.aop;
+package com.jiuxi.shared.common.aop;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
-import com.jiuxi.core.core.annotation.RateLimiterAnnotation;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
+import com.jiuxi.shared.common.annotation.RateLimiterAnnotation;
 import com.jiuxi.core.core.service.RateLimiterCacheService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;

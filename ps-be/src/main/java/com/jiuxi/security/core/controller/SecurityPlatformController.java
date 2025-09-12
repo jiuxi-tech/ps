@@ -7,7 +7,7 @@ import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.common.bean.SessionVO;
 import com.jiuxi.common.util.CommonRequestUtil;
 import com.jiuxi.common.util.JwtUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.autoconfig.SecurityConfigurationProperties;
 import com.jiuxi.security.core.entity.vo.AccountThirdVO;
 import com.jiuxi.security.core.entity.vo.AccountVO;

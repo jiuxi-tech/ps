@@ -1,9 +1,9 @@
-package com.jiuxi.core.core.annotation;
+package com.jiuxi.shared.common.annotation;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.jiuxi.core.core.enums.EncryTypeEnum;
-import com.jiuxi.core.core.jackson.EncryptionSerialize;
+import com.jiuxi.shared.common.enums.EncryTypeEnum;
+import com.jiuxi.shared.common.serializer.EncryptionSerialize;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

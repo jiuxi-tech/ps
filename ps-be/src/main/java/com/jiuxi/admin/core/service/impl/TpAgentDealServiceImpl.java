@@ -21,7 +21,7 @@ import com.jiuxi.admin.core.bean.entity.TpAgentDeal;
 import com.jiuxi.admin.core.bean.vo.TpAgentDealVO;
 import com.jiuxi.admin.core.bean.query.TpAgentDealQuery;
 import com.jiuxi.admin.core.service.TpAgentDealService;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 
 import java.util.Optional;
 import java.util.List;

@@ -38,7 +38,7 @@ import com.jiuxi.common.util.CommonDateUtil;
 import com.jiuxi.common.util.CommonUniqueIndexUtil;
 import com.jiuxi.common.util.PhoneEncryptionUtils;
 import com.jiuxi.common.util.SnowflakeIdUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.core.holder.SessionHolder;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.lang3.StringUtils;

@@ -5,7 +5,7 @@ import cn.hutool.extra.qrcode.QrCodeUtil;
 import com.jiuxi.admin.core.bean.vo.TpParameterConfigVO;
 import com.jiuxi.admin.core.service.QrCodeService;
 import com.jiuxi.admin.core.service.TpParameterConfigService;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

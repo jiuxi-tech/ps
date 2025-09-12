@@ -13,7 +13,7 @@ import com.jiuxi.admin.core.bean.vo.TpTagVO;
 import com.jiuxi.admin.core.mapper.TpPersonTagMapper;
 import com.jiuxi.admin.core.mapper.TpTagMapper;
 import com.jiuxi.admin.core.service.TpTagService;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.common.util.CommonDateUtil;
 import com.jiuxi.common.util.SnowflakeIdUtil;
 import org.apache.commons.lang3.exception.ExceptionUtils;

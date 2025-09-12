@@ -5,7 +5,7 @@ import com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO;
 import com.jiuxi.admin.core.service.TpDeptBasicinfoService;
 import com.jiuxi.common.bean.TreeNode;
 import com.jiuxi.common.constant.TpConstant;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 // import com.jiuxi.plugin.api.bean.dto.TpDeptBasicinfoDTO;
 // import com.jiuxi.plugin.api.interfaces.TpDeptApiService;
 import org.apache.commons.lang3.Validate;

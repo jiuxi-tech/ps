@@ -1,4 +1,4 @@
-package com.jiuxi.core.bean;
+package com.jiuxi.shared.common.exception;
 
 
 import com.jiuxi.common.bean.ErrorCode;

@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.jackson;
+package com.jiuxi.shared.common.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanProperty;
@@ -7,8 +7,8 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import com.jiuxi.common.util.SensitiveUtils;
-import com.jiuxi.core.core.annotation.SensitiveInfo;
-import com.jiuxi.core.core.enums.SensitiveType;
+import com.jiuxi.shared.common.annotation.SensitiveInfo;
+import com.jiuxi.shared.common.enums.SensitiveType;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;

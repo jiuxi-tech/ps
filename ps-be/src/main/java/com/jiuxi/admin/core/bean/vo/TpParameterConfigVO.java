@@ -1,6 +1,6 @@
 package com.jiuxi.admin.core.bean.vo;
 
-import com.jiuxi.core.core.validator.group.AddGroup;
+import com.jiuxi.shared.common.validation.group.AddGroup;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;

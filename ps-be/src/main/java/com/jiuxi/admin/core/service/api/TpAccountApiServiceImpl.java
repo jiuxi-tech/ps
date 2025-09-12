@@ -3,7 +3,7 @@ package com.jiuxi.admin.core.service.api;
 import cn.hutool.core.util.StrUtil;
 import com.jiuxi.admin.core.bean.vo.TpAccountVO;
 import com.jiuxi.admin.core.service.TpAccountService;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 // import com.jiuxi.plugin.api.bean.dto.TpAccountDTO;
 // import com.jiuxi.plugin.api.interfaces.TpAccountApiService;
 import org.apache.commons.lang3.Validate;

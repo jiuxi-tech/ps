@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.validator;
+package com.jiuxi.shared.common.validation;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

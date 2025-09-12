@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.mybatis.bean.DataSourceConfig;
 import com.jiuxi.mybatis.bean.Dynamic;
 import com.jiuxi.shared.infrastructure.persistence.dynamic.DynamicDataSource;

@@ -2,7 +2,7 @@ package com.jiuxi.security.core.interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import com.jiuxi.common.bean.ErrorCode;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.core.service.AuthenticationService;
 import com.jiuxi.security.core.service.TopinfoSecurityLogoutService;
 import org.slf4j.Logger;

@@ -9,7 +9,7 @@ import com.jiuxi.admin.core.service.TpAttachinfoService;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.TokenUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

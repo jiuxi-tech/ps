@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.enums;
+package com.jiuxi.shared.common.enums;
 
 /**
  * @Description: 脱敏类型定义

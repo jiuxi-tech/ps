@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jiuxi.admin.core.bean.entity.TpTrace;
 import com.jiuxi.admin.core.bean.vo.TpTraceVO;
 import com.jiuxi.admin.core.bean.query.TpTraceQuery;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package com.jiuxi.admin.core.bean.vo;
 
-import com.jiuxi.core.core.annotation.SensitiveInfo;
-import com.jiuxi.core.core.enums.SensitiveType;
+import com.jiuxi.shared.common.annotation.SensitiveInfo;
+import com.jiuxi.shared.common.enums.SensitiveType;
 
 import java.io.Serializable;
 

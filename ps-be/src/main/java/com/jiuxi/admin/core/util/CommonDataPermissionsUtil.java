@@ -3,7 +3,7 @@ package com.jiuxi.admin.core.util;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.jiuxi.admin.core.service.TpDataPermissionsService;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.common.bean.SessionVO;
 import com.jiuxi.security.core.holder.SessionHolder;
 import org.springframework.stereotype.Component;

@@ -8,7 +8,7 @@ import cn.hutool.json.JSONObject;
 import com.jiuxi.platform.captcha.app.service.CaptchaService;
 import com.jiuxi.common.util.JwtTokenUtils;
 import com.jiuxi.common.util.SmUtils;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.autoconfig.SecurityConfigurationProperties;
 import com.jiuxi.security.core.entity.vo.AccountVO;
 import com.jiuxi.security.core.entity.vo.DeptVO;

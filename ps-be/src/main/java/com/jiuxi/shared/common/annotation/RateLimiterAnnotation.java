@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.annotation;
+package com.jiuxi.shared.common.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

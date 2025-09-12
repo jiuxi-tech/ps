@@ -3,8 +3,8 @@ package com.jiuxi.admin.core.bean.vo;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jiuxi.common.serializer.UrlJsonSerializer;
-import com.jiuxi.core.core.validator.group.AddGroup;
-import com.jiuxi.core.core.validator.group.UpdateGroup;
+import com.jiuxi.shared.common.validation.group.AddGroup;
+import com.jiuxi.shared.common.validation.group.UpdateGroup;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
