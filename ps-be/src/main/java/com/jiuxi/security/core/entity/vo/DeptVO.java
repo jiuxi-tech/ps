@@ -1,6 +1,6 @@
 package com.jiuxi.security.core.entity.vo;
 
-import com.jiuxi.core.bean.BaseVO;
+import com.jiuxi.shared.common.base.vo.BaseVO;
 
 /**
  * @ClassName: DeptVO

@@ -8,7 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import com.jiuxi.common.constant.TpConstant;
 import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.SmUtils;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.mybatis.bean.SecurityLicenceVO;
 import com.jiuxi.shared.infrastructure.persistence.service.LocalLicenceCacheService;
 import org.slf4j.Logger;

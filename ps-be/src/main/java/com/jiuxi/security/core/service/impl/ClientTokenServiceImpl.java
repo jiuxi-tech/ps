@@ -1,6 +1,6 @@
 package com.jiuxi.security.core.service.impl;
 
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.core.entity.vo.AccountThirdVO;
 import com.jiuxi.security.core.service.ClientTokenService;
 import org.springframework.beans.factory.annotation.Autowired;

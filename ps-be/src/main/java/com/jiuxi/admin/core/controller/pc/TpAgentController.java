@@ -6,7 +6,7 @@ import com.jiuxi.admin.core.bean.vo.TpAgentDealVO;
 import com.jiuxi.admin.core.bean.vo.TpAgentVO;
 import com.jiuxi.admin.core.service.TpAgentService;
 import com.jiuxi.common.bean.JsonResponse;
-import com.jiuxi.core.core.validator.group.AddGroup;
+import com.jiuxi.shared.common.validation.group.AddGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;

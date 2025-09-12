@@ -9,7 +9,7 @@ import com.jiuxi.admin.core.service.AdminLicenceCacheService;
 import com.jiuxi.common.constant.TpConstant;
 import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.SmUtils;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.mybatis.bean.SecurityLicenceVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

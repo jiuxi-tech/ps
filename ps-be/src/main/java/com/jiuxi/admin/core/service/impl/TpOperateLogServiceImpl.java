@@ -11,7 +11,7 @@ import com.jiuxi.admin.core.bean.vo.TpOperateLogVO;
 import com.jiuxi.admin.core.mapper.TpOperateLogMapper;
 import com.jiuxi.admin.core.service.TpOperateLogService;
 import com.jiuxi.common.exception.ExceptionUtils;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;

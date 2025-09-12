@@ -2,7 +2,7 @@ package com.jiuxi.monitor.server.core.controller;
 
 
 import com.jiuxi.common.bean.JsonResponse;
-import com.jiuxi.core.core.annotation.Authorization;
+import com.jiuxi.shared.common.annotation.Authorization;
 import com.jiuxi.monitor.server.core.bean.vo.TpMonitorConfigVO;
 import com.jiuxi.monitor.server.core.service.TpMonitorConfigService;
 import org.springframework.beans.factory.annotation.Autowired;

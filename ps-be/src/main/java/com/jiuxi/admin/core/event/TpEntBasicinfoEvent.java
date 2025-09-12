@@ -4,7 +4,7 @@ import com.jiuxi.admin.constant.enums.OpertionTypeEnum;
 import com.jiuxi.admin.core.bean.entity.TpEntBasicinfo;
 import com.jiuxi.admin.core.listener.TpEntBasicinfoEventCollection;
 import com.jiuxi.admin.core.listener.service.TpEntBasicinfoEventService;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import org.springframework.context.ApplicationEvent;
 
 import java.util.List;

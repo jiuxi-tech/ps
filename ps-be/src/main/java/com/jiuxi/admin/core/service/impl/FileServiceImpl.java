@@ -13,7 +13,7 @@ import com.jiuxi.common.interfaces.VideoService;
 import com.jiuxi.common.util.CommonFileUtil;
 import com.jiuxi.common.util.FileUtils;
 import com.jiuxi.common.util.SnowflakeIdUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.jiuxi.captcha.core.cache.impl;
 
 import com.jiuxi.captcha.core.cache.CaptchaCacheService;
-import com.jiuxi.core.core.service.RedisCacheService;
+import com.jiuxi.shared.infrastructure.cache.RedisCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

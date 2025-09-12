@@ -3,7 +3,7 @@ package com.jiuxi.admin.core.service.api;
 import cn.hutool.core.bean.BeanUtil;
 import com.jiuxi.admin.core.bean.entity.TpAttachinfo;
 import com.jiuxi.admin.core.service.FileService;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 // import com.jiuxi.plugin.api.bean.dto.TpAttachinfoDTO;
 // import com.jiuxi.plugin.api.interfaces.FileServiceApi; // Commented out - interface not available
 import org.springframework.beans.factory.annotation.Autowired;

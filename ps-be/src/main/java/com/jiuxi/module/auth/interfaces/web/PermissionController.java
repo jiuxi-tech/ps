@@ -1,7 +1,7 @@
 package com.jiuxi.module.auth.interfaces.web;
 
 import com.jiuxi.common.bean.JsonResponse;
-import com.jiuxi.core.core.annotation.Authorization;
+import com.jiuxi.shared.common.annotation.Authorization;
 import com.jiuxi.module.auth.app.dto.PermissionCreateDTO;
 import com.jiuxi.module.auth.app.dto.PermissionUpdateDTO;
 import com.jiuxi.module.auth.app.service.PermissionApplicationService;

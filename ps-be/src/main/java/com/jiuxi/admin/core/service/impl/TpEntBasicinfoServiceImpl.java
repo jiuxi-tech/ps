@@ -28,7 +28,7 @@ import com.jiuxi.common.geo.GeoUtils;
 import com.jiuxi.common.util.CommonDateUtil;
 import com.jiuxi.common.util.CommonUniqueIndexUtil;
 import com.jiuxi.common.util.SnowflakeIdUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 // import com.jiuxi.plugin.api.bean.query.TpEntDeleteQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

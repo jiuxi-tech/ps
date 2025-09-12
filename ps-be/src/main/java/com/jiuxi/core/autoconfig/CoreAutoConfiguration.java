@@ -4,11 +4,11 @@ import cn.hutool.json.JSONUtil;
 import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.core.bean.Threadpool;
 import com.jiuxi.core.core.customizer.TopinfoTomcatConnectorCustomizer;
-import com.jiuxi.core.core.filter.XssFilter;
-import com.jiuxi.core.core.pool.TopinfoGlobalThreadPool;
-import com.jiuxi.core.core.runner.CoreCommandLineRunner;
-import com.jiuxi.core.core.service.RateLimiterCacheService;
-import com.jiuxi.core.core.service.impl.RateLimiterCacheServiceImpl;
+import com.jiuxi.shared.config.web.filter.XssFilter;
+import com.jiuxi.shared.infrastructure.async.TopinfoGlobalThreadPool;
+import com.jiuxi.shared.infrastructure.startup.CoreCommandLineRunner;
+import com.jiuxi.shared.infrastructure.cache.RateLimiterCacheService;
+import com.jiuxi.shared.infrastructure.cache.impl.RateLimiterCacheServiceImpl;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HeaderElementIterator;
@@ -81,7 +81,7 @@ import java.util.concurrent.TimeUnit;
 @EnableAsync
 @EnableCaching
 @AutoConfigureBefore(TaskExecutionAutoConfiguration.class)
-@ComponentScan({"com.jiuxi.core.core.aop","com.jiuxi.core.core.controller"})
+@ComponentScan({"com.jiuxi.core.core.aop","com.jiuxi.core.core.controller","com.jiuxi.shared.common.controller"})
 public class CoreAutoConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CoreAutoConfiguration.class);

@@ -2,7 +2,7 @@ package com.jiuxi.security.core.service.impl;
 
 import com.jiuxi.common.bean.ErrorCode;
 import com.jiuxi.common.util.JwtUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.core.service.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

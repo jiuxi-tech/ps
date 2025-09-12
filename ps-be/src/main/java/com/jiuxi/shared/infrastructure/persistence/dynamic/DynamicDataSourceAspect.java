@@ -1,7 +1,7 @@
 package com.jiuxi.shared.infrastructure.persistence.dynamic;
 
 import cn.hutool.core.util.StrUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

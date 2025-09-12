@@ -2,8 +2,8 @@ package com.jiuxi.security.core.interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import com.jiuxi.common.bean.SessionVO;
-import com.jiuxi.core.core.annotation.Authorization;
-import com.jiuxi.core.core.annotation.IgnoreAuthorization;
+import com.jiuxi.shared.common.annotation.Authorization;
+import com.jiuxi.shared.common.annotation.IgnoreAuthorization;
 import com.jiuxi.security.core.holder.SessionHolder;
 import com.jiuxi.security.core.service.AuthorizationService;
 import com.jiuxi.security.core.util.AuthorizationHorizontalUtil;

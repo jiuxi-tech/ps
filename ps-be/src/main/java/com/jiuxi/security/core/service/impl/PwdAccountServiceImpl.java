@@ -6,7 +6,7 @@ import com.jiuxi.admin.core.service.TpSystemConfigService;
 import com.jiuxi.admin.core.service.TpTimeRuleService;
 import com.jiuxi.common.util.CommonDateUtil;
 import com.jiuxi.common.util.SmUtils;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.autoconfig.SecurityConfigurationProperties;
 import com.jiuxi.security.core.entity.vo.AccountExinfoVO;
 import com.jiuxi.security.core.entity.vo.AccountVO;

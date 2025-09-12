@@ -6,7 +6,7 @@ import com.jiuxi.captcha.bean.vo.ImageCaptchaCheckVO;
 import com.jiuxi.captcha.bean.vo.ImageCaptchaVO;
 import com.jiuxi.captcha.core.service.CaptchaService;
 import com.jiuxi.common.bean.JsonResponse;
-import com.jiuxi.core.core.annotation.RateLimiterAnnotation;
+import com.jiuxi.shared.common.annotation.RateLimiterAnnotation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

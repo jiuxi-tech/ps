@@ -12,7 +12,7 @@ import com.jiuxi.captcha.constant.CaptchaConstant;
 import com.jiuxi.captcha.core.cache.CaptchaCacheService;
 import com.jiuxi.captcha.core.generator.ImageCaptchaGenerator;
 import com.jiuxi.captcha.util.ImageCaptchaUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

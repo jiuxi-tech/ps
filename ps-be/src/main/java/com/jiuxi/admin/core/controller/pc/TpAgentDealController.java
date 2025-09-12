@@ -5,7 +5,7 @@ import com.jiuxi.admin.core.bean.query.TpAgentDealQuery;
 import com.jiuxi.admin.core.bean.vo.TpAgentDealVO;
 import com.jiuxi.admin.core.service.TpAgentDealService;
 import com.jiuxi.common.bean.JsonResponse;
-import com.jiuxi.core.core.annotation.Authorization;
+import com.jiuxi.shared.common.annotation.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

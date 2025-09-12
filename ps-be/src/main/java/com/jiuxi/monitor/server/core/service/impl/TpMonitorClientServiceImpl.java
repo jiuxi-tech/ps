@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.jiuxi.common.constant.TpConstant;
 import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.CommonDateUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.monitor.server.bean.ClientHeartbeatInfo;
 import com.jiuxi.monitor.server.constant.MonitorServerConstant;
 import com.jiuxi.monitor.server.core.bean.entity.TpMonitorClient;

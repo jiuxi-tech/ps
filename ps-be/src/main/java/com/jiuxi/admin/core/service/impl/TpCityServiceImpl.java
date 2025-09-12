@@ -16,7 +16,7 @@ import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.CommonDateUtil;
 import com.jiuxi.common.util.CommonUniqueIndexUtil;
 import com.jiuxi.common.util.SnowflakeIdUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 // import com.jiuxi.plugin.api.interfaces.TpCityApiService;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;

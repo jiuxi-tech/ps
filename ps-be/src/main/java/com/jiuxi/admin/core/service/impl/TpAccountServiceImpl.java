@@ -23,7 +23,7 @@ import com.jiuxi.admin.core.service.TpKeycloakAccountService;
 import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.*;
 import com.jiuxi.common.util.PhoneEncryptionUtils;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.autoconfig.SecurityConfigurationProperties;
 // import com.jiuxi.sms.core.service.SmsSendService;
 import org.apache.commons.lang3.RandomStringUtils;

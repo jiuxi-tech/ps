@@ -7,7 +7,7 @@ import com.jiuxi.common.constant.TpConstant;
 import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.CommonDateUtil;
 import com.jiuxi.common.util.SnowflakeIdUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.monitor.server.core.bean.entity.TpSendMailRecord;
 import com.jiuxi.monitor.server.core.bean.query.TpSendMailRecordQuery;
 import com.jiuxi.monitor.server.core.bean.vo.TpSendMailRecordVO;

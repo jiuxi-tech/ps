@@ -14,7 +14,7 @@ import com.jiuxi.admin.core.service.TpTimeRuleService;
 import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.CommonDateUtil;
 import com.jiuxi.common.util.SnowflakeIdUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

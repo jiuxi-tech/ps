@@ -8,7 +8,7 @@ import com.jiuxi.common.bean.ErrorCode;
 import com.jiuxi.common.bean.SessionVO;
 import com.jiuxi.common.util.CommonRequestUtil;
 import com.jiuxi.common.util.PassKeyUtil;
-import com.jiuxi.core.bean.TopinfoRuntimeException;
+import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.core.holder.SessionHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

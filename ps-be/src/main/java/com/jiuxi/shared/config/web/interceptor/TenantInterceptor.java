@@ -2,7 +2,7 @@ package com.jiuxi.shared.config.web.interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import com.jiuxi.common.util.JwtTokenUtils;
-import com.jiuxi.core.core.context.TenantContextHolder;
+import com.jiuxi.shared.common.context.TenantContextHolder;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
