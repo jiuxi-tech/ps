@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.service;
+package com.jiuxi.shared.infrastructure.cache;
 
 import java.util.concurrent.TimeUnit;
 

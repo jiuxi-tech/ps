@@ -1,6 +1,6 @@
 package com.jiuxi.security.core.listener;
 
-import com.jiuxi.core.core.event.TpRoleAuthorizationEvent;
+import com.jiuxi.shared.infrastructure.messaging.event.TpRoleAuthorizationEvent;
 import com.jiuxi.security.core.service.AuthorizationCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

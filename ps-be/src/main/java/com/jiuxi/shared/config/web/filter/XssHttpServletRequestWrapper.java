@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.filter;
+package com.jiuxi.shared.config.web.filter;
 
 import org.apache.commons.lang3.StringUtils;
 

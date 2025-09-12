@@ -1,6 +1,6 @@
 package com.jiuxi.security.autoconfig;
 
-import com.jiuxi.core.core.service.RedisCacheService;
+import com.jiuxi.shared.infrastructure.cache.RedisCacheService;
 import com.jiuxi.security.core.conditional.ConditionalAccountExinfo;
 import com.jiuxi.security.core.config.SecurityWebMvcConfigurer;
 import com.jiuxi.security.core.interceptor.AnalysisTokenHandlerInterceptor;
@@ -362,7 +362,7 @@ public class SecurityAutoConfiguration {
      * 鉴权的缓存操作
      *
      * @param
-     * @return com.jiuxi.core.core.service.AuthorizationCacheService
+     * @return com.jiuxi.shared.infrastructure.cache.AuthorizationCacheService
      * @author 杨攀
      * @date 2022/11/25 13:28
      */

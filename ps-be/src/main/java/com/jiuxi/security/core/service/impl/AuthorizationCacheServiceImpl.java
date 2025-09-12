@@ -1,6 +1,6 @@
 package com.jiuxi.security.core.service.impl;
 
-import com.jiuxi.core.core.service.RedisCacheService;
+import com.jiuxi.shared.infrastructure.cache.RedisCacheService;
 import com.jiuxi.security.core.service.AuthorizationCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.service;
+package com.jiuxi.shared.infrastructure.cache;
 
 /**
  * @ClassName: CaptchaCacheService

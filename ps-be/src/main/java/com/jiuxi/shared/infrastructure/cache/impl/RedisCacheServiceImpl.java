@@ -1,6 +1,6 @@
-package com.jiuxi.core.core.service.impl;
+package com.jiuxi.shared.infrastructure.cache.impl;
 
-import com.jiuxi.core.core.service.RedisCacheService;
+import com.jiuxi.shared.infrastructure.cache.RedisCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.handler;
+package com.jiuxi.shared.infrastructure.async;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

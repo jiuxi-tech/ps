@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.filter;
+package com.jiuxi.shared.config.web.filter;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;

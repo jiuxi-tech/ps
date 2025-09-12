@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.pool;
+package com.jiuxi.shared.infrastructure.async;
 
 import com.jiuxi.core.autoconfig.CoreConfigurationProperties;
 import com.jiuxi.core.bean.Threadpool;

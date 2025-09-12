@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.shared.common.annotation.RateLimiterAnnotation;
-import com.jiuxi.core.core.service.RateLimiterCacheService;
+import com.jiuxi.shared.infrastructure.cache.RateLimiterCacheService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;

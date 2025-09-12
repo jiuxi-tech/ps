@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.event;
+package com.jiuxi.shared.infrastructure.messaging.event;
 
 import org.springframework.context.ApplicationEvent;
 

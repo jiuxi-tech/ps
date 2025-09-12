@@ -1,10 +1,10 @@
-package com.jiuxi.core.core.service.impl;
+package com.jiuxi.shared.infrastructure.cache.impl;
 
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.core.util.StrUtil;
-import com.jiuxi.core.core.service.RateLimiterCacheService;
-import com.jiuxi.core.core.service.RedisCacheService;
+import com.jiuxi.shared.infrastructure.cache.RateLimiterCacheService;
+import com.jiuxi.shared.infrastructure.cache.RedisCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.TimeUnit;
