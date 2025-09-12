@@ -1,7 +1,7 @@
 package com.jiuxi.shared.config.web.interceptor;
 
 import cn.hutool.core.util.StrUtil;
-import com.jiuxi.mvc.core.holder.TokenHolder;
+import com.jiuxi.shared.security.holder.TokenHolder;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 

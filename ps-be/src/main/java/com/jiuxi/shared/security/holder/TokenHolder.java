@@ -1,4 +1,4 @@
-package com.jiuxi.mvc.core.holder;
+package com.jiuxi.shared.security.holder;
 
 /**
  * @ClassName: TokenHolder
