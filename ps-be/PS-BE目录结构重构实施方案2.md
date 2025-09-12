@@ -1392,10 +1392,10 @@ admin/core/mapper/TpPersonBasicinfoMapper.java     → module/user/infra/persist
    ```
 
 #### 验收标准
-- [ ] 组织相关功能迁移完成
-- [ ] 控制器和服务正确归类
-- [ ] 数据访问层迁移完整
-- [ ] 项目编译通过（mvn clean compile）
+- [x] 组织相关功能迁移完成
+- [x] 控制器和服务正确归类  
+- [x] 数据访问层迁移完整
+- [x] 项目编译通过（mvn clean compile）
 
 ### 阶段4.4：系统管理功能迁移（预计3小时）
 

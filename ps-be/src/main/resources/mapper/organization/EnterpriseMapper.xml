@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.module.organization.infra.persistence.mapper.EnterpriseMapper">
+
+    <!-- 企业基本信息结果映射 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpEntBasicinfo" id="tpEntBasicinfoMap">
+        <result property="entId" column="ENT_ID"/>
+        <result property="entName" column="ENT_NAME"/>
+        <result property="entUnifiedCode" column="ENT_UNIFIED_CODE"/>
+        <result property="entType" column="ENT_TYPE"/>
+        <result property="entStatus" column="ENT_STATUS"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+    </resultMap>
+
+    <!-- 分页查询企业信息 -->
+    <select id="selectPageByCityCode" parameterType="com.jiuxi.admin.core.bean.query.TpEntBasicQuery" resultType="com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO">
+        SELECT 
+            t.ENT_ID,
+            t.ENT_NAME,
+            t.ENT_UNIFIED_CODE,
+            t.ENT_TYPE,
+            t.ENT_STATUS,
+            t.TENANT_ID,
+            t.ACTIVED,
+            t.CREATE_TIME,
+            t.UPDATE_TIME
+        FROM tp_ent_basicinfo t
+        WHERE t.ACTIVED = 1
+        <if test="query.entName != null and query.entName != ''">
+            AND t.ENT_NAME LIKE CONCAT('%', #{query.entName}, '%')
+        </if>
+        <if test="query.entUnifiedCode != null and query.entUnifiedCode != ''">
+            AND t.ENT_UNIFIED_CODE = #{query.entUnifiedCode}
+        </if>
+        ORDER BY t.CREATE_TIME DESC
+    </select>
+
+    <!-- 查询企业账号信息 -->
+    <select id="accountQueryPage" parameterType="com.jiuxi.admin.core.bean.query.TpEntAccountQuery" resultType="com.jiuxi.admin.core.bean.vo.TpEntAccountVO">
+        SELECT 
+            e.ENT_ID,
+            e.ENT_NAME,
+            a.ACCOUNT_ID,
+            a.USERNAME,
+            p.PERSON_NAME
+        FROM tp_ent_basicinfo e
+        LEFT JOIN tp_account a ON e.ENT_ID = a.ENT_ID
+        LEFT JOIN tp_person_basicinfo p ON a.PERSON_ID = p.PERSON_ID
+        WHERE e.ACTIVED = 1 AND a.ACTIVED = 1 AND p.ACTIVED = 1
+        <if test="query.entName != null and query.entName != ''">
+            AND e.ENT_NAME LIKE CONCAT('%', #{query.entName}, '%')
+        </if>
+        ORDER BY e.CREATE_TIME DESC
+    </select>
+
+    <!-- 管理员账号查询 -->
+    <select id="adminQueryPage" parameterType="com.jiuxi.admin.core.bean.query.TpEntAccountQuery" resultType="com.jiuxi.admin.core.bean.vo.TpEntAccountVO">
+        SELECT 
+            e.ENT_ID,
+            e.ENT_NAME,
+            a.ACCOUNT_ID,
+            a.USERNAME,
+            p.PERSON_NAME
+        FROM tp_ent_basicinfo e
+        LEFT JOIN tp_account a ON e.ENT_ID = a.ENT_ID
+        LEFT JOIN tp_person_basicinfo p ON a.PERSON_ID = p.PERSON_ID
+        WHERE e.ACTIVED = 1 AND a.ACTIVED = 1 AND p.ACTIVED = 1
+        AND a.ACCOUNT_TYPE = 'ADMIN'
+        ORDER BY e.CREATE_TIME DESC
+    </select>
+
+    <!-- 根据企业ID查询 -->
+    <select id="selectByEntId" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO">
+        SELECT * FROM tp_ent_basicinfo WHERE ENT_ID = #{entId} AND ACTIVED = 1
+    </select>
+
+    <!-- 新增企业 -->
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpEntBasicinfo">
+        INSERT INTO tp_ent_basicinfo (
+            ENT_ID, ENT_NAME, ENT_UNIFIED_CODE, ENT_TYPE, ENT_STATUS, 
+            TENANT_ID, ACTIVED, CREATE_TIME, UPDATE_TIME
+        ) VALUES (
+            #{entId}, #{entName}, #{entUnifiedCode}, #{entType}, #{entStatus},
+            #{tenantId}, 1, #{createTime}, #{updateTime}
+        )
+    </insert>
+
+    <!-- 查询企业详情 -->
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO">
+        SELECT * FROM tp_ent_basicinfo WHERE ENT_ID = #{entId} AND ACTIVED = 1
+    </select>
+
+    <!-- 根据统一信用代码查询企业信息 -->
+    <select id="getBaseInfoByEntUnifiedCode" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO">
+        SELECT * FROM tp_ent_basicinfo WHERE ENT_UNIFIED_CODE = #{entUnifiedCode} AND ACTIVED = 1
+    </select>
+
+    <!-- 根据统一信用代码查询企业实体 -->
+    <select id="selectByEntUnifiedCode" parameterType="String" resultType="com.jiuxi.admin.core.bean.entity.TpEntBasicinfo">
+        SELECT * FROM tp_ent_basicinfo WHERE ENT_UNIFIED_CODE = #{entUnifiedCode} AND ACTIVED = 1
+    </select>
+
+    <!-- 检查统一信用代码是否存在 -->
+    <select id="existsEntUnifiedCode" resultType="Integer">
+        SELECT COUNT(1) FROM tp_ent_basicinfo 
+        WHERE ENT_UNIFIED_CODE = #{entUnifiedCode} AND ACTIVED = 1
+        <if test="entId != null and entId != ''">
+            AND ENT_ID != #{entId}
+        </if>
+    </select>
+
+    <!-- 更新企业信息 -->
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpEntBasicinfo">
+        UPDATE tp_ent_basicinfo 
+        SET ENT_NAME = #{entName},
+            ENT_TYPE = #{entType},
+            ENT_STATUS = #{entStatus},
+            UPDATE_TIME = #{updateTime}
+        WHERE ENT_ID = #{entId} AND ACTIVED = 1
+    </update>
+
+    <!-- 删除企业信息（逻辑删除） -->
+    <update id="delete">
+        UPDATE tp_ent_basicinfo 
+        SET ACTIVED = 0, 
+            UPDATE_TIME = #{updateTime},
+            ENT_NAME = #{entName}
+        WHERE ENT_ID = #{entId} AND ACTIVED = 1
+    </update>
+
+    <!-- 查询企业信息包括已删除 -->
+    <select id="getBaseInfoIncludeNotActive" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO">
+        SELECT * FROM tp_ent_basicinfo WHERE ENT_ID = #{entId}
+    </select>
+
+    <!-- 检查企业是否存在（忽略actived字段） -->
+    <select id="existsByEntId" parameterType="String" resultType="Integer">
+        SELECT COUNT(1) FROM tp_ent_basicinfo WHERE ENT_ID = #{entId}
+    </select>
+
+</mapper>

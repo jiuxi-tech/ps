@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.module.organization.infra.persistence.mapper.DepartmentMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpDeptBasicinfo" id="tpDeptBasicinfoMap">
+        <result property="deptId" column="DEPT_ID"/>
+        <result property="pdeptId" column="PDEPT_ID"/>
+        <result property="deptLevelcode" column="DEPT_LEVELCODE"/>
+        <result property="deptNo" column="DEPT_NO"/>
+        <result property="deptFullName" column="DEPT_FULL_NAME"/>
+        <result property="deptSimpleName" column="DEPT_SIMPLE_NAME"/>
+        <result property="deptType" column="DEPT_TYPE"/>
+        <result property="deptDesc" column="DEPT_DESC"/>
+        <result property="orderIndex" column="ORDER_INDEX"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="cityCode" column="CITY_CODE"/>
+        <result property="principalName" column="PRINCIPAL_NAME"/>
+        <result property="principalTel" column="PRINCIPAL_TEL"/>
+        <result property="ascnId" column="ASCN_ID"/>
+        <result property="leaf" column="LEAF"/>
+        <result property="enabled" column="ENABLED"/>
+        <result property="actived" column="ACTIVED"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+        <result property="extend04" column="EXTEND04"/>
+        <result property="extend05" column="EXTEND05"/>
+    </resultMap>
+
+    <select id="selectDeptById" parameterType="string"
+            resultType="com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO">
+        select DEPT_ID, PDEPT_ID, DEPT_FULL_NAME, DEPT_LEVELCODE, ASCN_ID, LEAF
+        from tp_dept_basicinfo
+        where DEPT_ID = #{deptId}
+          and ACTIVED = 1
+    </select>
+
+
+    <select id="selectDeptListByLevelCode" resultType="com.jiuxi.common.bean.TreeNode">
+        select DEPT_ID as value, DEPT_ID as id, PDEPT_ID as pid, DEPT_FULL_NAME as label, DEPT_FULL_NAME as text, ASCN_ID as extend01, false as expand, false as checked
+        from tp_dept_basicinfo
+        where DEPT_LEVELCODE like CONCAT(#{levelCode}
+            , '%')
+          and CATEGORY = #{category}
+          and DEPT_ID != '1111111111111111111'
+          and ACTIVED = 1
+        order by ORDER_INDEX
+    </select>
+
+    <select id="getChildren" resultType="com.jiuxi.common.bean.TreeNode">
+        select DEPT_ID as value, DEPT_ID as id, PDEPT_ID as pid, DEPT_FULL_NAME as label, DEPT_FULL_NAME as text,
+        ASCN_ID as extend01, false as expand, false as checked
+        from tp_dept_basicinfo
+        where PDEPT_ID = #{parentId}
+        and DEPT_ID != '1111111111111111111'
+        and ACTIVED = 1
+        <if test="null != deptType and '' != deptType">and DEPT_TYPE = #{deptType}</if>
+        <if test="null != filterCommAscn and filterCommAscn == '1'.toString()">
+          and not exists(
+              select tca.id
+               from tp_committee_ascn tca
+              where tca.ascn_id = dept_id
+          )
+        </if>
+        <if test="null != category">and CATEGORY = #{category}</if>
+        order by ORDER_INDEX
+    </select>
+
+    <!--  根据id查询下级， 按DEPT_LEVELCODE排序，不能修改排序规则 -->
+    <select id="selectDeptListByPId" resultType="com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO">
+        select DEPT_ID, PDEPT_ID, DEPT_FULL_NAME, DEPT_LEVELCODE, ASCN_ID, LEAF
+        from tp_dept_basicinfo
+        where ACTIVED = 1
+        <if test="'' != deptId and null != deptId">and PDEPT_ID = #{deptId}</if>
+        <if test="null != category">and CATEGORY = #{category}</if>
+        order by DEPT_LEVELCODE desc
+    </select>
+
+    <select id="selectCityCodeByAscnId" parameterType="string" resultType="string">
+        SELECT d.CITY_CODE
+        FROM TP_DEPT_BASICINFO d
+        WHERE d.ACTIVED = 1
+          and d.dept_type = 'SYS0501'
+          and d.ASCN_ID = #{ascnId}
+    </select>
+
+    <resultMap type="com.jiuxi.common.bean.TreeNode" id="tpMenuTreeMap">
+        <result property="id" column="DEPT_ID"/>
+        <result property="text" column="DEPT_FULL_NAME"/>
+        <result property="label" column="DEPT_FULL_NAME"/>
+        <result property="pid" column="PDEPT_ID"/>
+        <result property="extend01" column="ASCN_ID"/>
+    </resultMap>
+
+    <select id="selectChildren" parameterType="string" resultMap="tpMenuTreeMap">
+        select tdb.DEPT_ID, tdb.DEPT_FULL_NAME, tdb.PDEPT_ID, tdb.ASCN_ID
+        from tp_dept_basicinfo tdb
+        where
+        tdb.ACTIVED = 1
+        and
+        tdb.ENABLED = 1
+        <if test="deptId != null and deptId != ''">
+            AND tdb.PDEPT_ID = #{deptId}
+        </if>
+        and tdb.CATEGORY = #{category}
+        and DEPT_ID != '1111111111111111111'
+        ORDER BY tdb.ORDER_INDEX
+    </select>
+
+    <!-- 部门更改为单位类型，查询当前部门下的部门id（排除单位） -->
+    <select id="selectByDeptLevelcodeAndAscnId" resultType="string">
+        select tdb.DEPT_ID
+        from tp_dept_basicinfo tdb
+        where tdb.ACTIVED = 1
+          and tdb.DEPT_LEVELCODE like CONCAT(#{deptLevelcode}, '%')
+          and tdb.ASCN_ID = #{ascnId}
+    </select>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpDeptBasicinfo">
+        INSERT INTO tp_dept_basicinfo
+        (DEPT_ID, PDEPT_ID, DEPT_LEVELCODE, DEPT_NO, DEPT_FULL_NAME, DEPT_SIMPLE_NAME, DEPT_TYPE, DEPT_DESC,
+         ORDER_INDEX, PRINCIPAL_NAME, PRINCIPAL_TEL, CATEGORY, CITY_CODE, ASCN_ID,
+         LEAF, ENABLED, ACTIVED, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, TENANT_ID, EXTEND01, EXTEND02, EXTEND03,
+         EXTEND04, EXTEND05)
+        VALUES (#{deptId}, #{pdeptId}, #{deptLevelcode}, #{deptNo}, #{deptFullName}, #{deptSimpleName}, #{deptType},
+                #{deptDesc}, #{orderIndex}, #{principalName}, #{principalTel}, #{category}, #{cityCode}, #{ascnId},
+                1, #{enabled}, 1, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{tenantId}, #{extend01},
+                #{extend02}, #{extend03}, #{extend04}, #{extend05})
+    </insert>
+
+    <select id="view" parameterType="string"
+            resultType="com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO">
+        select tdb.DEPT_ID,
+               tdb.PDEPT_ID,
+               tdb.DEPT_LEVELCODE,
+               tdb.DEPT_NO,
+               tdb.DEPT_FULL_NAME,
+               tdb.DEPT_SIMPLE_NAME,
+               tdb.DEPT_TYPE,
+               td.DIC_NAME as deptTypeName,
+               tdb.DEPT_DESC,
+               tdb.ORDER_INDEX,
+               tdb.PRINCIPAL_NAME,
+               tdb.PRINCIPAL_TEL,
+               tdb.CATEGORY,
+               tdb.CITY_CODE,
+               tc.CITY_ID,
+               tc.CITY_FULL_NAME,
+               tdb.ASCN_ID,
+               tdb.ENABLED,
+               tdb.ACTIVED,
+               tdb.CREATOR,
+               tdb.CREATE_TIME,
+               tdb.UPDATOR,
+               tdb.UPDATE_TIME,
+               tdb.TENANT_ID,
+               tdb.EXTEND01,
+               tdb.EXTEND02,
+               tdb.EXTEND03,
+               tdb.EXTEND04,
+               tdb.EXTEND05
+        from tp_dept_basicinfo tdb
+                 left join tp_dictionary td on tdb.DEPT_TYPE = td.DIC_CODE
+                 left join tp_city tc on tdb.CITY_CODE = tc.CITY_CODE
+        where tdb.DEPT_ID = #{deptId}
+          and tdb.ACTIVED = 1
+    </select>
+
+    <update id="update">
+        update tp_dept_basicinfo
+        <if test="null != deptId and '' != deptId">
+            <set>
+                <if test="null != pdeptId and '' != pdeptId">PDEPT_ID = #{pdeptId},</if>
+                <if test="null != deptNo and '' != deptNo">DEPT_NO = #{deptNo},</if>
+                <if test="null != deptFullName and '' != deptFullName">DEPT_FULL_NAME = #{deptFullName},</if>
+                <if test="null != deptSimpleName and '' != deptSimpleName">DEPT_SIMPLE_NAME = #{deptSimpleName},</if>
+                <if test="null != deptType">DEPT_TYPE = #{deptType},</if>
+                <if test="null != deptDesc">DEPT_DESC = #{deptDesc},</if>
+                <if test="null != orderIndex">ORDER_INDEX = #{orderIndex},</if>
+                <if test="null != principalName">PRINCIPAL_NAME = #{principalName},</if>
+                <if test="null != principalTel">PRINCIPAL_TEL = #{principalTel},</if>
+                <if test="null != cityCode and '' != cityCode">CITY_CODE = #{cityCode},</if>
+                <if test="null != ascnId and '' != ascnId">ASCN_ID = #{ascnId},</if>
+                <if test="null != leaf">LEAF = #{leaf},</if>
+                <if test="null != enabled">ENABLED = #{enabled},</if>
+                <if test="null != updator and '' != updator">UPDATOR = #{updator},</if>
+                <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+                <if test="null != extend01">EXTEND01 = #{extend01},</if>
+                <if test="null != extend02">EXTEND02 = #{extend02},</if>
+                <if test="null != extend03">EXTEND03 = #{extend03},</if>
+                <if test="null != extend04">EXTEND04 = #{extend04},</if>
+                <if test="null != extend05">EXTEND05 = #{extend05},</if>
+                UPDATE_TIME = #{updateTime}
+            </set>
+            <where>
+                DEPT_ID = #{deptId}
+                and
+                ACTIVED = 1
+            </where>
+        </if>
+    </update>
+
+    <update id="updateAscnIdByDeptIds">
+        UPDATE tp_dept_basicinfo tdb SET tdb.ASCN_ID = #{ascnId} WHERE tdb.DEPT_ID IN
+        <foreach item="item" index="index" collection="deptIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 查询是否有子级部门 -->
+    <select id="findChildren" parameterType="string" resultType="integer">
+        select count(DEPT_ID)
+        from tp_dept_basicinfo
+        where PDEPT_ID = #{deptId}
+          and ACTIVED = 1
+    </select>
+    <!-- 根据部门id或人员id查询人员部门绑定关系 -->
+    <select id="findPersonDeptById" parameterType="string"
+            resultType="com.jiuxi.admin.core.bean.entity.TpPersonDept">
+        select tpd.PERSON_ID, tpd.DEPT_ID, tpd.DEFAULT_DEPT from tp_person_dept tpd
+        left join tp_person_basicinfo tpb on tpd.PERSON_ID = tpb.PERSON_ID
+        <where>
+            tpb.ACTIVED = 1
+            <if test="null != deptId and '' != deptId">and tpd.DEPT_ID = #{deptId}</if>
+            <if test="null != personId and '' != personId">and tpd.PERSON_ID = #{personId}</if>
+        </where>
+    </select>
+
+    <!-- 根据人员id查询人员所在部门 -->
+    <select id="personDepts" parameterType="string"
+            resultType="com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO">
+        select tdb.DEPT_ID          as deptId,
+               tdb.DEPT_SIMPLE_NAME as deptSimpleName,
+               tdb.DEPT_FULL_NAME   as deptFullName,
+               tpd.DEFAULT_DEPT     as defaultDept
+        from tp_person_dept tpd
+                 left join tp_dept_basicinfo tdb on tpd.DEPT_ID = tdb.DEPT_ID
+        where tdb.ACTIVED = 1
+          and tpd.PERSON_ID = #{personId}
+    </select>
+
+    <select id="listByEntId" resultType="com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO" parameterType="java.lang.String">
+        select *
+        from tp_dept_basicinfo
+        where ASCN_ID = #{ascnId}
+          and ACTIVED = 1
+    </select>
+
+    <update id="deleteByDeptId">
+        update tp_dept_basicinfo
+        set ACTIVED = 0,
+            UPDATOR         = #{updator},
+            DEPT_LEVELCODE  = #{deptLevelcode},
+            UPDATE_TIME     = #{updateTime}
+        where DEPT_ID = #{deptId}
+    </update>
+
+    <!-- 根据部门名称查询部门信息 -->
+    <select id="selectDeptByName" parameterType="string" resultType="com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO">
+        select DEPT_ID, PDEPT_ID, DEPT_FULL_NAME, DEPT_LEVELCODE, ASCN_ID, LEAF, CATEGORY
+        from tp_dept_basicinfo
+        where (DEPT_FULL_NAME = #{deptName} OR DEPT_SIMPLE_NAME = #{deptName})
+          and ACTIVED = 1
+        limit 1
+    </select>
+
+</mapper>
