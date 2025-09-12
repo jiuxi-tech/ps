@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.module.system.infra.persistence.mapper.SystemConfigMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpSystemConfig" id="tpSystemConfigMap">
+        <result property="configKey" column="CONFIG_KEY"/>
+        <result property="configValue" column="CONFIG_VALUE"/>
+        <result property="description" column="DESCRIPTION"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+    </resultMap>
+
+    <!-- 根据配置键获取配置值 -->
+    <select id="getConfigValue" parameterType="string" resultType="string">
+        SELECT CONFIG_VALUE 
+        FROM tp_system_config 
+        WHERE CONFIG_KEY = #{configKey}
+    </select>
+
+    <!-- 获取所有配置 -->
+    <select id="selectList" resultMap="tpSystemConfigMap">
+        SELECT CONFIG_KEY, CONFIG_VALUE, DESCRIPTION, CREATE_TIME, UPDATE_TIME
+        FROM tp_system_config
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+    <!-- 分页查询配置 -->
+    <select id="selectPage" resultMap="tpSystemConfigMap">
+        SELECT CONFIG_KEY, CONFIG_VALUE, DESCRIPTION, CREATE_TIME, UPDATE_TIME
+        FROM tp_system_config
+        <where>
+            <if test="param2.configKey != null and param2.configKey != ''">
+                AND CONFIG_KEY LIKE CONCAT('%', #{param2.configKey}, '%')
+            </if>
+            <if test="param2.configValue != null and param2.configValue != ''">
+                AND CONFIG_VALUE LIKE CONCAT('%', #{param2.configValue}, '%')
+            </if>
+            <if test="param2.description != null and param2.description != ''">
+                AND DESCRIPTION LIKE CONCAT('%', #{param2.description}, '%')
+            </if>
+        </where>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+</mapper>

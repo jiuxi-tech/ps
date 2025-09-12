@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.module.authorization.infra.persistence.mapper.RoleMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpRole" id="tpRoleMap">
+        <result property="roleId" column="ROLE_ID"/>
+        <result property="roleName" column="ROLE_NAME"/>
+        <result property="roleType" column="ROLE_TYPE"/>
+        <result property="roleDesc" column="ROLE_DESC"/>
+        <result property="orderIndex" column="ORDER_INDEX"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="tenantId" column="TENANT_ID"/>
+        <result property="ascnId" column="ASCN_ID"/>
+        <result property="createRole" column="CREATE_ROLE"/>
+        <result property="creator" column="CREATOR"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updator" column="UPDATOR"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="extend01" column="EXTEND01"/>
+        <result property="extend02" column="EXTEND02"/>
+        <result property="extend03" column="EXTEND03"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpRole">
+        INSERT INTO tp_role
+            (ROLE_ID, ROLE_NAME, ROLE_TYPE, ROLE_DESC, ORDER_INDEX, CATEGORY, CREATE_ROLE, ASCN_ID, TENANT_ID, CREATOR, CREATE_TIME, UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+		VALUES
+			(#{roleId}, #{roleName}, #{roleType}, #{roleDesc}, #{orderIndex}, #{category}, #{createRole}, #{ascnId}, #{tenantId}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+
+    <update id="update">
+        update tp_role
+        <if test="null != roleId and '' != roleId">
+            <set>
+                <if test="null != roleName and '' != roleName">ROLE_NAME = #{roleName},</if>
+                <if test="null != roleType">ROLE_TYPE = #{roleType},</if>
+                <if test="null != roleDesc">ROLE_DESC = #{roleDesc},</if>
+                <if test="null != orderIndex">ORDER_INDEX = #{orderIndex},</if>
+                <if test="null != category">CATEGORY = #{category},</if>
+                <if test="null != tenantId">TENANT_ID = #{tenantId},</if>
+                <if test="null != updator and '' != updator">UPDATOR = #{updator},</if>
+                <if test="null != extend01">EXTEND01 = #{extend01},</if>
+                <if test="null != extend02">EXTEND02 = #{extend02},</if>
+                <if test="null != extend03">EXTEND03 = #{extend03},</if>
+                UPDATE_TIME = #{updateTime}
+            </set>
+            <where>
+                ROLE_ID = #{roleId}
+            </where>
+        </if>
+    </update>
+
+
+    <select id="roleAuthList" parameterType="com.jiuxi.admin.core.bean.query.TpRoleAuthQuery"
+            resultType="com.jiuxi.admin.core.bean.vo.TpRoleVO">
+        select tr.ROLE_ID as roleId, tr.ROLE_NAME as roleName, tr.ROLE_TYPE as roleType, tr.CATEGORY as category, tr.TENANT_ID as tenantId, tr.CREATOR as creator, tr.UPDATOR as updator, tr.CREATE_ROLE as createRole from tp_person_role tpr left join tp_role tr on tpr.ROLE_ID = tr.ROLE_ID
+        where
+        tr.ROLE_TYPE = #{query.roleType}
+        <if test="query.deptId != null and query.deptId != ''">
+            and tpr.DEPT_ID = #{query.deptId}
+        </if>
+        <if test="query.personId != null and query.personId != ''">
+            and tpr.PERSON_ID  = #{query.personId}
+        </if>
+    </select>
+
+    <select id="roleAuthListByCreateRole" parameterType="com.jiuxi.admin.core.bean.query.TpRoleAuthQuery"
+            resultType="com.jiuxi.admin.core.bean.vo.TpRoleVO">
+        select tr.ROLE_ID as roleId, tr.ROLE_NAME as roleName, tr.ROLE_TYPE as roleType, tr.CATEGORY as category, tr.TENANT_ID as tenantId, tr.CREATOR as creator, tr.UPDATOR as updator, tr.CREATE_ROLE as createRole from tp_role tr
+        where
+        tr.ROLE_TYPE = #{query.roleType}
+        <if test="query.ascnId != null and query.ascnId != ''">and tr.ASCN_ID = #{query.ascnId}</if>
+        <if test="null != query.createRoles and query.createRoles.length > 0">
+            AND CREATE_ROLE in
+            <foreach collection="query.createRoles" item="roleId" open="(" close=")" separator="," index="i">
+                #{roleId}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpRoleQuery"
+            resultType="com.jiuxi.admin.core.bean.vo.TpRoleVO">
+        select tp1.ROLE_ID as roleId, tp1.ROLE_NAME as roleName, tp1.ROLE_TYPE as roleType, tp1.ROLE_DESC as roleDesc,
+        tp1.ORDER_INDEX as orderIndex,
+        tp1.CATEGORY as category, tp1.TENANT_ID as tenantId, tp1.CREATOR as creator, tp1.CREATE_TIME as createTime,
+        tp1.UPDATOR as updator,
+        tp1.UPDATE_TIME as updateTime, tp1.EXTEND01 as extend01, tp1.EXTEND02 as extend02, tp1.EXTEND03 as extend03,
+        tp1.CREATE_ROLE as createRole, tp2.ROLE_NAME as createRoleName
+        from tp_role tp1 left join tp_role tp2 on tp1.CREATE_ROLE = tp2.ROLE_ID
+        <where>
+            <if test="query.ascnId != null and query.ascnId != ''">
+                AND tp1.ASCN_ID = #{query.ascnId}
+            </if>
+            <if test="query.category != null">
+                AND tp1.CATEGORY = #{query.category}
+            </if>
+            <if test="query.roleName != null and query.roleName != ''">
+                AND tp1.ROLE_NAME like concat('%', #{query.roleName}, '%')
+            </if>
+            <if test="query.roleType != null">
+                AND tp1.ROLE_TYPE = #{query.roleType}
+            </if>
+            <if test="null != query.createRoles and query.createRoles.length > 0">
+                AND tp1.CREATE_ROLE in
+                <foreach collection="query.createRoles" item="roleId" open="(" close=")" separator="," index="i">
+                    #{roleId}
+                </foreach>
+            </if>
+        </where>
+        order by tp1.ORDER_INDEX
+    </select>
+
+    <!-- 根据创建人所在单位查询角色列表，工作流选择角色使用 -->
+    <select id="getList" parameterType="com.jiuxi.admin.core.bean.query.TpRoleQuery"
+            resultType="com.jiuxi.admin.core.bean.vo.TpRoleVO">
+        select tp1.ROLE_ID as roleId, tp1.ROLE_NAME as roleName, tp1.ROLE_TYPE as roleType, tp1.CATEGORY as category, tp1.TENANT_ID as tenantId,  tp1.CREATE_ROLE as createRole
+        from tp_role tp1
+        <where>
+            <if test="query.ascnId != null and query.ascnId != ''">
+                AND tp1.ASCN_ID = #{query.ascnId}
+            </if>
+        </where>
+        order by tp1.ORDER_INDEX
+    </select>
+
+
+    <select id="view" parameterType="String"
+            resultType="com.jiuxi.admin.core.bean.vo.TpRoleVO">
+        select ROLE_ID, ROLE_NAME, ROLE_TYPE, ROLE_DESC, ORDER_INDEX, CATEGORY, CREATE_ROLE, TENANT_ID, CREATOR, CREATE_TIME,
+        UPDATOR, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03 from tp_role
+        where
+        ROLE_ID = #{roleId}
+    </select>
+
+    <delete id="delete" parameterType="String">
+        delete from tp_role where ROLE_ID = #{roleId}
+    </delete>
+
+</mapper>
