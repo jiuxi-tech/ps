@@ -1,8 +1,7 @@
-package com.jiuxi.mvc.core.interceptor;
+package com.jiuxi.shared.config.web.interceptor;
 
 import cn.hutool.core.util.StrUtil;
-import com.jiuxi.common.util.JwtTokenUtils;
-import com.jiuxi.core.core.context.TenantContextHolder;
+import com.jiuxi.mvc.core.holder.TokenHolder;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -10,20 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @ClassName: TestInterceptor
- * @Description: 租户拦截器
+ * @ClassName: TokenInterceptor
+ * @Description: token拦截器
  * @Author: 杨攀
  * @Date: 2020/6/12 9:38
  * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
  */
-public class TenantInterceptor implements HandlerInterceptor {
+public class TokenInterceptor implements HandlerInterceptor {
 
 
     /** 在header中的key */
     private String token_header;
 
 
-    public TenantInterceptor(String token_header) {
+    public TokenInterceptor(String token_header) {
         this.token_header = token_header;
     }
 
@@ -52,13 +51,8 @@ public class TenantInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        // 没有tenantId，则放行
-        String tenantId = JwtTokenUtils.getTenantId(token);
-        if(StrUtil.isBlank(tenantId)){
-            return true;
-        }
-
-        TenantContextHolder.setTenantId(tenantId);
+        // 设置token
+        TokenHolder.setToken(token);
         return true;
     }
 
@@ -76,6 +70,6 @@ public class TenantInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         // 使用完ThreadLocal后，执行remove操作，避免出现内存溢出情况。
-        TenantContextHolder.removeTenantId();
+        TokenHolder.removeToken();
     }
 }

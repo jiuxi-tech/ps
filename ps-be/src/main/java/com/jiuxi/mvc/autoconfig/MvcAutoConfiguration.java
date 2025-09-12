@@ -5,10 +5,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.jiuxi.mvc.core.config.CorsConfigurer;
-import com.jiuxi.mvc.core.config.MvcWebMvcConfigurer;
-import com.jiuxi.mvc.core.interceptor.TenantInterceptor;
-import com.jiuxi.mvc.core.interceptor.TokenInterceptor;
+import com.jiuxi.shared.config.web.WebMvcConfigurer;
+import com.jiuxi.shared.config.web.CorsConfiguration;
+import com.jiuxi.shared.config.web.interceptor.TenantInterceptor;
+import com.jiuxi.shared.config.web.interceptor.TokenInterceptor;
 import com.jiuxi.common.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -38,7 +38,7 @@ import java.io.IOException;
 @AutoConfigureBefore(WebMvcAutoConfiguration.class)
 @ImportAutoConfiguration(GlobalExceptionHandler.class)
 @EnableConfigurationProperties(MvcConfigurationProperties.class)
-@Import({CorsConfigurer.class, MvcWebMvcConfigurer.class})
+@Import({CorsConfiguration.class, WebMvcConfigurer.class})
 @ConditionalOnProperty(prefix = "topinfo.mvc", name = "tokenHeader", matchIfMissing = true)
 public class MvcAutoConfiguration {
 

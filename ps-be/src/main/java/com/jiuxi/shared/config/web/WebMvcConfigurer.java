@@ -1,8 +1,8 @@
-package com.jiuxi.mvc.core.config;
+package com.jiuxi.shared.config.web;
 
 import com.jiuxi.core.autoconfig.CoreAutoConfiguration;
-import com.jiuxi.mvc.core.interceptor.TenantInterceptor;
-import com.jiuxi.mvc.core.interceptor.TokenInterceptor;
+import com.jiuxi.shared.config.web.interceptor.TenantInterceptor;
+import com.jiuxi.shared.config.web.interceptor.TokenInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +11,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.config.annotation.*;
 
 /**
- * @ClassName: MvcWebMvcConfigurer
- * @Description: MvcWebMvcConfigurer
+ * @ClassName: WebMvcConfigurer
+ * @Description: Web MVC 配置器
  * @Author: 杨攀
  * @Date: 2020/6/12 11:01
  * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.*;
 @Configuration
 @AutoConfigureAfter(CoreAutoConfiguration.class)
 @Order
-public class MvcWebMvcConfigurer implements WebMvcConfigurer {
+public class WebMvcConfigurer implements org.springframework.web.servlet.config.annotation.WebMvcConfigurer {
 
     @Autowired(required = false)
     private TenantInterceptor tenantInterceptor;
