@@ -11,6 +11,7 @@ import com.jiuxi.admin.core.runner.AdminCommanLineRunner;
 import com.jiuxi.admin.core.service.AdminLicenceCacheService;
 import com.jiuxi.admin.core.service.FileExpService;
 import com.jiuxi.admin.core.service.PersonAccountService;
+import com.jiuxi.admin.core.service.impl.PersonAccountServiceAdapter;
 import com.jiuxi.admin.core.service.TpSmsSendService;
 import com.jiuxi.admin.core.service.impl.*;
 import com.jiuxi.admin.core.util.CommonDataPermissionsUtil;
@@ -33,9 +34,9 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @EnableConfigurationProperties({AdminConfigurationProperties.class})
-@Import(CommonDataPermissionsUtil.class)
-@MapperScan(basePackages = {"com.jiuxi.admin.core.mapper"})
-@ComponentScan({"com.jiuxi.admin.core.controller", "com.jiuxi.admin.core.service"})
+@Import({CommonDataPermissionsUtil.class, com.jiuxi.module.user.UserModuleConfiguration.class})
+@MapperScan(basePackages = {"com.jiuxi.admin.core.mapper", "com.jiuxi.module.user.infra.persistence.mapper"})
+@ComponentScan({"com.jiuxi.admin.core.controller", "com.jiuxi.admin.core.service", "com.jiuxi.module.user"})
 public class AdminAutoConfiguration {
     /**
      * @param
@@ -67,7 +68,7 @@ public class AdminAutoConfiguration {
     @ConditionalOnMissingBean
     @Bean("personAccountService")
     public PersonAccountService PersonAccountService() {
-        return new PersonAccountServiceImpl();
+        return new PersonAccountServiceAdapter();
     }
 
     /**

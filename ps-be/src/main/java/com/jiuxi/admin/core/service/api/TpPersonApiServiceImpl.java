@@ -1,10 +1,11 @@
 package com.jiuxi.admin.core.service.api;
 
 import com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO;
-import com.jiuxi.admin.core.service.TpPersonBasicinfoService;
+import com.jiuxi.module.user.app.service.UserPersonService;
 // import com.jiuxi.plugin.api.bean.dto.TpPersonBasicinfoDTO;
 // import com.jiuxi.plugin.api.interfaces.TpPersonApiService;
 import org.apache.commons.lang3.Validate;
+import com.jiuxi.admin.core.service.TpPersonBasicinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

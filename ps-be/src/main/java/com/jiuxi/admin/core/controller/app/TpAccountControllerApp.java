@@ -1,6 +1,7 @@
 package com.jiuxi.admin.core.controller.app;
 
 import cn.hutool.core.util.StrUtil;
+import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.service.TpAccountService;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.shared.common.annotation.IgnoreAuthorization;
@@ -22,6 +23,9 @@ public class TpAccountControllerApp {
 
     @Autowired
     private TpAccountService tpAccountService;
+    
+    @Autowired
+    private UserAccountService userAccountService;
 
     /**
      * 修改
@@ -33,7 +37,7 @@ public class TpAccountControllerApp {
             JsonResponse.buildFailure("密码与确认密码不一致！");
         }
 
-        tpAccountService.updatePwd(jwtpid, userpwd);
+        userAccountService.updatePwd(jwtpid, userpwd);
         return JsonResponse.buildSuccess();
     }
 

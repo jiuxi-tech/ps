@@ -2,11 +2,12 @@ package com.jiuxi.admin.core.service.api;
 
 import cn.hutool.core.util.StrUtil;
 import com.jiuxi.admin.core.bean.vo.TpAccountVO;
-import com.jiuxi.admin.core.service.TpAccountService;
+import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 // import com.jiuxi.plugin.api.bean.dto.TpAccountDTO;
 // import com.jiuxi.plugin.api.interfaces.TpAccountApiService;
 import org.apache.commons.lang3.Validate;
+import com.jiuxi.admin.core.service.TpAccountService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
 
     @Autowired
     private TpAccountService tpAccountService;
+    
+    @Autowired
+    private UserAccountService userAccountService;
 
     @Autowired
     private TpApiCommonService tpApiCommonService;
@@ -39,7 +43,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      */
     public <T> T getTpAccountByPhone(String phone, Class<T> clazz) {
 
-        TpAccountVO vo = tpAccountService.getTpAccountByPhone(phone);
+        TpAccountVO vo = userAccountService.getTpAccountByPhone(phone);
 
         return tpApiCommonService.copy(vo, clazz);
     }
@@ -67,7 +71,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      * @date 2024/5/29 8:51
      */
     public <T> T getTpAccountByUsername(String username, Class<T> clazz) {
-        TpAccountVO vo = tpAccountService.getTpAccountByUsername(username);
+        TpAccountVO vo = userAccountService.getTpAccountByUsername(username);
         return tpApiCommonService.copy(vo, clazz);
     }
 
@@ -94,7 +98,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      * @date 2024/5/29 8:51
      */
     public <T> T getTpAccountByPersonId(String personId, Class<T> clazz) {
-        TpAccountVO vo = tpAccountService.accountView(personId);
+        TpAccountVO vo = userAccountService.accountView(personId);
         return tpApiCommonService.copy(vo, clazz);
     }
 
@@ -121,7 +125,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      * @date 2024/5/29 8:51
      */
     public <T> T getTpAccountByAccountId(String accountId, Class<T> clazz) {
-        TpAccountVO vo = tpAccountService.selectByAccountId(accountId);
+        TpAccountVO vo = userAccountService.selectByAccountId(accountId);
         return tpApiCommonService.copy(vo, clazz);
     }
 
@@ -166,7 +170,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
         // TpAccountVO vo = new TpAccountVO();
         // BeanUtils.copyProperties(accountDTO, vo);
 
-        // return tpAccountService.accountManage(vo, false); // Commented out - TpAccountDTO not available
+        // return userAccountService.accountManage(vo, false); // Commented out - TpAccountDTO not available
         return 0;
     }
 
@@ -180,7 +184,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
         TpAccountVO vo = new TpAccountVO();
         BeanUtils.copyProperties(accountDTO, vo);
 
-        return tpAccountService.accountManage(vo, false);
+        return userAccountService.accountManage(vo, false);
     }
     */
 
@@ -196,7 +200,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
 
         Validate.notBlank(jwtpid, "操作人id不能为空！");
         Validate.notBlank(personId, "人员id不能为空！");
-        tpAccountService.deleteByPersonId(personId);
+        userAccountService.deleteByPersonId(personId);
     }
 
 

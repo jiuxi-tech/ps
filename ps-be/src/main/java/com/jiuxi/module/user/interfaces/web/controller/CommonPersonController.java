@@ -1,10 +1,11 @@
-package com.jiuxi.admin.core.controller.common;
+package com.jiuxi.module.user.interfaces.web.controller;
 
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.jiuxi.admin.core.bean.query.TpPersonBasicQuery;
 import com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO;
+import com.jiuxi.module.user.app.service.UserPersonService;
 import com.jiuxi.admin.core.service.TpPersonBasicinfoService;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.common.constant.TpConstant;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/common/person")
 @Authorization
-public class CommonPersonBasicinfoController {
+public class CommonPersonController {
 
     @Autowired
     private TpPersonBasicinfoService tpPersonBasicinfoService;

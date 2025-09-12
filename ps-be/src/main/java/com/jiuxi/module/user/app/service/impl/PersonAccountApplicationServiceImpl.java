@@ -1,12 +1,14 @@
-package com.jiuxi.admin.core.service.impl;
+package com.jiuxi.module.user.app.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.jiuxi.admin.core.bean.entity.TpAccount;
 import com.jiuxi.admin.core.bean.entity.TpPersonBasicinfo;
 import com.jiuxi.admin.core.bean.vo.TpAccountVO;
-import com.jiuxi.admin.core.mapper.TpAccountMapper;
+import com.jiuxi.module.user.infra.persistence.mapper.UserAccountMapper;
+import com.jiuxi.module.user.infra.persistence.mapper.UserPersonMapper;
 import com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper;
-import com.jiuxi.admin.core.service.PersonAccountService;
+import org.springframework.stereotype.Service;
+import com.jiuxi.module.user.app.service.PersonAccountApplicationService;
 import com.jiuxi.common.util.CommonDateUtil;
 import com.jiuxi.common.util.PhoneEncryptionUtils;
 // import org.apache.poi.ss.formula.functions.T;
@@ -19,18 +21,19 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Date: 2021-06-18 14:29
  * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
  */
-public class PersonAccountServiceImpl implements PersonAccountService {
+@Service
+public class PersonAccountApplicationServiceImpl implements PersonAccountApplicationService {
 
 
     @Autowired
-    private TpAccountMapper tpAccountMapper;
+    private UserAccountMapper userAccountMapper;
 
     @Autowired
     private TpPersonBasicinfoMapper tpPersonBasicinfoMapper;
 
     @Override
     public boolean selectByUsername(String userName) {
-        TpAccount tpAccount = tpAccountMapper.selectByUsername(userName);
+        TpAccount tpAccount = userAccountMapper.selectByUsername(userName);
         if (null == tpAccount) {
             return false;
         } else {
@@ -50,7 +53,7 @@ public class PersonAccountServiceImpl implements PersonAccountService {
 
     @Override
     public boolean selectByUsernameAndAccountId(String userName, String accountId) {
-        TpAccount tpAccount = tpAccountMapper.selectByUsername(userName);
+        TpAccount tpAccount = userAccountMapper.selectByUsername(userName);
         if (null == tpAccount) {
             return false;
         } else {
@@ -72,7 +75,7 @@ public class PersonAccountServiceImpl implements PersonAccountService {
      */
     @Override
     public void updatePhone(String personId, String phone) {
-        TpAccountVO tpAccountVO = tpAccountMapper.viewByPersonId(personId);
+        TpAccountVO tpAccountVO = userAccountMapper.viewByPersonId(personId);
         if (tpAccountVO == null) {
             return;
         }
@@ -88,6 +91,6 @@ public class PersonAccountServiceImpl implements PersonAccountService {
         }
         
         bean.setUpdateTime(CommonDateUtil.now());
-        tpAccountMapper.update(bean);
+        userAccountMapper.update(bean);
     }
 }

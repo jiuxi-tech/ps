@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.jiuxi.common.constant.TpConstant;
 import com.jiuxi.admin.core.bean.query.TpPersonBasicQuery;
 import com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO;
-import com.jiuxi.admin.core.service.TpAccountService;
+import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.service.TpCityService;
+import com.jiuxi.module.user.app.service.UserPersonService;
 import com.jiuxi.admin.core.service.TpPersonBasicinfoService;
+import com.jiuxi.admin.core.service.TpAccountService;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.shared.common.annotation.Authorization;
 import com.jiuxi.shared.common.annotation.IgnoreAuthorization;
@@ -43,6 +45,9 @@ public class TpPersonBasicinfoControllerApp {
 
     @Autowired
     private TpCityService cityService;
+
+    @Autowired
+    private UserAccountService userAccountService;
 
     /**
      * 登录成功后,获取用户信息
@@ -91,7 +96,7 @@ public class TpPersonBasicinfoControllerApp {
     @RequestMapping(value = "/update-pwd")
     @IgnoreAuthorization
     public JsonResponse updatePwd(String jwtpid, String oldUserpwd, String userpwd) {
-        int count = tpAccountService.updatePwd(jwtpid, oldUserpwd, userpwd);
+        int count = userAccountService.updatePwd(jwtpid, oldUserpwd, userpwd);
 
         return JsonResponse.buildSuccess(count);
     }
@@ -101,7 +106,7 @@ public class TpPersonBasicinfoControllerApp {
      */
     @RequestMapping("/account-resetpwd")
     public JsonResponse accountResetpwd(String accountId) {
-        String restPwd = tpAccountService.accountResetpwd(accountId);
+        String restPwd = userAccountService.accountResetpwd(accountId);
 
         return JsonResponse.buildSuccess(restPwd);
     }
@@ -111,7 +116,7 @@ public class TpPersonBasicinfoControllerApp {
      */
     @RequestMapping("/account-locked")
     public JsonResponse accountLocked(String accountId, Integer locked) {
-        int count = tpAccountService.accountLocked(accountId, locked);
+        int count = userAccountService.accountLocked(accountId, locked);
 
         return JsonResponse.buildSuccess(count);
     }
@@ -121,7 +126,7 @@ public class TpPersonBasicinfoControllerApp {
      */
     @RequestMapping("/account-enabled")
     public JsonResponse accountEnabled(String accountId, Integer enabled) {
-        int count = tpAccountService.accountEnabled(accountId, enabled);
+        int count = userAccountService.accountEnabled(accountId, enabled);
 
         return JsonResponse.buildSuccess(count);
     }

@@ -1,4 +1,4 @@
-package com.jiuxi.admin.core.controller.pc;
+package com.jiuxi.module.user.interfaces.web.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,9 +8,11 @@ import com.jiuxi.admin.core.bean.vo.TpAccountVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonExinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonRoleVO;
-import com.jiuxi.admin.core.service.TpAccountService;
+import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.service.TpCityService;
+import com.jiuxi.module.user.app.service.UserPersonService;
 import com.jiuxi.admin.core.service.TpPersonBasicinfoService;
+import com.jiuxi.admin.core.service.TpAccountService;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.shared.common.annotation.Authorization;
 import com.jiuxi.shared.common.annotation.IgnoreAuthorization;
@@ -39,7 +41,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/person")
 @Authorization
-public class TpPersonBasicinfoController {
+public class UserPersonController {
 
     /**
      * 接口配置 passKey
@@ -51,6 +53,9 @@ public class TpPersonBasicinfoController {
 
     @Autowired
     private TpAccountService tpAccountService;
+
+    @Autowired
+    private UserAccountService userAccountService;
 
     @Autowired
     private PersonService personService;
@@ -136,7 +141,7 @@ public class TpPersonBasicinfoController {
     @RequestMapping(value = "/account-manage")
     @Authorization(businessKey = PASS_KEY)
     public JsonResponse accountManage(@Validated(value = AddGroup.class) TpAccountVO vo) {
-        int count = tpAccountService.accountManage(vo);
+        int count = userAccountService.accountManage(vo);
 
         return JsonResponse.buildSuccess(count);
     }
@@ -177,7 +182,7 @@ public class TpPersonBasicinfoController {
                 vo.setUserpwd("password123");
                 vo.setPersonId("1962825506101395456");
                 
-                int result = tpAccountService.accountInsert(vo);
+                int result = userAccountService.accountInsert(vo);
                 
                 if (result > 0) {
                     return JsonResponse.buildSuccess("账号创建成功，用户名：" + vo.getUsername() + ", 影响行数：" + result);
@@ -189,7 +194,7 @@ public class TpPersonBasicinfoController {
             }
         }
         
-        TpAccountVO vo = tpAccountService.accountView(personId);
+        TpAccountVO vo = userAccountService.accountView(personId);
         return JsonResponse.buildSuccess(vo);
     }
 
@@ -210,7 +215,7 @@ public class TpPersonBasicinfoController {
     @RequestMapping(value = "/update-pwd")
     @IgnoreAuthorization
     public JsonResponse updatePwd(String oldUserpwd, String userpwd, String jwtpid) {
-        int count = tpAccountService.updatePwd(jwtpid, oldUserpwd, userpwd);
+        int count = userAccountService.updatePwd(jwtpid, oldUserpwd, userpwd);
 
         return JsonResponse.buildSuccess(count);
     }
@@ -220,7 +225,7 @@ public class TpPersonBasicinfoController {
      */
     @RequestMapping("/account-resetpwd")
     public JsonResponse accountResetpwd(String accountId) {
-        String restPwd = tpAccountService.accountResetpwd(accountId);
+        String restPwd = userAccountService.accountResetpwd(accountId);
 
         return JsonResponse.buildSuccess(restPwd);
     }
@@ -239,7 +244,7 @@ public class TpPersonBasicinfoController {
             return JsonResponse.buildFailure("请提供手机号");
         }
         
-        String userName = tpAccountService.accountFindpwd(phone);
+        String userName = userAccountService.accountFindpwd(phone);
         return JsonResponse.buildSuccess(userName);
     }
 
@@ -253,7 +258,7 @@ public class TpPersonBasicinfoController {
             return JsonResponse.buildFailure("请提供邮箱地址");
         }
         
-        String userName = tpAccountService.accountFindpwdByEmail(email);
+        String userName = userAccountService.accountFindpwdByEmail(email);
         return JsonResponse.buildSuccess(userName);
     }
 
@@ -269,10 +274,10 @@ public class TpPersonBasicinfoController {
         int count;
         if (phone != null && !phone.trim().isEmpty()) {
             // 手机号验证码校验
-            count = tpAccountService.accountCheckVcode(phone, vcode, userpwd);
+            count = userAccountService.accountCheckVcode(phone, vcode, userpwd);
         } else if (email != null && !email.trim().isEmpty()) {
             // 邮箱验证码校验
-            count = tpAccountService.accountCheckVcodeByEmail(email, vcode, userpwd);
+            count = userAccountService.accountCheckVcodeByEmail(email, vcode, userpwd);
         } else {
             return JsonResponse.buildFailure("请提供手机号或邮箱地址");
         }
@@ -289,7 +294,7 @@ public class TpPersonBasicinfoController {
      */
     @RequestMapping("/account-locked")
     public JsonResponse accountLocked(String accountId, Integer locked) {
-        int count = tpAccountService.accountLocked(accountId, locked);
+        int count = userAccountService.accountLocked(accountId, locked);
 
         return JsonResponse.buildSuccess(count);
     }
@@ -299,7 +304,7 @@ public class TpPersonBasicinfoController {
      */
     @RequestMapping("/account-enabled")
     public JsonResponse accountEnabled(String accountId, Integer enabled) {
-        int count = tpAccountService.accountEnabled(accountId, enabled);
+        int count = userAccountService.accountEnabled(accountId, enabled);
 
         return JsonResponse.buildSuccess(count);
     }
@@ -395,7 +400,7 @@ public class TpPersonBasicinfoController {
         vo.setUserpwd(userpwd);
         vo.setPersonId(personId);
         
-        int result = tpAccountService.accountAdd(vo);
+        int result = userAccountService.accountAdd(vo);
         
         if (result > 0) {
             return JsonResponse.buildSuccess("账号创建成功");
@@ -415,7 +420,7 @@ public class TpPersonBasicinfoController {
             
             // 如果没有直接传accountId，则通过personId获取
             if (targetAccountId == null && personId != null) {
-                TpAccountVO accountVO = tpAccountService.accountView(personId);
+                TpAccountVO accountVO = userAccountService.accountView(personId);
                 if (accountVO == null || accountVO.getAccountId() == null) {
                     return JsonResponse.buildFailure("未找到该用户的账号信息");
                 }
@@ -427,7 +432,7 @@ public class TpPersonBasicinfoController {
             }
             
             // 调用账号服务的同步方法
-            boolean result = tpAccountService.syncAccountToKeycloak(targetAccountId);
+            boolean result = userAccountService.syncAccountToKeycloak(targetAccountId);
             
             if (result) {
                 return JsonResponse.buildSuccess("账号同步到Keycloak成功");

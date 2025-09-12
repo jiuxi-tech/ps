@@ -1,4 +1,4 @@
-package com.jiuxi.admin.core.service.impl;
+package com.jiuxi.module.user.app.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
@@ -21,16 +21,19 @@ import com.jiuxi.admin.core.bean.vo.TpPersonExinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonRoleVO;
 import com.jiuxi.admin.core.event.TpPersonBasicinfoEvent;
 import com.jiuxi.admin.core.listener.service.TpPersonBasicinfoEventService;
-import com.jiuxi.admin.core.mapper.TpAccountMapper;
+import com.jiuxi.module.user.infra.persistence.mapper.UserAccountMapper;
 import com.jiuxi.admin.core.mapper.TpDeptBasicinfoMapper;
-import com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper;
+import com.jiuxi.module.user.infra.persistence.mapper.UserPersonMapper;
 import com.jiuxi.admin.core.mapper.TpPersonDeptMapper;
-import com.jiuxi.admin.core.mapper.TpPersonExinfoMapper;
-import com.jiuxi.admin.core.mapper.TpPersonRoleMapper;
+import com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper;
 import com.jiuxi.admin.core.service.PersonAccountService;
 import com.jiuxi.admin.core.service.TpAccountService;
+import com.jiuxi.admin.core.mapper.TpPersonExinfoMapper;
+import com.jiuxi.admin.core.mapper.TpPersonRoleMapper;
+import com.jiuxi.module.user.app.service.PersonAccountApplicationService;
+import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.service.TpAttachinfoService;
-import com.jiuxi.admin.core.service.TpPersonBasicinfoService;
+import com.jiuxi.module.user.app.service.UserPersonService;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.common.bean.SessionVO;
 import com.jiuxi.common.exception.ExceptionUtils;
@@ -72,10 +75,10 @@ import java.util.stream.Collectors;
  * @Date 2020-11-18 11:05:18
  * @Copyright: www.tuxun.net Inc. All rights reserved.
  */
-@Service("tpPersonBasicinfoService")
-public class TpPersonBasicinfoServiceImpl implements TpPersonBasicinfoService {
+@Service("userPersonService")
+public class UserPersonServiceImpl implements UserPersonService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TpPersonBasicinfoServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserPersonServiceImpl.class);
 
     @Autowired
     private TpPersonBasicinfoMapper tpPersonBasicinfoMapper;
@@ -93,7 +96,7 @@ public class TpPersonBasicinfoServiceImpl implements TpPersonBasicinfoService {
     private TpPersonRoleMapper tpPersonRoleMapper;
 
     @Autowired
-    private TpAccountMapper tpAccountMapper;
+    private UserAccountMapper tpAccountMapper;
 
     @Autowired
     private TpAccountService tpAccountService;
@@ -103,6 +106,9 @@ public class TpPersonBasicinfoServiceImpl implements TpPersonBasicinfoService {
 
     @Autowired
     private TpAttachinfoService tpAttachinfoService;
+
+    @Autowired
+    private UserAccountService userAccountService;
 
     /**
      * 上下文对象
@@ -200,6 +206,7 @@ public class TpPersonBasicinfoServiceImpl implements TpPersonBasicinfoService {
             if (StrUtil.isNotBlank(vo.getPhone())) {
                 String encryptedPhone = PhoneEncryptionUtils.encrypt(vo.getPhone());
                 bean.setEncryptedPhone(encryptedPhone);
+                bean.setPhone(null); // 清除原始手机号，避免冲突
                 LOGGER.debug("手机号加密处理完成，personId: {}", personId);
             }
             
@@ -380,6 +387,7 @@ public class TpPersonBasicinfoServiceImpl implements TpPersonBasicinfoService {
         if (StrUtil.isNotBlank(vo.getPhone())) {
             String encryptedPhone = PhoneEncryptionUtils.encrypt(vo.getPhone());
             bean.setEncryptedPhone(encryptedPhone);
+            bean.setPhone(null); // 清除原始手机号，避免冲突
             LOGGER.debug("手机号加密处理完成，personId: {}", personId);
         }
         
@@ -408,13 +416,10 @@ public class TpPersonBasicinfoServiceImpl implements TpPersonBasicinfoService {
                 }
             }
             // 如果手机号有更改，需要将账号表的手机号更新掉
-            TpAccountVO tpAccountVO = tpAccountService.accountView(personId);
+            TpAccountVO tpAccountVO = userAccountService.accountView(personId);
             if (null != tpAccountVO && !StrUtil.equals(tpAccountVO.getPhone(), phone)) {
-                // 更新该人员账号的手机号
-                TpAccount tpAccount = new TpAccount();
-                tpAccount.setPersonId(personId);
-                tpAccount.setPhone(vo.getPhone());
-                tpAccountMapper.updateByPersonId(tpAccount);
+                // 更新该人员账号的手机号，使用PersonAccountService来保持一致性
+                personAccountService.updatePhone(personId, vo.getPhone());
             }
 
             // 附件绑定
@@ -431,8 +436,9 @@ public class TpPersonBasicinfoServiceImpl implements TpPersonBasicinfoService {
             return count;
         } catch (Exception e) {
             // 事务回滚
-            LOGGER.error("用户基本信息修改失败！vo:{}, e: {}", JSONObject.toJSONString(vo), ExceptionUtils.getStackTrace(e));
-            throw new TopinfoRuntimeException(-1, "用户基本信息修改失败！");
+            LOGGER.error("用户基本信息修改失败！原始异常: {}, 异常消息: {}, vo:{}, 堆栈: {}", 
+                e.getClass().getName(), e.getMessage(), JSONObject.toJSONString(vo), ExceptionUtils.getStackTrace(e));
+            throw new TopinfoRuntimeException(-1, "用户基本信息修改失败: " + e.getMessage());
         }
     }
 
@@ -474,7 +480,7 @@ public class TpPersonBasicinfoServiceImpl implements TpPersonBasicinfoService {
                 int defaultDept = tpPersonDeptMapper.selectByDeptIdAndPersonId(deptId, personId);
                 if (defaultDept == 1) {
                     // 1. 用户账户设置为无效
-                    tpAccountService.deleteByPersonId(personId);
+                    userAccountService.deleteByPersonId(personId);
 
                     // 2. 用户信息逻辑删除
                     tpPersonBasicinfo.setPersonId(personId);
@@ -501,8 +507,9 @@ public class TpPersonBasicinfoServiceImpl implements TpPersonBasicinfoService {
                 }
             } catch (Exception e) {
                 // 事务回滚
-                LOGGER.error("删除用户信息失败！deptIds:{}, personIds:{}, e: {}", deptIds, personIds, ExceptionUtils.getStackTrace(e));
-                throw new TopinfoRuntimeException(-1, "删除用户信息失败！");
+                LOGGER.error("删除用户信息失败！原始异常: {}, 异常消息: {}, deptIds:{}, personIds:{}, 堆栈: {}", 
+                    e.getClass().getName(), e.getMessage(), deptIds, personIds, ExceptionUtils.getStackTrace(e));
+                throw new TopinfoRuntimeException(-1, "删除用户信息失败: " + e.getMessage());
             }
         }
     }

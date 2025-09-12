@@ -1,4 +1,4 @@
-package com.jiuxi.admin.core.service.impl;
+package com.jiuxi.module.user.app.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
@@ -13,12 +13,14 @@ import com.jiuxi.admin.core.bean.vo.TpAccountVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO;
 import com.jiuxi.admin.core.event.TpAccountEvent;
 import com.jiuxi.admin.core.listener.service.TpAccountEventService;
-import com.jiuxi.admin.core.mapper.TpAccountMapper;
-import com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper;
+import com.jiuxi.module.user.infra.persistence.mapper.UserAccountMapper;
+import com.jiuxi.module.user.infra.persistence.mapper.UserPersonMapper;
 import com.jiuxi.admin.core.service.EmailService;
-import com.jiuxi.admin.core.service.KeycloakSyncService;
+import com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper;
 import com.jiuxi.admin.core.service.PersonAccountService;
-import com.jiuxi.admin.core.service.TpAccountService;
+import com.jiuxi.admin.core.service.KeycloakSyncService;
+import com.jiuxi.module.user.app.service.PersonAccountApplicationService;
+import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.service.TpKeycloakAccountService;
 import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.*;
@@ -51,13 +53,13 @@ import java.util.Optional;
  * @Date: 2021-05-07 11:32
  * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
  */
-@Service("tpAccountService")
-public class TpAccountServiceImpl implements TpAccountService {
+@Service("userAccountService")
+public class UserAccountServiceImpl implements UserAccountService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TpAccountServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountServiceImpl.class);
 
     @Autowired
-    private TpAccountMapper tpAccountMapper;
+    private UserAccountMapper tpAccountMapper;
 
     @Autowired
     private TpPersonBasicinfoMapper tpPersonBasicinfoMapper;
@@ -271,9 +273,14 @@ public class TpAccountServiceImpl implements TpAccountService {
                 vo.setPhone(decryptedPhone);
             }
             return vo;
+        } catch (MyBatisSystemException e) {
+            // MyBatis异常可能是由于数据库连接或映射问题，需要抛出
+            LOGGER.error("查看用户账号信息数据库异常！personId:{}, 错误:{}", personId, e.getMessage());
+            throw new TopinfoRuntimeException(-1, "查看用户账号信息数据库异常: " + e.getMessage());
         } catch (Exception e) {
-            LOGGER.error("查看用户账号信息失败！personId:{}, 错误:{}", personId, ExceptionUtils.getStackTrace(e));
-            throw new TopinfoRuntimeException(-1, "查看用户账号信息失败！");
+            // 其他异常可能是用户没有账号记录，记录日志但返回null
+            LOGGER.warn("查看用户账号信息时发生异常，可能用户无账号记录。personId:{}, 异常:{}", personId, e.getMessage());
+            return null;
         }
     }
 
@@ -792,13 +799,19 @@ public class TpAccountServiceImpl implements TpAccountService {
      */
     @Override
     public void deleteByPersonId(String personId) {
-        TpAccountVO view = tpAccountMapper.viewByPersonId(personId);
-        if (view == null) {
-            LOGGER.error("根据人员id未查询到账号信息！personId:{}", personId);
-            return;
+        try {
+            TpAccountVO view = tpAccountMapper.viewByPersonId(personId);
+            if (view == null) {
+                LOGGER.warn("根据人员id未查询到账号信息，跳过账号删除。personId:{}", personId);
+                return;
+            }
+            String updateTime = CommonDateUtil.now();
+            tpAccountMapper.deleteByPersonId(personId, updateTime, CommonUniqueIndexUtil.addDeleteTime(view.getUsername()), CommonUniqueIndexUtil.addDeleteTime(view.getPhone()));
+            LOGGER.info("成功删除用户账号信息。personId:{}", personId);
+        } catch (Exception e) {
+            LOGGER.warn("删除用户账号时发生异常，可能用户无账号记录，跳过账号删除。personId:{}, 异常:{}", personId, e.getMessage());
+            // 不抛出异常，允许删除流程继续进行
         }
-        String updateTime = CommonDateUtil.now();
-        tpAccountMapper.deleteByPersonId(personId, updateTime, CommonUniqueIndexUtil.addDeleteTime(view.getUsername()), CommonUniqueIndexUtil.addDeleteTime(view.getPhone()));
     }
 
     /**

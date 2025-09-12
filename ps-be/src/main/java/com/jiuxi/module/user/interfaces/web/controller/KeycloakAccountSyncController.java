@@ -1,8 +1,9 @@
-package com.jiuxi.admin.core.controller;
+package com.jiuxi.module.user.interfaces.web.controller;
 
 import com.jiuxi.admin.core.service.KeycloakSyncService;
-import com.jiuxi.admin.core.service.TpAccountService;
+import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.bean.vo.TpAccountVO;
+import com.jiuxi.admin.core.service.TpAccountService;
 import com.jiuxi.common.bean.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +22,16 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/test_keycloak_sync")
-public class KeycloakAccountSyncTestController {
+public class KeycloakAccountSyncController {
 
     @Autowired(required = false)
     private KeycloakSyncService keycloakSyncService;
     
     @Autowired
     private TpAccountService tpAccountService;
+    
+    @Autowired
+    private UserAccountService userAccountService;
 
     /**
      * 测试新增账号同步到Keycloak
@@ -60,7 +64,7 @@ public class KeycloakAccountSyncTestController {
             accountVO.setEnabled(1);
             
             // 调用账号管理服务创建账号（这会自动同步到Keycloak）
-            int createResult = tpAccountService.accountManage(accountVO, false);  // false表示不需要解密
+            int createResult = userAccountService.accountManage(accountVO, false);  // false表示不需要解密
             
             if (createResult > 0) {
                 return JsonResponse.buildSuccess("账号创建并同步到Keycloak成功");
@@ -234,7 +238,7 @@ public class KeycloakAccountSyncTestController {
             vo.setPersonId(personId);
             
             // 调用不需要解密的accountManage方法
-            int result = tpAccountService.accountManage(vo, false);
+            int result = userAccountService.accountManage(vo, false);
             
             if (result > 0) {
                 return JsonResponse.buildSuccess("账号管理成功，影响行数: " + result);

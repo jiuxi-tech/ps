@@ -10,8 +10,10 @@ import com.jiuxi.admin.core.bean.query.TpMediorgQuery;
 import com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpMediorgVO;
 import com.jiuxi.admin.core.mapper.TpMediorgMapper;
-import com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper;
+import com.jiuxi.module.user.infra.persistence.mapper.UserPersonMapper;
+import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.service.TpAccountService;
+import com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper;
 import com.jiuxi.admin.core.service.TpDeptBasicinfoService;
 import com.jiuxi.admin.core.service.TpMediorgService;
 import com.jiuxi.common.constant.TpConstant;
@@ -49,6 +51,9 @@ public class TpMediorgServiceImpl implements TpMediorgService {
 
     @Autowired
     private TpAccountService tpAccountService;
+
+    @Autowired
+    private UserAccountService userAccountService;
 
     @Autowired
     private TpPersonBasicinfoMapper tpPersonBasicinfoMapper;
@@ -221,7 +226,7 @@ public class TpMediorgServiceImpl implements TpMediorgService {
                 for (String personId : list) {
 
                     // 删除时，唯一索引字段需要添加删除时间
-                    tpAccountService.deleteByPersonId(personId);
+                    userAccountService.deleteByPersonId(personId);
                 }
             }
 
@@ -231,7 +236,7 @@ public class TpMediorgServiceImpl implements TpMediorgService {
             tpDeptBasicinfoService.deleteDeptByAscnId(id, null);
 
             // 根据企业id删除人员
-            tpPersonBasicinfoMapper.deletePersonDeptByAscnId(id, null, CommonDateUtil.now());
+            tpPersonBasicinfoMapper.deletePersonDeptByAscnId(id, "system", CommonDateUtil.now());
 
             return count;
         } catch (Exception e) {

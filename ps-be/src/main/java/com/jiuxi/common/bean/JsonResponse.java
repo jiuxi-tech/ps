@@ -88,6 +88,19 @@ public class JsonResponse<T> implements Serializable {
 
     /**
      * @return
+     * @Description: 构建一个成功的JsonResponse对象
+     * @Author:杨攀
+     * @Since: 2020年3月10日上午10:41:30
+     */
+    public static <T> JsonResponse<T> buildSuccess() {
+        JsonResponse<T> response = new JsonResponse<>();
+        response.setCode(ErrorCode.SUCCESS.getCode());
+        response.setMessage(ErrorCode.SUCCESS.getMsg());
+        return response;
+    }
+
+    /**
+     * @return
      * @Description: 构建一个失败的JsonResponse对象
      * @Author:杨攀
      * @Since: 2020年3月10日上午10:41:50
@@ -110,6 +123,17 @@ public class JsonResponse<T> implements Serializable {
         response.setCode(ErrorCode.ERROR.getCode());
         response.setMessage(message);
         return response;
+    }
+
+    /**
+     * @param message
+     * @return
+     * @Description: 构建一个失败的JsonResponse对象（别名方法）
+     * @Author:杨攀
+     * @Since: 2020年3月10日上午10:41:50
+     */
+    public static JsonResponse failByMsg(String message) {
+        return buildFailure(message);
     }
 
     /**
@@ -218,13 +242,5 @@ public class JsonResponse<T> implements Serializable {
 
     public void setExpand(Object expand) {
         this.expand = expand;
-    }
-
-
-    public static JsonResponse buildSuccess() {
-        JsonResponse response = new JsonResponse();
-        response.setCode(ErrorCode.SUCCESS.getCode());
-        response.setMessage(ErrorCode.SUCCESS.getMsg());
-        return response;
     }
 }

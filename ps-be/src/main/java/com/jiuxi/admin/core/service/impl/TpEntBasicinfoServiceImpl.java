@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jiuxi.admin.core.bean.vo.*;
-import com.jiuxi.admin.core.service.TpAccountService;
+import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.common.constant.TpConstant;
 import com.jiuxi.admin.constant.enums.OpertionTypeEnum;
 import com.jiuxi.admin.core.bean.entity.TpEntBasicinfo;
@@ -15,12 +15,14 @@ import com.jiuxi.admin.core.bean.query.TpEntBasicQuery;
 import com.jiuxi.admin.core.event.TpEntBasicinfoEvent;
 import com.jiuxi.admin.core.listener.TpEntBasicinfoEventCollection;
 import com.jiuxi.admin.core.listener.service.TpEntBasicinfoEventService;
-import com.jiuxi.admin.core.mapper.TpAccountMapper;
+import com.jiuxi.module.user.infra.persistence.mapper.UserAccountMapper;
 import com.jiuxi.admin.core.mapper.TpCityMapper;
 import com.jiuxi.admin.core.mapper.TpDeptBasicinfoMapper;
 import com.jiuxi.admin.core.mapper.TpEntBasicinfoMapper;
-import com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper;
+import com.jiuxi.module.user.infra.persistence.mapper.UserPersonMapper;
 import com.jiuxi.admin.core.service.TpDeptBasicinfoService;
+import com.jiuxi.admin.core.service.TpAccountService;
+import com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper;
 import com.jiuxi.admin.core.service.TpEntBasicinfoService;
 import com.jiuxi.common.bean.ErrorCode;
 import com.jiuxi.common.exception.ExceptionUtils;
@@ -60,6 +62,9 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
 
     @Autowired
     private TpAccountService tpAccountService;
+    
+    @Autowired
+    private UserAccountService userAccountService;
 
     @Autowired
     private TpCityMapper tpCityMapper;
@@ -438,7 +443,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
             if (list.size() >= 1) {
                 // 删除主部门关联关系的人员的账号
                 for (String personId: list) {
-                    tpAccountService.deleteByPersonId(personId);
+                    userAccountService.deleteByPersonId(personId);
                 }
             }
 

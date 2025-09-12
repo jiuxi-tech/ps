@@ -2,8 +2,9 @@ package com.jiuxi.admin.core.controller.pc;
 
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.admin.core.service.TpKeycloakAccountService;
-import com.jiuxi.admin.core.service.TpAccountService;
+import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.service.TpSystemConfigService;
+import com.jiuxi.admin.core.service.TpAccountService;
 import com.jiuxi.admin.core.bean.entity.TpKeycloakAccount;
 import com.jiuxi.admin.core.bean.vo.TpAccountVO;
 import com.jiuxi.security.sso.config.KeycloakSsoProperties;
@@ -44,6 +45,9 @@ public class TpSsoController {
     
     @Autowired
     private TpAccountService tpAccountService;
+    
+    @Autowired
+    private UserAccountService userAccountService;
     
     @Autowired
     private TpSystemConfigService tpSystemConfigService;
@@ -109,7 +113,7 @@ public class TpSsoController {
             logger.debug("从token中获取到personId: {}", personId);
             
             // 通过personId获取账号信息
-            TpAccountVO accountVO = tpAccountService.accountView(personId);
+            TpAccountVO accountVO = userAccountService.accountView(personId);
             if (accountVO == null) {
                 logger.warn("根据personId未找到账号信息，personId: {}", personId);
                 return JsonResponse.buildFailure("账号信息不存在");
@@ -261,7 +265,7 @@ public class TpSsoController {
             
             String personId = sessionVO.getPersonId();
             // 通过personId获取账号信息
-            TpAccountVO accountVO = tpAccountService.accountView(personId);
+            TpAccountVO accountVO = userAccountService.accountView(personId);
             if (accountVO == null) {
                 return JsonResponse.buildFailure("账号信息不存在");
             }
@@ -334,7 +338,7 @@ public class TpSsoController {
             
             String personId = sessionVO.getPersonId();
             // 通过personId获取账号信息
-            TpAccountVO accountVO = tpAccountService.accountView(personId);
+            TpAccountVO accountVO = userAccountService.accountView(personId);
             if (accountVO == null) {
                 return JsonResponse.buildFailure("账号信息不存在");
             }
@@ -408,7 +412,7 @@ public class TpSsoController {
             
             String personId = sessionVO.getPersonId();
             // 通过personId获取账号信息
-            TpAccountVO accountVO = tpAccountService.accountView(personId);
+            TpAccountVO accountVO = userAccountService.accountView(personId);
             if (accountVO == null) {
                 return JsonResponse.buildFailure("账号信息不存在");
             }
@@ -559,7 +563,7 @@ public class TpSsoController {
             logger.debug("从token中获取到personId: {}", personId);
             
             // 通过personId获取账号信息
-            TpAccountVO accountVO = tpAccountService.accountView(personId);
+            TpAccountVO accountVO = userAccountService.accountView(personId);
             if (accountVO == null) {
                 logger.warn("根据personId未找到账号信息，personId: {}", personId);
                 return JsonResponse.buildFailure("账号信息不存在");
