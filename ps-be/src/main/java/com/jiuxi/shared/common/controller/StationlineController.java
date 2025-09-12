@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.controller;
+package com.jiuxi.shared.common.controller;
 
 import com.jiuxi.common.bean.JsonResponse;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.jiuxi.core.config;
+package com.jiuxi.shared.config.cache;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,7 @@ import java.util.Map;
  * 配置RedisCacheManager以支持Spring Cache注解
  */
 @Configuration
-public class CacheConfig {
+public class CacheConfiguration {
 
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {

@@ -1,11 +1,11 @@
-package com.jiuxi.core.core.controller;
+package com.jiuxi.shared.common.controller;
 
 import com.jiuxi.common.bean.JsonResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @ClassName: TpHealthController
+ * @ClassName: HealthController
  * @Description: 健康检查
  * @Author 杨占锐
  * @Date 2023/11/2 16:43
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/platform")
-public class TpHealthController {
+public class HealthController {
 
     /**
      * 健康检查

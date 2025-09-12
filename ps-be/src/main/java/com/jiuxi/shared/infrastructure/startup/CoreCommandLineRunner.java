@@ -1,4 +1,4 @@
-package com.jiuxi.core.core.runner;
+package com.jiuxi.shared.infrastructure.startup;
 
 import com.jiuxi.common.util.AesUtils;
 import com.jiuxi.common.util.SmUtils;
