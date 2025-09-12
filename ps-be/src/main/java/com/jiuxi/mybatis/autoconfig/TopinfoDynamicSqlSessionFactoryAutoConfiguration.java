@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.core.incrementer.IKeyGenerator;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.jiuxi.mybatis.core.dynamic.DynamicDataSource;
+import com.jiuxi.shared.infrastructure.persistence.dynamic.DynamicDataSource;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.scripting.LanguageDriver;

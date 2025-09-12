@@ -1,6 +1,6 @@
 package com.jiuxi.admin.core.service;
 
-import com.jiuxi.mybatis.util.PageUtils;
+import com.jiuxi.shared.infrastructure.persistence.util.PageUtils;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.autoconfig;
+package com.jiuxi.shared.config.database;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import com.jiuxi.core.bean.TopinfoRuntimeException;
 import com.jiuxi.mybatis.bean.DataSourceConfig;
 import com.jiuxi.mybatis.bean.Dynamic;
+import com.jiuxi.mybatis.autoconfig.TopinfoMybatisAutoProperties;
 import com.jiuxi.shared.infrastructure.persistence.dynamic.DynamicDataSource;
 import com.jiuxi.shared.infrastructure.persistence.dynamic.DynamicDataSourceAspect;
 import com.jiuxi.shared.infrastructure.persistence.generator.CustomIdGenerator;
@@ -49,13 +50,13 @@ import java.util.Map;
 @ConditionalOnClass({SqlSessionFactory.class, SqlSessionFactoryBean.class})
 @AutoConfigureBefore(DataSourceAutoConfiguration.class)
 @EnableConfigurationProperties(TopinfoMybatisAutoProperties.class)
-public class TopinfoMybatisAutoConfiguration {
+public class MybatisPlusConfiguration {
 
 
     private TopinfoMybatisAutoProperties properties;
 
 
-    public TopinfoMybatisAutoConfiguration(TopinfoMybatisAutoProperties properties) {
+    public MybatisPlusConfiguration(TopinfoMybatisAutoProperties properties) {
         this.properties = properties;
     }
 
@@ -186,7 +187,7 @@ public class TopinfoMybatisAutoConfiguration {
             dataSource.setTestWhileIdle(config.isTestWhileIdle());
             // 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
             dataSource.setPoolPreparedStatements(config.isPoolPreparedStatements());
-            // 配置了maxWait之后，缺省启用公平锁，并发效率会有所下降，如果需要可以通过配置useUnfairLock属性为true使用非公平锁。
+            // 配置了maxWait之后，缺省启用公平锁，并发效率会有所下降，如果需要可能通过配置useUnfairLock属性为true使用非公平锁。
             dataSource.setUseUnfairLock(config.isUseUnfairLock());
 
             //配置监控统计拦截的filters
@@ -314,7 +315,7 @@ public class TopinfoMybatisAutoConfiguration {
 
     /**
      * @param
-     * @return cn.hutool.core.lang.Snowflake
+     * @return MybatisCommandLineRunner
      * @description:
      * @author 杨攀
      * @date 2020/3/17 17:48

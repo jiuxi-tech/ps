@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.service.impl;
+package com.jiuxi.shared.infrastructure.persistence.service.impl;
 
 import cn.hutool.cache.Cache;
 import cn.hutool.cache.CacheUtil;
@@ -10,7 +10,7 @@ import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.SmUtils;
 import com.jiuxi.core.bean.TopinfoRuntimeException;
 import com.jiuxi.mybatis.bean.SecurityLicenceVO;
-import com.jiuxi.mybatis.service.LocalLicenceCacheService;
+import com.jiuxi.shared.infrastructure.persistence.service.LocalLicenceCacheService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
  * @author pand
  * @Description 许可证
  * @ClassName LocalLicenceCacheServiceImpl
- * packageName com.jiuxi.security.core.service.impl
+ * packageName com.jiuxi.shared.infrastructure.persistence.service.impl
  * @Date 2025/1/10 14:46
  * @Copyright: 2025 www.tuxun.net Inc. All rights reserved.
  */
@@ -172,7 +172,7 @@ public class LocalLicenceCacheServiceImpl implements LocalLicenceCacheService {
             return false;
         }
 
-        // 通过过期日期,判断许可证是否过期,如果已过期,刷新缓存为“null”
+        // 通过过期日期,判断许可证是否过期,如果已过期,刷新缓存为"null"
         boolean flag = this.isExpire(expiringDate);
         if (flag) {
             // 过期日期不在当前日期后面，已经过期。即 exDate<=now 就说明已经过期

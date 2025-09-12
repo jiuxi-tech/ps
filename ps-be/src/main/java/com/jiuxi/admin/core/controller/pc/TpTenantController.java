@@ -3,7 +3,7 @@ package com.jiuxi.admin.core.controller.pc;
 import com.jiuxi.admin.core.bean.entity.TpTenant;
 import com.jiuxi.admin.core.service.TpTenantService;
 import com.jiuxi.common.bean.JsonResponse;
-import com.jiuxi.mybatis.util.PageUtils;
+import com.jiuxi.shared.infrastructure.persistence.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

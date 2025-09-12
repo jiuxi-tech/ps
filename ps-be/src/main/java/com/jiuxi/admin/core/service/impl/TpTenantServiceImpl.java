@@ -2,7 +2,7 @@ package com.jiuxi.admin.core.service.impl;
 
 import com.jiuxi.admin.core.mapper.TpTenantMapper;
 import com.jiuxi.admin.core.service.TpTenantService;
-import com.jiuxi.mybatis.util.PageUtils;
+import com.jiuxi.shared.infrastructure.persistence.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

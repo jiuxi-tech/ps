@@ -1,11 +1,11 @@
-package com.jiuxi.mybatis.util;
+package com.jiuxi.shared.infrastructure.persistence.util;
 
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jiuxi.mybatis.xss.SQLFilter;
+import com.jiuxi.shared.infrastructure.persistence.xss.SQLFilter;
 
 import java.util.Map;
 

@@ -1,9 +1,9 @@
-package com.jiuxi.mybatis.service;
+package com.jiuxi.shared.infrastructure.persistence.service;
 
 /**
  * @author pand
  * @description 许可证
- * packageName com.jiuxi.mybatis.service
+ * packageName com.jiuxi.shared.infrastructure.persistence.service
  * @className LocalLicenceCacheService
  * @date 2025/1/10 17:28
  */

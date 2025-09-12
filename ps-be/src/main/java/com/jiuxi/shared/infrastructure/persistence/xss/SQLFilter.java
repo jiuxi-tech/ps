@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.xss;
+package com.jiuxi.shared.infrastructure.persistence.xss;
 
 import cn.hutool.core.util.StrUtil;
 

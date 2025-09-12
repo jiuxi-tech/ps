@@ -101,7 +101,7 @@ public class TpRoleServiceImpl implements TpRoleService {
      * @param query:
      * @param pid:   当前操作人personId
      * @param rids:  当前操作人所拥有的角色
-     * @return com.jiuxi.mybatis.util.PageUtils
+     * @return com.jiuxi.shared.infrastructure.persistence.util.PageUtils
      * @author pand
      * @date 2020-11-25 14:48
      */

@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.core.runner;
+package com.jiuxi.shared.infrastructure.persistence.service;
 
 import com.jiuxi.mybatis.autoconfig.TopinfoMybatisAutoProperties;
 import com.jiuxi.common.util.SnowflakeIdUtil;

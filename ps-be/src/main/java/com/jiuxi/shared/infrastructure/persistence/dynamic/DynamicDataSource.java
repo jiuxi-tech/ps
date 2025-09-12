@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.core.dynamic;
+package com.jiuxi.shared.infrastructure.persistence.dynamic;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

@@ -3,7 +3,7 @@ package com.jiuxi.admin.core.service.domain.organization;
 import com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpCityVO;
 import com.jiuxi.admin.core.bean.vo.TpMediorgVO;
-import com.jiuxi.mybatis.util.Query;
+import com.jiuxi.shared.infrastructure.persistence.util.Query;
 import com.jiuxi.common.bean.JsonResponse;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 

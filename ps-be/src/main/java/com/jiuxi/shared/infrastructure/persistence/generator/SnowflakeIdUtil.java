@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.core.idgenerator;
+package com.jiuxi.shared.infrastructure.persistence.generator;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;

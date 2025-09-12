@@ -1,7 +1,7 @@
 package com.jiuxi.monitor.client.core.service.impl.health;
 
 import com.jiuxi.common.exception.ExceptionUtils;
-import com.jiuxi.mybatis.core.dynamic.DynamicDataSource;
+import com.jiuxi.shared.infrastructure.persistence.dynamic.DynamicDataSource;
 import com.jiuxi.monitor.client.constant.MonitorClientConstant;
 import com.jiuxi.monitor.client.core.service.MonitorHealthService;
 import org.slf4j.Logger;

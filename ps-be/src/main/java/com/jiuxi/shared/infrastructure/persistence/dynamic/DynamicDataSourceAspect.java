@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.core.dynamic;
+package com.jiuxi.shared.infrastructure.persistence.dynamic;
 
 import cn.hutool.core.util.StrUtil;
 import com.jiuxi.core.bean.TopinfoRuntimeException;
@@ -27,7 +27,7 @@ public class DynamicDataSourceAspect {
 
     //@within在类上设置
     //@annotation在方法上进行设置
-    @Pointcut(value = "@within(com.jiuxi.mybatis.core.dynamic.TargetDataSource) || @annotation(com.jiuxi.mybatis.core.dynamic.TargetDataSource)")
+    @Pointcut(value = "@within(com.jiuxi.shared.infrastructure.persistence.dynamic.TargetDataSource) || @annotation(com.jiuxi.shared.infrastructure.persistence.dynamic.TargetDataSource)")
     public void pointcut() {
     }
 

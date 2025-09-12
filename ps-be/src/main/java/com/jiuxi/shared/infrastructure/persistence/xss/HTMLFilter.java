@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.xss;
+package com.jiuxi.shared.infrastructure.persistence.xss;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

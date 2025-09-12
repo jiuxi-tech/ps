@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.core.idgenerator;
+package com.jiuxi.shared.infrastructure.persistence.generator;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.jiuxi.common.util.SnowflakeIdUtil;

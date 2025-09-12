@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.core.dynamic;
+package com.jiuxi.shared.infrastructure.persistence.dynamic;
 
 import java.lang.annotation.*;
 

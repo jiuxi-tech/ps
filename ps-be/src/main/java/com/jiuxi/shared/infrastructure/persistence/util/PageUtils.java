@@ -1,4 +1,4 @@
-package com.jiuxi.mybatis.util;
+package com.jiuxi.shared.infrastructure.persistence.util;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
