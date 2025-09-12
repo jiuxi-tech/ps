@@ -2,8 +2,9 @@ package com.jiuxi.platform.captcha.app.service;
 
 import com.jiuxi.captcha.bean.vo.ImageCaptchaCheckVO;
 import com.jiuxi.captcha.bean.vo.ImageCaptchaVO;
-import com.jiuxi.captcha.core.service.CaptchaService;
+import com.jiuxi.platform.captcha.app.service.CaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,6 +19,11 @@ public class CaptchaAdapterService implements CaptchaService {
     
     private final CaptchaApplicationService captchaApplicationService;
     
+    // 原有的验证码服务作为后备
+    @Autowired
+    @Qualifier("captchaService")
+    private com.jiuxi.captcha.core.service.CaptchaService legacyCaptchaService;
+    
     @Autowired
     public CaptchaAdapterService(CaptchaApplicationService captchaApplicationService) {
         this.captchaApplicationService = captchaApplicationService;
@@ -26,10 +32,22 @@ public class CaptchaAdapterService implements CaptchaService {
     @Override
     public ImageCaptchaVO getConcatCaptcha() {
         try {
+            // 优先使用旧系统生成拼接验证码
+            ImageCaptchaVO legacyResult = legacyCaptchaService.getConcatCaptcha();
+            if (legacyResult != null) {
+                System.out.println("使用旧系统生成拼接验证码");
+                return legacyResult;
+            }
+        } catch (Exception legacyError) {
+            System.out.println("旧系统生成拼接验证码失败: " + legacyError.getMessage());
+        }
+        
+        try {
             CaptchaApplicationService.CaptchaResponse response = 
                 captchaApplicationService.generateCaptcha("concat");
             
             if (response.isSuccess()) {
+                System.out.println("使用新系统生成拼接验证码");
                 return createImageCaptchaVO(response);
             } else {
                 return createErrorImageCaptchaVO(response.getMessage());
@@ -42,10 +60,22 @@ public class CaptchaAdapterService implements CaptchaService {
     @Override
     public ImageCaptchaVO getRotateCaptcha() {
         try {
+            // 优先使用旧系统生成旋转验证码
+            ImageCaptchaVO legacyResult = legacyCaptchaService.getRotateCaptcha();
+            if (legacyResult != null) {
+                System.out.println("使用旧系统生成旋转验证码");
+                return legacyResult;
+            }
+        } catch (Exception legacyError) {
+            System.out.println("旧系统生成旋转验证码失败: " + legacyError.getMessage());
+        }
+        
+        try {
             CaptchaApplicationService.CaptchaResponse response = 
                 captchaApplicationService.generateCaptcha("rotate");
             
             if (response.isSuccess()) {
+                System.out.println("使用新系统生成旋转验证码");
                 return createImageCaptchaVO(response);
             } else {
                 return createErrorImageCaptchaVO(response.getMessage());
@@ -58,10 +88,22 @@ public class CaptchaAdapterService implements CaptchaService {
     @Override
     public ImageCaptchaVO getSliderCaptcha() {
         try {
+            // 优先使用旧系统生成滑块验证码
+            ImageCaptchaVO legacyResult = legacyCaptchaService.getSliderCaptcha();
+            if (legacyResult != null) {
+                System.out.println("使用旧系统生成滑块验证码");
+                return legacyResult;
+            }
+        } catch (Exception legacyError) {
+            System.out.println("旧系统生成滑块验证码失败: " + legacyError.getMessage());
+        }
+        
+        try {
             CaptchaApplicationService.CaptchaResponse response = 
                 captchaApplicationService.generateCaptcha("slider");
             
             if (response.isSuccess()) {
+                System.out.println("使用新系统生成滑块验证码");
                 return createImageCaptchaVO(response);
             } else {
                 return createErrorImageCaptchaVO(response.getMessage());
@@ -83,7 +125,20 @@ public class CaptchaAdapterService implements CaptchaService {
                 return "验证码标识不能为空";
             }
             
-            // 根据验证码类型进行不同的验证
+            System.out.println("开始验证验证码: " + clientUuid);
+            
+            // 首先尝试使用旧系统验证，因为旧系统可能生成了这个验证码
+            try {
+                String legacyTicket = legacyCaptchaService.checkCaptcha(imageCaptchaCheckVO);
+                if (legacyTicket != null && !legacyTicket.trim().isEmpty()) {
+                    System.out.println("旧系统验证成功，票据: " + legacyTicket);
+                    return legacyTicket;
+                }
+            } catch (Exception legacyError) {
+                System.out.println("旧系统验证失败: " + legacyError.getMessage());
+            }
+            
+            // 如果旧系统验证失败，尝试新系统
             CaptchaApplicationService.VerificationResponse response;
             
             // 检查是否有X坐标信息（滑块验证码）
@@ -99,12 +154,15 @@ public class CaptchaAdapterService implements CaptchaService {
             }
             
             if (response.isSuccess()) {
+                System.out.println("新系统验证成功，票据: " + response.getTicket());
                 return response.getTicket();
             } else {
+                System.out.println("新系统验证失败: " + response.getMessage());
                 return response.getMessage();
             }
             
         } catch (Exception e) {
+            System.err.println("验证码验证异常: " + e.getMessage());
             return "验证过程出错: " + e.getMessage();
         }
     }
@@ -112,9 +170,31 @@ public class CaptchaAdapterService implements CaptchaService {
     @Override
     public boolean checkTicket(String ticket) {
         try {
-            return captchaApplicationService.consumeTicket(ticket);
+            if (ticket == null || ticket.trim().isEmpty()) {
+                System.err.println("票据为空");
+                return false;
+            }
+            
+            System.out.println("开始验证票据: " + ticket);
+            
+            // 首先尝试新系统验证票据
+            boolean newSystemResult = captchaApplicationService.consumeTicket(ticket);
+            System.out.println("新系统票据验证结果: " + newSystemResult);
+            
+            if (newSystemResult) {
+                return true;
+            }
+            
+            // 如果新系统验证失败，尝试使用旧系统验证
+            System.out.println("新系统验证失败，尝试旧系统验证票据: " + ticket);
+            boolean legacyResult = legacyCaptchaService.checkTicket(ticket);
+            System.out.println("旧系统票据验证结果: " + legacyResult);
+            
+            return legacyResult;
+            
         } catch (Exception e) {
             System.err.println("验证票据失败: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }

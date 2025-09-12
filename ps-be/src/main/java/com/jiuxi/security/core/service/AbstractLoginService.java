@@ -5,7 +5,7 @@ import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.json.JSONObject;
-import com.jiuxi.captcha.core.service.CaptchaService;
+import com.jiuxi.platform.captcha.app.service.CaptchaService;
 import com.jiuxi.common.util.JwtTokenUtils;
 import com.jiuxi.common.util.SmUtils;
 import com.jiuxi.core.bean.TopinfoRuntimeException;
