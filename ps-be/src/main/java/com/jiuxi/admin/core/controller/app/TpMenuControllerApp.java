@@ -1,6 +1,6 @@
 package com.jiuxi.admin.core.controller.app;
 
-import com.jiuxi.admin.bean.MenuTreeNode;
+import com.jiuxi.shared.common.base.vo.MenuTreeNode;
 import com.jiuxi.admin.core.service.TpMenuService;
 import com.jiuxi.common.bean.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;

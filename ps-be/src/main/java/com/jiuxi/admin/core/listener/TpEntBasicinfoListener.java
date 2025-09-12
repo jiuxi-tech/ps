@@ -1,7 +1,7 @@
 package com.jiuxi.admin.core.listener;
 
 import com.jiuxi.common.constant.TpConstant;
-import com.jiuxi.admin.constant.enums.OpertionTypeEnum;
+import com.jiuxi.shared.common.constants.enums.OpertionTypeEnum;
 import com.jiuxi.admin.core.event.TpEntBasicinfoEvent;
 import com.jiuxi.common.util.CommonDateUtil;
 import org.slf4j.Logger;

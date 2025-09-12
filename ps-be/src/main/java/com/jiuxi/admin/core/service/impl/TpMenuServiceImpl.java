@@ -3,7 +3,7 @@ package com.jiuxi.admin.core.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.jiuxi.admin.bean.MenuTreeNode;
+import com.jiuxi.shared.common.base.vo.MenuTreeNode;
 import com.jiuxi.common.constant.TpConstant;
 import com.jiuxi.admin.core.bean.entity.TpMenu;
 import com.jiuxi.admin.core.bean.vo.TpMenuVO;

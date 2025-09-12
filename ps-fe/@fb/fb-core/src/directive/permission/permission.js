@@ -1,15 +1,22 @@
+// 获取全局app实例
+const app = window.app;
+
 /**
  * 是否有权限
  * @param el
  * @param binding
  */
 export function hasPermission(value) {
-	return true
-	if (!app.$store.state.menu) {
-		return console.error('app.$store.state.menu is undefined')
+	if (!app || !app.$store || !app.$store.state || !app.$store.state.menu) {
+		return Promise.reject('app.$store.state.menu is undefined')
 	}
 	return new Promise((resolve, reject) => {
 		let menus = app.$store.state.menu.flatMenus
+		if (!menus || !Array.isArray(menus)) {
+			resolve(false)
+			return
+		}
+		
 		menus.forEach(menu => {
 			if (menu.id === value || menu.code === value) {
 				resolve(true)
@@ -27,16 +34,21 @@ export function hasPermission(value) {
  * @param binding
  */
 export function hasPermissionSync(value) {
-	return true
 	let permission = false
-	if (!app.$store.state.menu) {
-		return console.error('app.$store.state.menu is undefined')
+	if (!app || !app.$store || !app.$store.state || !app.$store.state.menu) {
+		console.error('app.$store.state.menu is undefined')
+		return false
 	}
 	let menus = app.$store.state.menu.flatMenus
+	if (!menus || !Array.isArray(menus)) {
+		return false
+	}
+	
 	for (let i = 0; i < menus.length; i++) {
 		let menu = menus[i]
 		if (menu.id === value || menu.code === value) {
 			permission = true
+			break // 找到权限后立即退出循环
 		}
 	}
 

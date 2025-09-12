@@ -1,6 +1,6 @@
 package com.jiuxi.module.system.app.service.impl;
 
-import com.jiuxi.admin.bean.MenuTreeNode;
+import com.jiuxi.shared.common.base.vo.MenuTreeNode;
 import com.jiuxi.admin.core.bean.vo.TpMenuVO;
 import com.jiuxi.admin.core.service.TpMenuService;
 import com.jiuxi.common.bean.TreeNode;

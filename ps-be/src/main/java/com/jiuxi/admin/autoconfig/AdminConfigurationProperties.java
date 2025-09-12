@@ -1,6 +1,6 @@
 package com.jiuxi.admin.autoconfig;
 
-import com.jiuxi.admin.bean.SmsCode;
+import com.jiuxi.shared.common.base.vo.SmsCode;
 import com.jiuxi.common.bean.LogicalDisk;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 // import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.jiuxi.admin.autoconfig.AdminConfigurationProperties;
 import com.jiuxi.common.constant.TpConstant;
-import com.jiuxi.admin.constant.enums.OpertionTypeEnum;
+import com.jiuxi.shared.common.constants.enums.OpertionTypeEnum;
 import com.jiuxi.admin.core.bean.entity.TpAccount;
 import com.jiuxi.admin.core.bean.vo.TpAccountVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO;

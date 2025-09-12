@@ -1,6 +1,6 @@
 package com.jiuxi.admin.core.mapper;
 
-import com.jiuxi.admin.bean.MenuTreeNode;
+import com.jiuxi.shared.common.base.vo.MenuTreeNode;
 import com.jiuxi.admin.core.bean.entity.TpMenu;
 import com.jiuxi.admin.core.bean.vo.TpMenuVO;
 import com.jiuxi.common.bean.TreeNode;

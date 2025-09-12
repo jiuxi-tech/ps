@@ -10,7 +10,7 @@ import com.jiuxi.admin.core.bean.query.TpIpAccessLogQuery;
 import com.jiuxi.admin.core.bean.vo.TpIpAccessLogVO;
 import com.jiuxi.admin.core.mapper.TpIpAccessLogMapper;
 import com.jiuxi.admin.core.service.TpIpAccessLogService;
-import com.jiuxi.admin.core.util.IpAccessControlUtil;
+import com.jiuxi.shared.common.utils.IpAccessControlUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
