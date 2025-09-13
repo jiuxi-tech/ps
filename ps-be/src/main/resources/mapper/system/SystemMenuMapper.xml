@@ -125,7 +125,7 @@
         update tp_menu set ACTIVED = #{actived}, UPDATOR = #{updator}, UPDATE_TIME = #{updateTime} where MENU_ID = #{menuId}
     </update>
 
-    <select id="selectByRoldIds" resultType="com.jiuxi.shared.common.base.vo.MenuTreeNode">
+    <select id="selectByRoldIds" resultType="com.jiuxi.admin.bean.MenuTreeNode">
         SELECT tm.MENU_ID as value,
                 tm.MENU_ID as id,
                 tm.MENU_NAME as label,
@@ -166,7 +166,7 @@
         order by tm.ORDER_INDEX
     </select>
 
-    <select id="selectAll" resultType="com.jiuxi.shared.common.base.vo.MenuTreeNode">
+    <select id="selectAll" resultType="com.jiuxi.admin.bean.MenuTreeNode">
         SELECT tm.MENU_ID as value,
                tm.MENU_ID as id,
                tm.MENU_NAME as label,

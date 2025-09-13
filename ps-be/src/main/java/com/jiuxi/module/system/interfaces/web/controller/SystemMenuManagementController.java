@@ -1,6 +1,6 @@
 package com.jiuxi.module.system.interfaces.web.controller;
 
-import com.jiuxi.shared.common.base.vo.MenuTreeNode;
+import com.jiuxi.admin.bean.MenuTreeNode;
 import com.jiuxi.admin.core.bean.vo.TpMenuVO;
 import com.jiuxi.module.system.app.service.SystemMenuService;
 import com.jiuxi.common.bean.JsonResponse;

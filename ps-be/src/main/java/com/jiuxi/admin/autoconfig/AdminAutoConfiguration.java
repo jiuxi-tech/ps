@@ -14,7 +14,7 @@ import com.jiuxi.admin.core.service.PersonAccountService;
 import com.jiuxi.admin.core.service.impl.PersonAccountServiceAdapter;
 import com.jiuxi.admin.core.service.TpSmsSendService;
 import com.jiuxi.admin.core.service.impl.*;
-import com.jiuxi.shared.common.utils.CommonDataPermissionsUtil;
+import com.jiuxi.admin.core.util.CommonDataPermissionsUtil;
 // import com.jiuxi.easyexcel.service.DownloadDataService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

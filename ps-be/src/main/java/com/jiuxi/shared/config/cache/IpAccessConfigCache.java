@@ -1,6 +1,6 @@
 package com.jiuxi.shared.config.cache;
 
-import com.jiuxi.shared.common.utils.IpAccessControlUtil;
+import com.jiuxi.admin.core.util.IpAccessControlUtil;
 import com.jiuxi.admin.core.service.TpSystemConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;

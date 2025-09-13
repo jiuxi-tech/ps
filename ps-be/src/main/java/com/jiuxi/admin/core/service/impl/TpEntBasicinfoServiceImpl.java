@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jiuxi.admin.core.bean.vo.*;
 import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.common.constant.TpConstant;
-import com.jiuxi.shared.common.constants.enums.OpertionTypeEnum;
+import com.jiuxi.admin.constant.enums.OpertionTypeEnum;
 import com.jiuxi.admin.core.bean.entity.TpEntBasicinfo;
 import com.jiuxi.admin.core.bean.query.TpEntAccountQuery;
 import com.jiuxi.admin.core.bean.query.TpEntBasicQuery;

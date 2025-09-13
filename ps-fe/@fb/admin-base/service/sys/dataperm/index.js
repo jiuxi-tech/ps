@@ -5,7 +5,7 @@ export default {
 
 	add(formData) {
 		return app.service.request({
-			url: '/sys/data-perm/add',
+			url: '/sys/data-permission-scope/add',
 			method: 'post',
 			transformRequest: [
 				function (data) {
@@ -27,7 +27,7 @@ export default {
 	},
 
 	view(formData) {
-		return app.service.get('/sys/data-perm/listPerm', {params: formData})
+		return app.service.get('/sys/data-permission-scope/view', {params: formData})
 	},
 
 }
