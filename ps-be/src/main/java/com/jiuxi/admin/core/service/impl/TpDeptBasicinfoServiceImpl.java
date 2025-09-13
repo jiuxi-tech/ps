@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.jiuxi.common.constant.TpConstant;
-import com.jiuxi.shared.common.constants.enums.OpertionTypeEnum;
+import com.jiuxi.admin.constant.enums.OpertionTypeEnum;
 import com.jiuxi.admin.core.bean.entity.TpDeptBasicinfo;
 import com.jiuxi.admin.core.bean.entity.TpDeptExinfo;
 import com.jiuxi.admin.core.bean.entity.TpPersonDept;

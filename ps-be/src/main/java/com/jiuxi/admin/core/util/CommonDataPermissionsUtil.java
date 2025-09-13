@@ -1,4 +1,4 @@
-package com.jiuxi.shared.common.utils;
+package com.jiuxi.admin.core.util;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;

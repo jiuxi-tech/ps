@@ -1,4 +1,4 @@
-package com.jiuxi.shared.common.base.vo;
+package com.jiuxi.admin.bean;
 
 import java.util.HashMap;
 import java.util.Map;

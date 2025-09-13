@@ -1,4 +1,4 @@
-package com.jiuxi.shared.common.utils;
+package com.jiuxi.admin.core.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

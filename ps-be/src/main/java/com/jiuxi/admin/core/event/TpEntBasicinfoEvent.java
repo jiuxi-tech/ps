@@ -1,6 +1,6 @@
 package com.jiuxi.admin.core.event;
 
-import com.jiuxi.shared.common.constants.enums.OpertionTypeEnum;
+import com.jiuxi.admin.constant.enums.OpertionTypeEnum;
 import com.jiuxi.admin.core.bean.entity.TpEntBasicinfo;
 import com.jiuxi.admin.core.listener.TpEntBasicinfoEventCollection;
 import com.jiuxi.admin.core.listener.service.TpEntBasicinfoEventService;

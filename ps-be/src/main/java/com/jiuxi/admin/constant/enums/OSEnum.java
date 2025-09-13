@@ -1,4 +1,4 @@
-package com.jiuxi.shared.common.constants.enums;
+package com.jiuxi.admin.constant.enums;
 
 /**
  * @Description: 操作系统类型
