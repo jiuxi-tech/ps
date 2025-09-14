@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
     "com.jiuxi.module.user.app",
     "com.jiuxi.module.user.domain",
     "com.jiuxi.module.user.infra",
-    "com.jiuxi.module.user.interfaces"
+    "com.jiuxi.module.user.intf"
 })
 @MapperScan("com.jiuxi.module.user.infra.persistence.mapper")
 @EnableTransactionManagement

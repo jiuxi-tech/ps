@@ -1,4 +1,4 @@
-package com.jiuxi.module.user.interfaces.web.dto;
+package com.jiuxi.module.user.intf.web.dto;
 
 import java.util.List;
 

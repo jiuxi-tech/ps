@@ -1,4 +1,4 @@
-package com.jiuxi.module.user.interfaces.web.controller;
+package com.jiuxi.module.user.intf.web.controller;
 
 import com.jiuxi.admin.core.service.KeycloakSyncService;
 import com.jiuxi.module.user.app.service.UserAccountService;

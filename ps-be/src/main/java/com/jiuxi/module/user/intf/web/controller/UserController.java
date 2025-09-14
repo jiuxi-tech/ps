@@ -1,4 +1,4 @@
-package com.jiuxi.module.user.interfaces.web;
+package com.jiuxi.module.user.intf.web.controller;
 
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.shared.common.annotation.Authorization;
@@ -10,7 +10,7 @@ import com.jiuxi.module.user.app.dto.UserQueryDTO;
 import com.jiuxi.module.user.app.dto.UserResponseDTO;
 import com.jiuxi.module.user.app.dto.UserUpdateDTO;
 import com.jiuxi.module.user.app.service.UserApplicationService;
-import com.jiuxi.module.user.interfaces.web.dto.PageResult;
+import com.jiuxi.module.user.intf.web.dto.PageResult;
 import com.jiuxi.security.core.entity.vo.PersonVO;
 import com.jiuxi.security.core.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;

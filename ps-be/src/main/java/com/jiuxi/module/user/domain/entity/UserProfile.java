@@ -1,8 +1,8 @@
 package com.jiuxi.module.user.domain.entity;
 
-import com.jiuxi.module.user.domain.valueobject.UserName;
-import com.jiuxi.module.user.domain.valueobject.Email;
-import com.jiuxi.module.user.domain.valueobject.PhoneNumber;
+import com.jiuxi.module.user.domain.vo.UserName;
+import com.jiuxi.module.user.domain.vo.Email;
+import com.jiuxi.module.user.domain.vo.PhoneNumber;
 
 import java.util.Objects;
 

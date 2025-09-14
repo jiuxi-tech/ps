@@ -1,4 +1,4 @@
-package com.jiuxi.module.user.app.service.impl;
+package com.jiuxi.module.user.app.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;

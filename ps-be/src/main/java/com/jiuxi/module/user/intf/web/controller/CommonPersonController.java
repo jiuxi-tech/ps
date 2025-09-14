@@ -1,4 +1,4 @@
-package com.jiuxi.module.user.interfaces.web.controller;
+package com.jiuxi.module.user.intf.web.controller;
 
 
 import cn.hutool.core.util.StrUtil;

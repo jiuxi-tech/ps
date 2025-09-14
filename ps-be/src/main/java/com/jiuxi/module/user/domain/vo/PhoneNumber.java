@@ -1,4 +1,4 @@
-package com.jiuxi.module.user.domain.valueobject;
+package com.jiuxi.module.user.domain.vo;
 
 import java.util.Objects;
 import java.util.regex.Pattern;

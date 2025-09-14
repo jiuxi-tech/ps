@@ -1,4 +1,4 @@
-package com.jiuxi.module.user.app.service.impl;
+package com.jiuxi.module.user.app.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.jiuxi.admin.core.bean.entity.TpAccount;

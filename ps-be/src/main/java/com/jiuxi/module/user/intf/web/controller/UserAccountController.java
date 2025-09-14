@@ -1,10 +1,10 @@
-package com.jiuxi.module.user.interfaces.web;
+package com.jiuxi.module.user.intf.web.controller;
 
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.shared.common.annotation.Authorization;
 import com.jiuxi.shared.common.annotation.IgnoreAuthorization;
 import com.jiuxi.module.user.app.service.UserApplicationService;
-import com.jiuxi.module.user.interfaces.web.dto.ChangePasswordRequest;
+import com.jiuxi.module.user.intf.web.dto.ChangePasswordRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
