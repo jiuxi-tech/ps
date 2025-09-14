@@ -1,4 +1,4 @@
-package com.jiuxi.module.user.domain.vo;
+package com.jiuxi.module.user.domain.model.vo;
 
 import java.util.Objects;
 import java.util.regex.Pattern;

@@ -3,11 +3,12 @@ package com.jiuxi.module.user.app.assembler;
 import com.jiuxi.module.user.app.dto.UserCreateDTO;
 import com.jiuxi.module.user.app.dto.UserResponseDTO;
 import com.jiuxi.module.user.app.dto.UserUpdateDTO;
-import com.jiuxi.module.user.domain.entity.ContactInfo;
-import com.jiuxi.module.user.domain.entity.User;
-import com.jiuxi.module.user.domain.entity.UserCategory;
-import com.jiuxi.module.user.domain.entity.UserProfile;
-import com.jiuxi.module.user.domain.entity.UserStatus;
+import com.jiuxi.module.user.domain.model.aggregate.User;
+import com.jiuxi.module.user.domain.model.entity.UserAccount;
+import com.jiuxi.module.user.domain.model.vo.ContactInfo;
+import com.jiuxi.module.user.domain.model.vo.UserCategory;
+import com.jiuxi.module.user.domain.model.vo.UserProfile;
+import com.jiuxi.module.user.domain.model.vo.UserStatus;
 import org.springframework.stereotype.Component;
 
 /**

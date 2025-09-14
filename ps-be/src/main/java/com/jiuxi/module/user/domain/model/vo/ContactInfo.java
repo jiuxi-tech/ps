@@ -1,7 +1,7 @@
-package com.jiuxi.module.user.domain.entity;
+package com.jiuxi.module.user.domain.model.vo;
 
-import com.jiuxi.module.user.domain.vo.Email;
-import com.jiuxi.module.user.domain.vo.PhoneNumber;
+import com.jiuxi.module.user.domain.model.vo.Email;
+import com.jiuxi.module.user.domain.model.vo.PhoneNumber;
 
 import java.util.Objects;
 

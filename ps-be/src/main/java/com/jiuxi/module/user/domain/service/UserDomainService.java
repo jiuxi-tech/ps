@@ -1,7 +1,7 @@
 package com.jiuxi.module.user.domain.service;
 
-import com.jiuxi.module.user.domain.entity.User;
-import com.jiuxi.module.user.domain.entity.UserProfile;
+import com.jiuxi.module.user.domain.model.aggregate.User;
+import com.jiuxi.module.user.domain.model.vo.UserProfile;
 import com.jiuxi.module.user.domain.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,11 @@
-package com.jiuxi.module.user.app.service;
+package com.jiuxi.module.user.app.impl;
 
 import com.jiuxi.module.user.app.assembler.UserAssembler;
 import com.jiuxi.module.user.app.dto.UserCreateDTO;
 import com.jiuxi.module.user.app.dto.UserQueryDTO;
 import com.jiuxi.module.user.app.dto.UserResponseDTO;
 import com.jiuxi.module.user.app.dto.UserUpdateDTO;
+import com.jiuxi.module.user.app.service.UserApplicationServiceInterface;
 import com.jiuxi.module.user.domain.model.aggregate.User;
 import com.jiuxi.module.user.domain.event.UserCreatedEvent;
 import com.jiuxi.module.user.domain.event.UserDeletedEvent;
@@ -22,15 +23,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * 用户应用服务
+ * 用户应用服务实现类
  * 协调领域对象完成业务用例
  * 
  * @author DDD Refactor
- * @date 2025-09-06
+ * @date 2025-09-14
  */
 @Service
 @Transactional
-public class UserApplicationService {
+public class UserApplicationServiceImpl implements UserApplicationServiceInterface {
     
     @Autowired
     private UserRepository userRepository;
@@ -47,6 +48,7 @@ public class UserApplicationService {
     /**
      * 创建用户
      */
+    @Override
     public String createUser(UserCreateDTO createDTO, String tenantId, String operator) {
         // 转换为领域对象
         User user = userAssembler.toUser(createDTO);
@@ -82,6 +84,7 @@ public class UserApplicationService {
     /**
      * 更新用户
      */
+    @Override
     public void updateUser(UserUpdateDTO updateDTO, String tenantId, String operator) {
         // 查找用户
         Optional<User> userOpt = userRepository.findById(updateDTO.getPersonId());
@@ -111,6 +114,7 @@ public class UserApplicationService {
     /**
      * 删除用户
      */
+    @Override
     public void deleteUser(String personId, String operator) {
         // 查找用户
         Optional<User> userOpt = userRepository.findById(personId);
@@ -137,6 +141,7 @@ public class UserApplicationService {
     /**
      * 批量删除用户
      */
+    @Override
     public void deleteUsers(List<String> personIds, String operator) {
         for (String personId : personIds) {
             deleteUser(personId, operator);
@@ -146,6 +151,7 @@ public class UserApplicationService {
     /**
      * 查询用户详情
      */
+    @Override
     @Transactional(readOnly = true)
     public UserResponseDTO getUserById(String personId) {
         Optional<User> userOpt = userRepository.findById(personId);
@@ -159,6 +165,7 @@ public class UserApplicationService {
     /**
      * 根据用户名查询用户
      */
+    @Override
     @Transactional(readOnly = true)
     public UserResponseDTO getUserByUsername(String username, String tenantId) {
         Optional<User> userOpt = userRepository.findByUsername(username, tenantId);
@@ -172,6 +179,7 @@ public class UserApplicationService {
     /**
      * 分页查询用户列表
      */
+    @Override
     @Transactional(readOnly = true)
     public List<UserResponseDTO> getUserPage(UserQueryDTO queryDTO) {
         // 构建查询关键字
@@ -219,6 +227,7 @@ public class UserApplicationService {
     /**
      * 查询用户总数
      */
+    @Override
     @Transactional(readOnly = true)
     public long getUserCount(UserQueryDTO queryDTO) {
         // 构建查询关键字
@@ -235,6 +244,7 @@ public class UserApplicationService {
     /**
      * 根据部门查询用户列表
      */
+    @Override
     @Transactional(readOnly = true)
     public List<UserResponseDTO> getUsersByDepartment(String deptId) {
         List<User> users = userRepository.findByDeptId(deptId);
@@ -246,6 +256,7 @@ public class UserApplicationService {
     /**
      * 激活用户
      */
+    @Override
     public void activateUser(String personId, String operator) {
         Optional<User> userOpt = userRepository.findById(personId);
         if (!userOpt.isPresent()) {
@@ -265,6 +276,7 @@ public class UserApplicationService {
     /**
      * 停用用户
      */
+    @Override
     public void deactivateUser(String personId, String operator) {
         Optional<User> userOpt = userRepository.findById(personId);
         if (!userOpt.isPresent()) {
@@ -284,6 +296,7 @@ public class UserApplicationService {
     /**
      * 重置用户密码
      */
+    @Override
     public void resetPassword(String personId, String newPassword, String operator) {
         Optional<User> userOpt = userRepository.findById(personId);
         if (!userOpt.isPresent()) {

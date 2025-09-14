@@ -1,12 +1,12 @@
-package com.jiuxi.module.user.domain.entity;
+package com.jiuxi.module.user.domain.model.vo;
 
 /**
- * 账户状态枚举
+ * 用户状态枚举
  * 
  * @author DDD Refactor
  * @date 2025-09-06
  */
-public enum AccountStatus {
+public enum UserStatus {
     
     /**
      * 激活状态
@@ -16,17 +16,12 @@ public enum AccountStatus {
     /**
      * 非激活状态
      */
-    INACTIVE(0, "非激活"),
-    
-    /**
-     * 已删除状态
-     */
-    DELETED(-1, "已删除");
+    INACTIVE(0, "非激活");
     
     private final Integer value;
     private final String description;
     
-    AccountStatus(Integer value, String description) {
+    UserStatus(Integer value, String description) {
         this.value = value;
         this.description = description;
     }
@@ -40,14 +35,21 @@ public enum AccountStatus {
     }
     
     /**
+     * 检查是否为激活状态
+     */
+    public boolean isActive() {
+        return this == ACTIVE;
+    }
+    
+    /**
      * 根据值获取枚举
      */
-    public static AccountStatus fromValue(Integer value) {
-        for (AccountStatus status : values()) {
+    public static UserStatus fromValue(Integer value) {
+        for (UserStatus status : values()) {
             if (status.getValue().equals(value)) {
                 return status;
             }
         }
-        throw new IllegalArgumentException("未知的账户状态值: " + value);
+        throw new IllegalArgumentException("未知的用户状态值: " + value);
     }
 }

@@ -1,6 +1,6 @@
 package com.jiuxi.module.user.domain.repo;
 
-import com.jiuxi.module.user.domain.entity.User;
+import com.jiuxi.module.user.domain.model.aggregate.User;
 import java.util.List;
 import java.util.Optional;
 

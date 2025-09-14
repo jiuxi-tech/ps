@@ -1,6 +1,6 @@
 package com.jiuxi.module.user.domain.event;
 
-import com.jiuxi.module.user.domain.entity.User;
+import com.jiuxi.module.user.domain.model.aggregate.User;
 import java.time.LocalDateTime;
 
 /**

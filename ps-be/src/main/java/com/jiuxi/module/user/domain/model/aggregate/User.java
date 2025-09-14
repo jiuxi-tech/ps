@@ -1,9 +1,14 @@
-package com.jiuxi.module.user.domain.entity;
+package com.jiuxi.module.user.domain.model.aggregate;
 
 import com.jiuxi.module.user.domain.event.UserCreatedEvent;
 import com.jiuxi.module.user.domain.event.UserAccountCreatedEvent;
 import com.jiuxi.module.user.domain.event.UserProfileUpdatedEvent;
 import com.jiuxi.module.user.domain.event.UserEvent;
+import com.jiuxi.module.user.domain.model.entity.UserAccount;
+import com.jiuxi.module.user.domain.model.vo.ContactInfo;
+import com.jiuxi.module.user.domain.model.vo.UserProfile;
+import com.jiuxi.module.user.domain.model.vo.UserStatus;
+import com.jiuxi.module.user.domain.model.vo.UserCategory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
