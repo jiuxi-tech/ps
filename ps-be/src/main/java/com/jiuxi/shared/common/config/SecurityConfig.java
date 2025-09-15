@@ -13,7 +13,6 @@ import java.util.List;
  * @author System
  * @since 2.2.2-SNAPSHOT
  */
-@Data
 @Component("enhancedSecurityConfig")
 @ConfigurationProperties(prefix = "app.security")
 public class SecurityConfig {
@@ -48,7 +47,31 @@ public class SecurityConfig {
      */
     private Encryption encryption = new Encryption();
 
-    @Data
+    // Getter methods
+    public Basic getBasic() {
+        return basic;
+    }
+
+    public Authentication getAuthentication() {
+        return authentication;
+    }
+
+    public Keycloak getKeycloak() {
+        return keycloak;
+    }
+
+    public Jwt getJwt() {
+        return jwt;
+    }
+
+    public FileService getFileService() {
+        return fileService;
+    }
+
+    public Encryption getEncryption() {
+        return encryption;
+    }
+
     public static class Basic {
         /**
          * 是否启用安全控制
@@ -74,6 +97,27 @@ public class SecurityConfig {
          * 是否启用XSS保护
          */
         private boolean xssEnabled = true;
+
+        // Getter methods
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public boolean isPasswordEncryption() {
+            return passwordEncryption;
+        }
+
+        public long getSessionTimeout() {
+            return sessionTimeout;
+        }
+
+        public boolean isCsrfEnabled() {
+            return csrfEnabled;
+        }
+
+        public boolean isXssEnabled() {
+            return xssEnabled;
+        }
     }
 
     @Data
@@ -109,7 +153,6 @@ public class SecurityConfig {
         private int captchaExpiry = 300;
     }
 
-    @Data
     public static class Keycloak {
         /**
          * Keycloak服务器地址
@@ -131,7 +174,23 @@ public class SecurityConfig {
          */
         private Admin admin = new Admin();
 
-        @Data
+        // Getter methods
+        public String getServerUrl() {
+            return serverUrl;
+        }
+
+        public String getRealm() {
+            return realm;
+        }
+
+        public Sso getSso() {
+            return sso;
+        }
+
+        public Admin getAdmin() {
+            return admin;
+        }
+
         public static class Sso {
             /**
              * 是否启用SSO
@@ -158,7 +217,27 @@ public class SecurityConfig {
              */
             private UserHeader userHeader = new UserHeader();
 
-            @Data
+            // Getter methods
+            public boolean isEnabled() {
+                return enabled;
+            }
+
+            public String getClientId() {
+                return clientId;
+            }
+
+            public String getClientSecret() {
+                return clientSecret;
+            }
+
+            public Redirect getRedirect() {
+                return redirect;
+            }
+
+            public UserHeader getUserHeader() {
+                return userHeader;
+            }
+
             public static class Redirect {
                 /**
                  * 登录成功重定向地址
@@ -174,6 +253,19 @@ public class SecurityConfig {
                  * 登出重定向地址
                  */
                 private String logoutUrl = "http://localhost:10801/#/logout";
+
+                // Getter methods
+                public String getSuccessUrl() {
+                    return successUrl;
+                }
+
+                public String getErrorUrl() {
+                    return errorUrl;
+                }
+
+                public String getLogoutUrl() {
+                    return logoutUrl;
+                }
             }
 
             @Data
@@ -210,7 +302,6 @@ public class SecurityConfig {
             }
         }
 
-        @Data
         public static class Admin {
             /**
              * 管理员客户端ID
@@ -236,10 +327,30 @@ public class SecurityConfig {
              * 读取超时时间（毫秒）
              */
             private int readTimeout = 10000;
+
+            // Getter methods
+            public String getClientId() {
+                return clientId;
+            }
+
+            public String getUsername() {
+                return username;
+            }
+
+            public String getPassword() {
+                return password;
+            }
+
+            public int getConnectionTimeout() {
+                return connectionTimeout;
+            }
+
+            public int getReadTimeout() {
+                return readTimeout;
+            }
         }
     }
 
-    @Data
     public static class Jwt {
         /**
          * 是否验证Token过期时间
@@ -285,9 +396,82 @@ public class SecurityConfig {
          * Token前缀
          */
         private String tokenPrefix = "Bearer ";
+
+        // Getter methods
+        public boolean isVerifyExpiration() {
+            return verifyExpiration;
+        }
+
+        public boolean isVerifyIssuer() {
+            return verifyIssuer;
+        }
+
+        public boolean isVerifyAudience() {
+            return verifyAudience;
+        }
+
+        public int getCacheTtl() {
+            return cacheTtl;
+        }
+
+        public String getSecret() {
+            return secret;
+        }
+
+        public long getExpiration() {
+            return expiration;
+        }
+
+        public long getRefreshExpiration() {
+            return refreshExpiration;
+        }
+
+        public String getTokenHeader() {
+            return tokenHeader;
+        }
+
+        public String getTokenPrefix() {
+            return tokenPrefix;
+        }
+
+        // Setter methods
+        public void setVerifyExpiration(boolean verifyExpiration) {
+            this.verifyExpiration = verifyExpiration;
+        }
+
+        public void setVerifyIssuer(boolean verifyIssuer) {
+            this.verifyIssuer = verifyIssuer;
+        }
+
+        public void setVerifyAudience(boolean verifyAudience) {
+            this.verifyAudience = verifyAudience;
+        }
+
+        public void setCacheTtl(int cacheTtl) {
+            this.cacheTtl = cacheTtl;
+        }
+
+        public void setSecret(String secret) {
+            this.secret = secret;
+        }
+
+        public void setExpiration(long expiration) {
+            this.expiration = expiration;
+        }
+
+        public void setRefreshExpiration(long refreshExpiration) {
+            this.refreshExpiration = refreshExpiration;
+        }
+
+        public void setTokenHeader(String tokenHeader) {
+            this.tokenHeader = tokenHeader;
+        }
+
+        public void setTokenPrefix(String tokenPrefix) {
+            this.tokenPrefix = tokenPrefix;
+        }
     }
 
-    @Data
     public static class FileService {
         /**
          * 文件服务模式：local, server
@@ -304,7 +488,19 @@ public class SecurityConfig {
          */
         private Remote remote = new Remote();
 
-        @Data
+        // Getter methods
+        public String getMode() {
+            return mode;
+        }
+
+        public Local getLocal() {
+            return local;
+        }
+
+        public Remote getRemote() {
+            return remote;
+        }
+
         public static class Local {
             /**
              * 存储目录
@@ -329,9 +525,25 @@ public class SecurityConfig {
                 "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx",
                 "txt", "zip", "rar"
             );
+
+            // Getter methods
+            public String getBaseDir() {
+                return baseDir;
+            }
+
+            public String getUrlPrefix() {
+                return urlPrefix;
+            }
+
+            public String getMaxFileSize() {
+                return maxFileSize;
+            }
+
+            public List<String> getAllowedExtensions() {
+                return allowedExtensions;
+            }
         }
 
-        @Data
         public static class Remote {
             /**
              * 远程服务器地址
@@ -352,6 +564,23 @@ public class SecurityConfig {
              * 存储桶名称
              */
             private String bucketName = "ps-files";
+
+            // Getter methods
+            public String getServerUrl() {
+                return serverUrl;
+            }
+
+            public String getAccessKey() {
+                return accessKey;
+            }
+
+            public String getSecretKey() {
+                return secretKey;
+            }
+
+            public String getBucketName() {
+                return bucketName;
+            }
         }
     }
 

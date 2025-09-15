@@ -36,7 +36,23 @@ public class CacheConfig {
      */
     private Strategy strategy = new Strategy();
 
-    @Data
+    // Getter methods
+    public Redis getRedis() {
+        return redis;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public DistributedLock getDistributedLock() {
+        return distributedLock;
+    }
+
+    public Strategy getStrategy() {
+        return strategy;
+    }
+
     public static class Redis {
         /**
          * Redis服务器地址
@@ -78,7 +94,39 @@ public class CacheConfig {
          */
         private Sentinel sentinel = new Sentinel();
 
-        @Data
+        // Getter methods
+        public String getHost() {
+            return host;
+        }
+
+        public int getPort() {
+            return port;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public int getDatabase() {
+            return database;
+        }
+
+        public long getTimeout() {
+            return timeout;
+        }
+
+        public Pool getPool() {
+            return pool;
+        }
+
+        public Cluster getCluster() {
+            return cluster;
+        }
+
+        public Sentinel getSentinel() {
+            return sentinel;
+        }
+
         public static class Pool {
             /**
              * 最大活跃连接数
@@ -99,6 +147,23 @@ public class CacheConfig {
              * 最小空闲连接数
              */
             private int minIdle = 0;
+
+            // Getter methods
+            public int getMaxActive() {
+                return maxActive;
+            }
+
+            public long getMaxWait() {
+                return maxWait;
+            }
+
+            public int getMaxIdle() {
+                return maxIdle;
+            }
+
+            public int getMinIdle() {
+                return minIdle;
+            }
         }
 
         @Data
@@ -138,7 +203,6 @@ public class CacheConfig {
         }
     }
 
-    @Data
     public static class Local {
         /**
          * 缓存类型：ehcache, caffeine
@@ -155,7 +219,19 @@ public class CacheConfig {
          */
         private Caffeine caffeine = new Caffeine();
 
-        @Data
+        // Getter methods
+        public String getType() {
+            return type;
+        }
+
+        public String getEhcacheConfig() {
+            return ehcacheConfig;
+        }
+
+        public Caffeine getCaffeine() {
+            return caffeine;
+        }
+
         public static class Caffeine {
             /**
              * 最大缓存数量
@@ -176,6 +252,23 @@ public class CacheConfig {
              * 初始容量
              */
             private int initialCapacity = 100;
+
+            // Getter methods
+            public long getMaximumSize() {
+                return maximumSize;
+            }
+
+            public long getExpireAfterWrite() {
+                return expireAfterWrite;
+            }
+
+            public long getExpireAfterAccess() {
+                return expireAfterAccess;
+            }
+
+            public int getInitialCapacity() {
+                return initialCapacity;
+            }
         }
     }
 
@@ -207,7 +300,6 @@ public class CacheConfig {
         private boolean watchdog = true;
     }
 
-    @Data
     public static class Strategy {
         /**
          * 默认缓存TTL（秒）
@@ -238,6 +330,31 @@ public class CacheConfig {
          * 缓存预热配置
          */
         private Warmup warmup = new Warmup();
+
+        // Getter methods
+        public long getDefaultTtl() {
+            return defaultTtl;
+        }
+
+        public long getShortTtl() {
+            return shortTtl;
+        }
+
+        public long getLongTtl() {
+            return longTtl;
+        }
+
+        public boolean isEnableStatistics() {
+            return enableStatistics;
+        }
+
+        public String getRefreshStrategy() {
+            return refreshStrategy;
+        }
+
+        public Warmup getWarmup() {
+            return warmup;
+        }
 
         @Data
         public static class Warmup {

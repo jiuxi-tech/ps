@@ -26,6 +26,19 @@ public class DatabaseConfig {
      */
     private Mybatis mybatis = new Mybatis();
 
+    // Getter methods
+    public Datasource getDatasource() {
+        return datasource;
+    }
+
+    public Pool getPool() {
+        return pool;
+    }
+
+    public Mybatis getMybatis() {
+        return mybatis;
+    }
+
     /**
      * 连接池配置
      */
@@ -74,7 +87,6 @@ public class DatabaseConfig {
         private long maxLifetime = 1800000;
     }
 
-    @Data
     public static class Pool {
         /**
          * 初始连接数
@@ -120,9 +132,45 @@ public class DatabaseConfig {
          * 连接在池中最小生存时间（毫秒）
          */
         private long minEvictableIdleTimeMillis = 300000;
+
+        // Getter methods
+        public int getInitialSize() {
+            return initialSize;
+        }
+
+        public int getMinIdle() {
+            return minIdle;
+        }
+
+        public int getMaxActive() {
+            return maxActive;
+        }
+
+        public long getMaxWait() {
+            return maxWait;
+        }
+
+        public boolean isTestWhileIdle() {
+            return testWhileIdle;
+        }
+
+        public boolean isTestOnBorrow() {
+            return testOnBorrow;
+        }
+
+        public boolean isTestOnReturn() {
+            return testOnReturn;
+        }
+
+        public long getTimeBetweenEvictionRunsMillis() {
+            return timeBetweenEvictionRunsMillis;
+        }
+
+        public long getMinEvictableIdleTimeMillis() {
+            return minEvictableIdleTimeMillis;
+        }
     }
 
-    @Data
     public static class Mybatis {
         /**
          * 数据中心ID（用于雪花算法）
@@ -163,6 +211,39 @@ public class DatabaseConfig {
          * SQL执行时间阈值（毫秒），超过则记录警告日志
          */
         private long slowSqlThreshold = 3000;
+
+        // Getter methods
+        public long getDatacenterId() {
+            return datacenterId;
+        }
+
+        public long getMachineId() {
+            return machineId;
+        }
+
+        public boolean isTenant() {
+            return tenant;
+        }
+
+        public String[] getIgnoreTenantTables() {
+            return ignoreTenantTables;
+        }
+
+        public long getPageLimit() {
+            return pageLimit;
+        }
+
+        public boolean isPageHelperEnabled() {
+            return pageHelperEnabled;
+        }
+
+        public boolean isPerformanceInterceptorEnabled() {
+            return performanceInterceptorEnabled;
+        }
+
+        public long getSlowSqlThreshold() {
+            return slowSqlThreshold;
+        }
     }
 
     @Data

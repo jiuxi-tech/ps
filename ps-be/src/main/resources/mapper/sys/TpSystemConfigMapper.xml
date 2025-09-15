@@ -26,6 +26,13 @@
         ORDER BY CREATE_TIME DESC
     </select>
 
+    <!-- 根据配置键获取配置对象 -->
+    <select id="selectById" parameterType="string" resultMap="tpSystemConfigMap">
+        SELECT CONFIG_KEY, CONFIG_VALUE, DESCRIPTION, CREATE_TIME, UPDATE_TIME
+        FROM tp_system_config 
+        WHERE CONFIG_KEY = #{configKey}
+    </select>
+
     <!-- 分页查询配置 -->
     <select id="selectPage" resultMap="tpSystemConfigMap">
         SELECT CONFIG_KEY, CONFIG_VALUE, DESCRIPTION, CREATE_TIME, UPDATE_TIME

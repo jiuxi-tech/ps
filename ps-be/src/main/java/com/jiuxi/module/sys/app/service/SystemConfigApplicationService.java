@@ -1,5 +1,9 @@
 package com.jiuxi.module.sys.app.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.jiuxi.admin.core.bean.entity.TpSystemConfig;
+import com.jiuxi.admin.core.bean.query.TpSystemConfigQuery;
+import com.jiuxi.admin.core.bean.vo.TpSystemConfigVO;
 import com.jiuxi.module.sys.domain.entity.SystemConfig;
 import com.jiuxi.module.sys.domain.entity.ConfigType;
 import com.jiuxi.module.sys.domain.entity.ConfigStatus;
@@ -13,12 +17,14 @@ import com.jiuxi.module.sys.app.assembler.SystemConfigAssembler;
 import com.jiuxi.module.sys.app.dto.SystemConfigCreateDTO;
 import com.jiuxi.module.sys.app.dto.SystemConfigResponseDTO;
 import com.jiuxi.module.sys.app.dto.SystemConfigUpdateDTO;
+import com.jiuxi.admin.core.service.TpSystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -46,6 +52,9 @@ public class SystemConfigApplicationService {
     
     @Autowired
     private SystemConfigAssembler systemConfigAssembler;
+    
+    @Autowired
+    private TpSystemConfigService tpSystemConfigService;
     
     /**
      * 创建系统配置
@@ -241,4 +250,101 @@ public class SystemConfigApplicationService {
     public void clearCache(String tenantId) {
         systemConfigCacheService.evictAllConfigsForTenant(tenantId);
     }
+    
+    /**
+       * 获取配置值
+       * @param configKey 配置键
+       * @return 配置值
+       */
+      public String getConfigValue(String configKey) {
+          TpSystemConfig config = getByConfigKey(configKey);
+          return config != null ? config.getConfigValue() : null;
+      }
+
+     /**
+      * 获取配置值，如果不存在返回默认值
+      * @param configKey 配置键
+      * @param defaultValue 默认值
+      * @return 配置值
+      */
+     public String getConfigValue(String configKey, String defaultValue) {
+          String value = getConfigValue(configKey);
+          return value != null ? value : defaultValue;
+      }
+ 
+     /**
+      * 根据配置键获取配置对象
+      * @param configKey 配置键
+      * @return 配置对象
+      */
+     public TpSystemConfig getByConfigKey(String configKey) {
+          return tpSystemConfigService.getByConfigKey(configKey);
+      }
+ 
+     /**
+      * 分页查询系统配置
+      * @param query 查询条件
+      * @return 分页结果
+      */
+     public IPage<TpSystemConfigVO> queryPage(TpSystemConfigQuery query) {
+         return tpSystemConfigService.queryPage(query);
+      }
+ 
+     /**
+      * 设置配置值
+      * @param configKey 配置键
+      * @param configValue 配置值
+      * @param description 描述
+      */
+     public void setConfigValue(String configKey, String configValue, String description) {
+          // 这里需要实现具体的设置配置值逻辑
+          // 暂时为空实现，需要根据实际业务逻辑实现
+      }
+ 
+     /**
+      * 设置配置值
+      * @param configKey 配置键
+      * @param configValue 配置值
+      */
+     public void setConfigValue(String configKey, String configValue) {
+          setConfigValue(configKey, configValue, null);
+      }
+ 
+     /**
+      * 获取所有配置
+      * @return 配置列表
+      */
+     public List<TpSystemConfig> getAllConfigs() {
+         // 这里需要实现具体的获取所有配置逻辑
+         // 暂时返回null，需要根据实际业务逻辑实现
+         return null;
+     }
+ 
+     /**
+      * 获取所有配置作为Map
+      * @return 配置Map
+      */
+     public Map<String, String> getAllConfigsAsMap() {
+          // 这里需要实现具体的获取所有配置作为Map的逻辑
+          // 暂时返回null，需要根据实际业务逻辑实现
+          return null;
+      }
+ 
+     /**
+      * 批量更新配置
+      * @param configs 配置Map
+      */
+     public void updateConfigs(Map<String, String> configs) {
+          // 这里需要实现具体的批量更新配置逻辑
+          // 暂时为空实现，需要根据实际业务逻辑实现
+      }
+ 
+     /**
+      * 删除配置
+      * @param configKey 配置键
+      */
+     public void deleteConfig(String configKey) {
+         // 这里需要实现具体的删除配置逻辑
+         // 暂时为空实现，需要根据实际业务逻辑实现
+     }
 }

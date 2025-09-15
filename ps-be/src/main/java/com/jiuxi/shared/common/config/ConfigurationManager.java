@@ -245,4 +245,21 @@ public class ConfigurationManager {
     public SecurityConfig getSecurityConfig() {
         return securityConfig;
     }
+
+    // Additional getter methods for direct access to nested configurations
+    public CacheConfig.Redis getRedis() {
+        return cacheConfig.getRedis();
+    }
+
+    public String getHost() {
+        return cacheConfig.getRedis().getHost();
+    }
+
+    public int getPort() {
+        return cacheConfig.getRedis().getPort();
+    }
+
+    public CacheConfig.Redis.Pool getPool() {
+        return cacheConfig.getRedis().getPool();
+    }
 }

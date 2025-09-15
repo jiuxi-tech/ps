@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
  * @author System
  * @since 2.2.2-SNAPSHOT
  */
-@Data
 @Component("enhancedApplicationConfig")
 @ConfigurationProperties(prefix = "app")
 public class ApplicationConfig {
@@ -36,7 +35,23 @@ public class ApplicationConfig {
      */
     private Monitor monitor = new Monitor();
 
-    @Data
+    // Getter methods
+    public Info getInfo() {
+        return info;
+    }
+
+    public Upload getUpload() {
+        return upload;
+    }
+
+    public I18n getI18n() {
+        return i18n;
+    }
+
+    public Monitor getMonitor() {
+        return monitor;
+    }
+
     public static class Info {
         /**
          * 应用名称
@@ -67,6 +82,56 @@ public class ApplicationConfig {
          * 联系方式
          */
         private String contact = "admin@jiuxi.com";
+
+        // Getter methods
+        public String getName() {
+            return name;
+        }
+
+        public String getVersion() {
+            return version;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getEncoding() {
+            return encoding;
+        }
+
+        public String getAuthor() {
+            return author;
+        }
+
+        public String getContact() {
+            return contact;
+        }
+
+        // Setter methods
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setVersion(String version) {
+            this.version = version;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public void setEncoding(String encoding) {
+            this.encoding = encoding;
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+        }
+
+        public void setContact(String contact) {
+            this.contact = contact;
+        }
     }
 
     @Data
@@ -126,7 +191,6 @@ public class ApplicationConfig {
         private String defaultLocale = "zh_CN";
     }
 
-    @Data
     public static class Monitor {
         /**
          * 监控服务器URL
@@ -157,5 +221,55 @@ public class ApplicationConfig {
          * 是否启用监控
          */
         private boolean enabled = true;
+
+        // Getter methods
+        public String getServerUrl() {
+            return serverUrl;
+        }
+
+        public String getSystemDesc() {
+            return systemDesc;
+        }
+
+        public String getClientId() {
+            return clientId;
+        }
+
+        public int getConnectionTimeout() {
+            return connectionTimeout;
+        }
+
+        public int getReadTimeout() {
+            return readTimeout;
+        }
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        // Setter methods
+        public void setServerUrl(String serverUrl) {
+            this.serverUrl = serverUrl;
+        }
+
+        public void setSystemDesc(String systemDesc) {
+            this.systemDesc = systemDesc;
+        }
+
+        public void setClientId(String clientId) {
+            this.clientId = clientId;
+        }
+
+        public void setConnectionTimeout(int connectionTimeout) {
+            this.connectionTimeout = connectionTimeout;
+        }
+
+        public void setReadTimeout(int readTimeout) {
+            this.readTimeout = readTimeout;
+        }
+
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
     }
 }
