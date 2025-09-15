@@ -61,31 +61,12 @@ public class CaptchaController {
     }
 
     /**
-     * 验证验证码 (JSON格式)
+     * 验证验证码
      * @param checkVO 验证码验证信息
      * @return JsonResponse 验证结果
      */
-    @PostMapping(value = "/check-captcha", consumes = "application/json")
-    public JsonResponse checkCaptchaJson(@RequestBody ImageCaptchaCheckVO checkVO) {
-        return checkCaptchaInternal(checkVO);
-    }
-    
-    /**
-     * 验证验证码 (表单格式)
-     * @param checkVO 验证码验证信息
-     * @return JsonResponse 验证结果
-     */
-    @PostMapping(value = "/check-captcha", consumes = "application/x-www-form-urlencoded")
-    public JsonResponse checkCaptchaForm(ImageCaptchaCheckVO checkVO) {
-        return checkCaptchaInternal(checkVO);
-    }
-    
-    /**
-     * 验证验证码内部实现
-     * @param checkVO 验证码验证信息
-     * @return JsonResponse 验证结果
-     */
-    private JsonResponse checkCaptchaInternal(ImageCaptchaCheckVO checkVO) {
+    @PostMapping("/check-captcha")
+    public JsonResponse checkCaptcha(@RequestBody ImageCaptchaCheckVO checkVO) {
         try {
             String result = captchaService.checkCaptcha(checkVO);
             if ("success".equals(result)) {

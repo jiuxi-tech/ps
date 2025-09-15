@@ -92,15 +92,12 @@ public class CaptchaAdapterService implements CaptchaService {
             
             // 检查是否有X坐标信息（滑块验证码）
             if (imageCaptchaCheckVO.getX() != null) {
-                // 对于滑块验证码，前端使用了缩放因子，需要进行反向缩放
-                // 前端宽度是312px，后端图片宽度是590px
+                // 前端已经将坐标从312px缩放到590px（后端图片尺寸），直接使用
                 Double x = imageCaptchaCheckVO.getX().doubleValue();
-                Double scaledX = x / (312.0 / 590.0);  // 反向缩放
                 Double y = 0.0;
                 
                 System.out.println("验证坐标: x=" + x + ", y=" + y);
-                System.out.println("缩放后坐标: x=" + scaledX + ", y=" + y);
-                response = captchaApplicationService.verifyAnswer(clientUuid, scaledX, y);
+                response = captchaApplicationService.verifyAnswer(clientUuid, x, y);
             } else {
                 // 其他类型的验证码处理
                 response = captchaApplicationService.verifyAnswer(clientUuid, 0.0, 0.0);
