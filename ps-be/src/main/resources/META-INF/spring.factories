@@ -1,6 +1,7 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.jiuxi.captcha.autoconfig.TopinfoCaptchaAutoConfiguration,\
+com.jiuxi.platform.captcha.infrastructure.config.TopinfoCaptchaPlatformAutoConfiguration,\
+com.jiuxi.security.autoconfig.SecurityAutoConfiguration,\
 com.jiuxi.security.sso.config.SsoAutoConfiguration,\
 com.jiuxi.monitor.server.autoconfig.MonitorServerAutoConfiguration,\
 com.jiuxi.monitor.client.autoconfig.MonitorClientAutoConfiguration

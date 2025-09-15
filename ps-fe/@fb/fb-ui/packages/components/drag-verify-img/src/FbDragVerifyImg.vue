@@ -314,19 +314,22 @@
 					}).then(res => {
 						if (res.data && res.data.data) {
 							if (this.captchaType === 'slider') {
-								let { backgroundImage, sliderImage, y, clientUuid } = res.data.data
-								this.$refs.imgBg.style.background = this.imgs.bg = '#fff url("data:image/jpg;base64,' + backgroundImage+'")'
-							this.$refs.imgBg.style.backgroundSize = '100% 100%'
-							this.$refs.imgBg.style.height = '184px'
-							this.imgs.slot = "data:image/png;base64," + sliderImage
-							this.imgSlotY = 0
-							this.verification = clientUuid
-							this.captchaConfig = res.data.data
+								let { backgroundImage, puzzleImage, sliderImage, y, clientUuid } = res.data.data
+								// 修复：后端返回的图片数据已经是完整的DataURL格式，直接使用即可
+								this.$refs.imgBg.style.background = this.imgs.bg = '#fff url("' + backgroundImage +'")'
+								this.$refs.imgBg.style.backgroundSize = '100% 100%'
+								this.$refs.imgBg.style.height = '184px'
+								// 使用puzzleImage（如果存在），否则使用sliderImage（向后兼容）
+								this.imgs.slot = puzzleImage || sliderImage
+								this.imgSlotY = 0
+								this.verification = clientUuid
+								this.captchaConfig = res.data.data
 							} else {
 								let { shadeImage, cutoutImage, y, verification } = res.data.data
-							this.$refs.imgBg.style.background = this.imgs.bg = '#fff url("data:image/jpg;base64,' + shadeImage+'")'
-							this.imgs.slot = "data:image/png;base64," + cutoutImage
-							this.imgSlotY = y
+								// 修复：后端返回的图片数据已经是完整的DataURL格式，直接使用即可
+								this.$refs.imgBg.style.background = this.imgs.bg = '#fff url("' + shadeImage +'")'
+								this.imgs.slot = cutoutImage
+								this.imgSlotY = y
 								this.verification = verification
 							}
 						} else {
@@ -374,7 +377,8 @@
 					this.$emit('on-verify', {
 						x,
 						y: this.imgSlotY,
-						verification: this.verification,
+						// 修复：使用clientUuid而不是verification
+						clientUuid: this.verification,
 						...this.captchaConfig
 					})
 				}

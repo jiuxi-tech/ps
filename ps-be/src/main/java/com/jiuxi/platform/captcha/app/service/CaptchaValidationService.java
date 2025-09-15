@@ -75,7 +75,17 @@ public class CaptchaValidationService {
         
         // 执行验证
         CaptchaCoordinate userAnswer = new CaptchaCoordinate((int)userX, (int)userY);
+        CaptchaCoordinate correctAnswer = challenge.getCorrectPosition();
+        double tolerance = challenge.getTolerance();
+        
+        System.out.println("验证详情:");
+        System.out.println("  用户坐标: (" + userAnswer.getX() + ", " + userAnswer.getY() + ")");
+        System.out.println("  正确坐标: (" + correctAnswer.getX() + ", " + correctAnswer.getY() + ")");
+        System.out.println("  容差: " + tolerance);
+        System.out.println("  距离: " + userAnswer.distanceTo(correctAnswer));
+        
         boolean isCorrect = challenge.verifyAnswer(userAnswer);
+        System.out.println("  验证结果: " + isCorrect);
         
         if (isCorrect) {
             // 验证成功

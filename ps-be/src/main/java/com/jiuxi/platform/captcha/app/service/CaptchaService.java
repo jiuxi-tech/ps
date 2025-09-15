@@ -1,7 +1,7 @@
 package com.jiuxi.platform.captcha.app.service;
 
-import com.jiuxi.captcha.bean.vo.ImageCaptchaCheckVO;
-import com.jiuxi.captcha.bean.vo.ImageCaptchaVO;
+import com.jiuxi.platform.captcha.bean.vo.ImageCaptchaCheckVO;
+import com.jiuxi.platform.captcha.bean.vo.ImageCaptchaVO;
 
 /**
  * 验证码业务处理接口
@@ -16,7 +16,7 @@ public interface CaptchaService {
      * 获取 拼接 验证码
      * @author 杨攀
      * @date 2022/12/12 16:40
-     * @return com.jiuxi.captcha.bean.vo.CaptchaVO
+     * @return com.jiuxi.platform.captcha.bean.vo.ImageCaptchaVO
      */
     ImageCaptchaVO getConcatCaptcha();
 
@@ -24,7 +24,7 @@ public interface CaptchaService {
      * 获取 旋转 验证码
      * @author 杨攀
      * @date 2022/12/12 16:40
-     * @return com.jiuxi.captcha.bean.vo.CaptchaVO
+     * @return com.jiuxi.platform.captcha.bean.vo.ImageCaptchaVO
      */
     ImageCaptchaVO getRotateCaptcha();
 
@@ -33,7 +33,7 @@ public interface CaptchaService {
      * @author 杨攀
      * @date 2023/4/19 17:53
      * @param
-     * @return com.jiuxi.captcha.bean.vo.ImageCaptchaVO
+     * @return com.jiuxi.platform.captcha.bean.vo.ImageCaptchaVO
      */
     ImageCaptchaVO getSliderCaptcha();
 
@@ -42,7 +42,7 @@ public interface CaptchaService {
      * @author 杨攀
      * @date 2022/12/16 14:20
      * @param imageCaptchaCheckVO
-     * @return boolean
+     * @return String
      */
     String checkCaptcha(ImageCaptchaCheckVO imageCaptchaCheckVO);
 

@@ -139,7 +139,8 @@ export default {
 		dragImgVerify (params) {
 			this.loginForm.x = params.x
 			this.loginForm.y = params.y
-			this.loginForm.verification = params.verification
+			// 修复：使用clientUuid而不是verification
+			this.loginForm.verification = params.clientUuid
 
 			// app.service({
 			// 	method: 'get',
