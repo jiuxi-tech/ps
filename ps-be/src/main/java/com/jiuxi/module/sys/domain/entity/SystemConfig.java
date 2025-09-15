@@ -112,6 +112,31 @@ public class SystemConfig {
      */
     private String tenantId;
     
+    /**
+     * 是否加密存储
+     */
+    private Boolean isEncrypted;
+    
+    /**
+     * 是否可编辑
+     */
+    private Boolean isEditable;
+    
+    /**
+     * 默认值
+     */
+    private String defaultValue;
+    
+    /**
+     * 验证规则 (正则表达式或JSON Schema)
+     */
+    private String validationRule;
+    
+    /**
+     * 排序号
+     */
+    private Integer sortOrder;
+    
     // 构造器
     public SystemConfig() {
         this.status = "ACTIVE";
@@ -121,6 +146,9 @@ public class SystemConfig {
         this.isSystemLevel = false;
         this.isReadonly = false;
         this.orderIndex = 0;
+        this.isEncrypted = false;
+        this.isEditable = true;
+        this.sortOrder = 0;
     }
     
     public SystemConfig(String configKey, String configValue, String configName) {
@@ -538,6 +566,85 @@ public class SystemConfig {
     
     public void setIsReadonly(Boolean isReadonly) {
         this.isReadonly = isReadonly;
+    }
+    
+    public Boolean getIsEncrypted() {
+        return isEncrypted;
+    }
+    
+    public void setIsEncrypted(Boolean isEncrypted) {
+        this.isEncrypted = isEncrypted;
+    }
+    
+    public Boolean getIsEditable() {
+        return isEditable;
+    }
+    
+    public void setIsEditable(Boolean isEditable) {
+        this.isEditable = isEditable;
+    }
+    
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+    
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+    
+    public String getValidationRule() {
+        return validationRule;
+    }
+    
+    public void setValidationRule(String validationRule) {
+        this.validationRule = validationRule;
+    }
+    
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+    
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+    
+    /**
+     * 设置为系统配置
+     */
+    public void markAsSystem() {
+        this.isSystemLevel = true;
+        this.isEditable = false;
+        this.updateTime = LocalDateTime.now();
+    }
+    
+    /**
+     * 设置加密存储
+     */
+    public void enableEncryption() {
+        this.isEncrypted = true;
+        this.updateTime = LocalDateTime.now();
+    }
+    
+    /**
+     * 验证配置值
+     */
+    public boolean validateValue(String value) {
+        if (validationRule == null || validationRule.isEmpty()) {
+            return true;
+        }
+        
+        try {
+            return value.matches(validationRule);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    /**
+     * 检查是否可删除
+     */
+    public boolean isDeletable() {
+        return !isSystemLevel;
     }
     
     @Override

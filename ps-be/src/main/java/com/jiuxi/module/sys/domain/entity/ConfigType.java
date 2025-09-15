@@ -47,7 +47,17 @@ public enum ConfigType {
     /**
      * 通知配置
      */
-    NOTIFICATION("NOTIFICATION", "通知配置");
+    NOTIFICATION("NOTIFICATION", "通知配置"),
+    
+    /**
+     * 集成配置
+     */
+    INTEGRATION("INTEGRATION", "集成配置"),
+    
+    /**
+     * 界面配置
+     */
+    UI("UI", "界面配置");
     
     private final String code;
     private final String description;
@@ -92,6 +102,20 @@ public enum ConfigType {
      * @return 是否是应用级配置
      */
     public boolean isApplicationLevel() {
-        return this == APPLICATION || this == BUSINESS || this == CACHE || this == NOTIFICATION;
+        return this == APPLICATION || this == BUSINESS || this == CACHE || this == NOTIFICATION || this == INTEGRATION || this == UI;
+    }
+    
+    /**
+     * 检查是否为系统配置
+     */
+    public boolean isSystem() {
+        return this == SYSTEM;
+    }
+    
+    /**
+     * 检查是否为安全配置
+     */
+    public boolean isSecurity() {
+        return this == SECURITY;
     }
 }

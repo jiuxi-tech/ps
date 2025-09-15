@@ -37,7 +37,22 @@ public enum LogType {
     /**
      * 审计日志
      */
-    AUDIT("AUDIT", "审计日志");
+    AUDIT("AUDIT", "审计日志"),
+    
+    /**
+     * 异常日志
+     */
+    EXCEPTION("EXCEPTION", "异常日志"),
+    
+    /**
+     * 性能日志
+     */
+    PERFORMANCE("PERFORMANCE", "性能日志"),
+    
+    /**
+     * 接口调用日志
+     */
+    API("API", "接口调用日志");
     
     private final String code;
     private final String description;
@@ -74,7 +89,7 @@ public enum LogType {
      * @return 是否为系统级
      */
     public boolean isSystemLevel() {
-        return this == SYSTEM || this == ERROR || this == SECURITY;
+        return this == SYSTEM || this == ERROR || this == SECURITY || this == EXCEPTION || this == PERFORMANCE;
     }
     
     /**
@@ -83,5 +98,19 @@ public enum LogType {
      */
     public boolean isUserOperation() {
         return this == OPERATION || this == LOGIN;
+    }
+    
+    /**
+     * 检查是否为操作日志
+     */
+    public boolean isOperation() {
+        return this == OPERATION;
+    }
+    
+    /**
+     * 检查是否为安全相关日志
+     */
+    public boolean isSecurity() {
+        return this == SECURITY || this == LOGIN;
     }
 }

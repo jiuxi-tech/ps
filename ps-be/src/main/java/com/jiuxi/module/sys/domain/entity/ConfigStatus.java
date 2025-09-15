@@ -27,7 +27,17 @@ public enum ConfigStatus {
     /**
      * 待审核状态
      */
-    PENDING("PENDING", "待审核");
+    PENDING("PENDING", "待审核"),
+    
+    /**
+     * 启用状态 (兼容system模块)
+     */
+    ENABLED("ENABLED", "启用"),
+    
+    /**
+     * 禁用状态 (兼容system模块)
+     */
+    DISABLED("DISABLED", "禁用");
     
     private final String code;
     private final String description;
@@ -81,5 +91,60 @@ public enum ConfigStatus {
      */
     public boolean needsApproval() {
         return this == PENDING;
+    }
+    
+    /**
+     * 检查是否启用 (兼容system模块)
+     */
+    public boolean isEnabled() {
+        return this == ENABLED || this == ACTIVE;
+    }
+    
+    /**
+     * 检查是否禁用 (兼容system模块)
+     */
+    public boolean isDisabled() {
+        return this == DISABLED || this == INACTIVE;
+    }
+    
+    /**
+     * 获取Integer类型的代码 (兼容system模块)
+     */
+    public Integer getIntegerCode() {
+        switch (this) {
+            case ENABLED:
+            case ACTIVE:
+                return 1;
+            case DISABLED:
+            case INACTIVE:
+                return 0;
+            case DRAFT:
+                return 2;
+            case PENDING:
+                return 3;
+            default:
+                return 0;
+        }
+    }
+    
+    /**
+     * 根据Integer代码获取枚举 (兼容system模块)
+     */
+    public static ConfigStatus fromIntegerCode(Integer code) {
+        if (code == null) {
+            return INACTIVE;
+        }
+        switch (code) {
+            case 1:
+                return ENABLED;
+            case 0:
+                return DISABLED;
+            case 2:
+                return DRAFT;
+            case 3:
+                return PENDING;
+            default:
+                return DISABLED;
+        }
     }
 }

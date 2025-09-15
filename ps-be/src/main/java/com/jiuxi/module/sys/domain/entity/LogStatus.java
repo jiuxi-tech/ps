@@ -37,7 +37,12 @@ public enum LogStatus {
     /**
      * 已归档状态
      */
-    ARCHIVED("ARCHIVED", "已归档");
+    ARCHIVED("ARCHIVED", "已归档"),
+    
+    /**
+     * 处理中状态（兼容system模块）
+     */
+    PROCESSING("PROCESSING", "处理中");
     
     private final String code;
     private final String description;
@@ -91,5 +96,55 @@ public enum LogStatus {
      */
     public boolean isFinalStatus() {
         return this == PROCESSED || this == ARCHIVED;
+    }
+    
+    /**
+     * 检查是否处理中（兼容system模块）
+     */
+    public boolean isProcessing() {
+        return this == PROCESSING;
+    }
+    
+    /**
+     * 检查是否已完成（成功或失败）（兼容system模块）
+     */
+    public boolean isCompleted() {
+        return this == SUCCESS || this == FAILURE || this == PROCESSED;
+    }
+    
+    /**
+     * 根据Integer代码获取枚举（兼容system模块）
+     */
+    public static LogStatus fromCode(Integer code) {
+        if (code == null) {
+            return NORMAL;
+        }
+        // 兼容system模块的数字代码
+        switch (code) {
+            case 1:
+                return SUCCESS;
+            case 0:
+                return FAILURE;
+            case -1:
+                return PROCESSING;
+            default:
+                return NORMAL;
+        }
+    }
+    
+    /**
+     * 获取Integer代码（兼容system模块）
+     */
+    public Integer getIntegerCode() {
+        switch (this) {
+            case SUCCESS:
+                return 1;
+            case FAILURE:
+                return 0;
+            case PROCESSING:
+                return -1;
+            default:
+                return null;
+        }
     }
 }

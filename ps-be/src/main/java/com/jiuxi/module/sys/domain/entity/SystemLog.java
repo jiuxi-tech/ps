@@ -340,6 +340,85 @@ public class SystemLog {
         this.tenantId = tenantId;
     }
     
+    // ========== 领域方法 ==========
+    
+    /**
+     * 标记为成功
+     */
+    public void markAsSuccess() {
+        this.logStatusEnum = LogStatus.SUCCESS;
+        this.status = LogStatus.SUCCESS.getCode();
+    }
+    
+    /**
+     * 标记为失败
+     */
+    public void markAsFailure(String errorMessage) {
+        this.logStatusEnum = LogStatus.FAILURE;
+        this.status = LogStatus.FAILURE.getCode();
+        this.errorMessage = errorMessage;
+    }
+    
+    /**
+     * 设置执行时间
+     */
+    public void setExecutionTime(long startTime, long endTime) {
+        this.executionTime = endTime - startTime;
+    }
+    
+    /**
+     * 设置操作人信息
+     */
+    public void setOperator(String operatorId, String operatorName) {
+        this.operatorId = operatorId;
+        this.operatorName = operatorName;
+    }
+    
+    /**
+     * 设置请求信息
+     */
+    public void setRequestInfo(String method, String url, String params) {
+        this.requestMethod = method;
+        this.requestUrl = url;
+        this.requestParams = params;
+    }
+    
+    /**
+     * 设置客户端信息
+     */
+    public void setClientInfo(String clientIp, String userAgent) {
+        this.clientIp = clientIp;
+        this.userAgent = userAgent;
+    }
+    
+    /**
+     * 检查是否为错误日志
+     */
+    public boolean isError() {
+        return this.logLevelEnum == LogLevel.ERROR || this.logLevelEnum == LogLevel.FATAL;
+    }
+    
+    /**
+     * 检查是否为操作日志
+     */
+    public boolean isOperationLog() {
+        return this.logTypeEnum == LogType.OPERATION;
+    }
+    
+    /**
+     * 检查是否执行成功
+     */
+    public boolean isSuccess() {
+        return this.logStatusEnum != null && this.logStatusEnum.isSuccess();
+    }
+    
+    /**
+     * 检查是否执行失败
+     */
+    public boolean isFailure() {
+        return this.logStatusEnum != null && this.logStatusEnum.isFailure();
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
