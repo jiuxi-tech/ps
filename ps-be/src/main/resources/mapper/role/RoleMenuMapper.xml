@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiuxi.module.role.infra.persistence.mapper.RoleMenuMapper">
+
+    <!-- 根据角色ID查询权限列表 -->
+    <select id="selectPermissionsByRoleId" parameterType="java.lang.String" resultType="com.jiuxi.module.role.infra.persistence.entity.PermissionPO">
+        SELECT p.menu_id, p.parent_id, p.menu_name, p.menu_type, p.order_num, p.icon, p.component, p.path, p.is_enabled, p.is_deleted
+        FROM tp_menu p 
+        INNER JOIN tp_role_menu rm ON p.menu_id = rm.menu_id 
+        WHERE rm.role_id = #{roleId} 
+        AND p.is_deleted = 0 
+        AND p.is_enabled = 1
+        ORDER BY p.order_num ASC
+    </select>
+
+    <!-- 根据角色ID删除关联关系 -->
+    <delete id="deleteByRoleId" parameterType="java.lang.String">
+        DELETE FROM tp_role_menu WHERE role_id = #{roleId}
+    </delete>
+
+    <!-- 插入角色菜单关联关系 -->
+    <insert id="insertRoleMenu">
+        INSERT INTO tp_role_menu (role_id, menu_id) VALUES (#{roleId}, #{menuId})
+    </insert>
+
+</mapper>

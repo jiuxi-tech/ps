@@ -1,0 +1,591 @@
+# role模块接口测试脚本
+
+## 脚本说明
+本脚本基于curl命令实现role模块所有接口的自动化测试，支持批量执行和结果验证。
+
+## 环境变量配置
+```bash
+#!/bin/bash
+
+# 基础配置
+BASE_URL="http://localhost:8080"
+CONTENT_TYPE="Content-Type: application/json"
+
+# 测试用JWT认证信息
+JWT_PID="test_person_id"
+JWT_DID="test_dept_id"  
+JWT_RIDS="role1,role2"
+JWT_AID="test_app_id"
+
+# 测试结果文件
+RESULT_FILE="role_test_results.log"
+echo "role模块接口测试结果 - $(date)" > $RESULT_FILE
+```
+
+## 通用函数定义
+```bash
+# 测试结果记录函数
+log_result() {
+    local test_name="$1"
+    local status_code="$2"
+    local expected_code="$3"
+    local response="$4"
+    
+    echo "=== $test_name ===" >> $RESULT_FILE
+    echo "状态码: $status_code (期望: $expected_code)" >> $RESULT_FILE
+    echo "响应内容: $response" >> $RESULT_FILE
+    
+    if [ "$status_code" -eq "$expected_code" ]; then
+        echo "结果: 通过 ✓" >> $RESULT_FILE
+    else
+        echo "结果: 失败 ✗" >> $RESULT_FILE
+    fi
+    echo "" >> $RESULT_FILE
+}
+
+# HTTP请求函数
+send_request() {
+    local method="$1"
+    local url="$2"  
+    local data="$3"
+    local expected_code="${4:-200}"
+    
+    if [ "$method" == "GET" ]; then
+        response=$(curl -s -w "%{http_code}" -X GET "$BASE_URL$url")
+    else
+        response=$(curl -s -w "%{http_code}" -X POST -H "$CONTENT_TYPE" -d "$data" "$BASE_URL$url")
+    fi
+    
+    status_code="${response: -3}"
+    body="${response%???}"
+    
+    echo "$status_code|$body"
+}
+```
+
+## 接口测试脚本
+
+### 1. 角色授权列表查询接口测试
+```bash
+test_role_auth_list() {
+    echo "开始测试: 角色授权列表查询接口"
+    
+    # 测试用例1.1: 正常查询
+    data='{
+        "query": {
+            "roleName": "",
+            "status": 1
+        },
+        "jwtpid": "'$JWT_PID'",
+        "jwtdid": "'$JWT_DID'",
+        "jwtrids": "'$JWT_RIDS'",
+        "jwtaid": "'$JWT_AID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/roleAuthList" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色授权列表查询-正常查询" "$status_code" "200" "$response"
+    
+    # 测试用例1.2: 空参数查询
+    data='{
+        "jwtpid": "'$JWT_PID'",
+        "jwtdid": "'$JWT_DID'", 
+        "jwtrids": "'$JWT_RIDS'",
+        "jwtaid": "'$JWT_AID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/roleAuthList" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色授权列表查询-空参数" "$status_code" "200" "$response"
+}
+```
+
+### 2. 角色授权列表查询接口测试（兼容版本）
+```bash
+test_role_auth_list_compat() {
+    echo "开始测试: 角色授权列表查询接口（兼容版本）"
+    
+    data='{
+        "query": {
+            "roleName": "",
+            "status": 1
+        },
+        "jwtpid": "'$JWT_PID'",
+        "jwtdid": "'$JWT_DID'",
+        "jwtrids": "'$JWT_RIDS'", 
+        "jwtaid": "'$JWT_AID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/role-auth-list" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色授权列表查询-兼容版本" "$status_code" "200" "$response"
+}
+```
+
+### 3. 角色分页列表查询接口测试
+```bash
+test_role_page_list() {
+    echo "开始测试: 角色分页列表查询接口"
+    
+    # 测试用例3.1: 正常分页查询
+    data='{
+        "query": {
+            "current": 1,
+            "size": 10,
+            "roleName": "",
+            "status": 1
+        },
+        "jwtpid": "'$JWT_PID'",
+        "jwtrids": "'$JWT_RIDS'",
+        "jwtaid": "'$JWT_AID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/list" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色分页查询-正常查询" "$status_code" "200" "$response"
+    
+    # 测试用例3.2: 边界值测试
+    data='{
+        "query": {
+            "current": 0,
+            "size": 0
+        },
+        "jwtpid": "'$JWT_PID'",
+        "jwtrids": "'$JWT_RIDS'", 
+        "jwtaid": "'$JWT_AID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/list" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色分页查询-边界值测试" "$status_code" "200" "$response"
+}
+```
+
+### 4. 政府角色列表查询接口测试
+```bash
+test_org_role_list() {
+    echo "开始测试: 政府角色列表查询接口"
+    
+    data='{
+        "query": {
+            "current": 1,
+            "size": 10
+        },
+        "jwtpid": "'$JWT_PID'",
+        "jwtrids": "'$JWT_RIDS'",
+        "jwtaid": "'$JWT_AID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/org/list" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1) 
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "政府角色列表查询" "$status_code" "200" "$response"
+}
+```
+
+### 5. 角色列表查询接口测试（不分页）
+```bash
+test_role_get_list() {
+    echo "开始测试: 角色列表查询接口（不分页）"
+    
+    data='{
+        "query": {
+            "status": 1
+        },
+        "jwtaid": "'$JWT_AID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/getList" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色列表查询-不分页" "$status_code" "200" "$response"
+}
+```
+
+### 6. 角色新增接口测试
+```bash
+test_role_add() {
+    echo "开始测试: 角色新增接口"
+    
+    # 测试用例6.1: 正常新增
+    data='{
+        "vo": {
+            "roleName": "测试角色_'$(date +%s)'",
+            "roleDesc": "这是一个测试角色",
+            "status": 1,
+            "remark": "测试用"
+        },
+        "jwtpid": "'$JWT_PID'",
+        "jwtaid": "'$JWT_AID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/add" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色新增-正常新增" "$status_code" "200" "$response"
+    
+    # 提取新增角色的ID用于后续测试
+    if [[ $response == *"success":true* ]]; then
+        NEW_ROLE_ID=$(echo "$response" | grep -o '"data":[^,}]*' | cut -d':' -f2 | tr -d '"')
+        echo "新增角色ID: $NEW_ROLE_ID"
+    fi
+    
+    # 测试用例6.2: 必填字段验证
+    data='{
+        "vo": {
+            "roleDesc": "缺少角色名称"
+        },
+        "jwtpid": "'$JWT_PID'",
+        "jwtaid": "'$JWT_AID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/add" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色新增-参数验证" "$status_code" "400" "$response"
+}
+```
+
+### 7. 政府角色新增接口测试
+```bash
+test_org_role_add() {
+    echo "开始测试: 政府角色新增接口"
+    
+    data='{
+        "vo": {
+            "roleName": "测试政府角色_'$(date +%s)'",
+            "roleDesc": "这是一个测试政府角色",
+            "status": 1
+        },
+        "jwtpid": "'$JWT_PID'",
+        "jwtaid": "'$JWT_AID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/org/add" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "政府角色新增" "$status_code" "200" "$response"
+}
+```
+
+### 8. 用户授权接口测试
+```bash
+test_role_auth_add() {
+    echo "开始测试: 用户授权接口"
+    
+    # 测试用例8.1: 正常授权
+    data='{
+        "personId": "test_person_123",
+        "deptId": "test_dept_123", 
+        "roleIds": ",role1,role2,role3"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/auth-add" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "用户授权-正常授权" "$status_code" "200" "$response"
+    
+    # 测试用例8.2: personId为空
+    data='{
+        "deptId": "test_dept_123",
+        "roleIds": "role1,role2"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/auth-add" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "用户授权-personId为空" "$status_code" "400" "$response"
+    
+    # 测试用例8.3: deptId为空
+    data='{
+        "personId": "test_person_123",
+        "roleIds": "role1,role2"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/auth-add" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "用户授权-deptId为空" "$status_code" "400" "$response"
+}
+```
+
+### 9. 角色更新接口测试
+```bash
+test_role_update() {
+    echo "开始测试: 角色更新接口"
+    
+    # 使用前面新增的角色ID进行测试
+    if [ -n "$NEW_ROLE_ID" ]; then
+        data='{
+            "vo": {
+                "roleId": "'$NEW_ROLE_ID'",
+                "roleName": "更新后的角色名",
+                "roleDesc": "更新后的描述",
+                "status": 1
+            },
+            "jwtpid": "'$JWT_PID'"
+        }'
+        
+        result=$(send_request "POST" "/sys/role/update" "$data")
+        status_code=$(echo "$result" | cut -d'|' -f1)
+        response=$(echo "$result" | cut -d'|' -f2)
+        
+        log_result "角色更新-正常更新" "$status_code" "200" "$response"
+    else
+        echo "跳过角色更新测试，无可用角色ID"
+    fi
+    
+    # 测试不存在的角色ID
+    data='{
+        "vo": {
+            "roleId": "non_existent_id",
+            "roleName": "不存在的角色",
+            "status": 1
+        },
+        "jwtpid": "'$JWT_PID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/update" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色更新-不存在角色" "$status_code" "404" "$response"
+}
+```
+
+### 10. 角色详情查看接口测试
+```bash
+test_role_view() {
+    echo "开始测试: 角色详情查看接口"
+    
+    if [ -n "$NEW_ROLE_ID" ]; then
+        result=$(send_request "GET" "/sys/role/view?roleId=$NEW_ROLE_ID")
+        status_code=$(echo "$result" | cut -d'|' -f1)
+        response=$(echo "$result" | cut -d'|' -f2)
+        
+        log_result "角色详情查看-正常查看" "$status_code" "200" "$response"
+    else
+        echo "跳过角色详情查看测试，无可用角色ID"
+    fi
+    
+    # 测试不存在的角色
+    result=$(send_request "GET" "/sys/role/view?roleId=non_existent_id")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色详情查看-不存在角色" "$status_code" "404" "$response"
+}
+```
+
+### 11. 角色人员关系查询接口测试
+```bash
+test_role_person_relation() {
+    echo "开始测试: 角色人员关系查询接口"
+    
+    if [ -n "$NEW_ROLE_ID" ]; then
+        # 测试标准接口
+        result=$(send_request "GET" "/sys/role/selectByRoleId?roleId=$NEW_ROLE_ID")
+        status_code=$(echo "$result" | cut -d'|' -f1)
+        response=$(echo "$result" | cut -d'|' -f2)
+        
+        log_result "角色人员关系查询-标准接口" "$status_code" "200" "$response"
+        
+        # 测试兼容接口
+        result=$(send_request "GET" "/sys/role/select-by-roleid?roleId=$NEW_ROLE_ID")
+        status_code=$(echo "$result" | cut -d'|' -f1)
+        response=$(echo "$result" | cut -d'|' -f2)
+        
+        log_result "角色人员关系查询-兼容接口" "$status_code" "200" "$response"
+    else
+        echo "跳过角色人员关系查询测试，无可用角色ID"
+    fi
+}
+```
+
+### 12. 权限树获取接口测试  
+```bash
+test_auth_tree() {
+    echo "开始测试: 权限树获取接口"
+    
+    if [ -n "$NEW_ROLE_ID" ]; then
+        # 测试标准接口
+        result=$(send_request "GET" "/sys/role/authTree?roleId=$NEW_ROLE_ID&jwtrids=$JWT_RIDS&jwtpid=$JWT_PID")
+        status_code=$(echo "$result" | cut -d'|' -f1)
+        response=$(echo "$result" | cut -d'|' -f2)
+        
+        log_result "权限树获取-标准接口" "$status_code" "200" "$response"
+        
+        # 测试兼容接口
+        result=$(send_request "GET" "/sys/role/auth-tree?roleId=$NEW_ROLE_ID&jwtrids=$JWT_RIDS&jwtpid=$JWT_PID")
+        status_code=$(echo "$result" | cut -d'|' -f1)
+        response=$(echo "$result" | cut -d'|' -f2)
+        
+        log_result "权限树获取-兼容接口" "$status_code" "200" "$response"
+    else
+        echo "跳过权限树获取测试，无可用角色ID"
+    fi
+}
+```
+
+### 13. 角色菜单权限配置接口测试
+```bash
+test_role_menus() {
+    echo "开始测试: 角色菜单权限配置接口"
+    
+    if [ -n "$NEW_ROLE_ID" ]; then
+        # 配置权限
+        data='{
+            "roleId": "'$NEW_ROLE_ID'",
+            "menuIds": "menu1,menu2,menu3"
+        }'
+        
+        result=$(send_request "POST" "/sys/role/roleMenus" "$data")
+        status_code=$(echo "$result" | cut -d'|' -f1)
+        response=$(echo "$result" | cut -d'|' -f2)
+        
+        log_result "角色菜单权限配置-正常配置" "$status_code" "200" "$response"
+        
+        # 清空权限
+        data='{
+            "roleId": "'$NEW_ROLE_ID'",
+            "menuIds": ""
+        }'
+        
+        result=$(send_request "POST" "/sys/role/roleMenus" "$data")
+        status_code=$(echo "$result" | cut -d'|' -f1)
+        response=$(echo "$result" | cut -d'|' -f2)
+        
+        log_result "角色菜单权限配置-清空权限" "$status_code" "200" "$response"
+    else
+        echo "跳过角色菜单权限配置测试，无可用角色ID"
+    fi
+}
+```
+
+### 14. 角色删除接口测试
+```bash
+test_role_delete() {
+    echo "开始测试: 角色删除接口"
+    
+    if [ -n "$NEW_ROLE_ID" ]; then
+        data='{
+            "roleId": "'$NEW_ROLE_ID'",
+            "creator": "'$JWT_PID'",
+            "jwtpid": "'$JWT_PID'"
+        }'
+        
+        result=$(send_request "POST" "/sys/role/delete" "$data")
+        status_code=$(echo "$result" | cut -d'|' -f1)
+        response=$(echo "$result" | cut -d'|' -f2)
+        
+        log_result "角色删除-正常删除" "$status_code" "200" "$response"
+    else
+        echo "跳过角色删除测试，无可用角色ID"
+    fi
+    
+    # 测试删除不存在的角色
+    data='{
+        "roleId": "non_existent_id",
+        "creator": "'$JWT_PID'",
+        "jwtpid": "'$JWT_PID'"
+    }'
+    
+    result=$(send_request "POST" "/sys/role/delete" "$data")
+    status_code=$(echo "$result" | cut -d'|' -f1)
+    response=$(echo "$result" | cut -d'|' -f2)
+    
+    log_result "角色删除-不存在角色" "$status_code" "404" "$response"
+}
+```
+
+## 主测试执行流程
+```bash
+main() {
+    echo "开始执行role模块接口测试..."
+    echo "测试开始时间: $(date)"
+    
+    # 执行所有测试用例
+    test_role_auth_list
+    test_role_auth_list_compat  
+    test_role_page_list
+    test_org_role_list
+    test_role_get_list
+    test_role_add
+    test_org_role_add
+    test_role_auth_add
+    test_role_update
+    test_role_view
+    test_role_person_relation
+    test_auth_tree
+    test_role_menus
+    test_role_delete
+    
+    echo "测试完成时间: $(date)"
+    echo "详细测试结果请查看: $RESULT_FILE"
+    
+    # 统计测试结果
+    total_tests=$(grep -c "结果:" $RESULT_FILE)
+    passed_tests=$(grep -c "通过 ✓" $RESULT_FILE)
+    failed_tests=$(grep -c "失败 ✗" $RESULT_FILE)
+    
+    echo ""
+    echo "=== 测试结果统计 ==="
+    echo "总测试用例: $total_tests"
+    echo "通过用例: $passed_tests"
+    echo "失败用例: $failed_tests" 
+    echo "通过率: $(($passed_tests * 100 / $total_tests))%"
+}
+
+# 执行主函数
+main
+```
+
+## 使用说明
+
+### 脚本执行方法
+```bash
+# 1. 保存脚本为可执行文件
+chmod +x role-测试脚本
+
+# 2. 修改环境变量配置
+# 根据实际环境修改BASE_URL和JWT相关参数
+
+# 3. 执行测试脚本
+./role-测试脚本
+
+# 4. 查看测试结果
+cat role_test_results.log
+```
+
+### 注意事项
+1. 执行前确保应用服务正常运行
+2. 根据实际环境修改JWT认证信息
+3. 测试数据会影响数据库，建议在测试环境执行
+4. 脚本执行过程中会创建测试角色，执行完毕后会自动删除
+5. 如需保留测试数据，可注释掉删除相关的测试用例
+
+### 扩展说明
+本脚本支持以下扩展：
+- 添加更多边界值测试用例
+- 集成性能测试功能
+- 支持并发测试场景
+- 与CI/CD流水线集成
+- 生成HTML格式的测试报告

@@ -1,4 +1,4 @@
-package com.jiuxi.module.role.app.service.impl;
+package com.jiuxi.module.role.app.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.jiuxi.admin.core.bean.query.TpRoleAuthQuery;
