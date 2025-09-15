@@ -1,14 +1,15 @@
-package com.jiuxi.module.authorization.interfaces.web.controller;
+package com.jiuxi.module.role.interfaces.web.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.jiuxi.admin.core.bean.query.TpRoleAuthQuery;
 import com.jiuxi.admin.core.bean.query.TpRoleQuery;
 import com.jiuxi.admin.core.bean.vo.TpPersonRoleVO;
 import com.jiuxi.admin.core.bean.vo.TpRoleVO;
-import com.jiuxi.module.authorization.app.service.RoleService;
+import com.jiuxi.module.role.app.service.RoleService;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.common.bean.TreeNode;
 import com.jiuxi.common.constant.TpConstant;
+import com.jiuxi.module.user.intf.web.controller.UserPersonController;
 import com.jiuxi.shared.common.annotation.Authorization;
 import com.jiuxi.shared.common.annotation.IgnoreAuthorization;
 import com.jiuxi.shared.common.validation.group.AddGroup;
@@ -35,6 +36,9 @@ public class AuthorizationRoleController {
 
     @Autowired
     private RoleService roleService;
+    
+    @Autowired
+    private UserPersonController userPersonController;
 
     /**
      * 角色授权列表
@@ -93,6 +97,43 @@ public class AuthorizationRoleController {
     }
 
     /**
+     * 新增政府角色
+     */
+    @RequestMapping("/org/add")
+    public JsonResponse orgAdd(@Validated(AddGroup.class) TpRoleVO vo, String jwtpid, String jwtaid) {
+        int result = roleService.add(vo, jwtpid, jwtaid, 0); // 0代表政府类别
+        return JsonResponse.buildSuccess(result);
+    }
+    
+    /**
+     * 用户授权，增加角色（转发到UserPersonController）
+     * 处理前端传递的roleIds参数，确保格式正确
+     *
+     * @param personId 人员ID
+     * @param deptId 部门ID
+     * @param roleIds 角色ID列表
+     * @return com.jiuxi.common.bean.JsonResponse
+     */
+    @RequestMapping("/auth-add")
+    public JsonResponse authAdd(String personId, String deptId, String roleIds) {
+        // 检查参数
+        if (personId == null || personId.isEmpty()) {
+            return JsonResponse.buildFailure("人员ID不能为空");
+        }
+        if (deptId == null || deptId.isEmpty()) {
+            return JsonResponse.buildFailure("部门ID不能为空");
+        }
+        
+        // 处理roleIds，去除开头的逗号
+        if (roleIds != null && roleIds.startsWith(",")) {
+            roleIds = roleIds.substring(1);
+        }
+        
+        // 转发到UserPersonController的auth-add方法
+        return userPersonController.authAdd(personId, deptId, roleIds);
+    }
+
+    /**
      * 更新角色信息
      */
     @RequestMapping("/update")
@@ -118,6 +159,15 @@ public class AuthorizationRoleController {
         List<TpPersonRoleVO> list = roleService.selectByRoleId(roleId);
         return JsonResponse.buildSuccess(list);
     }
+    
+    /**
+     * 根据角色ID查询角色人员关系（小写连字符形式，兼容前端调用）
+     */
+    @RequestMapping("/select-by-roleid")
+    public JsonResponse selectByRoleid(String roleId) {
+        List<TpPersonRoleVO> list = roleService.selectByRoleId(roleId);
+        return JsonResponse.buildSuccess(list);
+    }
 
     /**
      * 删除角色
@@ -131,7 +181,7 @@ public class AuthorizationRoleController {
     /**
      * 获取权限树
      */
-    @RequestMapping("/authTree")
+    @RequestMapping({"/authTree", "/auth-tree"})
     @IgnoreAuthorization
     public JsonResponse authTree(String roleId, String jwtrids, String jwtpid) {
         List<TreeNode> list = roleService.authTree(roleId, jwtrids, jwtpid);

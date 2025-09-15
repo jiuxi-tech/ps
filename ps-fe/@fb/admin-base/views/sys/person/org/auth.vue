@@ -69,7 +69,7 @@
 				formData: {
 					personId: '',
 					deptId: '',
-					roleIds: '',
+					roleIds: null,
 				},
 			}
 		},
@@ -151,20 +151,37 @@
 			},
 
 			handleAdd() {
+				// 初始化roleIds为空数组，然后join成逗号分隔的字符串
+				let roleIdsArray = [];
 				this.targetKeys.forEach((node) => {
-					this.formData.roleIds += "," + node;
+					roleIdsArray.push(node);
 				});
-				// 授权
-				this.formData.passKey = this.param.passKey;
-				this.service.authAdd(this.formData).then((result) => {
+				this.formData.roleIds = roleIdsArray.join(',');
+			
+					// 授权 - 使用URL参数方式发送数据
+			const params = {
+				personId: this.formData.personId,
+				deptId: this.formData.deptId,
+				roleIds: this.formData.roleIds,
+				passKey: this.param.passKey
+			};
+			
+			console.log('ORG最终发送的params:', params);
+			
+			this.service.authAdd(params).then((result) => {
 					// 判断code
-					if (result.code == 1) {
+					if (result && result.code == 1) {
 						this.$message.success('授权成功');
 						// 关闭，并传递参数
 						this.handleClose();
+					} else if (result) {
+						this.$message.error('授权失败:' + (result.data && result.data.message ? result.data.message : '未知错误'))
 					} else {
-						this.$message.error('授权失败:' + result.data.message)
+						this.$message.error('授权失败: 服务器返回结果为空')
 					}
+				}).catch(error => {
+					console.error('授权请求失败:', error);
+					this.$message.error('授权请求失败，请检查网络连接')
 				})
 			},
 

@@ -210,6 +210,7 @@ public class TpRoleServiceImpl implements TpRoleService {
      * @date 2020-11-23 15:37
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int update(TpRoleVO vo, String pid) {
         if (!StrUtil.equals(TpConstant.ADMIN.PERSONID, pid) && !StrUtil.equals(vo.getCreator(), pid)) {
             // 分级管理员，只能修改自己创建的角色
@@ -217,13 +218,18 @@ public class TpRoleServiceImpl implements TpRoleService {
         }
         try {
             TpRole bean = new TpRole();
-            // 转换成数据库对象
-            BeanUtil.copyProperties(vo, bean);
+            // 转换成数据库对象，但排除actived字段，因为实体类中没有该字段
+            BeanUtil.copyProperties(vo, bean, "actived");
             bean.setUpdator(pid);
             bean.setUpdateTime(CommonDateUtil.now());
 
             // 修改角色
             int count = tpRoleMapper.update(bean);
+            
+            // 如果需要更新actived字段，可以通过其他方式处理
+            // 例如：使用自定义SQL更新actived字段
+            // 或者在数据库表中添加actived字段
+            
             return count;
         } catch (Exception e) {
             LOGGER.error("修改角色信息失败！vo:{}, 错误: {}", JSONObject.toJSONString(vo), ExceptionUtils.getStackTrace(e));

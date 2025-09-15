@@ -1,4 +1,4 @@
-package com.jiuxi.module.authorization.infra.persistence.mapper;
+package com.jiuxi.module.role.infra.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

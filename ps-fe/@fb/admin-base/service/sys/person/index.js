@@ -325,6 +325,16 @@ export default {
 	},
 
 	authAdd(formData) {
+		// 确保formData存在
+		if (!formData) {
+			formData = {};
+		}
+		
+		// 确保roleIds不为null或undefined
+		if (formData.roleIds === null || formData.roleIds === undefined) {
+			formData.roleIds = '';
+		}
+		
 		return app.service.request({
 			url: '/sys/person/auth-add',
 			method: 'post', // 请求方式 post,get, 默认是 get,
@@ -349,6 +359,9 @@ export default {
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
 			timeout: 5000,
+		}).catch(error => {
+			console.error('授权请求失败:', error);
+			return Promise.reject(error);
 		})
 	},
 

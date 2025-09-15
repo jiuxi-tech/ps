@@ -37,11 +37,11 @@ export default {
 	},
 	ent: {
 		list(formData) {
-			return app.service.get('/sys/role/ent/list', {params: formData})
+			return app.service.get('/sys/dept/ent/list', {params: formData})
 		},
 		add(formData) {
 			return app.service.request({
-				url: '/sys/role/ent/add',
+				url: '/sys/dept/ent/add',
 				method: 'post', // 请求方式 post,get, 默认是 get,
 				transformRequest: [
 					// 把json数据序列化成xxx=?&xx=?的格式
@@ -106,7 +106,7 @@ export default {
 		},
 		insert(formData) {
 			return app.service.request({
-				url: '/sys/role/auth-add',
+				url: '/sys/role/roleMenus',
 				method: 'post', // 请求方式 post,get, 默认是 get,
 				transformRequest: [
 					// 把json数据序列化成xxx=?&xx=?的格式
@@ -135,6 +135,17 @@ export default {
 
 	update(formData) {
 		// 	return app.service.post('/sys/role/update', formData)
+		// 确保orderIndex是数字类型
+		if (formData.orderIndex !== undefined && formData.orderIndex !== null) {
+			formData.orderIndex = Number(formData.orderIndex);
+		}
+		// 确保actived字段为数字类型
+		if (formData.actived !== undefined && formData.actived !== null && formData.actived !== 'null') {
+			formData.actived = Number(formData.actived);
+		} else {
+			// 如果actived为null、undefined或字符串'null'，设置默认值
+			formData.actived = 1;
+		}
 		return app.service.request({
 			url: '/sys/role/update',
 			method: 'post', // 请求方式 post,get, 默认是 get,

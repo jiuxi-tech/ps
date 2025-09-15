@@ -9,8 +9,8 @@
 						</fb-form-item>
 					</fb-col>
 					<fb-col span="12">
-						<fb-form-item label="排序" prop="orderIndex" :rule='{required: true}'>
-							<fb-input v-model="formData.orderIndex" placeholder="请输入排序号"></fb-input>
+						<fb-form-item label="排序" prop="orderIndex" :rule='{required: true, type: "number"}'>
+							<fb-input v-model.number="formData.orderIndex" type="number" placeholder="请输入排序号"></fb-input>
 						</fb-form-item>
 					</fb-col>
 				</fb-row>
@@ -120,7 +120,7 @@
 					roleId: '',
 					roleName: '',
 					roleType: 0,
-					orderIndex: '',
+					orderIndex: 0, // 将空字符串改为数字0，确保类型一致
 					roleDesc: '',
 					createRole: '',
 				},

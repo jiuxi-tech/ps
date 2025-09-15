@@ -584,7 +584,7 @@ public class UserPersonServiceImpl implements UserPersonService {
                 }
             }
 
-            return len;
+            return 0;
         } catch (Exception e) {
             // 事务回滚
             LOGGER.error("用户兼职部门失败！ personId:{}, deptIds:{}, e: {}", personId, deptIds, ExceptionUtils.getStackTrace(e));
@@ -639,18 +639,27 @@ public class UserPersonServiceImpl implements UserPersonService {
             LOGGER.warn("被操作人: {} , 部门：{}, 用户授权，删除人员部门角色关联关系.",personId, deptId);
             tpPersonRoleMapper.delete(deptId, personId);
 
-            String[] roleIdArr = StringUtils.split(roleIds, ",");
-            int len = roleIdArr.length;
+            // 处理roleIds为空的情况
+            if (StrUtil.isNotBlank(roleIds)) {
+                String[] roleIdArr = StringUtils.split(roleIds, ",");
+                if (roleIdArr != null && roleIdArr.length > 0) {
+                    int len = roleIdArr.length;
 
-            for (int i = 0; i < len; i++) {
-                TpPersonRole bean = new TpPersonRole();
-                bean.setPersonId(personId);
-                bean.setDeptId(deptId);
-                bean.setRoleId(roleIdArr[i]);
-                tpPersonRoleMapper.save(bean);
+                    for (int i = 0; i < len; i++) {
+                        TpPersonRole bean = new TpPersonRole();
+                        bean.setPersonId(personId);
+                        bean.setDeptId(deptId);
+                        bean.setRoleId(roleIdArr[i]);
+                        tpPersonRoleMapper.save(bean);
+                    }
+                    return len;
+                }
             }
+            
+            // 如果roleIds为空，只删除角色，不添加新角色
+            LOGGER.info("roleIds为空，只删除用户 {} 在部门 {} 的所有角色", personId, deptId);
 
-            return len;
+            return 0;
         } catch (Exception e) {
             // 事务回滚
             LOGGER.error("用户授权失败！deptId:{}, personId:{}, roleIds:{}, e: {}", deptId, personId, roleIds, ExceptionUtils.getStackTrace(e));

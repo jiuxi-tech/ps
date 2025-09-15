@@ -1,4 +1,4 @@
-package com.jiuxi.module.authorization.app.service.impl;
+package com.jiuxi.module.role.app.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.jiuxi.admin.core.bean.query.TpRoleAuthQuery;
@@ -7,7 +7,7 @@ import com.jiuxi.admin.core.bean.vo.TpPersonRoleVO;
 import com.jiuxi.admin.core.bean.vo.TpRoleVO;
 import com.jiuxi.admin.core.service.TpRoleService;
 import com.jiuxi.common.bean.TreeNode;
-import com.jiuxi.module.authorization.app.service.RoleService;
+import com.jiuxi.module.role.app.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

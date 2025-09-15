@@ -59,6 +59,7 @@
 		// 创建方法
 		created() {
 			// 记录原来的默认值，用于表单重置
+			console.log('=== 角色授权组件已创建 ===', '传入参数:', this.param);
 			this.init(this.param);
 		},
 		// 初始化方法
@@ -82,6 +83,10 @@
 
 			// 设置标题
 			init(param) {
+				console.log('角色授权初始化参数:', {
+					roleId: param.id || '未设置',
+					passKey: param.passKey || '未设置'
+				});
 				if (param.id) {
 					let roleId = param.id;
 					this.formData.roleId = roleId;
@@ -108,6 +113,11 @@
 				});
 
 				this.formData.passKey = this.param.passKey;
+				console.log('角色授权保存参数:', {
+					roleId: this.formData.roleId,
+					menuIds: this.formData.menuIds,
+					passKey: this.formData.passKey
+				});
 				// 授权
 				this.service.auth.insert(this.formData).then((result) => {
 					// 判断code

@@ -149,21 +149,58 @@
 			},
 
 			handleAdd(){
-				// 获取全部选中的node
+				// 初始化roleIds为空数组，然后join成逗号分隔的字符串
+				let roleIdsArray = [];
 				this.targetKeys.forEach((node) => {
-					this.formData.roleIds += "," + node;
+					roleIdsArray.push(node);
 				});
-				this.formData.passKey = this.param.passKey;
-				// 授权
-				this.service.authAdd(this.formData).then((result) => {
+				const roleIds = roleIdsArray.join(',');
+				
+				// 调试信息：检查参数内容
+				console.log('发送授权请求前的参数:');
+				console.log('personId:', this.formData.personId);
+				console.log('deptId:', this.formData.deptId);
+				console.log('roleIds:', roleIds);
+				console.log('passKey:', this.param.passKey);
+				console.log('param对象:', this.param);
+				console.log('formData对象:', this.formData);
+				
+				// 验证必要参数
+				if (!this.formData.personId) {
+					console.error('personId为空，formData:', this.formData);
+					this.$message.error('人员ID不能为空');
+					return;
+				}
+				if (!this.formData.deptId) {
+					console.error('deptId为空，formData:', this.formData);
+					this.$message.error('部门ID不能为空');
+					return;
+				}
+				
+				// 授权 - 使用URL参数方式发送数据
+				const params = {
+					personId: this.formData.personId,
+					deptId: this.formData.deptId,
+					roleIds: roleIds,
+					passKey: this.param.passKey
+				};
+				
+
+				
+				this.service.authAdd(params).then((result) => {
 					// 判断code
-					if (result.code == 1) {
+					if (result && result.code == 1) {
 						this.$message.success('授权成功');
 						// 关闭，并传递参数
 						this.handleClose();
+					} else if (result) {
+						this.$message.error('授权失败:' + (result.data && result.data.message ? result.data.message : '未知错误'))
 					} else {
-						this.$message.error('授权失败:' + result.data.message)
+						this.$message.error('授权失败: 服务器返回结果为空')
 					}
+				}).catch(error => {
+					console.error('授权请求失败:', error);
+					this.$message.error('授权请求失败，请检查网络连接')
 				})
 			},
 			handleChange(targetKeys, targetList, sourceKeys, sourceList) {
