@@ -1,6 +1,6 @@
 package com.jiuxi.module.user.domain.event;
 
-import com.jiuxi.module.user.domain.entity.UserCategory;
+import com.jiuxi.module.user.domain.model.vo.UserCategory;
 
 /**
  * 用户创建事件

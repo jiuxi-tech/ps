@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @ComponentScan({
     "com.jiuxi.module.user.app",
-    "com.jiuxi.module.user.domain",
+    "com.jiuxi.module.user.domain.model",
     "com.jiuxi.module.user.infra",
     "com.jiuxi.module.user.intf"
 })

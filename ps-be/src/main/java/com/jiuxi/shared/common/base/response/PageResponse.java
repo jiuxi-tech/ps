@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import java.util.Collections;
 import java.util.List;
 
+import com.jiuxi.shared.common.constants.ResponseCode;
+
 /**
  * 分页响应类
  * 封装分页查询结果
@@ -59,8 +61,7 @@ public class PageResponse<T> extends BaseResponse<List<T>> {
      * 构造函数
      */
     public PageResponse(List<T> records, Long current, Long size, Long total) {
-        super();
-        this.setData(records);
+        super(ResponseCode.SUCCESS, "查询成功", records);
         this.current = current;
         this.size = size;
         this.total = total;
@@ -74,8 +75,6 @@ public class PageResponse<T> extends BaseResponse<List<T>> {
      */
     public static <T> PageResponse<T> success(List<T> records, Long current, Long size, Long total) {
         PageResponse<T> response = new PageResponse<>(records, current, size, total);
-        response.setCode("200");
-        response.setMessage("查询成功");
         return response;
     }
 

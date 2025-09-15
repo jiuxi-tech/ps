@@ -1,4 +1,6 @@
-package com.jiuxi.module.user.domain.entity;
+package com.jiuxi.module.user.domain.model.entity;
+
+import com.jiuxi.module.user.domain.model.vo.AccountStatus;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

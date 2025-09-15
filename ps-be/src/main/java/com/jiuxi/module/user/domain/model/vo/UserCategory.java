@@ -1,4 +1,4 @@
-package com.jiuxi.module.user.domain.entity;
+package com.jiuxi.module.user.domain.model.vo;
 
 /**
  * 用户类别枚举

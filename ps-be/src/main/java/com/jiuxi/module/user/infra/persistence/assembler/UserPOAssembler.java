@@ -1,12 +1,12 @@
 package com.jiuxi.module.user.infra.persistence.assembler;
 
-import com.jiuxi.module.user.domain.entity.User;
-import com.jiuxi.module.user.domain.entity.UserProfile;
-import com.jiuxi.module.user.domain.entity.UserAccount;
-import com.jiuxi.module.user.domain.entity.ContactInfo;
-import com.jiuxi.module.user.domain.entity.UserStatus;
-import com.jiuxi.module.user.domain.entity.UserCategory;
-import com.jiuxi.module.user.domain.entity.AccountStatus;
+import com.jiuxi.module.user.domain.model.aggregate.User;
+import com.jiuxi.module.user.domain.model.vo.UserProfile;
+import com.jiuxi.module.user.domain.model.entity.UserAccount;
+import com.jiuxi.module.user.domain.model.vo.ContactInfo;
+import com.jiuxi.module.user.domain.model.vo.UserStatus;
+import com.jiuxi.module.user.domain.model.vo.UserCategory;
+import com.jiuxi.module.user.domain.model.vo.AccountStatus;
 import com.jiuxi.module.user.infra.persistence.entity.UserPO;
 import com.jiuxi.module.user.infra.persistence.entity.AccountPO;
 import org.springframework.stereotype.Component;

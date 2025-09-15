@@ -1,7 +1,7 @@
 package com.jiuxi.module.user.infra.persistence.repo;
 
-import com.jiuxi.module.user.domain.entity.User;
-import com.jiuxi.module.user.domain.entity.UserAccount;
+import com.jiuxi.module.user.domain.model.aggregate.User;
+import com.jiuxi.module.user.domain.model.entity.UserAccount;
 import com.jiuxi.module.user.domain.repo.UserRepository;
 import com.jiuxi.module.user.infra.persistence.entity.UserPO;
 import com.jiuxi.module.user.infra.persistence.entity.AccountPO;
