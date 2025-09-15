@@ -4,6 +4,8 @@ import com.jiuxi.platform.captcha.domain.entity.CaptchaChallenge;
 import com.jiuxi.platform.captcha.domain.service.CaptchaGenerator;
 import com.jiuxi.platform.captcha.domain.valueobject.CaptchaCoordinate;
 import com.jiuxi.platform.captcha.domain.valueobject.CaptchaType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
@@ -24,6 +26,8 @@ import java.awt.geom.Path2D;
 @Component
 public class SliderCaptchaGenerator implements CaptchaGenerator {
     
+    private static final Logger logger = LoggerFactory.getLogger(SliderCaptchaGenerator.class);
+    
     private static final int IMAGE_WIDTH = 320;
     private static final int IMAGE_HEIGHT = 160;
     private static final int PUZZLE_WIDTH = 60;
@@ -43,6 +47,8 @@ public class SliderCaptchaGenerator implements CaptchaGenerator {
     
     @Override
     public CaptchaChallenge generateChallenge(CaptchaType captchaType) {
+        logger.info("开始生成滑块验证码，类型: {}", captchaType);
+        
         if (!supports(captchaType)) {
             throw new IllegalArgumentException("不支持的验证码类型: " + captchaType);
         }
@@ -67,8 +73,14 @@ public class SliderCaptchaGenerator implements CaptchaGenerator {
             BufferedImage puzzleImage = generatePuzzleImage(backgroundImage, puzzlePosition, shapeType);
             
             // 转换为Base64格式
-            challenge.setBackgroundImageData(imageToBase64(backgroundImage));
-            challenge.setPuzzleImageData(imageToBase64(puzzleImage));
+            String backgroundImageData = imageToBase64(backgroundImage);
+            String puzzleImageData = imageToBase64(puzzleImage);
+            
+            logger.info("背景图片数据长度: {}", backgroundImageData != null ? backgroundImageData.length() : "null");
+            logger.info("拼图图片数据长度: {}", puzzleImageData != null ? puzzleImageData.length() : "null");
+            
+            challenge.setBackgroundImageData(backgroundImageData);
+            challenge.setPuzzleImageData(puzzleImageData);
             
             // 设置元数据
             challenge.setMetadata("imageWidth", IMAGE_WIDTH);
