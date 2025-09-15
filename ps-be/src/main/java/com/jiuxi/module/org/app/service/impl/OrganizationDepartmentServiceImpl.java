@@ -1,11 +1,11 @@
-package com.jiuxi.module.organization.app.service.impl;
+package com.jiuxi.module.org.app.service.impl;
 
 import com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpDeptExinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonDeptVO;
 import com.jiuxi.admin.core.service.TpDeptBasicinfoService;
 import com.jiuxi.common.bean.TreeNode;
-import com.jiuxi.module.organization.app.service.OrganizationDepartmentService;
+import com.jiuxi.module.org.app.service.OrganizationDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

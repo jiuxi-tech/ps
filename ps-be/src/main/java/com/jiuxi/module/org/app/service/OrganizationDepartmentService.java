@@ -1,4 +1,4 @@
-package com.jiuxi.module.organization.app.service;
+package com.jiuxi.module.org.app.service;
 
 import com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpDeptExinfoVO;

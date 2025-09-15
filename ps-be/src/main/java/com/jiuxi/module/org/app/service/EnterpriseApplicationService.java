@@ -1,19 +1,19 @@
-package com.jiuxi.module.organization.app.service;
+package com.jiuxi.module.org.app.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.jiuxi.admin.core.bean.query.TpEntAccountQuery;
-import com.jiuxi.admin.core.bean.query.TpEntBasicQuery;
 import com.jiuxi.admin.core.bean.vo.TpEntAccountVO;
 import com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO;
+import com.jiuxi.admin.core.bean.query.TpEntAccountQuery;
+import com.jiuxi.admin.core.bean.query.TpEntBasicQuery;
 
 /**
- * @ClassName: OrganizationEnterpriseService
- * @Description: 组织企业服务接口
+ * @ClassName: EnterpriseApplicationService
+ * @Description: 企业应用服务接口
  * @Author DDD重构
  * @Date 2025-09-12
  * @Copyright: www.tuxun.net Inc. All rights reserved.
  */
-public interface OrganizationEnterpriseService {
+public interface EnterpriseApplicationService {
 
     IPage queryPage(TpEntBasicQuery query, String ascnId);
 

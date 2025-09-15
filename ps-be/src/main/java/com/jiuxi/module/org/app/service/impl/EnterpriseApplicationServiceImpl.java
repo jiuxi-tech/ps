@@ -1,4 +1,4 @@
-package com.jiuxi.module.organization.app.service.impl;
+package com.jiuxi.module.org.app.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.jiuxi.admin.core.bean.query.TpEntAccountQuery;
@@ -6,19 +6,19 @@ import com.jiuxi.admin.core.bean.query.TpEntBasicQuery;
 import com.jiuxi.admin.core.bean.vo.TpEntAccountVO;
 import com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO;
 import com.jiuxi.admin.core.service.TpEntBasicinfoService;
-import com.jiuxi.module.organization.app.service.OrganizationEnterpriseService;
+import com.jiuxi.module.org.app.service.EnterpriseApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @ClassName: OrganizationEnterpriseServiceImpl
- * @Description: 组织企业服务实现 - 委托给原有服务保证功能不变
+ * @ClassName: EnterpriseApplicationServiceImpl
+ * @Description: 企业应用服务实现 - 委托给原有服务保证功能不变
  * @Author DDD重构
  * @Date 2025-09-12
  * @Copyright: www.tuxun.net Inc. All rights reserved.
  */
 @Service
-public class OrganizationEnterpriseServiceImpl implements OrganizationEnterpriseService {
+public class EnterpriseApplicationServiceImpl implements EnterpriseApplicationService {
 
     @Autowired
     private TpEntBasicinfoService tpEntBasicinfoService;

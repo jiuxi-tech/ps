@@ -1,7 +1,7 @@
-package com.jiuxi.module.organization.interfaces.web.controller;
+package com.jiuxi.module.org.interfaces.web.controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.jiuxi.module.organization.app.service.OrganizationDepartmentService;
+import com.jiuxi.module.org.app.service.OrganizationDepartmentService;
 import com.jiuxi.common.constant.TpConstant;
 import com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpDeptExinfoVO;

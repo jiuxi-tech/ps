@@ -1,4 +1,4 @@
-package com.jiuxi.module.organization.infra.persistence.mapper;
+package com.jiuxi.module.org.infra.persistence.mapper;
 
 import com.jiuxi.admin.core.bean.entity.TpDeptBasicinfo;
 import com.jiuxi.admin.core.bean.entity.TpPersonDept;
@@ -10,14 +10,14 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @ClassName: DepartmentMapper
+ * @ClassName: OrganizationDepartmentMapper
  * @Description: 组织部门映射接口
  * @Author DDD重构
  * @Date 2025-09-12
  * @Copyright: www.tuxun.net Inc. All rights reserved.
  */
 @Mapper
-public interface DepartmentMapper {
+public interface OrganizationDepartmentMapper {
 
     /**
      * 根据部门层级code查询部门所有的下级部门列表

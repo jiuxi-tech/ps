@@ -1,4 +1,4 @@
-package com.jiuxi.module.organization.interfaces.web.controller;
+package com.jiuxi.module.org.interfaces.web.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -6,7 +6,7 @@ import com.jiuxi.admin.core.bean.query.TpEntAccountQuery;
 import com.jiuxi.admin.core.bean.query.TpEntBasicQuery;
 import com.jiuxi.admin.core.bean.vo.TpEntAccountVO;
 import com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO;
-import com.jiuxi.module.organization.app.service.OrganizationEnterpriseService;
+import com.jiuxi.module.org.app.service.EnterpriseApplicationService;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.shared.common.annotation.Authorization;
 import com.jiuxi.shared.common.context.TenantContextHolder;
@@ -18,31 +18,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @ClassName: TpEntBasicinfoController
- * @Description: 企业基本信息表
- * @Author 杨攀
- * @Date 2020-11-18 11:05:18
+ * @ClassName: EnterpriseController
+ * @Description: 企业控制器
+ * @Author DDD重构
+ * @Date 2025-09-12
  * @Copyright: www.tuxun.net Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/ent")
-@Authorization
-public class OrganizationEnterpriseController {
+@Authorization(businessKey = "SYS0503")
+public class EnterpriseController {
 
     /**
      * 接口配置 passKey
      */
-    private static final String PASS_KEY = "entId";
+    private static final String PASS_KEY = "PASS";
 
     @Autowired
-    private OrganizationEnterpriseService organizationEnterpriseService;
+    private EnterpriseApplicationService enterpriseApplicationService;
 
     /**
      * 列表
      */
     @RequestMapping("/list")
     public JsonResponse list(TpEntBasicQuery query, String jwtpid, String jwtaid) {
-        IPage<TpEntBasicinfoVO> page = organizationEnterpriseService.queryPage(query, jwtaid);
+        IPage<TpEntBasicinfoVO> page = enterpriseApplicationService.queryPage(query, jwtaid);
         return JsonResponse.buildSuccess(page).buildPassKey(jwtpid, PASS_KEY);
     }
 
@@ -54,7 +54,7 @@ public class OrganizationEnterpriseController {
     @Deprecated
     @RequestMapping("/ent-account-list")
     public JsonResponse entAccountList(TpEntAccountQuery query, String jwtpid, String jwtaid) {
-        IPage<TpEntAccountVO> page = organizationEnterpriseService.accountQueryPage(query, jwtpid, jwtaid);
+        IPage<TpEntAccountVO> page = enterpriseApplicationService.accountQueryPage(query, jwtpid, jwtaid);
         return JsonResponse.buildSuccess(page);
     }
 
@@ -63,7 +63,7 @@ public class OrganizationEnterpriseController {
      */
     @RequestMapping("/ent-admin-list")
     public JsonResponse entAdminList(TpEntAccountQuery query, String jwtpid) {
-        IPage<TpEntAccountVO> page = organizationEnterpriseService.adminQueryPage(query);
+        IPage<TpEntAccountVO> page = enterpriseApplicationService.adminQueryPage(query);
         return JsonResponse.buildSuccess(page).buildPassKey(jwtpid,"personId");
     }
 
@@ -78,7 +78,7 @@ public class OrganizationEnterpriseController {
     @RequestMapping("/view")
     @Authorization(businessKey = PASS_KEY)
     public JsonResponse view(String entId) {
-        TpEntBasicinfoVO vo = organizationEnterpriseService.view(entId);
+        TpEntBasicinfoVO vo = enterpriseApplicationService.view(entId);
         return JsonResponse.buildSuccess(vo);
     }
 
@@ -95,7 +95,7 @@ public class OrganizationEnterpriseController {
             vo.setTenantId(tenantId);
         }
 
-        String entid = organizationEnterpriseService.add(vo, jwtpid);
+        String entid = enterpriseApplicationService.add(vo, jwtpid);
         if (null != entid) {
             return JsonResponse.buildSuccess(entid);
         } else {
@@ -110,7 +110,7 @@ public class OrganizationEnterpriseController {
     @Authorization(businessKey = PASS_KEY)
     public JsonResponse update(@Validated(value = UpdateGroup.class) TpEntBasicinfoVO vo, String jwtpid) {
 
-        int count = organizationEnterpriseService.update(vo, jwtpid);
+        int count = enterpriseApplicationService.update(vo, jwtpid);
         if (count == 0) {
             return JsonResponse.buildFailure("修改企业基本信息失败，找不到该条数据...");
         }
@@ -124,7 +124,7 @@ public class OrganizationEnterpriseController {
     @Authorization(businessKey = PASS_KEY)
     public JsonResponse delete(String entId, String jwtpid) {
 
-        int count = organizationEnterpriseService.delete(entId, jwtpid);
+        int count = enterpriseApplicationService.delete(entId, jwtpid);
         if (count == 0) {
             return JsonResponse.buildFailure("删除企业信息失败，找不到该条数据...");
         }

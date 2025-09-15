@@ -1,4 +1,4 @@
-package com.jiuxi.module.organization.infra.persistence.mapper;
+package com.jiuxi.module.org.infra.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
