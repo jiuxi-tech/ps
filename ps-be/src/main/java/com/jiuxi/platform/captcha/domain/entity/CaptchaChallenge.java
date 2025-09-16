@@ -66,7 +66,15 @@ public class CaptchaChallenge {
         
         attemptCount++;
         
-        if (correctPosition != null && correctPosition.isWithinTolerance(userAnswer, tolerance)) {
+        // 对于滑块验证码，只验证X坐标
+        if (correctPosition != null && captchaType == CaptchaType.SLIDER) {
+            if (correctPosition.isXWithinTolerance(userAnswer, tolerance)) {
+                this.verified = true;
+                this.completed = true;
+                return true;
+            }
+        } else if (correctPosition != null && correctPosition.isWithinTolerance(userAnswer, tolerance)) {
+            // 其他类型验证码使用原有的X+Y验证逻辑
             this.verified = true;
             this.completed = true;
             return true;

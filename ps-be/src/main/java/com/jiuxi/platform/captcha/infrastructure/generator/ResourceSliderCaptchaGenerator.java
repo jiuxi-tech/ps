@@ -64,7 +64,11 @@ public class ResourceSliderCaptchaGenerator implements CaptchaGenerator {
 
             // 随机选择一个图片
             String selectedImagePrefix = availableImages.get(random.nextInt(availableImages.size()));
-            logger.debug("选择验证码图片: {}", selectedImagePrefix);
+            logger.info("=== 验证码图片选择信息 ===");
+            logger.info("可用图片列表: {}", availableImages);
+            logger.info("选择的图片前缀: {}", selectedImagePrefix);
+            logger.info("背景图片文件: {}{}", selectedImagePrefix, BACKGROUND_IMAGE_SUFFIX);
+            logger.info("滑块图片文件: {}{}", selectedImagePrefix, SLIDER_IMAGE_SUFFIX);
 
             // 加载背景图片
             BufferedImage backgroundImage = loadBackgroundImage(selectedImagePrefix);
@@ -80,9 +84,17 @@ public class ResourceSliderCaptchaGenerator implements CaptchaGenerator {
 
             // 读取坐标文件获取正确位置
             CaptchaCoordinate correctPosition = readCoordinateFromFile(selectedImagePrefix);
+            logger.info("=== 坐标信息 ===");
+            if (correctPosition != null) {
+                logger.info("从坐标文件读取到的坐标: ({}, {})", correctPosition.getX(), correctPosition.getY());
+            } else {
+                logger.info("未找到坐标文件，将使用随机坐标");
+            }
+            
             if (correctPosition == null) {
                 // 如果没有坐标文件，随机生成位置
                 correctPosition = generateRandomPosition();
+                logger.info("随机生成的坐标: ({}, {})", correctPosition.getX(), correctPosition.getY());
             }
 
             // 设置验证码数据
@@ -189,23 +201,41 @@ public class ResourceSliderCaptchaGenerator implements CaptchaGenerator {
 
     /**
      * 从坐标文件读取正确位置
+     * 坐标信息编码在文件名中，格式为: {imagePrefix}_{x}_{y}.txt
      */
     private CaptchaCoordinate readCoordinateFromFile(String imagePrefix) {
         try {
-            String coordFileName = imagePrefix + ".txt";
-            String coordFilePath = BACKGROUND_IMAGE_DIR + "/" + coordFileName;
-            ClassPathResource resource = new ClassPathResource(coordFilePath);
-            if (resource.exists()) {
-                try (InputStream is = resource.getInputStream()) {
-                    byte[] content = is.readAllBytes();
-                    String coordStr = new String(content).trim();
-                    if (!coordStr.isEmpty()) {
-                        String[] coords = coordStr.split("_");
-                        if (coords.length >= 3) {
-                            int x = Integer.parseInt(coords[1]);
-                            int y = Integer.parseInt(coords[2]);
+            // 查找格式为 {imagePrefix}_{x}_{y}.txt 的坐标文件
+            String coordFilePattern = imagePrefix + "_";
+            String coordFilePath = BACKGROUND_IMAGE_DIR + "/" + coordFilePattern;
+            logger.info("查找坐标文件模式: {}*", coordFilePath);
+            
+            // 通过ClassPathResource查找匹配的坐标文件
+            ClassPathResource dirResource = new ClassPathResource(BACKGROUND_IMAGE_DIR);
+            if (dirResource.exists()) {
+                File dir = dirResource.getFile();
+                if (dir.exists() && dir.isDirectory()) {
+                    File[] coordFiles = dir.listFiles((d, name) -> 
+                        name.startsWith(coordFilePattern) && name.endsWith(".txt"));
+                    
+                    if (coordFiles != null && coordFiles.length > 0) {
+                        String coordFileName = coordFiles[0].getName();
+                        logger.info("找到坐标文件: {}", coordFileName);
+                        
+                        // 从文件名解析坐标，格式为: {imagePrefix}_{x}_{y}.txt
+                        String[] parts = coordFileName.replace(".txt", "").split("_");
+                        logger.info("文件名分割结果: {}", java.util.Arrays.toString(parts));
+                        
+                        if (parts.length >= 3) {
+                            int x = Integer.parseInt(parts[1]);
+                            int y = Integer.parseInt(parts[2]);
+                            logger.info("从文件名解析坐标: {} -> ({}, {})", coordFileName, x, y);
                             return new CaptchaCoordinate(x, y);
+                        } else {
+                            logger.warn("坐标文件名格式不正确，期望格式: prefix_x_y.txt，实际: {}", coordFileName);
                         }
+                    } else {
+                        logger.info("未找到匹配的坐标文件: {}*", coordFilePattern);
                     }
                 }
             }

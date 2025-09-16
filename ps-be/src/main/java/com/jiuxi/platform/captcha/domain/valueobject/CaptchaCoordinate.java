@@ -37,6 +37,24 @@ public class CaptchaCoordinate {
     }
     
     /**
+     * 只验证X坐标的距离（忽略Y坐标）
+     */
+    public double distanceToX(CaptchaCoordinate other) {
+        if (other == null) {
+            return Double.MAX_VALUE;
+        }
+        
+        return Math.abs(this.x - other.x);
+    }
+    
+    /**
+     * 检查X坐标是否在容差范围内（忽略Y坐标）
+     */
+    public boolean isXWithinTolerance(CaptchaCoordinate target, double tolerance) {
+        return distanceToX(target) <= tolerance;
+    }
+    
+    /**
      * 创建随机坐标
      */
     public static CaptchaCoordinate random(int maxX, int maxY) {

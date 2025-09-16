@@ -2,6 +2,8 @@ package com.jiuxi.platform.captcha.app.service;
 
 import com.jiuxi.platform.captcha.bean.vo.ImageCaptchaCheckVO;
 import com.jiuxi.platform.captcha.bean.vo.ImageCaptchaVO;
+import com.jiuxi.platform.captcha.domain.entity.CaptchaChallenge;
+import com.jiuxi.platform.captcha.infrastructure.cache.CaptchaCacheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,13 @@ import org.springframework.stereotype.Service;
 public class CaptchaAdapterService implements CaptchaService {
     
     private final CaptchaApplicationService captchaApplicationService;
+    private final CaptchaCacheRepository cacheRepository;
     
     @Autowired
-    public CaptchaAdapterService(CaptchaApplicationService captchaApplicationService) {
+    public CaptchaAdapterService(CaptchaApplicationService captchaApplicationService, 
+                                CaptchaCacheRepository cacheRepository) {
         this.captchaApplicationService = captchaApplicationService;
+        this.cacheRepository = cacheRepository;
     }
     
     @Override
@@ -94,9 +99,10 @@ public class CaptchaAdapterService implements CaptchaService {
             if (imageCaptchaCheckVO.getX() != null) {
                 // 前端已经将坐标从312px缩放到590px（后端图片尺寸），直接使用
                 Double x = imageCaptchaCheckVO.getX().doubleValue();
+                // 滑块验证码只验证X坐标，Y坐标固定为0
                 Double y = 0.0;
                 
-                System.out.println("验证坐标: x=" + x + ", y=" + y);
+                System.out.println("验证坐标: x=" + x + ", y=" + y + " (Y坐标不参与验证)");
                 response = captchaApplicationService.verifyAnswer(clientUuid, x, y);
             } else {
                 // 其他类型的验证码处理
@@ -147,7 +153,10 @@ public class CaptchaAdapterService implements CaptchaService {
         ImageCaptchaVO vo = new ImageCaptchaVO();
         vo.setClientUuid(response.getChallengeId());
         vo.setBackgroundImage(response.getBackgroundImage());
-        vo.setPuzzleImage(response.getPuzzleImage()); // 设置拼图图片
+        
+        // 设置滑块图片（将puzzleImage映射为sliderImage）
+        vo.setSliderImage(response.getPuzzleImage());
+        
         vo.setType(response.getCaptchaType());
         
         // 设置图片尺寸信息
@@ -156,11 +165,21 @@ public class CaptchaAdapterService implements CaptchaService {
             Object height = response.getMetadata().get("imageHeight");
             if (width instanceof Integer) {
                 vo.setBgImageWidth((Integer) width);
-            }
-            if (height instanceof Integer) {
                 vo.setBgImageHeight((Integer) height);
             }
+            
+            // 设置滑块图片尺寸
+            Object puzzleWidth = response.getMetadata().get("puzzleWidth");
+            Object puzzleHeight = response.getMetadata().get("puzzleHeight");
+            if (puzzleWidth instanceof Integer) {
+                vo.setSliderImageWidth((Integer) puzzleWidth);
+            }
+            if (puzzleHeight instanceof Integer) {
+                vo.setSliderImageHeight((Integer) puzzleHeight);
+            }
         }
+        
+        // 不再返回randomX和randomY字段，保护验证码安全性
         
         return vo;
     }
