@@ -193,7 +193,8 @@ public class TopinfoCaptchaPlatformAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(CaptchaService.class)
-    public CaptchaService captchaService(CaptchaApplicationService captchaApplicationService) {
-        return new CaptchaAdapterService(captchaApplicationService);
+    public CaptchaService captchaService(CaptchaApplicationService captchaApplicationService, 
+                                        CaptchaCacheRepository cacheRepository) {
+        return new CaptchaAdapterService(captchaApplicationService, cacheRepository);
     }
 }

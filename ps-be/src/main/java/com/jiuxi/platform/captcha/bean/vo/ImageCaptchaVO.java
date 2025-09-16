@@ -11,9 +11,14 @@ public class ImageCaptchaVO {
     private String clientUuid;
     private String backgroundImage;
     private String puzzleImage;
+    private String sliderImage;
     private String type;
     private Integer bgImageWidth;
     private Integer bgImageHeight;
+    private Integer randomX;
+    private Integer randomY;
+    private Integer sliderImageWidth;
+    private Integer sliderImageHeight;
     
     // Getters and Setters
     
@@ -41,6 +46,14 @@ public class ImageCaptchaVO {
         this.puzzleImage = puzzleImage;
     }
     
+    public String getSliderImage() {
+        return sliderImage;
+    }
+    
+    public void setSliderImage(String sliderImage) {
+        this.sliderImage = sliderImage;
+    }
+    
     public String getType() {
         return type;
     }
@@ -63,5 +76,37 @@ public class ImageCaptchaVO {
     
     public void setBgImageHeight(Integer bgImageHeight) {
         this.bgImageHeight = bgImageHeight;
+    }
+    
+    public Integer getRandomX() {
+        return randomX;
+    }
+    
+    public void setRandomX(Integer randomX) {
+        this.randomX = randomX;
+    }
+    
+    public Integer getRandomY() {
+        return randomY;
+    }
+    
+    public void setRandomY(Integer randomY) {
+        this.randomY = randomY;
+    }
+    
+    public Integer getSliderImageWidth() {
+        return sliderImageWidth;
+    }
+    
+    public void setSliderImageWidth(Integer sliderImageWidth) {
+        this.sliderImageWidth = sliderImageWidth;
+    }
+    
+    public Integer getSliderImageHeight() {
+        return sliderImageHeight;
+    }
+    
+    public void setSliderImageHeight(Integer sliderImageHeight) {
+        this.sliderImageHeight = sliderImageHeight;
     }
 }

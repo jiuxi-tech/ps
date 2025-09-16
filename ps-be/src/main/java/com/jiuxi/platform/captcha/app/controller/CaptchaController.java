@@ -88,9 +88,14 @@ public class CaptchaController {
     private JsonResponse checkCaptchaInternal(ImageCaptchaCheckVO checkVO) {
         try {
             String result = captchaService.checkCaptcha(checkVO);
-            if ("success".equals(result)) {
-                return JsonResponse.buildSuccess("验证成功");
+            
+            // 判断是否为票据（验证成功）
+            // 票据格式：clientUuid_timestamp_randomString
+            if (result != null && result.contains("_") && result.length() > 30) {
+                // 返回票据表示验证成功
+                return JsonResponse.buildSuccess(result);
             } else {
+                // 返回错误消息表示验证失败
                 return JsonResponse.buildFailure(result);
             }
         } catch (Exception e) {
