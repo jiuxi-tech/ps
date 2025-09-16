@@ -58,6 +58,10 @@
         
         <!-- 已弃用的组件 -->
         <topinfo-platform.version>2.2.2-SNAPSHOT</topinfo-platform.version>
+
+        <!-- 测试与架构检查工具版本（仅在特定profile启用） -->
+        <junit.jupiter.version>5.9.3</junit.jupiter.version>
+        <archunit.version>1.2.1</archunit.version>
     </properties>
 
     <dependencyManagement>
@@ -492,5 +496,64 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- 架构依赖检查（ArchUnit）配置：默认不启用，不影响现有构建 -->
+    <profiles>
+        <profile>
+            <id>archunit</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- 将 archunit 测试目录注册为测试源码目录（仅在 profile 启用时生效） -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>3.5.0</version>
+                        <executions>
+                            <execution>
+                                <id>add-archunit-test-source</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/archunit-test/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.1.2</version>
+                        <configuration>
+                            <useModulePath>false</useModulePath>
+                            <includes>
+                                <include>**/*Test.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>com.tngtech.archunit</groupId>
+                    <artifactId>archunit-junit5</artifactId>
+                    <version>${archunit.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                    <version>${junit.jupiter.version}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 </project>
