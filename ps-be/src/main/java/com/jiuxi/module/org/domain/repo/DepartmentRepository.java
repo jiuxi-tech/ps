@@ -1,6 +1,7 @@
 package com.jiuxi.module.org.domain.repo;
 
-import com.jiuxi.module.org.domain.entity.Department;
+import com.jiuxi.module.org.domain.model.aggregate.Department;
+import com.jiuxi.module.org.domain.query.DepartmentQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -189,4 +190,32 @@ public interface DepartmentRepository {
      * @param departments 部门列表（包含左右值信息）
      */
     void batchUpdateLeftRightValue(List<Department> departments);
+    
+    /**
+     * 根据查询规范查找部门列表
+     * @param query 查询规范对象
+     * @return 部门列表
+     */
+    List<Department> findByQuery(DepartmentQuery query);
+    
+    /**
+     * 根据查询规范统计部门数量
+     * @param query 查询规范对象
+     * @return 部门数量
+     */
+    long countByQuery(DepartmentQuery query);
+    
+    /**
+     * 根据查询规范分页查询部门
+     * @param query 查询规范对象（包含分页参数）
+     * @return 部门列表
+     */
+    List<Department> findPageByQuery(DepartmentQuery query);
+    
+    /**
+     * 统计指定租户下的部门数量
+     * @param tenantId 租户ID
+     * @return 部门数量
+     */
+    long countByTenantId(String tenantId);
 }

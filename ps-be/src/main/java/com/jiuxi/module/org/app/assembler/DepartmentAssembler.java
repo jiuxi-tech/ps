@@ -1,8 +1,8 @@
 package com.jiuxi.module.org.app.assembler;
 
-import com.jiuxi.module.org.domain.entity.Department;
-import com.jiuxi.module.org.app.dto.DepartmentResponseDTO;
-import com.jiuxi.module.org.app.dto.DepartmentStatisticsDTO;
+import com.jiuxi.module.org.domain.model.aggregate.Department;
+import com.jiuxi.module.org.app.query.dto.DepartmentResponseDTO;
+import com.jiuxi.module.org.app.query.dto.DepartmentStatisticsDTO;
 import com.jiuxi.module.org.app.service.DepartmentStatisticsService;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 
 /**
  * 部门装配器
- * 负责部门领域对象与DTO之间的转换
+ * 负责部门聚合根与DTO之间的转换
  * 
  * @author DDD Refactor
- * @date 2025-09-06
+ * @date 2025-09-18
  */
 @Component
 public class DepartmentAssembler {
@@ -65,17 +65,55 @@ public class DepartmentAssembler {
     }
     
     /**
-     * 批量转换部门列表
+     * 将部门聚合根转换为简化响应DTO（仅包含关键信息）
+     * @param department 部门聚合根
+     * @return 部门响应DTO
+     */
+    public DepartmentResponseDTO toSimpleResponseDTO(Department department) {
+        if (department == null) {
+            return null;
+        }
+        
+        DepartmentResponseDTO dto = new DepartmentResponseDTO();
+        dto.setDeptId(department.getDeptId());
+        dto.setDeptName(department.getDeptName());
+        dto.setDeptSimpleName(department.getDeptSimpleName());
+        dto.setParentDeptId(department.getParentDeptId());
+        dto.setDeptLevel(department.getDeptLevel());
+        dto.setStatus(department.getStatus());
+        dto.setType(department.getType());
+        dto.setTenantId(department.getTenantId());
+        
+        return dto;
+    }
+    
+    /**
+     * 批量转换部门列表为响应DTO列表
      * @param departments 部门列表
      * @return 部门响应DTO列表
      */
-    public List<DepartmentResponseDTO> toResponseDTOs(List<Department> departments) {
+    public List<DepartmentResponseDTO> toResponseDTOList(List<Department> departments) {
         if (departments == null || departments.isEmpty()) {
-            return new ArrayList<>();
+            return java.util.Collections.emptyList();
         }
         
         return departments.stream()
                 .map(this::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+    
+    /**
+     * 批量转换部门列表为简化响应DTO列表
+     * @param departments 部门列表
+     * @return 部门响应DTO列表
+     */
+    public List<DepartmentResponseDTO> toSimpleResponseDTOList(List<Department> departments) {
+        if (departments == null || departments.isEmpty()) {
+            return java.util.Collections.emptyList();
+        }
+        
+        return departments.stream()
+                .map(this::toSimpleResponseDTO)
                 .collect(Collectors.toList());
     }
     

@@ -1,7 +1,7 @@
 package com.jiuxi.module.org.domain.service;
 
-import com.jiuxi.module.org.domain.entity.Department;
-import com.jiuxi.module.org.domain.entity.DepartmentStatus;
+import com.jiuxi.module.org.domain.model.aggregate.Department;
+import com.jiuxi.module.org.domain.model.entity.DepartmentStatus;
 import com.jiuxi.module.org.domain.repo.DepartmentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

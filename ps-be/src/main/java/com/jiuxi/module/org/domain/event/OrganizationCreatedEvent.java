@@ -1,6 +1,6 @@
 package com.jiuxi.module.org.domain.event;
 
-import com.jiuxi.module.org.domain.entity.OrganizationType;
+import com.jiuxi.module.org.domain.model.entity.OrganizationType;
 
 import java.time.LocalDateTime;
 

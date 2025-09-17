@@ -63,8 +63,8 @@ public class RedisConfig {
     /**
      * 配置缓存管理器
      */
-    @Bean
-    public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+    @Bean("redisCacheManager")
+    public CacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
         // 配置序列化
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofHours(1)) // 设置缓存有效期1小时

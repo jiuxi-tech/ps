@@ -1,15 +1,15 @@
 package com.jiuxi.module.org.app.service;
 
-import com.jiuxi.module.org.domain.entity.Department;
-import com.jiuxi.module.org.domain.entity.DepartmentStatus;
+import com.jiuxi.module.org.domain.model.aggregate.Department;
+import com.jiuxi.module.org.domain.model.entity.DepartmentStatus;
 import com.jiuxi.module.org.domain.event.DepartmentCreatedEvent;
 import com.jiuxi.module.org.domain.event.DepartmentDeletedEvent;
 import com.jiuxi.module.org.domain.event.DepartmentUpdatedEvent;
 import com.jiuxi.module.org.domain.repo.DepartmentRepository;
 import com.jiuxi.module.org.domain.service.DepartmentDomainService;
-import com.jiuxi.module.org.app.dto.DepartmentCreateDTO;
-import com.jiuxi.module.org.app.dto.DepartmentUpdateDTO;
-import com.jiuxi.module.org.app.dto.DepartmentResponseDTO;
+import com.jiuxi.module.org.app.command.dto.DepartmentCreateDTO;
+import com.jiuxi.module.org.app.command.dto.DepartmentUpdateDTO;
+import com.jiuxi.module.org.app.query.dto.DepartmentResponseDTO;
 import com.jiuxi.module.org.app.assembler.DepartmentAssembler;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -203,87 +203,6 @@ public class DepartmentApplicationService {
         eventPublisher.publishEvent(event);
     }
     
-    /**
-     * 根据ID查询部门
-     * @param deptId 部门ID
-     * @return 部门响应
-     */
-    @Transactional(readOnly = true)
-    public Optional<DepartmentResponseDTO> findDepartmentById(String deptId) {
-        return departmentRepository.findById(deptId)
-                .map(departmentAssembler::toResponseDTO);
-    }
-    
-    /**
-     * 根据ID查询部门（兼容控制器调用）
-     * @param deptId 部门ID
-     * @return 部门响应
-     */
-    @Transactional(readOnly = true)
-    public DepartmentResponseDTO getDepartmentById(String deptId) {
-        return findDepartmentById(deptId)
-                .orElseThrow(() -> new IllegalArgumentException("部门不存在: " + deptId));
-    }
-    
-    /**
-     * 查询部门树
-     * @param tenantId 租户ID
-     * @return 部门树
-     */
-    @Transactional(readOnly = true)
-    public List<DepartmentResponseDTO> findDepartmentTree(String tenantId) {
-        List<Department> departments = departmentRepository.findDepartmentTree(tenantId);
-        return departments.stream()
-                .map(departmentAssembler::toResponseDTO)
-                .collect(Collectors.toList());
-    }
-    
-    /**
-     * 查询部门树（兼容控制器调用）
-     * @param tenantId 租户ID
-     * @return 部门树
-     */
-    @Transactional(readOnly = true)
-    public List<DepartmentResponseDTO> getDepartmentTree(String tenantId) {
-        return findDepartmentTree(tenantId);
-    }
-    
-    /**
-     * 根据父部门查询子部门
-     * @param parentDeptId 父部门ID
-     * @return 子部门列表
-     */
-    @Transactional(readOnly = true)
-    public List<DepartmentResponseDTO> findChildDepartments(String parentDeptId) {
-        List<Department> children = departmentRepository.findByParentId(parentDeptId);
-        return children.stream()
-                .map(departmentAssembler::toResponseDTO)
-                .collect(Collectors.toList());
-    }
-    
-    /**
-     * 根据父部门查询子部门（兼容控制器调用）
-     * @param parentDeptId 父部门ID
-     * @return 子部门列表
-     */
-    @Transactional(readOnly = true)
-    public List<DepartmentResponseDTO> getChildDepartments(String parentDeptId) {
-        return findChildDepartments(parentDeptId);
-    }
-    
-    /**
-     * 获取根部门列表（兼容控制器调用）
-     * @param tenantId 租户ID
-     * @return 根部门列表
-     */
-    @Transactional(readOnly = true)
-    public List<DepartmentResponseDTO> getRootDepartments(String tenantId) {
-        List<Department> rootDepartments = departmentRepository.findRootDepartments();
-        return rootDepartments.stream()
-                .filter(dept -> tenantId.equals(dept.getTenantId()))
-                .map(departmentAssembler::toResponseDTO)
-                .collect(Collectors.toList());
-    }
     
     /**
      * 激活部门
@@ -351,123 +270,4 @@ public class DepartmentApplicationService {
         }
     }
     
-    /**
-     * 获取部门用户数量（兼容控制器调用）
-     * @param deptId 部门ID
-     * @return 用户数量
-     */
-    @Transactional(readOnly = true)
-    public long getDepartmentUserCount(String deptId) {
-        return departmentRepository.countUsersByDeptId(deptId);
-    }
-    
-    /**
-     * 查询部门的所有祖先部门
-     * @param deptId 部门ID
-     * @return 祖先部门列表
-     */
-    @Transactional(readOnly = true)
-    public List<DepartmentResponseDTO> findAncestorDepartments(String deptId) {
-        List<Department> ancestors = departmentRepository.findAncestors(deptId);
-        return ancestors.stream()
-                .map(departmentAssembler::toResponseDTO)
-                .collect(Collectors.toList());
-    }
-    
-    /**
-     * 查询部门的所有后代部门
-     * @param deptId 部门ID
-     * @param includeInactive 是否包含停用部门
-     * @return 后代部门列表
-     */
-    @Transactional(readOnly = true)
-    public List<DepartmentResponseDTO> findDescendantDepartments(String deptId, boolean includeInactive) {
-        List<Department> descendants = departmentRepository.findDescendants(deptId, includeInactive);
-        return descendants.stream()
-                .map(departmentAssembler::toResponseDTO)
-                .collect(Collectors.toList());
-    }
-    
-    /**
-     * 根据层级查询部门
-     * @param level 部门层级
-     * @param tenantId 租户ID
-     * @return 指定层级的部门列表
-     */
-    @Transactional(readOnly = true)
-    public List<DepartmentResponseDTO> findDepartmentsByLevel(Integer level, String tenantId) {
-        List<Department> departments = departmentRepository.findByLevel(level, tenantId);
-        return departments.stream()
-                .map(departmentAssembler::toResponseDTO)
-                .collect(Collectors.toList());
-    }
-    
-    /**
-     * 统计部门的直接子部门数量
-     * @param deptId 部门ID
-     * @return 直接子部门数量
-     */
-    @Transactional(readOnly = true)
-    public long countDirectChildren(String deptId) {
-        return departmentRepository.countDirectChildren(deptId);
-    }
-    
-    /**
-     * 统计部门的所有后代部门数量
-     * @param deptId 部门ID
-     * @return 所有后代部门数量
-     */
-    @Transactional(readOnly = true)
-    public long countAllDescendants(String deptId) {
-        return departmentRepository.countAllDescendants(deptId);
-    }
-    
-    /**
-     * 检查部门是否为另一个部门的祖先
-     * @param ancestorDeptId 祖先部门ID
-     * @param descendantDeptId 后代部门ID
-     * @return 是否为祖先关系
-     */
-    @Transactional(readOnly = true)
-    public boolean isAncestorDepartment(String ancestorDeptId, String descendantDeptId) {
-        return departmentRepository.isAncestor(ancestorDeptId, descendantDeptId);
-    }
-    
-    /**
-     * 批量查询部门及其后代部门
-     * @param deptIds 部门ID列表
-     * @param includeDescendants 是否包含后代部门
-     * @return 部门列表
-     */
-    @Transactional(readOnly = true)
-    public List<DepartmentResponseDTO> findDepartmentsWithChildren(List<String> deptIds, boolean includeDescendants) {
-        List<Department> departments = departmentRepository.findDepartmentsWithChildren(deptIds, includeDescendants);
-        return departments.stream()
-                .map(departmentAssembler::toResponseDTO)
-                .collect(Collectors.toList());
-    }
-    
-    /**
-     * 根据部门编号查询部门
-     * @param deptNo 部门编号
-     * @param tenantId 租户ID
-     * @return 部门响应
-     */
-    @Transactional(readOnly = true)
-    public Optional<DepartmentResponseDTO> findDepartmentByNo(String deptNo, String tenantId) {
-        return departmentRepository.findByDeptNo(deptNo, tenantId)
-                .map(departmentAssembler::toResponseDTO);
-    }
-    
-    /**
-     * 检查部门编号是否存在
-     * @param deptNo 部门编号
-     * @param tenantId 租户ID
-     * @param excludeDeptId 排除的部门ID
-     * @return 是否存在
-     */
-    @Transactional(readOnly = true)
-    public boolean existsByDeptNo(String deptNo, String tenantId, String excludeDeptId) {
-        return departmentRepository.existsByDeptNo(deptNo, tenantId, excludeDeptId);
-    }
 }

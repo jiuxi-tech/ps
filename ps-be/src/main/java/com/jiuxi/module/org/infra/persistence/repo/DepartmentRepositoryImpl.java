@@ -1,11 +1,15 @@
 package com.jiuxi.module.org.infra.persistence.repo;
 
-import com.jiuxi.module.org.domain.entity.Department;
-import com.jiuxi.module.org.domain.entity.DepartmentStatus;
-import com.jiuxi.module.org.domain.entity.DepartmentType;
+import com.jiuxi.module.org.domain.model.aggregate.Department;
 import com.jiuxi.module.org.domain.repo.DepartmentRepository;
 import com.jiuxi.module.org.infra.persistence.entity.DepartmentPO;
 import com.jiuxi.module.org.infra.persistence.mapper.DepartmentMapper;
+import com.jiuxi.module.org.infra.persistence.assembler.DepartmentInfraAssembler;
+import com.jiuxi.module.org.infra.cache.OrgCacheConfig;
+import com.jiuxi.module.org.infra.cache.OrgCacheService;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -13,7 +17,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * 部门仓储实现类
@@ -26,14 +29,21 @@ import java.util.stream.Collectors;
 public class DepartmentRepositoryImpl implements DepartmentRepository {
     
     private final DepartmentMapper departmentMapper;
+    private final DepartmentInfraAssembler departmentInfraAssembler;
+    private final OrgCacheService orgCacheService;
     
-    public DepartmentRepositoryImpl(DepartmentMapper departmentMapper) {
+    public DepartmentRepositoryImpl(DepartmentMapper departmentMapper, 
+                                  DepartmentInfraAssembler departmentInfraAssembler,
+                                  OrgCacheService orgCacheService) {
         this.departmentMapper = departmentMapper;
+        this.departmentInfraAssembler = departmentInfraAssembler;
+        this.orgCacheService = orgCacheService;
     }
     
     @Override
+    @CacheEvict(value = OrgCacheConfig.DEPARTMENT_CACHE, key = "#department.deptId", condition = "#department.deptId != null")
     public Department save(Department department) {
-        DepartmentPO departmentPO = toDepartmentPO(department);
+        DepartmentPO departmentPO = departmentInfraAssembler.toDepartmentPO(department);
         
         if (StringUtils.hasText(departmentPO.getDeptId())) {
             // 更新
@@ -49,21 +59,25 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
             departmentMapper.insert(departmentPO);
         }
         
-        return toDepartment(departmentPO);
+        // 清除相关缓存
+        Department result = departmentInfraAssembler.toDepartment(departmentPO);
+        orgCacheService.evictDepartmentCache(result.getDeptId(), result.getParentDeptId(), result.getTenantId());
+        
+        return result;
     }
     
     @Override
+    @Cacheable(value = OrgCacheConfig.DEPARTMENT_CACHE, key = "#deptId", unless = "#result.isEmpty()")
     public Optional<Department> findById(String deptId) {
         Optional<DepartmentPO> departmentPOOpt = departmentMapper.selectById(deptId);
-        return departmentPOOpt.map(this::toDepartment);
+        return departmentPOOpt.map(departmentInfraAssembler::toDepartment);
     }
     
     @Override
+    @Cacheable(value = OrgCacheConfig.DEPT_CHILDREN_CACHE, key = "#parentDeptId", unless = "#result.isEmpty()")
     public List<Department> findByParentId(String parentDeptId) {
         List<DepartmentPO> departmentPOs = departmentMapper.selectByParentId(parentDeptId);
-        return departmentPOs.stream()
-                .map(this::toDepartment)
-                .collect(Collectors.toList());
+        return departmentInfraAssembler.toDepartmentList(departmentPOs);
     }
     
     @Override
@@ -75,15 +89,13 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     @Override
     public List<Department> findByTenantId(String tenantId) {
         List<DepartmentPO> departmentPOs = departmentMapper.selectByTenantId(tenantId);
-        return departmentPOs.stream()
-                .map(this::toDepartment)
-                .collect(Collectors.toList());
+        return departmentInfraAssembler.toDepartmentList(departmentPOs);
     }
     
     @Override
     public Optional<Department> findByName(String deptName, String tenantId) {
         Optional<DepartmentPO> departmentPOOpt = departmentMapper.selectByName(deptName, tenantId);
-        return departmentPOOpt.map(this::toDepartment);
+        return departmentPOOpt.map(departmentInfraAssembler::toDepartment);
     }
     
     @Override
@@ -93,8 +105,18 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     }
     
     @Override
+    @CacheEvict(value = OrgCacheConfig.DEPARTMENT_CACHE, key = "#deptId")
     public void deleteById(String deptId) {
+        // 获取部门信息用于清除相关缓存
+        Optional<Department> deptOpt = findById(deptId);
+        
         departmentMapper.deleteById(deptId, "system", LocalDateTime.now());
+        
+        // 清除相关缓存
+        if (deptOpt.isPresent()) {
+            Department dept = deptOpt.get();
+            orgCacheService.evictDepartmentCache(dept.getDeptId(), dept.getParentDeptId(), dept.getTenantId());
+        }
     }
     
     @Override
@@ -105,9 +127,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     @Override
     public List<Department> findDescendants(String deptPath) {
         List<DepartmentPO> departmentPOs = departmentMapper.selectDescendants(deptPath);
-        return departmentPOs.stream()
-                .map(this::toDepartment)
-                .collect(Collectors.toList());
+        return departmentInfraAssembler.toDepartmentList(departmentPOs);
     }
     
     @Override
@@ -116,20 +136,17 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     }
     
     @Override
+    @Cacheable(value = OrgCacheConfig.DEPT_TREE_CACHE, key = "#tenantId", unless = "#result.isEmpty()")
     public List<Department> findDepartmentTree(String tenantId) {
         List<DepartmentPO> departmentPOs = departmentMapper.selectDepartmentTree(tenantId);
-        return departmentPOs.stream()
-                .map(this::toDepartment)
-                .collect(Collectors.toList());
+        return departmentInfraAssembler.toDepartmentList(departmentPOs);
     }
     
     @Override
     public List<Department> findByLeftRightValue(Integer leftValue, Integer rightValue, String tenantId) {
         // TODO: 需要在mapper中实现对应的查询方法
         List<DepartmentPO> departmentPOs = departmentMapper.selectByLeftRightValue(leftValue, rightValue, tenantId);
-        return departmentPOs.stream()
-                .map(this::toDepartment)
-                .collect(Collectors.toList());
+        return departmentInfraAssembler.toDepartmentList(departmentPOs);
     }
     
     @Override
@@ -142,9 +159,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         
         Department dept = deptOpt.get();
         List<DepartmentPO> ancestorPOs = departmentMapper.selectAncestors(dept.getDeptPath());
-        return ancestorPOs.stream()
-                .map(this::toDepartment)
-                .collect(Collectors.toList());
+        return departmentInfraAssembler.toDepartmentList(ancestorPOs);
     }
     
     @Override
@@ -161,17 +176,13 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         } else {
             descendantPOs = departmentMapper.selectActiveDescendants(dept.getDeptPath());
         }
-        return descendantPOs.stream()
-                .map(this::toDepartment)
-                .collect(Collectors.toList());
+        return departmentInfraAssembler.toDepartmentList(descendantPOs);
     }
     
     @Override
     public List<Department> findByLevel(Integer level, String tenantId) {
         List<DepartmentPO> departmentPOs = departmentMapper.selectByLevel(level, tenantId);
-        return departmentPOs.stream()
-                .map(this::toDepartment)
-                .collect(Collectors.toList());
+        return departmentInfraAssembler.toDepartmentList(departmentPOs);
     }
     
     @Override
@@ -216,15 +227,13 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         } else {
             departmentPOs = departmentMapper.selectDepartmentsWithDirectChildren(deptIds);
         }
-        return departmentPOs.stream()
-                .map(this::toDepartment)
-                .collect(Collectors.toList());
+        return departmentInfraAssembler.toDepartmentList(departmentPOs);
     }
     
     @Override
     public Optional<Department> findByDeptNo(String deptNo, String tenantId) {
         Optional<DepartmentPO> departmentPOOpt = departmentMapper.selectByDeptNo(deptNo, tenantId);
-        return departmentPOOpt.map(this::toDepartment);
+        return departmentPOOpt.map(departmentInfraAssembler::toDepartment);
     }
     
     @Override
@@ -240,82 +249,33 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     
     @Override
     public void batchUpdateLeftRightValue(List<Department> departments) {
-        List<DepartmentPO> departmentPOs = departments.stream()
-                .map(this::toDepartmentPO)
-                .collect(Collectors.toList());
+        List<DepartmentPO> departmentPOs = departmentInfraAssembler.toDepartmentPOList(departments);
         departmentMapper.batchUpdateLeftRightValue(departmentPOs);
     }
     
-    /**
-     * 将部门聚合根转换为持久化对象
-     */
-    private DepartmentPO toDepartmentPO(Department department) {
-        DepartmentPO departmentPO = new DepartmentPO();
-        departmentPO.setDeptId(department.getDeptId());
-        departmentPO.setPdeptId(department.getParentDeptId());
-        departmentPO.setDeptLevelcode(department.getDeptPath()); // 使用部门路径作为层级编码
-        departmentPO.setLeftValue(department.getLeftValue());
-        departmentPO.setRightValue(department.getRightValue());
-        // departmentPO.setDeptNo(department.getDeptNo()); // Department实体暂未定义deptNo字段
-        departmentPO.setDeptFullName(department.getDeptFullName());
-        departmentPO.setDeptSimpleName(department.getDeptSimpleName());
-        departmentPO.setDeptType(department.getType() != null ? department.getType().name() : null);
-        departmentPO.setDeptDesc(department.getDescription());
-        departmentPO.setOrderIndex(department.getOrderIndex() != null ? department.getOrderIndex().doubleValue() : null);
-        departmentPO.setCategory(0); // 默认政府类型
-        departmentPO.setPrincipalName(department.getManagerId()); // 暂时用管理员ID作为负责人
-        departmentPO.setPrincipalTel(department.getContactPhone());
-        departmentPO.setAscnId(department.getDeptId()); // 暂时设置为自身ID
-        departmentPO.setActived(department.getStatus() == DepartmentStatus.ACTIVE ? 1 : 0);
-        departmentPO.setEnabled(1);
-        departmentPO.setTenantId(department.getTenantId());
-        departmentPO.setCreator(department.getCreator());
-        departmentPO.setCreateTime(department.getCreateTime());
-        departmentPO.setUpdator(department.getUpdator());
-        departmentPO.setUpdateTime(department.getUpdateTime());
-        
-        return departmentPO;
+    
+    // 新增的查询规范方法（临时实现）
+    @Override
+    public List<Department> findByQuery(com.jiuxi.module.org.domain.query.DepartmentQuery query) {
+        // TODO: 实现复杂查询逻辑
+        throw new UnsupportedOperationException("findByQuery method not implemented yet");
     }
     
-    /**
-     * 将持久化对象转换为部门聚合根
-     */
-    private Department toDepartment(DepartmentPO departmentPO) {
-        Department department = new Department();
-        department.setDeptId(departmentPO.getDeptId());
-        department.setDeptName(departmentPO.getDeptFullName());
-        department.setDeptSimpleName(departmentPO.getDeptSimpleName());
-        department.setDeptFullName(departmentPO.getDeptFullName());
-        department.setParentDeptId(departmentPO.getPdeptId());
-        department.setDeptPath(departmentPO.getDeptLevelcode());
-        department.setDeptLevel(calculateLevel(departmentPO.getDeptLevelcode()));
-        department.setLeftValue(departmentPO.getLeftValue());
-        department.setRightValue(departmentPO.getRightValue());
-        // department.setDeptNo(departmentPO.getDeptNo()); // Department实体暂未定义deptNo字段
-        department.setType(departmentPO.getDeptType() != null ? DepartmentType.valueOf(departmentPO.getDeptType()) : null);
-        department.setDescription(departmentPO.getDeptDesc());
-        department.setOrderIndex(departmentPO.getOrderIndex() != null ? departmentPO.getOrderIndex().intValue() : null);
-        department.setManagerId(departmentPO.getPrincipalName());
-        department.setContactPhone(departmentPO.getPrincipalTel());
-        department.setAddress(null); // 地址信息不在基本信息表中
-        department.setStatus(departmentPO.getActived() == 1 ? DepartmentStatus.ACTIVE : DepartmentStatus.INACTIVE);
-        department.setTenantId(departmentPO.getTenantId());
-        department.setCreator(departmentPO.getCreator());
-        department.setCreateTime(departmentPO.getCreateTime());
-        department.setUpdator(departmentPO.getUpdator());
-        department.setUpdateTime(departmentPO.getUpdateTime());
-        
-        return department;
+    @Override
+    public long countByQuery(com.jiuxi.module.org.domain.query.DepartmentQuery query) {
+        // TODO: 实现复杂查询统计逻辑
+        throw new UnsupportedOperationException("countByQuery method not implemented yet");
     }
     
-    /**
-     * 根据部门路径计算层级
-     */
-    private Integer calculateLevel(String deptPath) {
-        if (!StringUtils.hasText(deptPath)) {
-            return 1;
-        }
-        // 假设路径格式为 /root/level1/level2，通过斜杠数量计算层级
-        return deptPath.split("/").length;
+    @Override
+    public List<Department> findPageByQuery(com.jiuxi.module.org.domain.query.DepartmentQuery query) {
+        // TODO: 实现复杂查询分页逻辑
+        throw new UnsupportedOperationException("findPageByQuery method not implemented yet");
+    }
+    
+    @Override
+    public long countByTenantId(String tenantId) {
+        // TODO: 实现租户部门统计逻辑
+        return 0;
     }
 }
