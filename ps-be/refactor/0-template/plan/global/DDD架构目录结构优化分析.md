@@ -18,7 +18,7 @@ com.jiuxi/
 │   │   ├── bean/              # 实体对象
 │   │   └── ...
 │   └── domain/                # 领域配置（新增）
-├── app/                       # 应用层（已创建框架）
+├── app/               # 应用层（已创建框架）
 │   ├── assembler/             # 数据转换器
 │   ├── command/               # 命令对象
 │   ├── dto/                   # 数据传输对象
@@ -58,7 +58,7 @@ com.jiuxi/
 
 #### 1.2.2 包结构问题
 1. **命名不一致**：interfaces vs intf，不同模块命名规范不统一
-2. **层次不清**：app层框架已建立但内容为空
+2. **层次不清**：application层框架已建立但内容为空
 3. **重复定义**：common和shared功能重叠
 4. **分散管理**：配置文件分散在多个包中
 
@@ -84,7 +84,7 @@ com.jiuxi/
 com.jiuxi/
 ├── Bootstrap.java                    # 应用启动类（重命名）
 │
-├── app/                              # 应用层（Application Layer）
+├── application/                      # 应用层（Application Layer）
 │   ├── command/                      # 命令处理
 │   │   ├── handler/                  # 命令处理器
 │   │   │   ├── auth/                 # 认证命令处理器
