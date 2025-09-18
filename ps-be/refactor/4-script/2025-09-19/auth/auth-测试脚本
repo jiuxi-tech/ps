@@ -1,0 +1,452 @@
+#!/bin/bash
+
+# auth模块接口测试脚本
+# 生成时间: 2025-09-19
+# 模块名称: auth权限管理模块
+# 脚本版本: v1.0
+
+# 颜色输出定义
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# 基础配置
+BASE_URL="http://localhost:8080"
+TENANT_ID="test-tenant-001"
+USER_ID="test-user-001"
+CONTENT_TYPE="application/json"
+
+# 测试数据
+MENU_CODE="TEST_MENU_$(date +%s)"
+PERMISSION_CODE="TEST_PERMISSION_$(date +%s)"
+ROLE_CODE="TEST_ROLE_$(date +%s)"
+
+# 存储创建的资源ID
+MENU_ID=""
+PERMISSION_ID=""
+ROLE_ID=""
+
+# 日志函数
+log_info() {
+    echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+log_success() {
+    echo -e "${GREEN}[SUCCESS]${NC} $1"
+}
+
+log_error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+log_warning() {
+    echo -e "${YELLOW}[WARNING]${NC} $1"
+}
+
+# 测试结果统计
+TOTAL_TESTS=0
+PASSED_TESTS=0
+FAILED_TESTS=0
+
+# 执行测试并检查结果
+execute_test() {
+    local test_name="$1"
+    local curl_command="$2"
+    local expected_pattern="$3"
+    
+    TOTAL_TESTS=$((TOTAL_TESTS + 1))
+    log_info "执行测试: $test_name"
+    
+    response=$(eval $curl_command 2>/dev/null)
+    
+    if echo "$response" | grep -q "$expected_pattern"; then
+        log_success "$test_name - 通过"
+        PASSED_TESTS=$((PASSED_TESTS + 1))
+        echo "$response"
+        return 0
+    else
+        log_error "$test_name - 失败"
+        log_error "响应: $response"
+        FAILED_TESTS=$((FAILED_TESTS + 1))
+        return 1
+    fi
+}
+
+# 提取响应中的ID
+extract_id() {
+    local response="$1"
+    echo "$response" | grep -o '"data":"[^"]*"' | cut -d'"' -f4
+}
+
+# ==================== 菜单管理接口测试 ====================
+
+test_menu_create() {
+    log_info "开始菜单管理接口测试"
+    
+    local curl_cmd="curl -s -X POST \"$BASE_URL/api/v1/menus\" \
+        -H \"X-User-Person-Id: $USER_ID\" \
+        -H \"X-Tenant-Id: $TENANT_ID\" \
+        -H \"Content-Type: $CONTENT_TYPE\" \
+        -d '{
+            \"menuCode\": \"$MENU_CODE\",
+            \"menuName\": \"测试菜单\",
+            \"menuTitle\": \"测试菜单标题\",
+            \"parentMenuId\": null
+        }'"
+    
+    if execute_test "创建菜单" "$curl_cmd" "success"; then
+        MENU_ID=$(extract_id "$response")
+        log_info "创建的菜单ID: $MENU_ID"
+    fi
+}
+
+test_menu_update() {
+    if [ -z "$MENU_ID" ]; then
+        log_warning "跳过菜单更新测试 - 菜单ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X PUT \"$BASE_URL/api/v1/menus/$MENU_ID\" \
+        -H \"X-User-Person-Id: $USER_ID\" \
+        -H \"Content-Type: $CONTENT_TYPE\" \
+        -d '{
+            \"menuName\": \"更新后的菜单名称\",
+            \"menuTitle\": \"更新后的菜单标题\"
+        }'"
+    
+    execute_test "更新菜单" "$curl_cmd" "更新成功"
+}
+
+test_menu_enable() {
+    if [ -z "$MENU_ID" ]; then
+        log_warning "跳过菜单启用测试 - 菜单ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X PUT \"$BASE_URL/api/v1/menus/$MENU_ID/enable\" \
+        -H \"X-User-Person-Id: $USER_ID\""
+    
+    execute_test "启用菜单" "$curl_cmd" "启用成功"
+}
+
+test_menu_disable() {
+    if [ -z "$MENU_ID" ]; then
+        log_warning "跳过菜单停用测试 - 菜单ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X PUT \"$BASE_URL/api/v1/menus/$MENU_ID/disable\" \
+        -H \"X-User-Person-Id: $USER_ID\""
+    
+    execute_test "停用菜单" "$curl_cmd" "停用成功"
+}
+
+# ==================== 权限管理接口测试 ====================
+
+test_permission_create() {
+    log_info "开始权限管理接口测试"
+    
+    local curl_cmd="curl -s -X POST \"$BASE_URL/api/v1/permissions\" \
+        -H \"X-User-Person-Id: $USER_ID\" \
+        -H \"X-Tenant-Id: $TENANT_ID\" \
+        -H \"Content-Type: $CONTENT_TYPE\" \
+        -d '{
+            \"permissionCode\": \"$PERMISSION_CODE\",
+            \"permissionName\": \"测试权限\",
+            \"permissionDesc\": \"这是一个测试权限\"
+        }'"
+    
+    if execute_test "创建权限" "$curl_cmd" "success"; then
+        PERMISSION_ID=$(extract_id "$response")
+        log_info "创建的权限ID: $PERMISSION_ID"
+    fi
+}
+
+test_permission_update() {
+    if [ -z "$PERMISSION_ID" ]; then
+        log_warning "跳过权限更新测试 - 权限ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X PUT \"$BASE_URL/api/v1/permissions/$PERMISSION_ID\" \
+        -H \"X-User-Person-Id: $USER_ID\" \
+        -H \"Content-Type: $CONTENT_TYPE\" \
+        -d '{
+            \"permissionName\": \"更新后的权限名称\",
+            \"permissionDesc\": \"更新后的权限描述\"
+        }'"
+    
+    execute_test "更新权限" "$curl_cmd" "更新成功"
+}
+
+test_permission_enable() {
+    if [ -z "$PERMISSION_ID" ]; then
+        log_warning "跳过权限启用测试 - 权限ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X PUT \"$BASE_URL/api/v1/permissions/$PERMISSION_ID/enable\" \
+        -H \"X-User-Person-Id: $USER_ID\""
+    
+    execute_test "启用权限" "$curl_cmd" "启用成功"
+}
+
+test_permission_disable() {
+    if [ -z "$PERMISSION_ID" ]; then
+        log_warning "跳过权限停用测试 - 权限ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X PUT \"$BASE_URL/api/v1/permissions/$PERMISSION_ID/disable\" \
+        -H \"X-User-Person-Id: $USER_ID\""
+    
+    execute_test "停用权限" "$curl_cmd" "停用成功"
+}
+
+# ==================== 角色管理接口测试 ====================
+
+test_role_create() {
+    log_info "开始角色管理接口测试"
+    
+    local curl_cmd="curl -s -X POST \"$BASE_URL/api/v1/roles\" \
+        -H \"X-User-Person-Id: $USER_ID\" \
+        -H \"X-Tenant-Id: $TENANT_ID\" \
+        -H \"Content-Type: $CONTENT_TYPE\" \
+        -d '{
+            \"roleCode\": \"$ROLE_CODE\",
+            \"roleName\": \"测试角色\",
+            \"roleDesc\": \"这是一个测试角色\"
+        }'"
+    
+    if execute_test "创建角色" "$curl_cmd" "success"; then
+        ROLE_ID=$(extract_id "$response")
+        log_info "创建的角色ID: $ROLE_ID"
+    fi
+}
+
+test_role_update() {
+    if [ -z "$ROLE_ID" ]; then
+        log_warning "跳过角色更新测试 - 角色ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X PUT \"$BASE_URL/api/v1/roles/$ROLE_ID\" \
+        -H \"X-User-Person-Id: $USER_ID\" \
+        -H \"Content-Type: $CONTENT_TYPE\" \
+        -d '{
+            \"roleName\": \"更新后的角色名称\",
+            \"roleDesc\": \"更新后的角色描述\"
+        }'"
+    
+    execute_test "更新角色" "$curl_cmd" "更新成功"
+}
+
+test_role_enable() {
+    if [ -z "$ROLE_ID" ]; then
+        log_warning "跳过角色启用测试 - 角色ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X PUT \"$BASE_URL/api/v1/roles/$ROLE_ID/enable\" \
+        -H \"X-User-Person-Id: $USER_ID\""
+    
+    execute_test "启用角色" "$curl_cmd" "启用成功"
+}
+
+test_role_disable() {
+    if [ -z "$ROLE_ID" ]; then
+        log_warning "跳过角色停用测试 - 角色ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X PUT \"$BASE_URL/api/v1/roles/$ROLE_ID/disable\" \
+        -H \"X-User-Person-Id: $USER_ID\""
+    
+    execute_test "停用角色" "$curl_cmd" "停用成功"
+}
+
+test_role_assign_permissions() {
+    if [ -z "$ROLE_ID" ] || [ -z "$PERMISSION_ID" ]; then
+        log_warning "跳过角色权限分配测试 - 角色ID或权限ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X POST \"$BASE_URL/api/v1/roles/$ROLE_ID/permissions\" \
+        -H \"Content-Type: $CONTENT_TYPE\" \
+        -d '[\"$PERMISSION_ID\"]'"
+    
+    execute_test "为角色分配权限" "$curl_cmd" "权限分配成功"
+}
+
+test_role_assign_menus() {
+    if [ -z "$ROLE_ID" ] || [ -z "$MENU_ID" ]; then
+        log_warning "跳过角色菜单分配测试 - 角色ID或菜单ID为空"
+        return
+    fi
+    
+    local curl_cmd="curl -s -X POST \"$BASE_URL/api/v1/roles/$ROLE_ID/menus\" \
+        -H \"Content-Type: $CONTENT_TYPE\" \
+        -d '[\"$MENU_ID\"]'"
+    
+    execute_test "为角色分配菜单" "$curl_cmd" "菜单分配成功"
+}
+
+# ==================== 异常测试 ====================
+
+test_error_scenarios() {
+    log_info "开始异常场景测试"
+    
+    # 测试重复创建（相同code）
+    local curl_cmd="curl -s -X POST \"$BASE_URL/api/v1/menus\" \
+        -H \"X-User-Person-Id: $USER_ID\" \
+        -H \"X-Tenant-Id: $TENANT_ID\" \
+        -H \"Content-Type: $CONTENT_TYPE\" \
+        -d '{
+            \"menuCode\": \"$MENU_CODE\",
+            \"menuName\": \"重复菜单\",
+            \"menuTitle\": \"重复菜单标题\",
+            \"parentMenuId\": null
+        }'"
+    
+    execute_test "重复菜单编码测试" "$curl_cmd" "failure\\|error\\|已存在"
+    
+    # 测试访问不存在的资源
+    local curl_cmd="curl -s -X GET \"$BASE_URL/api/v1/menus/non-existent-id\""
+    execute_test "访问不存在菜单测试" "$curl_cmd" "failure\\|error\\|不存在\\|404"
+}
+
+# ==================== 清理测试数据 ====================
+
+cleanup_test_data() {
+    log_info "开始清理测试数据"
+    
+    # 删除角色
+    if [ ! -z "$ROLE_ID" ]; then
+        curl -s -X DELETE "$BASE_URL/api/v1/roles/$ROLE_ID" >/dev/null 2>&1
+        log_info "删除测试角色: $ROLE_ID"
+    fi
+    
+    # 删除权限
+    if [ ! -z "$PERMISSION_ID" ]; then
+        curl -s -X DELETE "$BASE_URL/api/v1/permissions/$PERMISSION_ID" >/dev/null 2>&1
+        log_info "删除测试权限: $PERMISSION_ID"
+    fi
+    
+    # 删除菜单
+    if [ ! -z "$MENU_ID" ]; then
+        curl -s -X DELETE "$BASE_URL/api/v1/menus/$MENU_ID" >/dev/null 2>&1
+        log_info "删除测试菜单: $MENU_ID"
+    fi
+}
+
+# ==================== 主测试流程 ====================
+
+main() {
+    echo "========================================"
+    echo "       auth模块接口自动化测试"
+    echo "========================================"
+    echo "开始时间: $(date)"
+    echo "基础URL: $BASE_URL"
+    echo "测试租户: $TENANT_ID"
+    echo "测试用户: $USER_ID"
+    echo "========================================"
+    
+    # 检查服务是否可用
+    log_info "检查服务连通性..."
+    if ! curl -s "$BASE_URL/health" >/dev/null 2>&1; then
+        log_error "服务不可用，请检查服务是否启动"
+        exit 1
+    fi
+    log_success "服务连通性检查通过"
+    
+    # 菜单管理测试
+    test_menu_create
+    test_menu_update
+    test_menu_enable
+    test_menu_disable
+    
+    # 权限管理测试
+    test_permission_create
+    test_permission_update
+    test_permission_enable
+    test_permission_disable
+    
+    # 角色管理测试
+    test_role_create
+    test_role_update
+    test_role_enable
+    test_role_disable
+    test_role_assign_permissions
+    test_role_assign_menus
+    
+    # 异常场景测试
+    test_error_scenarios
+    
+    # 清理测试数据
+    cleanup_test_data
+    
+    # 测试报告
+    echo "========================================"
+    echo "            测试结果统计"
+    echo "========================================"
+    echo "总测试数: $TOTAL_TESTS"
+    echo "通过数: $PASSED_TESTS"
+    echo "失败数: $FAILED_TESTS"
+    echo "通过率: $(echo "scale=2; $PASSED_TESTS * 100 / $TOTAL_TESTS" | bc)%"
+    echo "结束时间: $(date)"
+    echo "========================================"
+    
+    if [ $FAILED_TESTS -eq 0 ]; then
+        log_success "所有测试通过！"
+        exit 0
+    else
+        log_error "存在测试失败！"
+        exit 1
+    fi
+}
+
+# 脚本使用说明
+usage() {
+    echo "用法: $0 [选项]"
+    echo "选项:"
+    echo "  -h, --help     显示帮助信息"
+    echo "  -u, --url      设置基础URL (默认: http://localhost:8080)"
+    echo "  -t, --tenant   设置测试租户ID (默认: test-tenant-001)"
+    echo "  -o, --user     设置测试用户ID (默认: test-user-001)"
+    echo ""
+    echo "示例:"
+    echo "  $0"
+    echo "  $0 -u http://192.168.1.100:8080 -t my-tenant -o my-user"
+}
+
+# 参数解析
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        -u|--url)
+            BASE_URL="$2"
+            shift 2
+            ;;
+        -t|--tenant)
+            TENANT_ID="$2"
+            shift 2
+            ;;
+        -o|--user)
+            USER_ID="$2"
+            shift 2
+            ;;
+        *)
+            echo "未知参数: $1"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+# 执行主函数
+main

@@ -1,7 +1,7 @@
 package com.jiuxi.module.auth.app.service;
 
-import com.jiuxi.module.auth.domain.entity.Permission;
-import com.jiuxi.module.auth.domain.entity.PermissionType;
+import com.jiuxi.module.auth.domain.model.entity.Permission;
+import com.jiuxi.module.auth.domain.model.entity.PermissionType;
 import com.jiuxi.module.auth.domain.repo.PermissionRepository;
 import com.jiuxi.module.auth.domain.service.PermissionDomainService;
 import com.jiuxi.module.auth.domain.service.PermissionCacheService;

@@ -1,9 +1,9 @@
 package com.jiuxi.module.auth.domain.service;
 
-import com.jiuxi.module.auth.domain.entity.Menu;
-import com.jiuxi.module.auth.domain.entity.Permission;
-import com.jiuxi.module.auth.domain.entity.Role;
-import com.jiuxi.module.auth.domain.entity.RoleType;
+import com.jiuxi.module.auth.domain.model.entity.Menu;
+import com.jiuxi.module.auth.domain.model.entity.Permission;
+import com.jiuxi.module.auth.domain.model.entity.Role;
+import com.jiuxi.module.auth.domain.model.entity.RoleType;
 import com.jiuxi.module.auth.domain.event.PermissionAssignedEvent;
 import com.jiuxi.module.auth.domain.event.RoleCreatedEvent;
 import com.jiuxi.module.auth.domain.repo.MenuRepository;

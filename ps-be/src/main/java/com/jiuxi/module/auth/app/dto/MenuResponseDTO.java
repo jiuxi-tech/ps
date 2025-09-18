@@ -1,7 +1,7 @@
 package com.jiuxi.module.auth.app.dto;
 
-import com.jiuxi.module.auth.domain.entity.MenuType;
-import com.jiuxi.module.auth.domain.entity.MenuStatus;
+import com.jiuxi.module.auth.domain.model.entity.MenuType;
+import com.jiuxi.module.auth.domain.model.entity.MenuStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;

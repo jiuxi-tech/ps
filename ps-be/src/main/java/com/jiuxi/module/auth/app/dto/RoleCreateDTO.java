@@ -1,6 +1,6 @@
 package com.jiuxi.module.auth.app.dto;
 
-import com.jiuxi.module.auth.domain.entity.RoleType;
+import com.jiuxi.module.auth.domain.model.entity.RoleType;
 
 /**
  * 角色创建DTO

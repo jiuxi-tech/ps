@@ -1,6 +1,6 @@
 package com.jiuxi.module.auth.app.assembler;
 
-import com.jiuxi.module.auth.domain.entity.Permission;
+import com.jiuxi.module.auth.domain.model.entity.Permission;
 import com.jiuxi.module.auth.app.dto.PermissionResponseDTO;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @author DDD Refactor
  * @date 2025-09-06
  */
-@Component
+@Component("permissionAppAssembler")
 public class PermissionAssembler {
     
     /**

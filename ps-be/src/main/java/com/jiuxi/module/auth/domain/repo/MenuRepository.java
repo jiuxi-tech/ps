@@ -1,6 +1,6 @@
 package com.jiuxi.module.auth.domain.repo;
 
-import com.jiuxi.module.auth.domain.entity.Menu;
+import com.jiuxi.module.auth.domain.model.entity.Menu;
 import java.util.List;
 import java.util.Optional;
 

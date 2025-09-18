@@ -1,6 +1,6 @@
 package com.jiuxi.module.auth.app.dto;
 
-import com.jiuxi.module.auth.domain.entity.MenuType;
+import com.jiuxi.module.auth.domain.model.entity.MenuType;
 
 /**
  * 菜单创建DTO

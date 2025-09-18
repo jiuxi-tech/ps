@@ -1,6 +1,6 @@
 package com.jiuxi.module.auth.domain.repo;
 
-import com.jiuxi.module.auth.domain.entity.Role;
+import com.jiuxi.module.auth.domain.model.entity.Role;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,4 +79,18 @@ public interface RoleRepository {
      * @return 是否存在
      */
     boolean existsByRoleCode(String roleCode, String tenantId, String excludeRoleId);
+    
+    /**
+     * 检查角色是否有关联的用户
+     * @param roleId 角色ID
+     * @return 是否有关联用户
+     */
+    boolean hasAssociatedUsers(String roleId);
+    
+    /**
+     * 检查角色是否有子角色
+     * @param roleId 角色ID
+     * @return 是否有子角色
+     */
+    boolean hasChildRoles(String roleId);
 }

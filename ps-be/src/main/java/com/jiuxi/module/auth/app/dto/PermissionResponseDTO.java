@@ -1,7 +1,7 @@
 package com.jiuxi.module.auth.app.dto;
 
-import com.jiuxi.module.auth.domain.entity.PermissionType;
-import com.jiuxi.module.auth.domain.entity.PermissionStatus;
+import com.jiuxi.module.auth.domain.model.entity.PermissionType;
+import com.jiuxi.module.auth.domain.model.entity.PermissionStatus;
 
 import java.time.LocalDateTime;
 

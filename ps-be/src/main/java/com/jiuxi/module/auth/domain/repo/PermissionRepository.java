@@ -1,7 +1,7 @@
 package com.jiuxi.module.auth.domain.repo;
 
-import com.jiuxi.module.auth.domain.entity.Permission;
-import com.jiuxi.module.auth.domain.entity.PermissionType;
+import com.jiuxi.module.auth.domain.model.entity.Permission;
+import com.jiuxi.module.auth.domain.model.entity.PermissionType;
 import java.util.List;
 import java.util.Optional;
 

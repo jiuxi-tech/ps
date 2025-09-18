@@ -1,7 +1,7 @@
 package com.jiuxi.module.auth.domain.service;
 
-import com.jiuxi.module.auth.domain.entity.Menu;
-import com.jiuxi.module.auth.domain.entity.MenuType;
+import com.jiuxi.module.auth.domain.model.entity.Menu;
+import com.jiuxi.module.auth.domain.model.entity.MenuType;
 import org.springframework.stereotype.Service;
 
 /**

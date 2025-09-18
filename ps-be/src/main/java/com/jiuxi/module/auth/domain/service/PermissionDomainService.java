@@ -1,7 +1,7 @@
 package com.jiuxi.module.auth.domain.service;
 
-import com.jiuxi.module.auth.domain.entity.Permission;
-import com.jiuxi.module.auth.domain.entity.PermissionType;
+import com.jiuxi.module.auth.domain.model.entity.Permission;
+import com.jiuxi.module.auth.domain.model.entity.PermissionType;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,7 +1,9 @@
 package com.jiuxi.module.auth.domain.service;
 
-import com.jiuxi.module.auth.domain.entity.Permission;
-import com.jiuxi.module.auth.domain.entity.Role;
+import com.jiuxi.module.auth.domain.model.entity.Permission;
+import com.jiuxi.module.auth.domain.model.entity.Role;
+import com.jiuxi.module.auth.infra.cache.strategy.AuthCacheManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,11 @@ import java.util.Set;
 @Service
 public class PermissionCacheService {
     
-    private static final String ROLE_PERMISSIONS_CACHE = "role_permissions";
-    private static final String USER_PERMISSIONS_CACHE = "user_permissions";
+    @Autowired
+    private AuthCacheManager authCacheManager;
+    
+    private static final String ROLE_PERMISSIONS_CACHE = "rolePermissions";
+    private static final String USER_PERMISSIONS_CACHE = "userPermissions";
     private static final String ROLE_CACHE = "roles";
     private static final String PERMISSION_CACHE = "permissions";
     
@@ -181,6 +186,21 @@ public class PermissionCacheService {
      */
     @CacheEvict(value = {ROLE_PERMISSIONS_CACHE, USER_PERMISSIONS_CACHE, ROLE_CACHE, PERMISSION_CACHE}, allEntries = true)
     public void evictAllPermissionCaches() {
-        // 清除所有权限相关缓存
+        // 使用增强的缓存管理器
+        authCacheManager.evictAllAuthCaches();
+    }
+    
+    /**
+     * 根据实体变更清理缓存
+     */
+    public void evictByEntityChange(String entityType, String entityId) {
+        authCacheManager.evictByEntity(entityType, entityId);
+    }
+    
+    /**
+     * 根据租户清理缓存
+     */
+    public void evictByTenant(String tenantId) {
+        authCacheManager.evictByTenant(tenantId);
     }
 }

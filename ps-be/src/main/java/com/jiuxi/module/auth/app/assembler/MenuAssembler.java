@@ -1,6 +1,6 @@
 package com.jiuxi.module.auth.app.assembler;
 
-import com.jiuxi.module.auth.domain.entity.Menu;
+import com.jiuxi.module.auth.domain.model.entity.Menu;
 import com.jiuxi.module.auth.app.dto.MenuResponseDTO;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * @author DDD Refactor
  * @date 2025-09-06
  */
-@Component
+@Component("menuAppAssembler")
 public class MenuAssembler {
     
     /**

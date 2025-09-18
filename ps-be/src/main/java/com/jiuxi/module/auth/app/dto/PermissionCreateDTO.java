@@ -1,6 +1,6 @@
 package com.jiuxi.module.auth.app.dto;
 
-import com.jiuxi.module.auth.domain.entity.PermissionType;
+import com.jiuxi.module.auth.domain.model.entity.PermissionType;
 
 /**
  * 权限创建DTO

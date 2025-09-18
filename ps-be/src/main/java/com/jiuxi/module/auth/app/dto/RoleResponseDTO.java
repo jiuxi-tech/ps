@@ -1,8 +1,8 @@
 package com.jiuxi.module.auth.app.dto;
 
-import com.jiuxi.module.auth.domain.entity.RoleType;
-import com.jiuxi.module.auth.domain.entity.RoleStatus;
-import com.jiuxi.module.auth.domain.entity.DataScope;
+import com.jiuxi.module.auth.domain.model.entity.RoleType;
+import com.jiuxi.module.auth.domain.model.entity.RoleStatus;
+import com.jiuxi.module.auth.domain.model.entity.DataScope;
 
 import java.time.LocalDateTime;
 
