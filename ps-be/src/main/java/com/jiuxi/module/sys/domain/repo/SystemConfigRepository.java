@@ -3,7 +3,7 @@ package com.jiuxi.module.sys.domain.repo;
 import com.jiuxi.module.sys.domain.entity.SystemConfig;
 import com.jiuxi.module.sys.domain.entity.ConfigType;
 import com.jiuxi.module.sys.domain.entity.ConfigStatus;
-import com.jiuxi.module.sys.domain.valueobject.ConfigKey;
+import com.jiuxi.module.sys.domain.vo.ConfigKey;
 import java.util.List;
 import java.util.Optional;
 

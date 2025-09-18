@@ -4,6 +4,9 @@ import com.jiuxi.module.sys.domain.entity.Dictionary;
 import com.jiuxi.module.sys.app.dto.DictionaryCreateDTO;
 import com.jiuxi.module.sys.app.dto.DictionaryResponseDTO;
 import com.jiuxi.module.sys.app.dto.DictionaryUpdateDTO;
+import com.jiuxi.module.sys.app.command.dto.DictionaryCreateCommand;
+import com.jiuxi.module.sys.app.command.dto.DictionaryUpdateCommand;
+import com.jiuxi.module.sys.app.query.dto.DictionaryResponse;
 import org.springframework.stereotype.Component;
 
 /**
@@ -85,5 +88,85 @@ public class DictionaryAssembler {
         dto.setTenantId(dictionary.getTenantId());
         
         return dto;
+    }
+    
+    // CQRS 兼容方法
+    
+    /**
+     * 将DictionaryCreateCommand转换为Dictionary实体
+     * @param command 字典创建命令
+     * @return 字典实体
+     */
+    public Dictionary toEntity(DictionaryCreateCommand command) {
+        if (command == null) {
+            return null;
+        }
+        
+        Dictionary dictionary = new Dictionary();
+        dictionary.setDictCode(command.getDictCode());
+        dictionary.setDictName(command.getDictName());
+        dictionary.setDictDesc(command.getDictDesc());
+        dictionary.setDictType(command.getDictType());
+        dictionary.setStatus(command.getStatus());
+        dictionary.setDictGroup(command.getDictGroup());
+        dictionary.setParentDictId(command.getParentDictId());
+        dictionary.setOrderIndex(command.getOrderIndex());
+        dictionary.setTenantId(command.getTenantId());
+        
+        return dictionary;
+    }
+    
+    /**
+     * 将DictionaryUpdateCommand转换为Dictionary实体
+     * @param command 字典更新命令
+     * @return 字典实体
+     */
+    public Dictionary toEntity(DictionaryUpdateCommand command) {
+        if (command == null) {
+            return null;
+        }
+        
+        Dictionary dictionary = new Dictionary();
+        dictionary.setDictId(command.getDictId());
+        dictionary.setDictCode(command.getDictCode());
+        dictionary.setDictName(command.getDictName());
+        dictionary.setDictDesc(command.getDictDesc());
+        dictionary.setDictType(command.getDictType());
+        dictionary.setStatus(command.getStatus());
+        dictionary.setDictGroup(command.getDictGroup());
+        dictionary.setParentDictId(command.getParentDictId());
+        dictionary.setOrderIndex(command.getOrderIndex());
+        dictionary.setUpdator(command.getUpdator());
+        
+        return dictionary;
+    }
+    
+    /**
+     * 将Dictionary实体转换为DictionaryResponse（新的CQRS响应）
+     * @param dictionary 字典实体
+     * @return 字典响应
+     */
+    public DictionaryResponse toResponse(Dictionary dictionary) {
+        if (dictionary == null) {
+            return null;
+        }
+        
+        DictionaryResponse response = new DictionaryResponse();
+        response.setDictId(dictionary.getDictId());
+        response.setDictCode(dictionary.getDictCode());
+        response.setDictName(dictionary.getDictName());
+        response.setDictDesc(dictionary.getDictDesc());
+        response.setDictType(dictionary.getDictType());
+        response.setStatus(dictionary.getStatus());
+        response.setDictGroup(dictionary.getDictGroup());
+        response.setParentDictId(dictionary.getParentDictId());
+        response.setOrderIndex(dictionary.getOrderIndex());
+        response.setCreator(dictionary.getCreator());
+        response.setCreateTime(dictionary.getCreateTime());
+        response.setUpdator(dictionary.getUpdator());
+        response.setUpdateTime(dictionary.getUpdateTime());
+        response.setTenantId(dictionary.getTenantId());
+        
+        return response;
     }
 }

@@ -3,13 +3,14 @@ package com.jiuxi.module.sys.infra.persistence.repository;
 import com.jiuxi.module.sys.domain.entity.SystemConfig;
 import com.jiuxi.module.sys.domain.entity.ConfigType;
 import com.jiuxi.module.sys.domain.entity.ConfigStatus;
-import com.jiuxi.module.sys.domain.valueobject.ConfigKey;
+import com.jiuxi.module.sys.domain.vo.ConfigKey;
 import com.jiuxi.module.sys.domain.repo.SystemConfigRepository;
 import com.jiuxi.module.sys.infra.persistence.entity.SystemConfigPO;
 import com.jiuxi.module.sys.infra.persistence.mapper.SystemConfigMapper;
 import com.jiuxi.module.sys.infra.persistence.assembler.SystemConfigPOAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +34,20 @@ public class SystemConfigRepositoryImpl implements SystemConfigRepository {
     private SystemConfigPOAssembler systemConfigPOAssembler;
     
     @Override
+    @Transactional
     public SystemConfig save(SystemConfig systemConfig) {
-        // 转换实体为持久化对象
-        SystemConfigPO systemConfigPO = systemConfigPOAssembler.toPO(systemConfig);
-        
-        // 保存持久化对象
-        systemConfigMapper.insert(systemConfigPO);
-        
-        // 转换回实体
-        return systemConfigPOAssembler.toEntity(systemConfigPO);
+        try {
+            // 转换实体为持久化对象
+            SystemConfigPO systemConfigPO = systemConfigPOAssembler.toPO(systemConfig);
+            
+            // 保存持久化对象
+            systemConfigMapper.insert(systemConfigPO);
+            
+            // 转换回实体
+            return systemConfigPOAssembler.toEntity(systemConfigPO);
+        } catch (Exception e) {
+            throw new RuntimeException("保存系统配置失败: " + e.getMessage(), e);
+        }
     }
     
     @Override
@@ -59,9 +65,14 @@ public class SystemConfigRepositoryImpl implements SystemConfigRepository {
     }
     
     @Override
+    @Transactional
     public void deleteById(String configId) {
-        // 逻辑删除
-        systemConfigMapper.deleteById(configId);
+        try {
+            // 逻辑删除
+            systemConfigMapper.deleteById(configId);
+        } catch (Exception e) {
+            throw new RuntimeException("删除系统配置失败: " + e.getMessage(), e);
+        }
     }
     
     @Override
@@ -88,59 +99,126 @@ public class SystemConfigRepositoryImpl implements SystemConfigRepository {
     
     @Override
     public List<SystemConfig> findByConfigType(ConfigType configType, String tenantId) {
-        // 默认实现：返回空列表，实际应用中需要实现Mapper查询
-        // TODO: 实现Mapper中的findByConfigTypeAndTenantId方法
-        return new ArrayList<>();
+        // 使用MyBatis Plus QueryWrapper实现查询
+        com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<SystemConfigPO> queryWrapper = 
+            new com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<>();
+        queryWrapper.eq("config_type", configType.getCode())
+                   .eq("tenant_id", tenantId);
+        
+        List<SystemConfigPO> systemConfigPOs = systemConfigMapper.selectList(queryWrapper);
+        return systemConfigPOs.stream()
+                .map(systemConfigPOAssembler::toEntity)
+                .collect(java.util.stream.Collectors.toList());
     }
     
     @Override
     public List<SystemConfig> findByConfigStatus(ConfigStatus configStatus, String tenantId) {
-        // 默认实现：返回空列表
-        // TODO: 实现Mapper中的findByStatusAndTenantId方法
-        return new ArrayList<>();
+        // 使用MyBatis Plus QueryWrapper实现查询
+        com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<SystemConfigPO> queryWrapper = 
+            new com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<>();
+        queryWrapper.eq("config_status", configStatus.getCode())
+                   .eq("tenant_id", tenantId);
+        
+        List<SystemConfigPO> systemConfigPOs = systemConfigMapper.selectList(queryWrapper);
+        return systemConfigPOs.stream()
+                .map(systemConfigPOAssembler::toEntity)
+                .collect(java.util.stream.Collectors.toList());
     }
     
     @Override
     public List<SystemConfig> findByKeyPrefix(String keyPrefix, String tenantId) {
-        // 默认实现：返回空列表
-        // TODO: 实现Mapper中的findByKeyPrefixAndTenantId方法
-        return new ArrayList<>();
+        // 使用MyBatis Plus QueryWrapper实现前缀查询
+        com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<SystemConfigPO> queryWrapper = 
+            new com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<>();
+        queryWrapper.likeRight("config_key", keyPrefix)
+                   .eq("tenant_id", tenantId);
+        
+        List<SystemConfigPO> systemConfigPOs = systemConfigMapper.selectList(queryWrapper);
+        return systemConfigPOs.stream()
+                .map(systemConfigPOAssembler::toEntity)
+                .collect(java.util.stream.Collectors.toList());
     }
     
     @Override
     public List<SystemConfig> findByConfigGroup(String configGroup, String tenantId) {
-        // 默认实现：返回空列表
-        // TODO: 实现Mapper中的findByConfigGroupAndTenantId方法
-        return new ArrayList<>();
+        // 使用MyBatis Plus QueryWrapper实现查询
+        com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<SystemConfigPO> queryWrapper = 
+            new com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<>();
+        queryWrapper.eq("config_group", configGroup)
+                   .eq("tenant_id", tenantId);
+        
+        List<SystemConfigPO> systemConfigPOs = systemConfigMapper.selectList(queryWrapper);
+        return systemConfigPOs.stream()
+                .map(systemConfigPOAssembler::toEntity)
+                .collect(java.util.stream.Collectors.toList());
     }
     
     @Override
     public List<SystemConfig> findSystemLevelConfigs(String tenantId) {
-        // 默认实现：返回空列表
-        // TODO: 实现Mapper中的findSystemLevelConfigsByTenantId方法
-        return new ArrayList<>();
+        // 查找系统级配置
+        com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<SystemConfigPO> queryWrapper = 
+            new com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<>();
+        queryWrapper.eq("is_system_level", true)
+                   .eq("tenant_id", tenantId);
+        
+        List<SystemConfigPO> systemConfigPOs = systemConfigMapper.selectList(queryWrapper);
+        return systemConfigPOs.stream()
+                .map(systemConfigPOAssembler::toEntity)
+                .collect(java.util.stream.Collectors.toList());
     }
     
     @Override
     public List<SystemConfig> findActiveConfigs(String tenantId) {
-        // 默认实现：返回空列表
-        // TODO: 实现Mapper中的findActiveConfigsByTenantId方法
-        return new ArrayList<>();
+        // 查找激活状态的配置
+        com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<SystemConfigPO> queryWrapper = 
+            new com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<>();
+        queryWrapper.eq("config_status", "ACTIVE")
+                   .eq("tenant_id", tenantId);
+        
+        List<SystemConfigPO> systemConfigPOs = systemConfigMapper.selectList(queryWrapper);
+        return systemConfigPOs.stream()
+                .map(systemConfigPOAssembler::toEntity)
+                .collect(java.util.stream.Collectors.toList());
     }
     
     @Override
+    @Transactional
     public List<SystemConfig> batchSave(List<SystemConfig> systemConfigs) {
-        // 默认实现：逐个保存
-        return systemConfigs.stream()
-                .map(this::save)
-                .collect(Collectors.toList());
+        if (systemConfigs == null || systemConfigs.isEmpty()) {
+            return new ArrayList<>();
+        }
+        
+        try {
+            // 转换为PO对象列表
+            List<SystemConfigPO> systemConfigPOs = systemConfigs.stream()
+                    .map(systemConfigPOAssembler::toPO)
+                    .collect(Collectors.toList());
+            
+            // 批量插入（MyBatis Plus支持）
+            for (SystemConfigPO po : systemConfigPOs) {
+                systemConfigMapper.insert(po);
+            }
+            
+            // 转换回实体列表
+            return systemConfigPOs.stream()
+                    .map(systemConfigPOAssembler::toEntity)
+                    .collect(Collectors.toList());
+                    
+        } catch (Exception e) {
+            throw new RuntimeException("批量保存系统配置失败: " + e.getMessage(), e);
+        }
     }
     
     @Override
     public long countByTypeAndStatus(ConfigType configType, ConfigStatus configStatus, String tenantId) {
-        // 默认实现：返回0
-        // TODO: 实现Mapper中的countByTypeAndStatusAndTenantId方法
-        return 0;
+        // 使用MyBatis Plus QueryWrapper实现统计
+        com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<SystemConfigPO> queryWrapper = 
+            new com.baomidou.mybatisplus.core.conditions.query.QueryWrapper<>();
+        queryWrapper.eq("config_type", configType.getCode())
+                   .eq("config_status", configStatus.getCode())
+                   .eq("tenant_id", tenantId);
+        
+        return systemConfigMapper.selectCount(queryWrapper);
     }
     
     @Override

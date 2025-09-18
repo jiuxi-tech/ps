@@ -7,6 +7,7 @@ import com.jiuxi.module.sys.infra.persistence.mapper.DictionaryItemMapper;
 import com.jiuxi.module.sys.infra.persistence.assembler.DictionaryItemPOAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,15 +30,20 @@ public class DictionaryItemRepositoryImpl implements DictionaryItemRepository {
     private DictionaryItemPOAssembler dictionaryItemPOAssembler;
     
     @Override
+    @Transactional
     public DictionaryItem save(DictionaryItem dictionaryItem) {
-        // 转换实体为持久化对象
-        DictionaryItemPO dictionaryItemPO = dictionaryItemPOAssembler.toPO(dictionaryItem);
-        
-        // 保存持久化对象
-        dictionaryItemMapper.insert(dictionaryItemPO);
-        
-        // 转换回实体
-        return dictionaryItemPOAssembler.toEntity(dictionaryItemPO);
+        try {
+            // 转换实体为持久化对象
+            DictionaryItemPO dictionaryItemPO = dictionaryItemPOAssembler.toPO(dictionaryItem);
+            
+            // 保存持久化对象
+            dictionaryItemMapper.insert(dictionaryItemPO);
+            
+            // 转换回实体
+            return dictionaryItemPOAssembler.toEntity(dictionaryItemPO);
+        } catch (Exception e) {
+            throw new RuntimeException("保存字典项失败: " + e.getMessage(), e);
+        }
     }
     
     @Override
@@ -55,9 +61,14 @@ public class DictionaryItemRepositoryImpl implements DictionaryItemRepository {
     }
     
     @Override
+    @Transactional
     public void deleteById(String itemId) {
-        // 逻辑删除
-        dictionaryItemMapper.deleteById(itemId);
+        try {
+            // 逻辑删除
+            dictionaryItemMapper.deleteById(itemId);
+        } catch (Exception e) {
+            throw new RuntimeException("删除字典项失败: " + e.getMessage(), e);
+        }
     }
     
     @Override

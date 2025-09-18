@@ -1,4 +1,4 @@
-package com.jiuxi.module.sys.domain.repository;
+package com.jiuxi.module.sys.domain.repo;
 
 import com.jiuxi.module.sys.domain.entity.SystemLog;
 import com.jiuxi.module.sys.domain.entity.LogType;

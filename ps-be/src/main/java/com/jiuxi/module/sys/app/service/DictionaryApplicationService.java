@@ -3,7 +3,7 @@ package com.jiuxi.module.sys.app.service;
 import com.jiuxi.module.sys.domain.entity.Dictionary;
 import com.jiuxi.module.sys.domain.entity.ConfigType;
 import com.jiuxi.module.sys.domain.entity.ConfigStatus;
-import com.jiuxi.module.sys.domain.valueobject.ConfigKey;
+import com.jiuxi.module.sys.domain.vo.ConfigKey;
 import com.jiuxi.module.sys.domain.repo.DictionaryRepository;
 import com.jiuxi.module.sys.app.assembler.DictionaryAssembler;
 import com.jiuxi.module.sys.app.dto.DictionaryCreateDTO;

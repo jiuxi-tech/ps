@@ -4,6 +4,9 @@ import com.jiuxi.module.sys.domain.entity.DictionaryItem;
 import com.jiuxi.module.sys.app.dto.DictionaryItemCreateDTO;
 import com.jiuxi.module.sys.app.dto.DictionaryItemResponseDTO;
 import com.jiuxi.module.sys.app.dto.DictionaryItemUpdateDTO;
+import com.jiuxi.module.sys.app.query.dto.DictionaryItemResponse;
+import com.jiuxi.module.sys.app.command.dto.DictionaryItemCreateCommand;
+import com.jiuxi.module.sys.app.command.dto.DictionaryItemUpdateCommand;
 import org.springframework.stereotype.Component;
 
 /**
@@ -81,6 +84,7 @@ public class DictionaryItemAssembler {
         dto.setItemDesc(dictionaryItem.getItemDesc());
         dto.setStatus(dictionaryItem.getStatus());
         dto.setOrderIndex(dictionaryItem.getOrderIndex());
+        dto.setIsDefault(dictionaryItem.getIsDefault());
         dto.setCreator(dictionaryItem.getCreator());
         dto.setCreateTime(dictionaryItem.getCreateTime());
         dto.setUpdator(dictionaryItem.getUpdator());
@@ -88,5 +92,85 @@ public class DictionaryItemAssembler {
         dto.setTenantId(dictionaryItem.getTenantId());
         
         return dto;
+    }
+    
+    /**
+     * 将DictionaryItem实体转换为DictionaryItemResponse（新的CQRS响应）
+     * @param dictionaryItem 字典项实体
+     * @return 字典项响应
+     */
+    public DictionaryItemResponse toResponse(DictionaryItem dictionaryItem) {
+        if (dictionaryItem == null) {
+            return null;
+        }
+        
+        DictionaryItemResponse response = new DictionaryItemResponse();
+        response.setItemId(dictionaryItem.getItemId());
+        response.setDictId(dictionaryItem.getDictId());
+        response.setItemCode(dictionaryItem.getItemCode());
+        response.setItemName(dictionaryItem.getItemName());
+        response.setItemValue(dictionaryItem.getItemValue());
+        response.setItemDesc(dictionaryItem.getItemDesc());
+        response.setStatus(dictionaryItem.getStatus());
+        response.setOrderIndex(dictionaryItem.getOrderIndex());
+        response.setIsDefault(dictionaryItem.getIsDefault());
+        response.setCreator(dictionaryItem.getCreator());
+        response.setCreateTime(dictionaryItem.getCreateTime());
+        response.setUpdator(dictionaryItem.getUpdator());
+        response.setUpdateTime(dictionaryItem.getUpdateTime());
+        response.setTenantId(dictionaryItem.getTenantId());
+        
+        return response;
+    }
+    
+    // CQRS 兼容方法 - Command DTOs
+    
+    /**
+     * 将DictionaryItemCreateCommand转换为DictionaryItem实体
+     * @param command 字典项创建命令
+     * @return 字典项实体
+     */
+    public DictionaryItem toEntity(DictionaryItemCreateCommand command) {
+        if (command == null) {
+            return null;
+        }
+        
+        DictionaryItem dictionaryItem = new DictionaryItem();
+        dictionaryItem.setDictId(command.getDictId());
+        dictionaryItem.setItemCode(command.getItemCode());
+        dictionaryItem.setItemName(command.getItemName());
+        dictionaryItem.setItemValue(command.getItemValue());
+        dictionaryItem.setItemDesc(command.getItemDesc());
+        dictionaryItem.setStatus(command.getStatus());
+        dictionaryItem.setOrderIndex(command.getOrderIndex());
+        dictionaryItem.setIsDefault(command.getIsDefault());
+        dictionaryItem.setTenantId(command.getTenantId());
+        
+        return dictionaryItem;
+    }
+    
+    /**
+     * 将DictionaryItemUpdateCommand转换为DictionaryItem实体
+     * @param command 字典项更新命令
+     * @return 字典项实体
+     */
+    public DictionaryItem toEntity(DictionaryItemUpdateCommand command) {
+        if (command == null) {
+            return null;
+        }
+        
+        DictionaryItem dictionaryItem = new DictionaryItem();
+        dictionaryItem.setItemId(command.getItemId());
+        dictionaryItem.setDictId(command.getDictId());
+        dictionaryItem.setItemCode(command.getItemCode());
+        dictionaryItem.setItemName(command.getItemName());
+        dictionaryItem.setItemValue(command.getItemValue());
+        dictionaryItem.setItemDesc(command.getItemDesc());
+        dictionaryItem.setStatus(command.getStatus());
+        dictionaryItem.setOrderIndex(command.getOrderIndex());
+        dictionaryItem.setIsDefault(command.getIsDefault());
+        dictionaryItem.setUpdator(command.getUpdator());
+        
+        return dictionaryItem;
     }
 }

@@ -53,6 +53,11 @@ public class DictionaryItem {
     private Integer orderIndex;
     
     /**
+     * 是否默认项
+     */
+    private Boolean isDefault;
+    
+    /**
      * 创建信息
      */
     private String creator;
@@ -207,6 +212,14 @@ public class DictionaryItem {
     
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
+    }
+    
+    public Boolean getIsDefault() {
+        return isDefault;
+    }
+    
+    public void setIsDefault(Boolean isDefault) {
+        this.isDefault = isDefault;
     }
     
     @Override

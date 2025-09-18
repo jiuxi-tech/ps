@@ -91,7 +91,9 @@ public class DictionaryChangedEvent {
         UPDATED("UPDATED", "更新"),
         DELETED("DELETED", "删除"),
         STATUS_CHANGED("STATUS_CHANGED", "状态变更"),
-        STRUCTURE_CHANGED("STRUCTURE_CHANGED", "结构变更");
+        STRUCTURE_CHANGED("STRUCTURE_CHANGED", "结构变更"),
+        NAME_CHANGED("NAME_CHANGED", "名称变更"),
+        RELOADED("RELOADED", "重新加载");
         
         private final String code;
         private final String description;

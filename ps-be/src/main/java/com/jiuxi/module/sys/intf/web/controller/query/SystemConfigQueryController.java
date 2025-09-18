@@ -1,4 +1,4 @@
-package com.jiuxi.module.sys.interfaces.web;
+package com.jiuxi.module.sys.intf.web.controller.query;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.jiuxi.admin.core.bean.query.TpSystemConfigQuery;
@@ -10,21 +10,20 @@ import com.jiuxi.shared.common.annotation.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 /**
- * 系统配置管理控制器
- * 整合了原system模块的SystemConfigManagementController功能
+ * 系统配置管理查询控制器
+ * 负责系统配置相关的数据查询操作 (Read)
+ * 基于CQRS架构设计，专注于处理查询操作
  * 
- * @author DDD重构 (Merged from system module)
- * @date 2025-09-12
+ * @author DDD Refactor - Phase 6 (Separated from SystemConfigController)
+ * @date 2025-09-18
  */
 @RestController
 @RequestMapping("/sys/config")
 @Authorization
-public class SystemConfigController {
+public class SystemConfigQueryController {
 
     @Autowired
     private SystemConfigApplicationService systemConfigApplicationService;
@@ -36,29 +35,6 @@ public class SystemConfigController {
     public JsonResponse list(TpSystemConfigQuery query) {
         IPage<TpSystemConfigVO> page = systemConfigApplicationService.queryPage(query);
         return JsonResponse.buildSuccess(page);
-    }
-
-    /**
-     * 批量删除配置
-     */
-    @RequestMapping("/delete")
-    public JsonResponse delete(@RequestParam String configKeys) {
-        List<String> keyList = Arrays.asList(configKeys.split(","));
-        for (String configKey : keyList) {
-            systemConfigApplicationService.deleteConfig(configKey.trim());
-        }
-        return JsonResponse.buildSuccess();
-    }
-
-    /**
-     * 保存或更新配置
-     */
-    @RequestMapping("/save")
-    public JsonResponse save(@RequestParam String configKey, 
-                           @RequestParam String configValue, 
-                           @RequestParam(required = false) String description) {
-        systemConfigApplicationService.setConfigValue(configKey, configValue, description);
-        return JsonResponse.buildSuccess();
     }
 
     /**
@@ -95,15 +71,6 @@ public class SystemConfigController {
     public JsonResponse getAllConfigs() {
         Map<String, String> configs = systemConfigApplicationService.getAllConfigsAsMap();
         return JsonResponse.buildSuccess(configs);
-    }
-
-    /**
-     * 批量更新配置
-     */
-    @RequestMapping("/batch-update")
-    public JsonResponse batchUpdate(@RequestBody Map<String, String> configs) {
-        systemConfigApplicationService.updateConfigs(configs);
-        return JsonResponse.buildSuccess();
     }
 
     /**

@@ -214,11 +214,7 @@ org/
 │   └── cache/                           # 缓存适配器
 │       ├── config/                      # 缓存配置
 │       └── strategy/                    # 缓存策略
-└── intf/                                # 接口适配器层 (Interface Adapters)
-    ├── web/                             # Web适配器
-    │   ├── controller/                  # REST控制器
-    │   │   ├── command/                 # 命令控制器
-    │   │   └── query/                   # 查询控制器
+└──                                                          
     │   ├── dto/                         # Web层DTO
     │   │   ├── request/                 # 请求DTO
     │   │   └── response/                # 响应DTO

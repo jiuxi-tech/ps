@@ -1,6 +1,6 @@
 package com.jiuxi.module.sys.domain.entity;
 
-import com.jiuxi.module.sys.domain.valueobject.ConfigKey;
+import com.jiuxi.module.sys.domain.vo.ConfigKey;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -68,6 +68,11 @@ public class Dictionary {
      * 是否系统预置
      */
     private Boolean isSystemPreset;
+    
+    /**
+     * 是否只读
+     */
+    private Boolean isReadonly;
     
     /**
      * 上级字典ID（支持层级结构）
@@ -255,7 +260,7 @@ public class Dictionary {
     public void setDictCode(String dictCode) {
         this.dictCode = dictCode;
         // 同步更新值对象
-        if (dictCode != null) {
+        if (dictCode != null && !dictCode.trim().isEmpty()) {
             try {
                 this.dictCodeObj = new ConfigKey(dictCode);
             } catch (Exception e) {
@@ -418,6 +423,28 @@ public class Dictionary {
     
     public void setIsSystemPreset(Boolean isSystemPreset) {
         this.isSystemPreset = isSystemPreset;
+    }
+    
+    public Boolean getIsReadonly() {
+        return isReadonly;
+    }
+    
+    public void setIsReadonly(Boolean isReadonly) {
+        this.isReadonly = isReadonly;
+    }
+    
+    /**
+     * 检查是否只读
+     */
+    public boolean isReadonly() {
+        return this.isReadonly != null && this.isReadonly;
+    }
+    
+    /**
+     * 检查是否系统预置
+     */
+    public boolean isSystemPreset() {
+        return this.isSystemPreset != null && this.isSystemPreset;
     }
     
     public String getParentDictId() {

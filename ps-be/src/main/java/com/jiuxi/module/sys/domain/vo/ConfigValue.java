@@ -1,4 +1,4 @@
-package com.jiuxi.module.sys.domain.valueobject;
+package com.jiuxi.module.sys.domain.vo;
 
 import java.util.Objects;
 

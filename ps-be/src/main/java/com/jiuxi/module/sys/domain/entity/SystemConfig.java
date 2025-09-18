@@ -1,7 +1,7 @@
 package com.jiuxi.module.sys.domain.entity;
 
-import com.jiuxi.module.sys.domain.valueobject.ConfigKey;
-import com.jiuxi.module.sys.domain.valueobject.ConfigValue;
+import com.jiuxi.module.sys.domain.vo.ConfigKey;
+import com.jiuxi.module.sys.domain.vo.ConfigValue;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

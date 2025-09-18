@@ -1,4 +1,4 @@
-package com.jiuxi.module.sys.interfaces.web.controller;
+package com.jiuxi.module.sys.intf.web.controller.query;
 
 import com.jiuxi.admin.bean.MenuTreeNode;
 import com.jiuxi.admin.core.bean.vo.TpMenuVO;
@@ -7,10 +7,7 @@ import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.common.bean.TreeNode;
 import com.jiuxi.shared.common.annotation.Authorization;
 import com.jiuxi.shared.common.annotation.IgnoreAuthorization;
-import com.jiuxi.shared.common.validation.group.AddGroup;
-import com.jiuxi.shared.common.validation.group.UpdateGroup;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,16 +18,17 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @ClassName: SystemMenuManagementController
- * @Description: 系统菜单管理控制器
- * @Author DDD重构
- * @Date 2025-09-12
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * 系统菜单管理查询控制器
+ * 负责系统菜单相关的数据查询操作 (Read)
+ * 基于CQRS架构设计，专注于处理查询操作
+ * 
+ * @author DDD Refactor - Phase 6 (Separated from SystemMenuManagementController)
+ * @date 2025-09-18
  */
 @RestController
 @RequestMapping("/sys/menu")
 @Authorization
-public class SystemMenuManagementController {
+public class SystemMenuQueryController {
 
     @Autowired
     private TpMenuService tpMenuService;
@@ -97,38 +95,11 @@ public class SystemMenuManagementController {
     }
 
     /**
-     * 保存菜单信息
-     */
-    @RequestMapping("/save")
-    public JsonResponse save(@Validated(value = AddGroup.class) TpMenuVO vo, String jwtpid) {
-        TpMenuVO result = tpMenuService.save(vo, jwtpid);
-        return JsonResponse.buildSuccess(result);
-    }
-
-    /**
-     * 更新菜单信息
-     */
-    @RequestMapping("/update")
-    public JsonResponse update(@Validated(value = UpdateGroup.class) TpMenuVO vo, String jwtpid) {
-        TpMenuVO result = tpMenuService.update(vo, jwtpid);
-        return JsonResponse.buildSuccess(result);
-    }
-
-    /**
      * 查看菜单信息
      */
     @RequestMapping("/view")
     public JsonResponse view(String menuId) {
         TpMenuVO result = tpMenuService.view(menuId);
-        return JsonResponse.buildSuccess(result);
-    }
-
-    /**
-     * 删除菜单信息
-     */
-    @RequestMapping("/delete")
-    public JsonResponse delete(String menuId, String jwtpid) {
-        int result = tpMenuService.delete(menuId, jwtpid);
         return JsonResponse.buildSuccess(result);
     }
 }

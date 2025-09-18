@@ -55,6 +55,11 @@ public class DictionaryItemResponseDTO implements Serializable {
     private Integer orderIndex;
     
     /**
+     * 是否默认项
+     */
+    private Boolean isDefault;
+    
+    /**
      * 创建信息
      */
     private String creator;
@@ -174,5 +179,13 @@ public class DictionaryItemResponseDTO implements Serializable {
     
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
+    }
+    
+    public Boolean getIsDefault() {
+        return isDefault;
+    }
+    
+    public void setIsDefault(Boolean isDefault) {
+        this.isDefault = isDefault;
     }
 }

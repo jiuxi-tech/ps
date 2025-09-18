@@ -2,8 +2,8 @@ package com.jiuxi.module.sys.domain.service;
 
 import com.jiuxi.module.sys.domain.entity.ConfigStatus;
 import com.jiuxi.module.sys.domain.entity.ConfigType;
-import com.jiuxi.module.sys.domain.valueobject.ConfigKey;
-import com.jiuxi.module.sys.domain.valueobject.ConfigValue;
+import com.jiuxi.module.sys.domain.vo.ConfigKey;
+import com.jiuxi.module.sys.domain.vo.ConfigValue;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;

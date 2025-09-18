@@ -3,13 +3,14 @@ package com.jiuxi.module.sys.domain.service;
 import com.jiuxi.module.sys.domain.entity.SystemConfig;
 import com.jiuxi.module.sys.domain.entity.ConfigType;
 import com.jiuxi.module.sys.domain.entity.ConfigStatus;
-import com.jiuxi.module.sys.domain.valueobject.ConfigKey;
-import com.jiuxi.module.sys.domain.valueobject.ConfigValue;
+import com.jiuxi.module.sys.domain.vo.ConfigKey;
+import com.jiuxi.module.sys.domain.vo.ConfigValue;
 import com.jiuxi.module.sys.domain.repo.SystemConfigRepository;
 import com.jiuxi.module.sys.domain.event.ConfigurationChangedEvent;
 import com.jiuxi.module.sys.domain.service.ConfigValidationService.ValidationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -395,6 +396,104 @@ public class SystemConfigDomainService {
         );
         
         eventPublisher.publishEvent(event);
+    }
+    
+    /**
+     * 热重载配置
+     * @param configKey 配置键
+     * @param tenantId 租户ID
+     * @return 是否重载成功
+     */
+    public boolean hotReloadConfig(String configKey, String tenantId) {
+        try {
+            // 从数据库重新加载配置
+            Optional<SystemConfig> configOpt = systemConfigRepository.findByConfigKey(configKey, tenantId);
+            
+            if (configOpt.isPresent()) {
+                SystemConfig config = configOpt.get();
+                
+                // 重新缓存配置
+                systemConfigCacheService.cacheConfig(config);
+                
+                // 发布配置重载事件
+                publishConfigChangedEvent(config, null, config.getConfigValue(), 
+                        ConfigurationChangedEvent.ChangeType.RELOADED, "SYSTEM");
+                
+                return true;
+            }
+            
+            return false;
+        } catch (Exception e) {
+            throw new RuntimeException("热重载配置失败: " + e.getMessage(), e);
+        }
+    }
+    
+    /**
+     * 清理租户缓存
+     * @param tenantId 租户ID
+     */
+    public void clearCache(String tenantId) {
+        try {
+            systemConfigCacheService.evictAllConfigsForTenant(tenantId);
+        } catch (Exception e) {
+            throw new RuntimeException("清理缓存失败: " + e.getMessage(), e);
+        }
+    }
+    
+    /**
+     * 批量热重载配置
+     * @param configKeys 配置键列表
+     * @param tenantId 租户ID
+     * @return 重载成功的配置数量
+     */
+    @Async
+    public int batchHotReloadConfigs(List<String> configKeys, String tenantId) {
+        int successCount = 0;
+        
+        for (String configKey : configKeys) {
+            try {
+                if (hotReloadConfig(configKey, tenantId)) {
+                    successCount++;
+                }
+            } catch (Exception e) {
+                // 记录日志，但继续处理其他配置
+                System.err.println("热重载配置失败: " + configKey + ", 错误: " + e.getMessage());
+            }
+        }
+        
+        return successCount;
+    }
+    
+    /**
+     * 智能缓存刷新
+     * 根据配置访问频率和重要性进行缓存刷新
+     * @param tenantId 租户ID
+     */
+    @Async
+    public void smartCacheRefresh(String tenantId) {
+        try {
+            // 获取系统级配置进行预热
+            List<SystemConfig> systemConfigs = getSystemLevelConfigs(tenantId);
+            systemConfigs.forEach(config -> {
+                systemConfigCacheService.cacheConfig(config);
+            });
+            
+            // 获取激活配置进行预热
+            List<SystemConfig> activeConfigs = getActiveConfigs(tenantId);
+            systemConfigCacheService.warmupCache(tenantId, activeConfigs);
+            
+        } catch (Exception e) {
+            throw new RuntimeException("智能缓存刷新失败: " + e.getMessage(), e);
+        }
+    }
+    
+    /**
+     * 获取缓存健康状态
+     * @param tenantId 租户ID
+     * @return 缓存统计信息
+     */
+    public SystemConfigCacheService.CacheStats getCacheHealthStatus(String tenantId) {
+        return systemConfigCacheService.getCacheStats(tenantId);
     }
     
     /**

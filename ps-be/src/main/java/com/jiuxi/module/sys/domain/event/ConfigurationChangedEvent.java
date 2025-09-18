@@ -85,7 +85,8 @@ public class ConfigurationChangedEvent {
         UPDATED("UPDATED", "更新"),
         DELETED("DELETED", "删除"),
         STATUS_CHANGED("STATUS_CHANGED", "状态变更"),
-        VALUE_CHANGED("VALUE_CHANGED", "值变更");
+        VALUE_CHANGED("VALUE_CHANGED", "值变更"),
+        RELOADED("RELOADED", "重新加载");
         
         private final String code;
         private final String description;

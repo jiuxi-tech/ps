@@ -1,0 +1,279 @@
+# sys模块接口测试脚本
+
+## 脚本说明
+本脚本提供sys模块所有接口的自动化测试命令，使用curl命令进行接口测试。
+
+## 环境配置
+BASE_URL=http://localhost:8080
+CONTENT_TYPE="Content-Type: application/json"
+
+## 1. 字典管理接口测试脚本
+
+### 1.1 创建字典测试
+echo "=== 创建字典测试 ==="
+
+# 测试用例1：成功创建字典
+curl -X POST "${BASE_URL}/system/dictionary" \
+  -H "${CONTENT_TYPE}" \
+  -d '{
+    "dictCode": "TEST_DICT_001",
+    "dictName": "测试字典",
+    "dictDesc": "这是一个测试字典",
+    "dictType": "BUSINESS",
+    "status": "ACTIVE",
+    "orderIndex": 1,
+    "tenantId": "default"
+  }' \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+# 测试用例2：重复字典编码测试
+curl -X POST "${BASE_URL}/system/dictionary" \
+  -H "${CONTENT_TYPE}" \
+  -d '{
+    "dictCode": "TEST_DICT_001",
+    "dictName": "重复编码字典",
+    "dictDesc": "测试重复编码"
+  }' \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+# 测试用例3：必填字段为空测试
+curl -X POST "${BASE_URL}/system/dictionary" \
+  -H "${CONTENT_TYPE}" \
+  -d '{
+    "dictCode": "",
+    "dictName": "空编码字典"
+  }' \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+### 1.2 更新字典测试
+echo "=== 更新字典测试 ==="
+
+# 测试用例1：成功更新字典（需要先获取实际的dictId）
+DICT_ID="test_dict_id_001"
+curl -X PUT "${BASE_URL}/system/dictionary" \
+  -H "${CONTENT_TYPE}" \
+  -d '{
+    "dictId": "'${DICT_ID}'",
+    "dictName": "更新后的字典名称",
+    "dictDesc": "更新后的描述",
+    "status": "INACTIVE"
+  }' \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+# 测试用例2：更新不存在的字典
+curl -X PUT "${BASE_URL}/system/dictionary" \
+  -H "${CONTENT_TYPE}" \
+  -d '{
+    "dictId": "non_existing_dict_id",
+    "dictName": "不存在的字典"
+  }' \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+### 1.3 查询字典测试
+echo "=== 查询字典测试 ==="
+
+# 测试用例1：根据ID查询字典
+curl -X GET "${BASE_URL}/system/dictionary/${DICT_ID}" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+# 测试用例2：根据编码查询字典
+curl -X GET "${BASE_URL}/system/dictionary/code/TEST_DICT_001?tenantId=default" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+# 测试用例3：查询不存在的字典
+curl -X GET "${BASE_URL}/system/dictionary/non_existing_id" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+### 1.4 删除字典测试
+echo "=== 删除字典测试 ==="
+
+# 测试用例1：删除存在的字典
+curl -X DELETE "${BASE_URL}/system/dictionary/${DICT_ID}" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+# 测试用例2：删除不存在的字典
+curl -X DELETE "${BASE_URL}/system/dictionary/non_existing_id" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+## 2. 系统配置管理接口测试脚本
+
+### 2.1 分页查询配置测试
+echo "=== 分页查询配置测试 ==="
+
+curl -X POST "${BASE_URL}/sys/config/list" \
+  -H "${CONTENT_TYPE}" \
+  -d '{
+    "current": 1,
+    "size": 10,
+    "configKey": "",
+    "configValue": ""
+  }' \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+### 2.2 保存配置测试
+echo "=== 保存配置测试 ==="
+
+# 测试用例1：新增配置
+curl -X POST "${BASE_URL}/sys/config/save" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "configKey=test.config.key&configValue=test.config.value&description=测试配置项" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+# 测试用例2：更新配置
+curl -X POST "${BASE_URL}/sys/config/save" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "configKey=test.config.key&configValue=updated.test.value&description=更新后的测试配置" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+### 2.3 查看配置测试
+echo "=== 查看配置测试 ==="
+
+# 测试用例1：查看配置详情
+curl -X POST "${BASE_URL}/sys/config/view" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "configKey=test.config.key" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+# 测试用例2：根据键获取配置值（路径参数）
+curl -X POST "${BASE_URL}/sys/config/value/test.config.key" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+# 测试用例3：根据键获取配置值（查询参数）
+curl -X POST "${BASE_URL}/sys/config/get" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "configKey=test.config.key" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+### 2.4 获取所有配置测试
+echo "=== 获取所有配置测试 ==="
+
+curl -X POST "${BASE_URL}/sys/config/all" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+### 2.5 批量更新配置测试
+echo "=== 批量更新配置测试 ==="
+
+curl -X POST "${BASE_URL}/sys/config/batch-update" \
+  -H "${CONTENT_TYPE}" \
+  -d '{
+    "config.key1": "new.value1",
+    "config.key2": "new.value2",
+    "config.key3": "new.value3"
+  }' \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+### 2.6 批量删除配置测试
+echo "=== 批量删除配置测试 ==="
+
+# 首先创建一些测试配置
+curl -X POST "${BASE_URL}/sys/config/save" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "configKey=delete.test.key1&configValue=value1"
+
+curl -X POST "${BASE_URL}/sys/config/save" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "configKey=delete.test.key2&configValue=value2"
+
+# 批量删除
+curl -X POST "${BASE_URL}/sys/config/delete" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "configKeys=delete.test.key1,delete.test.key2" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+### 2.7 测试配置管理功能
+echo "=== 测试配置管理功能 ==="
+
+curl -X POST "${BASE_URL}/sys/config/test_config_management" \
+  -w "\n状态码: %{http_code}\n响应时间: %{time_total}s\n\n"
+
+## 3. 性能测试脚本
+
+### 3.1 并发创建字典测试
+echo "=== 并发创建字典测试 ==="
+
+# 并发创建10个字典
+for i in {1..10}; do
+  (
+    curl -X POST "${BASE_URL}/system/dictionary" \
+      -H "${CONTENT_TYPE}" \
+      -d '{
+        "dictCode": "CONCURRENT_DICT_'${i}'",
+        "dictName": "并发测试字典'${i}'",
+        "dictDesc": "并发测试字典描述'${i}'",
+        "dictType": "BUSINESS",
+        "status": "ACTIVE",
+        "orderIndex": '${i}',
+        "tenantId": "default"
+      }' \
+      -w "\n并发测试${i} 状态码: %{http_code} 响应时间: %{time_total}s\n"
+  ) &
+done
+
+# 等待所有并发请求完成
+wait
+echo "并发创建字典测试完成"
+
+### 3.2 压力测试脚本
+echo "=== 压力测试 ==="
+
+# 连续查询测试
+for i in {1..50}; do
+  curl -X GET "${BASE_URL}/system/dictionary/code/TEST_DICT_001" \
+    -w "查询测试${i} 响应时间: %{time_total}s\n" \
+    -s -o /dev/null
+done
+
+## 4. 数据清理脚本
+
+### 4.1 清理测试数据
+echo "=== 清理测试数据 ==="
+
+# 删除测试创建的字典
+for i in {1..10}; do
+  echo "删除并发测试字典${i}"
+  # 这里需要先查询获取dictId，然后删除
+  # curl -X DELETE "${BASE_URL}/system/dictionary/concurrent_dict_id_${i}"
+done
+
+# 删除测试配置
+curl -X POST "${BASE_URL}/sys/config/delete" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "configKeys=test.config.key,config.key1,config.key2,config.key3"
+
+echo "数据清理完成"
+
+## 5. 测试报告生成
+
+### 5.1 生成测试结果摘要
+echo "=== 测试结果摘要 ==="
+echo "测试时间: $(date)"
+echo "测试接口数量: 15个"
+echo "字典管理接口: 5个"
+echo "系统配置管理接口: 9个"
+echo "功能测试接口: 1个"
+
+### 5.2 验证测试结果
+echo "=== 验证测试结果 ==="
+echo "请检查以下项目："
+echo "1. 所有HTTP状态码是否正确"
+echo "2. 响应时间是否在可接受范围内"
+echo "3. 返回数据格式是否符合预期"
+echo "4. 异常场景是否得到正确处理"
+echo "5. 并发测试是否通过"
+
+## 6. 使用说明
+
+# 执行完整测试：
+# bash sys-测试脚本
+
+# 执行特定模块测试：
+# 只测试字典管理：执行第1部分脚本
+# 只测试系统配置：执行第2部分脚本
+# 只测试性能：执行第3部分脚本
+
+# 注意事项：
+# 1. 确保服务器已启动且可访问
+# 2. 根据实际环境修改BASE_URL
+# 3. 某些测试需要权限，确保认证信息正确
+# 4. 执行前备份重要数据
+# 5. 测试完成后及时清理测试数据
