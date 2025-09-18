@@ -4,13 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.topinfo.basic.platform</groupId>
-    <artifactId>ps-bmp-backend</artifactId>
-    <version>2.2.2-SNAPSHOT</version>
+    <groupId>com.jiuxi</groupId>
+    <artifactId>ps-be</artifactId>
+    <version>1.0.0</version>
 
     <packaging>war</packaging>
-    <name>PS BMP Backend Application</name>
-    <description>Backend application for PS BMP system</description>
+    <name>党校后台</name>
 
     <properties>
         <!-- 项目配置 -->
