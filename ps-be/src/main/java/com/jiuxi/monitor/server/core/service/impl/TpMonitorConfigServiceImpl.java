@@ -105,6 +105,7 @@ public class TpMonitorConfigServiceImpl implements TpMonitorConfigService {
         one.setPrincipal(vo.getPrincipal());
         one.setMobile(vo.getMobile());
         one.setEmail(vo.getEmail());
+        one.setOfflineThreshold(vo.getOfflineThreshold());
 
         TpMonitorConfig bean = new TpMonitorConfig();
         // 转换成数据库对象

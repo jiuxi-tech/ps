@@ -239,8 +239,11 @@
 			},
 			// 新增
 			add() {
+          this.formData
+          debugger
 				// 界面校验
 				this.$refs.fbform.validate((result) => {
+            debugger
 					if (result === true) {
 						if (!this.formData.personId) {
 							if (JSON.stringify(this.getPageParam()) == "{}") {

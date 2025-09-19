@@ -119,6 +119,8 @@
 					</fb-col>
 				</fb-row>
 			</fb-property>
+
+      <!--
 			<fb-fieldset label="用户扩展信息" />
 			<fb-property bordered label-width="140px" mode="form">
 				<fb-row>
@@ -209,7 +211,9 @@
 					</fb-col>
 				</fb-row>
 			</fb-property>
-		</div>
+
+			-->
+    </div>
 
 		<div class="tp-dialog-bottom">
 			<fb-button @on-click="handleClose">关闭</fb-button>
@@ -358,19 +362,19 @@ export default {
 			})
 
 			// 调用新增service方法
-			this.service.expView({ "personId": personId, "deptId": deptId, "passKey": this.param.passKey }).then((result) => {
-				// 判断code
-				if (result.code == 1) {
-					if (result.data.partWorkDate) {
-						result.data.partWorkDate = this.formatDate(result.data.partWorkDate, "YYYY-MM-DD");
-
-					}
-					this.expFormData = result.data
-				} else {
-					// 服务器返回失败
-					this.$message.error('查询失败')
-				}
-			})
+//			this.service.expView({ "personId": personId, "deptId": deptId, "passKey": this.param.passKey }).then((result) => {
+//				// 判断code
+//				if (result.code == 1) {
+//					if (result.data.partWorkDate) {
+//						result.data.partWorkDate = this.formatDate(result.data.partWorkDate, "YYYY-MM-DD");
+//
+//					}
+//					this.expFormData = result.data
+//				} else {
+//					// 服务器返回失败
+//					this.$message.error('查询失败')
+//				}
+//			})
 		},
 
 	}

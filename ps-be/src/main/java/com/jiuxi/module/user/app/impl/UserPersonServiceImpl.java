@@ -205,9 +205,8 @@ public class UserPersonServiceImpl implements UserPersonService {
             // 对手机号进行加密
             if (StrUtil.isNotBlank(vo.getPhone())) {
                 String encryptedPhone = PhoneEncryptionUtils.encrypt(vo.getPhone());
-                bean.setEncryptedPhone(encryptedPhone);
-                bean.setPhone(null); // 清除原始手机号，避免冲突
-                LOGGER.debug("手机号加密处理完成，personId: {}", personId);
+                bean.setPhone(encryptedPhone); // 将加密后的手机号存储到phone字段
+                LOGGER.debug("手机号加密处理完成，personId: {}, 原始手机号: {}", personId, vo.getPhone());
             }
             
             bean.setCreator(pid);
@@ -386,9 +385,9 @@ public class UserPersonServiceImpl implements UserPersonService {
         // 对手机号进行加密
         if (StrUtil.isNotBlank(vo.getPhone())) {
             String encryptedPhone = PhoneEncryptionUtils.encrypt(vo.getPhone());
-            bean.setEncryptedPhone(encryptedPhone);
-            bean.setPhone(null); // 清除原始手机号，避免冲突
-            LOGGER.debug("手机号加密处理完成，personId: {}", personId);
+            bean.setPhone(encryptedPhone); // 将加密后的手机号存储到phone字段
+            LOGGER.debug("手机号加密处理完成，personId: {}, 原始手机号长度: {}, 加密后长度: {}", 
+                personId, vo.getPhone().length(), encryptedPhone.length());
         }
         
         bean.setUpdator(pid);

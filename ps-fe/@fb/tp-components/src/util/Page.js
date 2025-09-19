@@ -29,9 +29,9 @@ export default {
 					{value: 0, label: '否'}
 				],
 				sex: [
-					{value: '0', label: '保密'},
-					{value: '1', label: '男'},
-					{value: '2', label: '女'}
+					{value: 0, label: '保密'},
+					{value: 1, label: '男'},
+					{value: 2, label: '女'}
 				],
 				week: [
 					{value: '1', label: '星期一'},

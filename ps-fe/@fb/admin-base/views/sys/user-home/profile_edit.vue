@@ -73,7 +73,7 @@
                         </fb-form-item>
                     </fb-col>
                     <fb-col span="12">
-                        <fb-form-item label="联系电话" prop="tel" :rule="[{ required: false, type: 'telmobile' }]">
+                        <fb-form-item label="联系电话" prop="tel" :rule="[{ required: false, type: 'tel' }]">
                             <fb-input v-model="formData.tel" placeholder="请输入联系电话"></fb-input>
                         </fb-form-item>
                     </fb-col>
@@ -94,34 +94,34 @@
                             </fb-input>
                         </fb-form-item>
                     </fb-col>
-                    <fb-col span="12">
-                        <fb-form-item label="职称" prop="titleCode">
-                        
-                        <fb-select v-model="formData.titleCode"
-									   :service="$svc.sys.dict.select"
-									   :param="{'pdicCode': 'SYS12'}"
-									   placeholder="请选择"
-									   clearable>
-			</fb-select>
-                        </fb-form-item>
-                    </fb-col>
+<!--                    <fb-col span="12">-->
+<!--                        <fb-form-item label="职称" prop="titleCode">-->
+<!--                        -->
+<!--                        <fb-select v-model="formData.titleCode"-->
+<!--									   :service="$svc.sys.dict.select"-->
+<!--									   :param="{'pdicCode': 'SYS12'}"-->
+<!--									   placeholder="请选择"-->
+<!--									   clearable>-->
+<!--			</fb-select>-->
+<!--                        </fb-form-item>-->
+<!--                    </fb-col>-->
                 </fb-row>
 
-                <fb-row>
-                    <fb-col span="12">
-                        <fb-form-item label="政治面貌" prop="politicsCode">
-                            <fb-select v-model="formData.politicsCode"
-                                       :service="$svc.sys.dict.select"
-                                       :param="{'pdicCode': 'SYS13'}"
-                                       placeholder="请选择"
-                                       clearable>
-                            </fb-select>
-                        </fb-form-item>
-                    </fb-col>
-                    <fb-col span="12">
-                        <!-- 空列，保持布局平衡 -->
-                    </fb-col>
-                </fb-row>
+<!--                <fb-row>-->
+<!--                    <fb-col span="12">-->
+<!--                        <fb-form-item label="政治面貌" prop="politicsCode">-->
+<!--                            <fb-select v-model="formData.politicsCode"-->
+<!--                                       :service="$svc.sys.dict.select"-->
+<!--                                       :param="{'pdicCode': 'SYS13'}"-->
+<!--                                       placeholder="请选择"-->
+<!--                                       clearable>-->
+<!--                            </fb-select>-->
+<!--                        </fb-form-item>-->
+<!--                    </fb-col>-->
+<!--                    <fb-col span="12">-->
+<!--                        &lt;!&ndash; 空列，保持布局平衡 &ndash;&gt;-->
+<!--                    </fb-col>-->
+<!--                </fb-row>-->
 
                 <fb-row>
                     <fb-col span="12">
@@ -134,61 +134,61 @@
                     </fb-col>
                 </fb-row>
 
-                <fb-row>
-                    <fb-col span="12">
-                        <fb-form-item label="参加工作时间" prop="partWorkDate">
-                            <tp-datepicker v-model="formData.partWorkDate" format="YYYY-MM-DD" value-format="YYYYMMDD"
-                                clearable></tp-datepicker>
-                        </fb-form-item>
-                    </fb-col>
-                    <fb-col span="12">
-                        <fb-form-item label="通信地址" prop="maddress">
-                            <fb-input v-model="formData.maddress" placeholder="请输入通信地址"></fb-input>
-                        </fb-form-item>
-                    </fb-col>
-                </fb-row>
+<!--                <fb-row>-->
+<!--                    <fb-col span="12">-->
+<!--                        <fb-form-item label="参加工作时间" prop="partWorkDate">-->
+<!--                            <tp-datepicker v-model="formData.partWorkDate" format="YYYY-MM-DD" value-format="YYYYMMDD"-->
+<!--                                clearable></tp-datepicker>-->
+<!--                        </fb-form-item>-->
+<!--                    </fb-col>-->
+<!--                    <fb-col span="12">-->
+<!--                        <fb-form-item label="通信地址" prop="maddress">-->
+<!--                            <fb-input v-model="formData.maddress" placeholder="请输入通信地址"></fb-input>-->
+<!--                        </fb-form-item>-->
+<!--                    </fb-col>-->
+<!--                </fb-row>-->
 
-                <fb-row>
-                    <fb-col span="12">
-                        <fb-form-item label="毕业学校" prop="school">
-                            <fb-input v-model="formData.school" placeholder="请输入毕业学校"></fb-input>
-                        </fb-form-item>
-                    </fb-col>
-                    <fb-col span="12">
-                        <fb-form-item label="所学专业" prop="sepcSubject">
-                            <fb-input v-model="formData.sepcSubject" placeholder="请输入所学专业"></fb-input>
-                        </fb-form-item>
-                    </fb-col>
-                </fb-row>
+<!--                <fb-row>-->
+<!--                    <fb-col span="12">-->
+<!--                        <fb-form-item label="毕业学校" prop="school">-->
+<!--                            <fb-input v-model="formData.school" placeholder="请输入毕业学校"></fb-input>-->
+<!--                        </fb-form-item>-->
+<!--                    </fb-col>-->
+<!--                    <fb-col span="12">-->
+<!--                        <fb-form-item label="所学专业" prop="sepcSubject">-->
+<!--                            <fb-input v-model="formData.sepcSubject" placeholder="请输入所学专业"></fb-input>-->
+<!--                        </fb-form-item>-->
+<!--                    </fb-col>-->
+<!--                </fb-row>-->
 
-                <fb-row>
-                    <fb-col span="12">
-                        <fb-form-item label="最高学位" prop="degree">
-                            <fb-input v-model="formData.degree" placeholder="请输入最高学位"></fb-input>
-                        </fb-form-item>
-                    </fb-col>
-                    <fb-col span="12">
-                        <fb-form-item label="学历" prop="diplomaCode">
-                            <fb-select v-model="formData.diplomaCode"
-                                       :service="$svc.sys.dict.select"
-                                       :param="{'pdicCode': 'SYS14'}"
-                                       placeholder="请选择"
-                                       clearable>
-                            </fb-select>
-                        </fb-form-item>
-                    </fb-col>
-                </fb-row>
+<!--                <fb-row>-->
+<!--                    <fb-col span="12">-->
+<!--                        <fb-form-item label="最高学位" prop="degree">-->
+<!--                            <fb-input v-model="formData.degree" placeholder="请输入最高学位"></fb-input>-->
+<!--                        </fb-form-item>-->
+<!--                    </fb-col>-->
+<!--                    <fb-col span="12">-->
+<!--                        <fb-form-item label="学历" prop="diplomaCode">-->
+<!--                            <fb-select v-model="formData.diplomaCode"-->
+<!--                                       :service="$svc.sys.dict.select"-->
+<!--                                       :param="{'pdicCode': 'SYS14'}"-->
+<!--                                       placeholder="请选择"-->
+<!--                                       clearable>-->
+<!--                            </fb-select>-->
+<!--                        </fb-form-item>-->
+<!--                    </fb-col>-->
+<!--                </fb-row>-->
 
-                <fb-row>
-                    <fb-col span="12">
-                        <fb-form-item label="执法证号" prop="checkcardNo">
-                            <fb-input v-model="formData.checkcardNo" placeholder="请输入执法证号"></fb-input>
-                        </fb-form-item>
-                    </fb-col>
-                    <fb-col span="12">
-                        <!-- 空列，保持布局平衡 -->
-                    </fb-col>
-                </fb-row>
+<!--                <fb-row>-->
+<!--                    <fb-col span="12">-->
+<!--                        <fb-form-item label="执法证号" prop="checkcardNo">-->
+<!--                            <fb-input v-model="formData.checkcardNo" placeholder="请输入执法证号"></fb-input>-->
+<!--                        </fb-form-item>-->
+<!--                    </fb-col>-->
+<!--                    <fb-col span="12">-->
+<!--                        &lt;!&ndash; 空列，保持布局平衡 &ndash;&gt;-->
+<!--                    </fb-col>-->
+<!--                </fb-row>-->
 
                 <fb-row>
                     <fb-col span="24">

@@ -4,7 +4,9 @@
  * @param binding
  */
 export function hasPermission(value) {
-	return true
+	return  new Promise((resolve, reject)=>{
+		resolve(true)
+	});
 	if (!app.$store.state.menu) {
 		return console.error('app.$store.state.menu is undefined')
 	}

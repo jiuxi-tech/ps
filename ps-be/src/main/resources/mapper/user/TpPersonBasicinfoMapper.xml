@@ -94,7 +94,7 @@
 		VALUES
 			(#{personId}, #{personName}, #{profilePhoto}, #{personNo}, #{sex}, #{idtype}, #{idcard}, #{nativePlace}, #{safeprinNation}, #{resume}, #{birthday}, 
 			<choose>
-				<when test="phone != null and phone != ''">#{encryptedPhone}</when>
+				<when test="phone != null and phone != ''">#{phone}</when>
 				<otherwise>null</otherwise>
 			</choose>, #{tel}, #{email}, #{office}, 1, #{category}, #{ascnId}, #{creator}, #{createTime}, #{updator}, #{updateTime}, #{tenantId}, #{extend01}, #{extend02}, #{extend03})
     </insert>
@@ -173,7 +173,7 @@
             <if test="null != birthday">BIRTHDAY = #{birthday},</if>
             <if test="null != phone">PHONE = 
 			<choose>
-				<when test="phone != ''">#{encryptedPhone}</when>
+				<when test="phone != ''">#{phone}</when>
 				<otherwise>null</otherwise>
 			</choose>,</if>
             <if test="null != tel">TEL = #{tel},</if>

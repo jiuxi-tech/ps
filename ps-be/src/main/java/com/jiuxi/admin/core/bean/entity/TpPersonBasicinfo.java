@@ -233,18 +233,7 @@ public class TpPersonBasicinfo implements Serializable {
         this.phone = phone;
     }
 
-    /**
-     * 加密后的手机号（用于数据库存储）
-     */
-    private String encryptedPhone;
 
-    public String getEncryptedPhone() {
-        return encryptedPhone;
-    }
-
-    public void setEncryptedPhone(String encryptedPhone) {
-        this.encryptedPhone = encryptedPhone;
-    }
 
     public String getTel() {
         return tel;

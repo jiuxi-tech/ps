@@ -6,6 +6,7 @@ import com.jiuxi.shared.common.annotation.Authorization;
 import com.jiuxi.monitor.server.core.bean.vo.TpMonitorConfigVO;
 import com.jiuxi.monitor.server.core.service.TpMonitorConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +32,7 @@ public class TpMonitorConfigController {
      * @Date 2024-11-18 16:30:42
      */
     @RequestMapping("/update")
-    public JsonResponse update(TpMonitorConfigVO tpMonitorConfig, String jwtpid) {
+    public JsonResponse update(@RequestBody TpMonitorConfigVO tpMonitorConfig, String jwtpid) {
 
         tpMonitorConfigService.update(tpMonitorConfig, jwtpid);
         return JsonResponse.buildSuccess();
