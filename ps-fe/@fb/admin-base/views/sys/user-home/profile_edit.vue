@@ -94,6 +94,14 @@
                             </fb-input>
                         </fb-form-item>
                     </fb-col>
+                    <fb-col span="12">
+                        <fb-form-item label="人员编号" prop="personNo">
+                            <fb-input v-model="formData.personNo" placeholder="请输入人员编号"></fb-input>
+                        </fb-form-item>
+                    </fb-col>
+                    <fb-col span="12">
+                        <!-- 空列，保持布局平衡 -->
+                    </fb-col>
 <!--                    <fb-col span="12">-->
 <!--                        <fb-form-item label="职称" prop="titleCode">-->
 <!--                        -->
@@ -123,16 +131,6 @@
 <!--                    </fb-col>-->
 <!--                </fb-row>-->
 
-                <fb-row>
-                    <fb-col span="12">
-                        <fb-form-item label="人员编号" prop="personNo">
-                            <fb-input v-model="formData.personNo" placeholder="请输入人员编号"></fb-input>
-                        </fb-form-item>
-                    </fb-col>
-                    <fb-col span="12">
-                        <!-- 空列，保持布局平衡 -->
-                    </fb-col>
-                </fb-row>
 
 <!--                <fb-row>-->
 <!--                    <fb-col span="12">-->
@@ -193,7 +191,7 @@
                 <fb-row>
                     <fb-col span="24">
                         <fb-form-item label="个人简介" prop="resume">
-                            <fb-textarea v-model="formData.resume" rows="2" placeholder="请输入个人简介"
+                            <fb-textarea v-model="formData.resume" rows="4" placeholder="请输入个人简介"
                                 :maxlength="200"></fb-textarea>
                         </fb-form-item>
                     </fb-col>

@@ -950,11 +950,44 @@ public class UserPersonServiceImpl implements UserPersonService {
                     }
                 }
 
-                List<String> successList = new ArrayList<>();
-                List<String> errorList = new ArrayList<>();
+                // 先检测Excel中是否有重复的手机号
+                List<String> phoneList = new ArrayList<>();
+                List<String> duplicatePhones = new ArrayList<>();
                 int totalRows = sheet.getLastRowNum();
                 
-                // 从第二行开始读取数据（跳过表头）
+                // 第一遍扫描：收集所有手机号并检测重复
+                for (int i = 1; i <= totalRows; i++) {
+                    Row row = sheet.getRow(i);
+                    if (row == null) {
+                        continue;
+                    }
+                    
+                    String phone = getCellValue(row.getCell(1)); // 手机号在第2列
+                    if (StrUtil.isNotBlank(phone)) {
+                        if (phoneList.contains(phone)) {
+                            if (!duplicatePhones.contains(phone)) {
+                                duplicatePhones.add(phone);
+                            }
+                        } else {
+                            phoneList.add(phone);
+                        }
+                    }
+                }
+                
+                // 如果发现重复手机号，取消导入并提醒用户
+                if (!duplicatePhones.isEmpty()) {
+                    StringBuilder errorMsg = new StringBuilder();
+                    errorMsg.append("Excel文件中存在重复的手机号，请修正后重新导入：\n");
+                    for (String phone : duplicatePhones) {
+                        errorMsg.append("- ").append(phone).append("\n");
+                    }
+                    return JsonResponse.buildFailure(errorMsg.toString());
+                }
+
+                List<String> successList = new ArrayList<>();
+                List<String> errorList = new ArrayList<>();
+                
+                // 第二遍扫描：正式导入数据
                 for (int i = 1; i <= totalRows; i++) {
                     Row row = sheet.getRow(i);
                     if (row == null) {
@@ -1053,7 +1086,17 @@ public class UserPersonServiceImpl implements UserPersonService {
                     }
                 }
 
-                return JsonResponse.buildSuccess(resultMsg.toString());
+                // 根据导入结果决定返回成功还是失败
+                if (successList.isEmpty() && !errorList.isEmpty()) {
+                    // 全部失败
+                    return JsonResponse.buildFailure(resultMsg.toString());
+                } else if (!errorList.isEmpty()) {
+                    // 部分失败
+                    return JsonResponse.buildFailure(resultMsg.toString());
+                } else {
+                    // 全部成功
+                    return JsonResponse.buildSuccess(resultMsg.toString());
+                }
 
             } finally {
                 if (workbook != null) {

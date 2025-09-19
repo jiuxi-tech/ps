@@ -138,10 +138,10 @@
                                        editor size="s">兼职
                             </fb-button>
                             <!-- 数据权限设置按钮 -->
-                            <fb-button @on-click="handleDataPermission(props.row)"
-                                       v-permission="'SYS_ORG_PERSON_DATA_PERM'"
-                                       editor size="s">数据权限
-                            </fb-button>
+<!--                            <fb-button @on-click="handleDataPermission(props.row)"-->
+<!--                                       v-permission="'SYS_ORG_PERSON_DATA_PERM'"-->
+<!--                                       editor size="s">数据权限-->
+<!--                            </fb-button>-->
                             <!-- 删除按钮 -->
                             <fb-button @on-click="handleDel(props.row)" v-permission="'SYS_ORG_PERSON_DELETE'"
                                        danger size="s">删除
@@ -358,29 +358,38 @@ export default {
                 return
             }
 
-            // 界面跳转
+
             let param = {
                 'id': '',
                 'deptId': this.selectNode.deptId,
                 'ascnId': this.selectNode.ascnId,
             }
-            let tabArry = [
-                {
-                    url: import('../../../../views/sys/person/org/add-basicinfo.vue'),
-                    label: '人员基本信息',
-                    icon: 'chart-line',
-                },
-//					{
-//						url: import('../../../../views/sys/person/org/add-exinfo.vue'),
-//						label: '人员扩展信息',
-//						icon: "progressbar"
-//					}
-            ]
+            this.$refs.TpDialog.show(import('../../../../views/sys/person/org/add-basicinfo.vue'), param, '新增')
 
-            this.$refs.TpDialogTab.show(tabArry, param, '新增', {
-                callBack: () => {
-                },
-            })
+
+            // 界面跳转
+//            let param = {
+//                'id': '',
+//                'deptId': this.selectNode.deptId,
+//                'ascnId': this.selectNode.ascnId,
+//            }
+//            let tabArry = [
+//                {
+//                    url: import('../../../../views/sys/person/org/add-basicinfo.vue'),
+//                    label: '人员基本信息',
+//                    icon: 'chart-line',
+//                },
+////					{
+////						url: import('../../../../views/sys/person/org/add-exinfo.vue'),
+////						label: '人员扩展信息',
+////						icon: "progressbar"
+////					}
+//            ]
+//
+//            this.$refs.TpDialogTab.show(tabArry, param, '新增', {
+//                callBack: () => {
+//                },
+//            })
         },
         /**
          * 修改人员信息
@@ -393,7 +402,7 @@ export default {
                 'deptId': row.deptId,
                 'passKey': row.passKey,
             }
-            this.$refs.TpDialog.show(import('../../../../views/sys/person/org/add-basicinfo.vue'), param, '人员基本信息')
+            this.$refs.TpDialog.show(import('../../../../views/sys/person/org/add-basicinfo.vue'), param, '修改')
 
 //            let param = {
 //                'id': row.personId,
@@ -573,6 +582,7 @@ export default {
          * @param {Object} param - 弹窗返回参数
          */
         closeDialog (param) {
+            this.handleQuery()
             console.log(param)
         },
         /**
@@ -714,7 +724,22 @@ export default {
                         // 刷新列表
                         this.handleQuery()
                     } else {
-                        this.$message.error('导入失败：' + response.message)
+                        // 检查是否是重复手机号错误
+                        if (response.message  ) {
+                            // 使用确认框显示重复手机号错误
+                            this.$confirm(response.message, '导入失败', {
+                                confirmButtonText: '确定',
+                                showCancelButton: false,
+                                type: 'error'
+                            }).then(() => {
+                                // 用户点击确定后不需要特殊处理
+                            }).catch(() => {
+                                // 用户取消（虽然没有取消按钮，但保留catch以防万一）
+                            })
+                        } else {
+                            // 其他错误使用普通错误提示
+                            this.$message.error('导入失败：' + response.message)
+                        }
                     }
                 }).catch((error) => {
                     console.error('导入失败:', error)

@@ -149,6 +149,21 @@ public class GlobalExceptionHandler {
 
 
     /**
+     * 处理TopinfoRuntimeException异常
+     *
+     * @param e       TopinfoRuntimeException异常
+     * @param request HTTP请求
+     * @return JsonResponse
+     */
+    @ExceptionHandler(com.jiuxi.shared.common.exception.TopinfoRuntimeException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public JsonResponse handleTopinfoRuntimeException(com.jiuxi.shared.common.exception.TopinfoRuntimeException e, HttpServletRequest request) {
+        String path = request != null ? request.getRequestURI() : getCurrentRequestPath();
+        logger.warn("业务运行时异常: {} - {}", path, e.getMessage());
+        return JsonResponse.build(e.getErrcode(), e.getMessage());
+    }
+
+    /**
      * 处理系统异常
      *
      * @param e       系统异常

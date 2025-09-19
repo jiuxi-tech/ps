@@ -186,9 +186,20 @@
 							// 新增/修改 成单位，后端自动填充它的deptId做为ascnId值
 							that.formData.ascnId = '';
 						}
+						
+						// 过滤掉null值和无效参数，避免参数绑定失败
+						let submitData = {};
+						Object.keys(that.formData).forEach(key => {
+							let value = that.formData[key];
+							// 只提交非null、非undefined、非空字符串的值
+							if (value !== null && value !== undefined && value !== '') {
+								submitData[key] = value;
+							}
+						});
+						
 						if (this.formData.deptId) {
 							// 修改
-							this.service.update(this.formData).then((result) => {
+							this.service.update(submitData).then((result) => {
 								// 判断code
 								if (result.code == 1) {
 									that.$message.success('修改成功');
@@ -201,7 +212,7 @@
 							that.updateCount = 0;
 						} else {
 							// 新增 调用新增service方法
-							this.service.ent.add(this.formData).then((result) => {
+							this.service.ent.add(submitData).then((result) => {
 								// 判断code
 								if (result.code == 1) {
 									that.$message.success('新增成功');
@@ -211,9 +222,8 @@
 									this.setPageParam(deptId);
 								} else {
 									// 服务器返回失败
-									//console.log(result.data.message);
 									that.$message.error('新增失败')
-								};
+								}
 								that.updateCount = 0;
 							})
 						}

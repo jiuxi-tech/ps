@@ -120,6 +120,18 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 处理TopinfoRuntimeException异常
+     */
+    @ExceptionHandler(com.jiuxi.shared.common.exception.TopinfoRuntimeException.class)
+    public BaseResponse<Object> handleTopinfoRuntimeException(com.jiuxi.shared.common.exception.TopinfoRuntimeException e, HttpServletRequest request) {
+        log.warn("业务运行时异常: {} - {}", e.getErrcode(), e.getMessage(), e);
+        logExceptionDetails(e, request);
+        
+        return BaseResponse.error(String.valueOf(e.getErrcode()), e.getMessage())
+                .traceId(getTraceId(request));
+    }
+
+    /**
      * 处理参数验证异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)

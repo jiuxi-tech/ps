@@ -45,6 +45,10 @@ export default {
             this.$router.replace(this.$datax.GLOBAL_CONFIG.mainPath)
           }
         }
+      })    .catch((e) => {
+        // 验证失败，清除token并跳转到登录页
+        this.$datax.set('token', '')
+        this.$router.replace(this.$datax.GLOBAL_CONFIG.loginPath)
       })
     }
   },
