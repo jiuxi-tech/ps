@@ -146,6 +146,14 @@ export function setServiceReqRes(_this) {
 		// 关闭遮罩
 		loading.hide()
 		loadingCount = 0;
+		
+		if (e.response && e.response.status === 500) {
+			//message.error(`服务器异常，错误码：${e.response.status}`)
+			if (e.response && e.response.data && e.response.data.message) {
+				message.error(e.response.data.message)
+			}
+		}
+		
 
 		try {
 			// 检查是否为403 IP访问拒绝错误
@@ -158,7 +166,7 @@ export function setServiceReqRes(_this) {
 				}
 			}
 			
-			message.error(`请求异常，错误码：${e.response.status}`)
+			//message.error(`请求异常，错误码：${e.response.status}`)
 			// 打印服务异常
 			console.log(`请求异常，URL：${e.config.url}, 错误码：${e.response.status}`)
 		} catch (error) {

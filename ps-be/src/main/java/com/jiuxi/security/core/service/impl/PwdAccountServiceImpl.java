@@ -277,7 +277,7 @@ public class PwdAccountServiceImpl implements AccountService {
         String date = CommonDateUtil.date();
         if (date.compareTo(expiredTime) > 0) {
             LOGGER.error("登录失败，用户已过期:accountVO：{}", JSONObject.toJSONString(accountVO));
-            throw new TopinfoRuntimeException(-1, "登录失败，用户信息已过期");
+            throw new TopinfoRuntimeException(-1, "登录失败，用户已过期");
         }
     }
 
@@ -294,7 +294,7 @@ public class PwdAccountServiceImpl implements AccountService {
         if (StrUtil.isBlank(lastPasswordChangeTime)) {
             // 如果没有密码修改时间记录，认为密码已过期，直接锁定账户
             LOGGER.error("用户密码已过期，账户被锁定，用户名:{}", accountVO.getUserName());
-            throw new TopinfoRuntimeException(-1, "密码已过期，账户已被锁定，请联系管理员重置密码");
+            throw new TopinfoRuntimeException(-1, "账户已被锁定，请联系管理员重置密码");
         }
 
         try {

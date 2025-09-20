@@ -26,7 +26,7 @@
 				</fb-row>
 				<fb-row>
 					<fb-col span="12">
-						<fb-form-item label="是否冻结">
+						<fb-form-item label="是否锁定">
 							<fb-radio-group v-model="formData.locked"
 											:data="[{id: 1, name: '是',}, {id: 0, name: '否',}]"
 											:reader="{label:'name', value:'id'}" disabled></fb-radio-group>
@@ -70,7 +70,7 @@
 			<fb-button style="margin-right: 12px" type="primary" v-if="deptShowFlag" @on-click="resetpwd">密码重置
 			</fb-button>
 			<fb-button style="margin-right: 12px" v-if="this.formData.locked === 0 && deptShowFlag" danger
-					   @on-click="locked(1)">冻结
+					   @on-click="locked(1)">锁定
 			</fb-button>
 			<fb-button style="margin-right: 12px" type="link" v-if="this.formData.locked === 1"
 					   @on-click="locked(0)">解锁
@@ -209,7 +209,7 @@
 						if (locked === 0) {
 							this.$message.success('已解锁');
 						} else {
-							this.$message.success('已冻结');
+							this.$message.success('已锁定');
 						}
 						this.formData.locked = locked;
 					} else {

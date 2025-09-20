@@ -78,7 +78,7 @@
 								密码重置
 							</fb-button>
 							<fb-button @on-click="locked(props.row)" danger size="s"
-								v-if="props.row.accountId !== '' && props.row.locked === 0">冻结
+								v-if="props.row.accountId !== '' && props.row.locked === 0">锁定
 							</fb-button>
 							<fb-button @on-click="locked(props.row)" size="s" type="link"
 								v-if="props.row.accountId !== '' && props.row.locked === 1">
@@ -183,7 +183,7 @@ export default {
 						width: 100
 					}, {
 						name: 'locked',
-						label: '是否冻结',
+						label: '是否锁定',
 						sortable: false,
 						width: 80
 					}, {
@@ -336,8 +336,8 @@ export default {
 				// 判断code
 				if (result.code == 1) {
 					if (row.locked === 0) {
-						this.$message.success('已冻结');
-						that.logInfo('lock', '冻结账号');
+						this.$message.success('已锁定');
+						that.logInfo('lock', '锁定账号');
 					} else {
 						this.$message.success('已解锁');
 						that.logInfo('unlock', '解锁账号');

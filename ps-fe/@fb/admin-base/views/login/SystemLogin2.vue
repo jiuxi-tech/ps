@@ -448,13 +448,14 @@ export default {
 		doLogin(loginForm) {
 
 			console.log(loginForm)
+
 			// 表单验证在子组件中处理，登录只需要获取子组件数据值，进行异步请求处理
 			this.inLoginProcess = true
 			this.departmentList = []
 			// 图片验证码登陆
 			this.$svc.platform.captChaLogin(loginForm).then(json => {
 				app.trigger('monitor-login', json)
-
+           
 				// 登录按钮 loading
 				this.inLoginProcess = false
 				if (json && json.code === 403) {
