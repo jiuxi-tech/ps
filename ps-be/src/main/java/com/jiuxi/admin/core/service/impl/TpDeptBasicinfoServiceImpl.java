@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,6 +92,9 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
 
     @Autowired
     private OrgTreeChangeHistoryService orgTreeChangeHistoryService;
+
+    @Autowired
+    private CacheManager cacheManager;
 
     /**
      * 机构树
@@ -535,6 +539,7 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
 
     /**
      * 内部接口，查看部门/机构基本信息，由于没有校验权限，不建议直接被调用
+     * 注意：已移除缓存注解，直接从数据库获取最新数据
      *
      * @param deptId: 部门id
      * @return com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO
@@ -542,7 +547,6 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
      * @date 2020-11-23 16:55
      */
     @Override
-    @Cacheable(cacheNames = "platform.{TpDeptBasicinfoService}$[86400]", key = "#root.methodName + ':' + #deptId")
     public TpDeptBasicinfoVO view(String deptId) {
 
         try {
@@ -566,7 +570,6 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
      * @date 2020-11-23 16:55
      */
     @Override
-    @Cacheable(cacheNames = "platform.{TpDeptBasicinfoService}$[86400]", key = "#root.methodName + ':' + #deptId+ ':' + #jwtaid")
     public TpDeptBasicinfoVO getById(String deptId, String jwtpid, String jwtaid) {
         // 当前登陆人所在部门
         TpDeptBasicinfoVO currentUserDeptvo;
@@ -626,7 +629,7 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
      */
     @Override
     @Transactional(rollbackFor = TopinfoRuntimeException.class)
-    @CacheEvict(cacheNames = "platform.{TpDeptBasicinfoService}$[86400]", allEntries = true)
+    @CacheEvict(cacheNames = {"platform.{TpDeptBasicinfoService}$[86400]"}, allEntries = true)
     public TpDeptBasicinfoVO update(TpDeptBasicinfoVO vo, String pid) {
         try {
             // 在任何更新操作之前，先获取变更前的完整组织树
@@ -639,6 +642,9 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
             
             // 当前修改机构的deptId
             String deptId = vo.getDeptId();
+            
+            // 注意：view方法已移除缓存，无需手动清除view缓存
+            // @CacheEvict注解仍会清除getById等其他方法的缓存
             // 先查询修改的数据的部门类型是否发生了变化，如果发生了变化，需要将该部门的下级部门所有的单位id进行修改
             TpDeptBasicinfoVO deptVO = tpDeptBasicinfoMapper.view(deptId);
             // 修改前的单位id
