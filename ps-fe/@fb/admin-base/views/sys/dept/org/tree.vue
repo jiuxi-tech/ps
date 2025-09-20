@@ -435,13 +435,13 @@ export default {
             }
         },
         closeDialog (param) {
-            debugger
+
             if (param) {
                 this.handleQuery(param)
             }
         },
         closeDialogTab (param) {
-            debugger
+
             // 新增/修改回来，树默认选中新增/修改的数据
             if (param) {
                 this.handleQuery(param)

@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         closeDialog() {
-            debugger
+
          //   this.parentPage.closeDialog()
         }
     }

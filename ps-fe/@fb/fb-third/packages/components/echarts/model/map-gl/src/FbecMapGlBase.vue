@@ -171,7 +171,7 @@ export default {
 	},
 	created () {
 //		if (JSON.stringify(this.mapJson) !== '{}') {
-//			debugger
+//
 //
 //			this.$echarts.registerMap(mapName, this.mapJson)
 //		}

@@ -133,7 +133,7 @@
 					}, options))
 
 				this.map.on('tileerror', () => {
-					// debugger
+					//
 				})
 
 				if (this.basemaps.length > 0) {

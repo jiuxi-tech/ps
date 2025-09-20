@@ -35,7 +35,7 @@ export default {
 
 	created () {
 //		this.table
-//		debugger
+//
 		//this.table = closest(this, 'FbSimpleTable')
 	},
 

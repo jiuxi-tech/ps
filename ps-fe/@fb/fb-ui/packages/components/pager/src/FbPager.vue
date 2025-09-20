@@ -98,7 +98,7 @@ export default {
 		// reader: {
 		// 	type: Object,
 		// 	default (val) {
-		// 		debugger
+		//
 		// 		return {}
 		// 	},
 		// 	validate (val) {

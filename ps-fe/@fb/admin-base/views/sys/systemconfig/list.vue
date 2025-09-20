@@ -47,7 +47,7 @@
                 </fb-simple-table>
             </template>
         </fb-page-search>
-        <tp-dialog ref="TpDialog"></tp-dialog>
+        <tp-dialog ref="TpDialog" @closeTpDialog="closeDialog"> </tp-dialog>
         <tp-dialog-tab ref="TpDialogTab"></tp-dialog-tab>
     </div>
 </template>
@@ -72,7 +72,7 @@ export default {
             },
             // Table列
             table: {
-                primaryKey: 'id',
+                primaryKey: 'configKey',
                 service: {
                     search: this.$svc.sys.systemconfig.list
                 },
@@ -156,7 +156,7 @@ export default {
         // 删除
         handleDel(row) {
             this.$confirm(`确定要删除配置项 "${row.configKey}" 吗？`, () => {
-                this.$svc.sys.config.delete(row.id).then(data => {
+                this.$svc.sys.config.delete(row.configKey).then(data => {
                     if (data.code == 1) {
                         this.$message.success('删除成功')
                         this.handleQuery()
@@ -165,6 +165,10 @@ export default {
                     }
                 })
             })
+        },
+        closeDialog() {
+
+            this.handleQuery()
         }
     }
 }

@@ -44,7 +44,7 @@
 		<div class="tp-dialog-bottom">
 			<fb-flex gap="8px" jc-end	>
 				<fb-button @on-click="handleSave" type="primary" :loading="loading">保存</fb-button>
-				<fb-button @on-click="handleCancel">取消</fb-button>
+				<fb-button @on-click="handleClose">取消</fb-button>
 			</fb-flex>
 		</div>
 	</div>
@@ -96,6 +96,7 @@ export default {
 			// 如果是编辑模式，加载数据
 			if ( this.configKey) {
 				this.loadData(this.configKey )
+          this.mode = 'edit'
 			}
 		},
 		// 加载数据
@@ -141,7 +142,7 @@ export default {
 						this.loading = false
 						if (data.code == 1) {
 							this.$message.success(this.configKey ? '修改成功' : '新增成功')
-							this.$parent.close(true)
+							this.handleClose()
 						} else {
 							this.$message.error(data.msg || '保存失败')
 						}
@@ -156,9 +157,10 @@ export default {
 			})
 		},
 		// 取消
-		handleCancel() {
-			this.$parent.close()
-		}
+      handleClose() {
+          // 关闭，并传递参数
+          this.closeTpDialog("xxxx");
+      },
 	}
 }
 

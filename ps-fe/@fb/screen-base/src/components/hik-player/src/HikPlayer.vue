@@ -658,7 +658,7 @@ export default {
 				}).then((data) => {
 					console.info(JSON.stringify(data ? data.responseMsg : ''))
 				}, (e) => {
-					debugger
+
 				})
 			} else {
 				this.$message('error')
@@ -700,7 +700,7 @@ export default {
 			playDate.setMinutes(playDate.getMinutes() - 30)
 			let playTimeStamp = playDate.getTime();
             playTimeStamp =startTimeStamp;
-			// debugger
+			//
 
 
 			options.cameraIndexCode = code
@@ -715,7 +715,7 @@ export default {
 			}).then((data) => {
 				console.info(JSON.stringify(data ? data.responseMsg : ''))
 			}, (e) => {
-				debugger
+
 			})
 		},
 
@@ -726,7 +726,7 @@ export default {
 			}).then((data) => {
 				console.info(JSON.stringify(data ? data.responseMsg : ''))
 			}, (e) => {
-				debugger
+
 			})
 
 		},
@@ -743,7 +743,7 @@ export default {
 			}).then((data) => {
 				console.info(JSON.stringify(data ? data.responseMsg : ''))
 			}, (e) => {
-				debugger
+
 			})
 		},
 

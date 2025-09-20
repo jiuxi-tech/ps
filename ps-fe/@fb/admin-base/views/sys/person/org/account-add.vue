@@ -191,7 +191,7 @@
 				message
 			}
 
-			debugger
+
 			// 日志埋点
 			app.$logger.send(data);
 		},

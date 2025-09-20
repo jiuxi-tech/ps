@@ -156,8 +156,8 @@ export default {
 
 		// 打开应用
 		openApp(app) {
-			this
-			debugger
+
+
 			if (!app.enabled) {
 				this.$message.warning('该应用当前不可用');
 				return;

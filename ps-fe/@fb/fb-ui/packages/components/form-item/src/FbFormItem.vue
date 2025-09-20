@@ -307,7 +307,7 @@ export default {
 //				...this.$slots['label-extra'][0].data.style,
 //				...this.labelExtraStyle,
 //			}
-//debugger
+//
 //			this.$slots['label-extra'][0].data.class =  {
 //				...this.$slots['label-extra'][0].data.class,
 //				[`${this.prefix}-form-item__label__extra`]: true
@@ -359,7 +359,7 @@ export default {
 
 			if (child) {
 //				if (child.$options.componentName === 'FbSelect') {
-//					debugger
+//
 //				}
 
 				if (typeof child.value !== 'undefined') {

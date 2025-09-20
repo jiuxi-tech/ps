@@ -438,7 +438,7 @@ export default {
 				}
 
 				if (this.doUnCheck.indexOf('p') === -1) {
-					//	debugger
+					//
 					childrenCheckedStatus = parent.childrenCheckedStatus
 				}
 

@@ -308,7 +308,7 @@ export default {
         initDeptTreeData (deptId, selectDeptId) {
             this.service_dept.org.tree({
                 deptId: deptId,
-                'sync': 0,
+                'sync': 1,
             }).then((result) => {
                 if (result.code == 1) {
                     if (result.data.length > 0) {
