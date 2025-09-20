@@ -297,8 +297,7 @@ public class SystemConfigApplicationService {
       * @param description 描述
       */
      public void setConfigValue(String configKey, String configValue, String description) {
-          // 这里需要实现具体的设置配置值逻辑
-          // 暂时为空实现，需要根据实际业务逻辑实现
+          tpSystemConfigService.setConfigValue(configKey, configValue, description);
       }
  
      /**
@@ -344,7 +343,6 @@ public class SystemConfigApplicationService {
       * @param configKey 配置键
       */
      public void deleteConfig(String configKey) {
-         // 这里需要实现具体的删除配置逻辑
-         // 暂时为空实现，需要根据实际业务逻辑实现
+         tpSystemConfigService.deleteConfig(configKey);
      }
 }

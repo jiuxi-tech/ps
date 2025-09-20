@@ -8,7 +8,7 @@
 							<fb-input 
 								v-model="formData.configKey" 
 								placeholder="请输入配置键，如：system.name"
-								readonly
+								:readonly="mode === 'edit'"
 								>
 							</fb-input>
 						</fb-form-item>
