@@ -5,7 +5,7 @@
 ### 1.1 当前目录结构概览
 
 ```
-com.jiuxi.classic/
+com.jiuxi/
 ├── Application.java           # 应用启动类
 ├── admin/                      # 传统管理模块（需重构）
 │   ├── autoconfig/            # 自动配置

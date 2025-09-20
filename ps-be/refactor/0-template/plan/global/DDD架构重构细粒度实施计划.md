@@ -173,12 +173,12 @@
 **任务描述**：将common包中的通用组件迁移到com.jiuxi.classic.shared.kernel
 
 **Day 1: 迁移工具类和常量**
-1. 迁移 `com.jiuxi.classic.common.util.*` 到 `com.jiuxi.classic.shared.kernel.common.utils`
+1. 迁移 `com.jiuxi.common.util.*` 到 `com.jiuxi.classic.shared.kernel.common.utils`
    - 字符串工具类
    - 日期工具类
    - 加密工具类
    - JSON工具类
-2. 迁移 `com.jiuxi.classic.common.constant.*` 到 `com.jiuxi.classic.shared.kernel.common.constants`
+2. 迁移 `com.jiuxi.common.constant.*` 到 `com.jiuxi.classic.shared.kernel.common.constants`
    - 系统常量
    - 错误码常量
    - 配置常量
@@ -186,7 +186,7 @@
 4. 运行测试确保功能正常
 
 **Day 2: 迁移异常和验证框架**
-1. 迁移 `com.jiuxi.classic.common.exception.*` 到 `com.jiuxi.classic.shared.kernel.common.exception`
+1. 迁移 `com.jiuxi.common.exception.*` 到 `com.jiuxi.classic.shared.kernel.common.exception`
    - 业务异常类
    - 系统异常类
    - 异常处理器
@@ -212,7 +212,7 @@
 **任务描述**：整合安全相关组件到com.jiuxi.classic.shared.kernel.security
 
 **具体步骤**：
-1. 迁移 `com.jiuxi.classic.security.*` 到 `com.jiuxi.classic.shared.kernel.security`
+1. 迁移 `com.jiuxi.security.*` 到 `com.jiuxi.classic.shared.kernel.security`
 2. 重构认证组件
    - JWT工具类
    - 认证过滤器
@@ -241,7 +241,7 @@
 **任务描述**：统一数据持久化配置和MyBatis集成
 
 **Day 1: 重构数据源配置**
-1. 迁移 `com.jiuxi.classic.mybatis.*` 到 `com.jiuxi.classic.infrastructure.persistence.config`
+1. 迁移 `com.jiuxi.mybatis.*` 到 `com.jiuxi.classic.infrastructure.persistence.config`
 2. 创建 `DataSourceConfig.java`
    - 主数据源配置
    - 读写分离配置（如需要）
