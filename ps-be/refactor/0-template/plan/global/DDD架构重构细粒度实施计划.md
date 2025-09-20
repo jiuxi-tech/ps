@@ -32,11 +32,11 @@
 **任务描述**：创建四大层级的基础包结构
 
 **具体步骤**：
-1. 创建 `com.jiuxi.application` 包及子包
-2. 创建 `com.jiuxi.domain` 包及子包
-3. 创建 `com.jiuxi.infrastructure` 包及子包
-4. 创建 `com.jiuxi.interfaces` 包及子包
-5. 重构 `com.jiuxi.shared` 包结构
+1. 创建 `com.jiuxi.classic.application` 包及子包
+2. 创建 `com.jiuxi.classic.domain` 包及子包
+3. 创建 `com.jiuxi.classic.infrastructure` 包及子包
+4. 创建 `com.jiuxi.classic.interfaces` 包及子包
+5. 重构 `com.jiuxi.classic.shared` 包结构
 
 **交付物**：
 - 完整的包结构目录
@@ -54,21 +54,21 @@
 **具体步骤**：
 
 **Day 1: 创建auth和user领域包**
-1. 创建 `domain.auth` 完整包结构
+1. 创建 `com.jiuxi.classic.domain.auth` 完整包结构
    - aggregate, entity, valueobject
    - service, repository, event
    - factory, policy
-2. 创建 `domain.user` 完整包结构
+2. 创建 `com.jiuxi.classic.domain.user` 完整包结构
    - 同上结构
 3. 创建对应的应用层包结构
-   - `application.service.auth`, `application.service.user`
-   - `application.command.handler.auth`, `application.command.handler.user`
-   - `application.query.handler.auth`, `application.query.handler.user`
+   - `com.jiuxi.classic.application.service.auth`, `com.jiuxi.classic.application.service.user`
+   - `com.jiuxi.classic.application.command.handler.auth`, `com.jiuxi.classic.application.command.handler.user`
+   - `com.jiuxi.classic.application.query.handler.auth`, `com.jiuxi.classic.application.query.handler.user`
 
 **Day 2: 创建org、role、sys领域包**
-1. 创建 `domain.org` 完整包结构
-2. 创建 `domain.role` 完整包结构
-3. 创建 `domain.sys` 完整包结构
+1. 创建 `com.jiuxi.classic.domain.org` 完整包结构
+2. 创建 `com.jiuxi.classic.domain.role` 完整包结构
+3. 创建 `com.jiuxi.classic.domain.sys` 完整包结构
 4. 创建对应的应用层包结构
 5. 创建基础设施层对应包结构
 
@@ -86,12 +86,12 @@
 **任务描述**：创建基础设施层和接口适配器层的详细包结构
 
 **具体步骤**：
-1. 创建 `infrastructure.persistence` 包结构
+1. 创建 `com.jiuxi.classic.infrastructure.persistence` 包结构
    - config, mapper, entity, repository, assembler
-2. 创建 `infrastructure.cache` 包结构
-3. 创建 `infrastructure.messaging` 包结构
-4. 创建 `infrastructure.external` 包结构
-5. 创建 `interfaces.web` 包结构
+2. 创建 `com.jiuxi.classic.infrastructure.cache` 包结构
+3. 创建 `com.jiuxi.classic.infrastructure.messaging` 包结构
+4. 创建 `com.jiuxi.classic.infrastructure.external` 包结构
+5. 创建 `com.jiuxi.classic.interfaces.web` 包结构
    - controller, dto, assembler, filter, handler
 
 **交付物**：
@@ -170,15 +170,15 @@
 - 代码符合DDD规范
 
 ##### 1.2.2 迁移通用组件（2天）
-**任务描述**：将common包中的通用组件迁移到shared.kernel
+**任务描述**：将common包中的通用组件迁移到com.jiuxi.classic.shared.kernel
 
 **Day 1: 迁移工具类和常量**
-1. 迁移 `com.jiuxi.common.util.*` 到 `shared.kernel.common.utils`
+1. 迁移 `com.jiuxi.classic.common.util.*` 到 `com.jiuxi.classic.shared.kernel.common.utils`
    - 字符串工具类
    - 日期工具类
    - 加密工具类
    - JSON工具类
-2. 迁移 `com.jiuxi.common.constant.*` 到 `shared.kernel.common.constants`
+2. 迁移 `com.jiuxi.classic.common.constant.*` 到 `com.jiuxi.classic.shared.kernel.common.constants`
    - 系统常量
    - 错误码常量
    - 配置常量
@@ -186,7 +186,7 @@
 4. 运行测试确保功能正常
 
 **Day 2: 迁移异常和验证框架**
-1. 迁移 `com.jiuxi.common.exception.*` 到 `shared.kernel.common.exception`
+1. 迁移 `com.jiuxi.classic.common.exception.*` 到 `com.jiuxi.classic.shared.kernel.common.exception`
    - 业务异常类
    - 系统异常类
    - 异常处理器
@@ -209,10 +209,10 @@
 - 无编译错误
 
 ##### 1.2.3 重构安全组件（1天）
-**任务描述**：整合安全相关组件到shared.kernel.security
+**任务描述**：整合安全相关组件到com.jiuxi.classic.shared.kernel.security
 
 **具体步骤**：
-1. 迁移 `com.jiuxi.security.*` 到 `shared.kernel.security`
+1. 迁移 `com.jiuxi.classic.security.*` 到 `com.jiuxi.classic.shared.kernel.security`
 2. 重构认证组件
    - JWT工具类
    - 认证过滤器
@@ -241,7 +241,7 @@
 **任务描述**：统一数据持久化配置和MyBatis集成
 
 **Day 1: 重构数据源配置**
-1. 迁移 `com.jiuxi.mybatis.*` 到 `infrastructure.persistence.config`
+1. 迁移 `com.jiuxi.classic.mybatis.*` 到 `com.jiuxi.classic.infrastructure.persistence.config`
 2. 创建 `DataSourceConfig.java`
    - 主数据源配置
    - 读写分离配置（如需要）
@@ -1228,7 +1228,7 @@
 
 **具体步骤**：
 1. 重构 `UserController`
-   - 迁移到 `interfaces.web.controller.user`
+   - 迁移到 `com.jiuxi.classic.interfaces.web.controller.user`
    - 集成命令查询处理器
    - 优化接口设计
 2. 创建用户相关DTO

@@ -5,7 +5,7 @@
 ### 1.1 当前目录结构概览
 
 ```
-com.jiuxi/
+com.jiuxi.classic/
 ├── Application.java           # 应用启动类
 ├── admin/                      # 传统管理模块（需重构）
 │   ├── autoconfig/            # 自动配置
@@ -81,7 +81,7 @@ com.jiuxi/
 ### 2.2 优化后的完整目录结构
 
 ```
-com.jiuxi/
+com.jiuxi.classic/
 ├── Bootstrap.java                    # 应用启动类（重命名）
 │
 ├── application/                      # 应用层（Application Layer）
@@ -577,16 +577,16 @@ com.jiuxi/
 
 | 现有包路径 | 新包路径 | 迁移内容 | 优先级 | 备注 |
 |-----------|----------|----------|--------|------|
-| `com.jiuxi.admin.core.controller` | `com.jiuxi.interfaces.web.controller` | Web控制器 | 高 | 按领域拆分 |
-| `com.jiuxi.admin.core.service` | `com.jiuxi.app.service` | 应用服务 | 高 | 实现CQRS分离 |
-| `com.jiuxi.admin.core.mapper` | `com.jiuxi.infrastructure.persistence.mapper` | 数据访问 | 高 | 按领域分包 |
-| `com.jiuxi.admin.core.bean.entity` | `com.jiuxi.domain.*/aggregate` | 领域实体 | 高 | 重构为聚合根 |
-| `com.jiuxi.admin.core.bean.vo` | `com.jiuxi.interfaces.web.dto` | 数据传输对象 | 中 | 区分请求/响应 |
-| `com.jiuxi.common.*` | `com.jiuxi.shared.kernel.common.*` | 通用组件 | 中 | 整合到共享内核 |
-| `com.jiuxi.security.*` | `com.jiuxi.shared.kernel.security.*` | 安全组件 | 中 | 统一安全框架 |
-| `com.jiuxi.mybatis.*` | `com.jiuxi.infrastructure.persistence.config` | 持久化配置 | 低 | 配置统一管理 |
-| `com.jiuxi.monitor.*` | `com.jiuxi.shared.kernel.monitoring.*` | 监控组件 | 低 | 监控能力共享 |
-| `com.jiuxi.platform.*` | `com.jiuxi.infrastructure.*` | 平台组件 | 低 | 按功能重新分类 |
+| `com.jiuxi.admin.core.controller` | `com.jiuxi.classic.interfaces.web.controller` | Web控制器 | 高 | 按领域拆分 |
+| `com.jiuxi.admin.core.service` | `com.jiuxi.classic.application.service` | 应用服务 | 高 | 实现CQRS分离 |
+| `com.jiuxi.admin.core.mapper` | `com.jiuxi.classic.infrastructure.persistence.mapper` | 数据访问 | 高 | 按领域分包 |
+| `com.jiuxi.admin.core.bean.entity` | `com.jiuxi.classic.domain.*/aggregate` | 领域实体 | 高 | 重构为聚合根 |
+| `com.jiuxi.admin.core.bean.vo` | `com.jiuxi.classic.interfaces.web.dto` | 数据传输对象 | 中 | 区分请求/响应 |
+| `com.jiuxi.common.*` | `com.jiuxi.classic.shared.kernel.common.*` | 通用组件 | 中 | 整合到共享内核 |
+| `com.jiuxi.security.*` | `com.jiuxi.classic.shared.kernel.security.*` | 安全组件 | 中 | 统一安全框架 |
+| `com.jiuxi.mybatis.*` | `com.jiuxi.classic.infrastructure.persistence.config` | 持久化配置 | 低 | 配置统一管理 |
+| `com.jiuxi.monitor.*` | `com.jiuxi.classic.shared.kernel.monitoring.*` | 监控组件 | 低 | 监控能力共享 |
+| `com.jiuxi.platform.*` | `com.jiuxi.classic.infrastructure.*` | 平台组件 | 低 | 按功能重新分类 |
 
 ### 3.2 领域模块详细映射
 
@@ -597,7 +597,7 @@ com.jiuxi/
 | `TpAccount*` | `domain.auth.aggregate.AuthAccount` | 聚合根 | 账户聚合 |
 | `TpKeycloakAccount*` | `domain.auth.entity.KeycloakAccount` | 实体 | Keycloak账户 |
 | `LoginController` | `interfaces.web.controller.auth.AuthController` | 控制器 | 认证接口 |
-| `PersonAccountService` | `app.service.auth.AuthApplicationService` | 应用服务 | 认证应用服务 |
+| `PersonAccountService` | `application.service.auth.AuthApplicationService` | 应用服务 | 认证应用服务 |
 | `KeycloakSyncService` | `infrastructure.external.keycloak.KeycloakSyncService` | 外部服务 | Keycloak集成 |
 
 #### 3.2.2 组织架构领域 (org)
@@ -608,8 +608,8 @@ com.jiuxi/
 | `TpDeptBasicinfo*` | `domain.org.aggregate.Department` | 聚合根 | 部门聚合 |
 | `TpCity*` | `domain.org.entity.City` | 实体 | 城市实体 |
 | `OrgController` | `interfaces.web.controller.org.OrganizationController` | 控制器 | 组织接口 |
-| `TpEntBasicinfoService` | `app.service.org.OrganizationApplicationService` | 应用服务 | 组织应用服务 |
-| `TpDeptBasicinfoService` | `app.service.org.DepartmentApplicationService` | 应用服务 | 部门应用服务 |
+| `TpEntBasicinfoService` | `application.service.org.OrganizationApplicationService` | 应用服务 | 组织应用服务 |
+| `TpDeptBasicinfoService` | `application.service.org.DepartmentApplicationService` | 应用服务 | 部门应用服务 |
 
 #### 3.2.3 用户管理领域 (user)
 
@@ -619,7 +619,7 @@ com.jiuxi/
 | `TpPersonExinfo*` | `domain.user.entity.UserProfile` | 实体 | 用户档案 |
 | `TpPersonDept*` | `domain.user.entity.UserDepartment` | 实体 | 用户部门关系 |
 | `UserController` | `interfaces.web.controller.user.UserController` | 控制器 | 用户接口 |
-| `TpPersonBasicinfoService` | `app.service.user.UserApplicationService` | 应用服务 | 用户应用服务 |
+| `TpPersonBasicinfoService` | `application.service.user.UserApplicationService` | 应用服务 | 用户应用服务 |
 
 #### 3.2.4 角色权限领域 (role)
 
@@ -630,7 +630,7 @@ com.jiuxi/
 | `TpRoleMenu*` | `domain.role.entity.RolePermission` | 实体 | 角色权限关系 |
 | `TpPersonRole*` | `domain.role.entity.UserRole` | 实体 | 用户角色关系 |
 | `RoleController` | `interfaces.web.controller.role.RoleController` | 控制器 | 角色接口 |
-| `TpRoleService` | `app.service.role.RoleApplicationService` | 应用服务 | 角色应用服务 |
+| `TpRoleService` | `application.service.role.RoleApplicationService` | 应用服务 | 角色应用服务 |
 
 #### 3.2.5 系统管理领域 (sys)
 
@@ -640,7 +640,7 @@ com.jiuxi/
 | `TpOperateLog*` | `domain.sys.aggregate.SystemLog` | 聚合根 | 操作日志 |
 | `TpDictionary*` | `domain.sys.aggregate.Dictionary` | 聚合根 | 数据字典 |
 | `SystemController` | `interfaces.web.controller.sys.SystemController` | 控制器 | 系统接口 |
-| `TpSystemConfigService` | `app.service.sys.SystemConfigApplicationService` | 应用服务 | 配置应用服务 |
+| `TpSystemConfigService` | `application.service.sys.SystemConfigApplicationService` | 应用服务 | 配置应用服务 |
 
 ## 4. 实施策略
 
