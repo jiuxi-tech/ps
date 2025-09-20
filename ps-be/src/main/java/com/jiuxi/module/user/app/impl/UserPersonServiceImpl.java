@@ -856,10 +856,16 @@ public class UserPersonServiceImpl implements UserPersonService {
                 Row row = sheet.createRow(i + 1);
                 TpPersonBasicinfoVO person = personList.get(i);
                 
+                // 解密手机号
+                String decryptedPhone = "";
+                if (StrUtil.isNotBlank(person.getPhone())) {
+                    decryptedPhone = PhoneEncryptionUtils.safeDecrypt(person.getPhone());
+                }
+                
                 row.createCell(0).setCellValue(StrUtil.isNotBlank(person.getPersonName()) ? person.getPersonName() : "");
                 row.createCell(1).setCellValue(person.getSex() != null ? (person.getSex() == 1 ? "男" : "女") : "");
                 row.createCell(2).setCellValue(StrUtil.isNotBlank(person.getIdcard()) ? person.getIdcard() : "");
-                row.createCell(3).setCellValue(StrUtil.isNotBlank(person.getPhone()) ? person.getPhone() : "");
+                row.createCell(3).setCellValue(decryptedPhone);
                 row.createCell(4).setCellValue(StrUtil.isNotBlank(person.getEmail()) ? person.getEmail() : "");
                 row.createCell(5).setCellValue(StrUtil.isNotBlank(person.getAscnName()) ? person.getAscnName() : "");
                 row.createCell(6).setCellValue(StrUtil.isNotBlank(person.getOffice()) ? person.getOffice() : "");
