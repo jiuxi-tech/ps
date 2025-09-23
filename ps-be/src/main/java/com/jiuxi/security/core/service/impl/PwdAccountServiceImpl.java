@@ -41,22 +41,22 @@ public class PwdAccountServiceImpl implements AccountService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PwdAccountServiceImpl.class);
 
     @Autowired(required = false)
-    protected JdbcTemplate jdbcTemplate;
+    protected JdbcTemplate jdbcTemplate; // JDBC模板，用于数据库操作
 
     @Autowired
-    protected SecurityConfigurationProperties properties;
+    protected SecurityConfigurationProperties properties; // 安全配置属性
 
     @Autowired
-    private LoginApplicationEventCollection loginApplicationEventCollection;
+    private LoginApplicationEventCollection loginApplicationEventCollection; // 登录事件集合
 
     @Autowired
-    private LoginApplicationService accountExinfoDBService;
+    private LoginApplicationService accountExinfoDBService; // 账号扩展信息数据库服务
 
     @Autowired(required = false)
-    private TpSystemConfigService tpSystemConfigService;
+    private TpSystemConfigService tpSystemConfigService; // 系统配置服务
 
     @Autowired(required = false)
-    private TpTimeRuleService tpTimeRuleService;
+    private TpTimeRuleService tpTimeRuleService; // 时间规则服务
 
     @PostConstruct
     public void init() {
@@ -64,13 +64,13 @@ public class PwdAccountServiceImpl implements AccountService {
     }
 
     /**
-     * 上下文对象
+     * Spring应用上下文对象
      */
     @Autowired
     private ApplicationContext applicationContext;
 
     /**
-     * 是否冻结， 1 冻结，0 未冻结
+     * 账号冻结状态标识：1表示冻结，0表示未冻结
      */
     protected final String LOCKED = "1";
 
@@ -84,8 +84,13 @@ public class PwdAccountServiceImpl implements AccountService {
     private static final String accountExinfoSql = "select account_id, err_count, last_err_time, last_login_time from tp_account_exinfo where account_id = ?";
 
     /**
-     /**
-     * 根据用户名查询账号信息
+     * 账号是否被禁用
+     */
+    private static final String isEnabledSql = "SELECT count(1) FROM tp_account WHERE   1=1 and username = ? AND enabled = '0'   LIMIT 1";
+
+    private static final String isLockedSql = "SELECT count(1) FROM tp_account WHERE 1=1 and username = ? AND locked = '1'   LIMIT 1";
+
+    /**
      * <p>
      * 该方法仅根据用户名查询账号基本信息，不进行密码验证、账号锁定检查等登录相关的复杂逻辑。
      * 适用于SSO回调等场景，只需要获取用户基本信息的情况。
@@ -171,6 +176,14 @@ public class PwdAccountServiceImpl implements AccountService {
         if (jdbcTemplate == null) {
             throw new RuntimeException("在执行认证时，jdbcTemplate为null，请先在项目中引入了连接池的配置...");
         }
+
+        // 检查账号是否被禁用
+        Integer disabledCount = jdbcTemplate.queryForObject(isEnabledSql, new Object[]{userName}, Integer.class);
+        if (disabledCount != null && disabledCount > 0) {
+            LOGGER.error("登录失败，账号已被禁用，当前登录用户名:{}", userName);
+            throw new TopinfoRuntimeException(-1, "登录失败，账号已停用");
+        }
+
 
         // BeanPropertyRowMapper 字段转换时，注意数据库字段与实体属性的对应
         List<AccountVO> list = jdbcTemplate.query(loginSql, new Object[]{userName}, new BeanPropertyRowMapper<>(AccountVO.class));

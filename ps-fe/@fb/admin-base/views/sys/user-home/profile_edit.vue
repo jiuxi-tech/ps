@@ -68,12 +68,13 @@
 
                 <fb-row>
                     <fb-col span="12">
-                        <fb-form-item label="手机号" prop="phone" :rule="[{ pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }]">
+                        <!-- :rule="[{ pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }]" -->
+                        <fb-form-item label="手机号" prop="phone" >
                             <fb-input v-model="formData.phone" placeholder="请输入手机号"></fb-input>
                         </fb-form-item>
                     </fb-col>
                     <fb-col span="12">
-                        <fb-form-item label="联系电话" prop="tel" :rule="[{ required: false, type: 'tel' }]">
+                        <fb-form-item label="联系电话" prop="tel" :rule="[{ required: false, type: 'telmobile' }]">
                             <fb-input v-model="formData.tel" placeholder="请输入联系电话"></fb-input>
                         </fb-form-item>
                     </fb-col>
