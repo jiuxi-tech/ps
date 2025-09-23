@@ -88,6 +88,9 @@ public class PwdAccountServiceImpl implements AccountService {
      */
     private static final String isEnabledSql = "SELECT count(1) FROM tp_account WHERE   1=1 and username = ? AND enabled = '0'   LIMIT 1";
 
+     /**
+     * 账号是否被锁定
+     */
     private static final String isLockedSql = "SELECT count(1) FROM tp_account WHERE 1=1 and username = ? AND locked = '1'   LIMIT 1";
 
     /**
@@ -182,6 +185,14 @@ public class PwdAccountServiceImpl implements AccountService {
         if (disabledCount != null && disabledCount > 0) {
             LOGGER.error("登录失败，账号已被禁用，当前登录用户名:{}", userName);
             throw new TopinfoRuntimeException(-1, "登录失败，账号已停用");
+        }
+        
+
+        // 检查账号是否被锁定
+        Integer lockedCount = jdbcTemplate.queryForObject(isLockedSql, new Object[]{userName}, Integer.class);
+        if (lockedCount != null && lockedCount > 0) {
+            LOGGER.error("登录失败，账号已被锁定，当前登录用户名:{}", userName);
+            throw new TopinfoRuntimeException(-1, "登录失败，账号已被锁定");
         }
 
 
