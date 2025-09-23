@@ -220,6 +220,16 @@ public interface UserAccountService {
     void deleteByPersonId(String personId);
 
     /**
+     * 根据人员id，物理删除账号信息
+     *
+     * @param personId 人员id
+     * @return void
+     * @author 系统生成
+     * @date 2024/12/24
+     */
+    void physicalDeleteByPersonId(String personId);
+
+    /**
      * 同步账号到Keycloak
      *
      * @param accountId 账号ID

@@ -1,6 +1,7 @@
 package com.jiuxi.module.sys.intf.web.controller.command;
 
 import com.jiuxi.module.sys.app.service.SystemConfigApplicationService;
+import com.jiuxi.admin.core.service.TpSystemConfigService;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.shared.common.annotation.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class SystemConfigCommandController {
 
     @Autowired
     private SystemConfigApplicationService systemConfigApplicationService;
+
+    @Autowired
+    private TpSystemConfigService tpSystemConfigService;
 
     /**
      * 删除配置
@@ -116,6 +120,7 @@ public class SystemConfigCommandController {
         systemConfigApplicationService.updateConfigs(configs);
         return JsonResponse.buildSuccess();
     }
+    
     /**
      * 更新系统配置
      * 支持JSON格式请求体和表单参数两种方式
@@ -149,5 +154,37 @@ public class SystemConfigCommandController {
         
         systemConfigApplicationService.setConfigValue(key, value, desc);
         return JsonResponse.buildSuccess();
+    }
+
+    /**
+     * 获取物理删除开关状态
+     */
+    @RequestMapping("/test_physical_delete_status")
+    public JsonResponse getPhysicalDeleteStatus() {
+        try {
+            boolean isEnabled = tpSystemConfigService.isPhysicalDeleteEnabled();
+            return JsonResponse.buildSuccess(Map.of(
+                "enabled", isEnabled,
+                "message", isEnabled ? "物理删除功能已启用" : "物理删除功能已禁用"
+            ));
+        } catch (Exception e) {
+            return JsonResponse.buildFailure("获取物理删除开关状态失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 设置物理删除开关状态
+     */
+    @RequestMapping("/test_physical_delete_toggle")
+    public JsonResponse setPhysicalDeleteStatus(@RequestParam boolean enabled) {
+        try {
+            tpSystemConfigService.setPhysicalDeleteEnabled(enabled);
+            return JsonResponse.buildSuccess(Map.of(
+                "enabled", enabled,
+                "message", enabled ? "物理删除功能已启用" : "物理删除功能已禁用"
+            ));
+        } catch (Exception e) {
+            return JsonResponse.buildFailure("设置物理删除开关状态失败: " + e.getMessage());
+        }
     }
 }

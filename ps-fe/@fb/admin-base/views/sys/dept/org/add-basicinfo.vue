@@ -22,7 +22,7 @@
 					</fb-col>
 					<fb-col span="12">
 						<fb-form-item label="部门类型" prop="deptType" :rule="[{required: true}]">
-							<fb-select v-model="formData.deptType" :service="$svc.sys.dict.select"
+							<fb-select :readonly="mode === 'edit'" v-model="formData.deptType" :service="$svc.sys.dict.select"
 									   :param="{'pdicCode': 'SYS05'}" :placeholder="'请选择'" clearable/>
 						</fb-form-item>
 					</fb-col>
@@ -148,17 +148,23 @@
 					"deptType": {
 						// 自定义 校验方法，方法名与参数固定不变
 						validator: (rule, value, callback, source, options) => {
+							 
 							// 可通过 _this 获取上下文
 							if (that.formData.pdeptId === '1111111111111111111' && value !== 'SYS0501') {
 								// 校验未通过，返回错误信息
 								return callback('顶级节点机构类型请选择单位');
 							}
 
+							// if((value+'').trim() === ""){
+							// 	return callback('请选择部门类型');
+							// }
+
 							// 校验通过，返回空参数
 							return callback();
 						}
 					}
 				},
+				mode: 'add',
 				// 表单数据
 				formData: {
 					deptId: '',
@@ -167,7 +173,7 @@
 					deptNo: '',
 					deptFullName: '',
 					deptSimpleName: '',
-					deptType: '部门',
+					deptType: '',//部门
 					cityCode: '',
 					principalName: '',
 					principalTel: '',
@@ -184,11 +190,13 @@
 			// 初始化参数
 			init(param) {
 				if (param.id) {
+					this.mode = 'edit';
 					// 修改
 					let deptId = param.id;
 					this.formData.deptId = deptId;
 					this.view(deptId);
 				} else {
+					this.mode = 'add';
 					// 新增
 					this.formData.pdeptId = param.pdeptId;
 					this.formData.ascnId = param.ascnId;
@@ -210,7 +218,8 @@
 							// 新增/修改 成单位，后端自动填充它的deptId做为ascnId值
 							that.formData.ascnId = '';
 						}
-						
+					 
+
 						// 过滤掉null值和无效参数，避免参数绑定失败
 						let submitData = {};
 						Object.keys(that.formData).forEach(key => {
@@ -227,6 +236,7 @@
 								// 判断code
 								if (result.code == 1) {
 									that.$message.success('修改成功');
+									this.handleClose()
 								} else {
 									// 服务器返回失败
 									that.$message.error('修改失败')
@@ -242,7 +252,8 @@
 
 									let deptId = result.data.deptId;
 									this.formData.deptId = deptId;
-									this.setPageParam(deptId);
+									//this.setPageParam(deptId);
+									this.handleClose()
 								} else {
 									// 服务器返回失败
 									that.$message.error('新增失败')

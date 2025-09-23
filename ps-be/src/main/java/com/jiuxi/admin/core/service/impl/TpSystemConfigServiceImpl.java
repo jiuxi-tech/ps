@@ -197,4 +197,15 @@ public class TpSystemConfigServiceImpl implements TpSystemConfigService {
             }
         }
     }
+
+    @Override
+    public boolean isPhysicalDeleteEnabled() {
+        String value = getConfigValue("user.physical.delete.enabled", "false");
+        return "true".equalsIgnoreCase(value);
+    }
+
+    @Override
+    public void setPhysicalDeleteEnabled(boolean enabled) {
+        setConfigValue("user.physical.delete.enabled", String.valueOf(enabled), "启用用户物理删除功能开关");
+    }
 }

@@ -82,4 +82,16 @@ public interface TpSystemConfigService {
      * @param configKey 配置键
      */
     void deleteConfig(String configKey);
+
+    /**
+     * 获取物理删除功能开关状态
+     * @return true表示启用物理删除，false表示禁用
+     */
+    boolean isPhysicalDeleteEnabled();
+
+    /**
+     * 设置物理删除功能开关状态
+     * @param enabled true表示启用物理删除，false表示禁用
+     */
+    void setPhysicalDeleteEnabled(boolean enabled);
 }

@@ -149,4 +149,9 @@ public class TpPersonBasicinfoServiceAdapter implements TpPersonBasicinfoService
     public TpPersonBasicinfoVO getBaseInfoByIdCard(String idcard) {
         return userPersonService.getBaseInfoByIdCard(idcard);
     }
+    
+    @Override
+    public void physicalDeleteByPersonId(String personId) {
+        userPersonService.physicalDeleteByPersonId(personId);
+    }
 }

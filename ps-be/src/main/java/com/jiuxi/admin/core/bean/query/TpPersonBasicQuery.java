@@ -70,6 +70,13 @@ public class TpPersonBasicQuery {
      * 选中的用户ID列表（用于导出选中用户）
      */
     private java.util.List<String> selectedUserIds;
+    
+    /**
+     * 是否包含未激活的人员（ACTIVED=0）
+     * 当物理删除开关启用时，此字段为true，表示显示所有人员包括未激活的
+     */
+    @JsonIgnore
+    private boolean includeInactive = false;
 
     public String getDeptId() {
         return deptId;
@@ -165,5 +172,13 @@ public class TpPersonBasicQuery {
     
     public void setSelectedUserIds(java.util.List<String> selectedUserIds) {
         this.selectedUserIds = selectedUserIds;
+    }
+    
+    public boolean isIncludeInactive() {
+        return includeInactive;
+    }
+    
+    public void setIncludeInactive(boolean includeInactive) {
+        this.includeInactive = includeInactive;
     }
 }

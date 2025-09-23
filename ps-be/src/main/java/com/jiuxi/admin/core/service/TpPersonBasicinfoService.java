@@ -28,6 +28,16 @@ public interface TpPersonBasicinfoService {
     
     void deletes(String deptIds, String personIds, String pid);
     
+    /**
+     * 根据人员ID物理删除人员信息
+     *
+     * @param personId 人员ID
+     * @return void
+     * @author 系统生成
+     * @date 2024/12/24
+     */
+    void physicalDeleteByPersonId(String personId);
+    
     TpPersonBasicinfoVO view(String personId, String deptId);
     
     TpPersonExinfoVO expAdd(TpPersonExinfoVO vo);

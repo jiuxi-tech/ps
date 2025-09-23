@@ -33,6 +33,7 @@ import com.jiuxi.admin.core.mapper.TpPersonRoleMapper;
 import com.jiuxi.module.user.app.service.PersonAccountApplicationService;
 import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.service.TpAttachinfoService;
+import com.jiuxi.admin.core.service.TpSystemConfigService;
 import com.jiuxi.module.user.app.service.UserPersonService;
 import com.jiuxi.common.bean.JsonResponse;
 import com.jiuxi.common.bean.SessionVO;
@@ -119,6 +120,9 @@ public class UserPersonServiceImpl implements UserPersonService {
     @Autowired(required = false)
     private TpPersonBasicinfoEventService tpPersonBasicinfoEventService;
 
+    @Autowired
+    private TpSystemConfigService tpSystemConfigService;
+
     /**
      * 用户信息分页查询
      *
@@ -133,6 +137,10 @@ public class UserPersonServiceImpl implements UserPersonService {
             if (StrUtil.isBlank(query.getDeptId())) {
                 throw new TopinfoRuntimeException(500, "请选择部门查询数据!");
             }
+
+            // 检查物理删除开关状态，决定是否显示ACTIVED=0的人员
+            boolean isPhysicalDeleteEnabled = tpSystemConfigService.isPhysicalDeleteEnabled();
+            query.setIncludeInactive(isPhysicalDeleteEnabled);
 
             Integer pageNum = Optional.ofNullable(query.getCurrent()).orElse(1);
             Integer pageSize = Optional.ofNullable(query.getSize()).orElse(10);
@@ -445,7 +453,7 @@ public class UserPersonServiceImpl implements UserPersonService {
      * 批量删除用户信息，只删除以当前部门为主部门的人员和账号信息，如果是兼职部门，只删除关联关系
      * 1、删除用户信息，用户账户设置为无效
      * <p>
-     * 3、删除用户信息，是逻辑删除，设置为无效
+     * 3、删除用户信息，根据系统配置决定是逻辑删除还是物理删除
      *
      * @param personIds:
      * @return void
@@ -469,6 +477,10 @@ public class UserPersonServiceImpl implements UserPersonService {
         String[] deptIdArr = StringUtils.split(deptIds, ",");
         String updateTime = CommonDateUtil.now();
 
+        // 检查是否启用物理删除
+        boolean isPhysicalDeleteEnabled = tpSystemConfigService.isPhysicalDeleteEnabled();
+        LOGGER.info("物理删除开关状态: {}", isPhysicalDeleteEnabled ? "启用" : "禁用");
+
         TpPersonBasicinfo tpPersonBasicinfo = new TpPersonBasicinfo();
 
         for (int i = 0; i < personIdArr.length; i++) {
@@ -478,16 +490,30 @@ public class UserPersonServiceImpl implements UserPersonService {
 
                 int defaultDept = tpPersonDeptMapper.selectByDeptIdAndPersonId(deptId, personId);
                 if (defaultDept == 1) {
-                    // 1. 用户账户设置为无效
-                    userAccountService.deleteByPersonId(personId);
+                    if (isPhysicalDeleteEnabled) {
+                        // 物理删除模式
+                        LOGGER.info("执行物理删除，操作人:{}, 被操作人: {} , 部门：{}", pid, personId, deptId);
+                        
+                        // 1. 用户账户物理删除
+                        userAccountService.physicalDeleteByPersonId(personId);
 
-                    // 2. 用户信息逻辑删除
-                    tpPersonBasicinfo.setPersonId(personId);
-                    tpPersonBasicinfo.setUpdator(pid);
-                    tpPersonBasicinfo.setActived(0);
-                    tpPersonBasicinfo.setUpdateTime(updateTime);
-                    tpPersonBasicinfo.setPhone(CommonUniqueIndexUtil.addDeleteTime(tpPersonBasicinfo.getPhone()));
-                    tpPersonBasicinfoMapper.deleteByPersonId(tpPersonBasicinfo);
+                        // 2. 用户信息物理删除
+                        physicalDeleteByPersonId(personId);
+                    } else {
+                        // 逻辑删除模式（原有逻辑）
+                        LOGGER.info("执行逻辑删除，操作人:{}, 被操作人: {} , 部门：{}", pid, personId, deptId);
+                        
+                        // 1. 用户账户设置为无效
+                        userAccountService.deleteByPersonId(personId);
+
+                        // 2. 用户信息逻辑删除
+                        tpPersonBasicinfo.setPersonId(personId);
+                        tpPersonBasicinfo.setUpdator(pid);
+                        tpPersonBasicinfo.setActived(0);
+                        tpPersonBasicinfo.setUpdateTime(updateTime);
+                        tpPersonBasicinfo.setPhone(CommonUniqueIndexUtil.addDeleteTime(tpPersonBasicinfo.getPhone()));
+                        tpPersonBasicinfoMapper.deleteByPersonId(tpPersonBasicinfo);
+                    }
                 }
 
                 // 3. 用户，部门关联关系删除
@@ -1224,6 +1250,36 @@ public class UserPersonServiceImpl implements UserPersonService {
         } catch (IOException e) {
             LOGGER.error("下载Excel模板失败！e: {}", ExceptionUtils.getStackTrace(e));
             throw new TopinfoRuntimeException(-1, "下载Excel模板失败！");
+        }
+    }
+
+    /**
+     * 根据人员ID物理删除人员信息
+     *
+     * @param personId 人员ID
+     * @return void
+     * @author 系统生成
+     * @date 2024/12/24
+     */
+    @Override
+    @Transactional(rollbackFor = TopinfoRuntimeException.class)
+    @CacheEvict(cacheNames = "platform.{TpPersonBasicinfoService}$[86400]", allEntries = true)
+    public void physicalDeleteByPersonId(String personId) {
+        try {
+            TpPersonBasicinfoVO view = tpPersonBasicinfoMapper.view(personId);
+            if (view == null) {
+                LOGGER.warn("根据人员id未查询到人员信息，跳过人员物理删除。personId:{}", personId);
+                return;
+            }
+            int deletedCount = tpPersonBasicinfoMapper.physicalDeleteByPersonId(personId);
+            if (deletedCount > 0) {
+                LOGGER.info("成功物理删除人员信息。personId:{}, 删除记录数:{}", personId, deletedCount);
+            } else {
+                LOGGER.warn("物理删除人员信息失败，未找到匹配记录。personId:{}", personId);
+            }
+        } catch (Exception e) {
+            LOGGER.error("物理删除人员信息时发生异常。personId:{}, 异常:{}", personId, e.getMessage(), e);
+            throw new TopinfoRuntimeException(-1, "物理删除人员信息失败：" + e.getMessage());
         }
     }
 }

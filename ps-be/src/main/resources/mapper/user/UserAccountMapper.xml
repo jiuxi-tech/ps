@@ -126,6 +126,12 @@
           and ACTIVED = 1
     </update>
 
+    <!-- 根据人员id，物理删除账号信息 -->
+    <delete id="physicalDeleteByPersonId">
+        delete from tp_account
+        where PERSON_ID = #{personId}
+    </delete>
+
     <!-- 根据手机号查询账户信息 -->
     <select id="getTpAccountByPhone"  parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
         select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03

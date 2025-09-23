@@ -51,6 +51,16 @@ public interface TpPersonBasicinfoMapper {
     
     int deleteByPersonId(TpPersonBasicinfo bean);
     
+    /**
+     * 根据人员ID物理删除人员信息
+     *
+     * @param personId 人员ID
+     * @return int 删除的记录数
+     * @author 系统生成
+     * @date 2024/12/24
+     */
+    int physicalDeleteByPersonId(@Param("personId") String personId);
+    
     TpPersonBasicinfo selectByPhoneAndPersonId(@Param("phone") String phone, @Param("personId") String personId);
     
     List<String> selectPersonIdByAscnId(String ascnId);

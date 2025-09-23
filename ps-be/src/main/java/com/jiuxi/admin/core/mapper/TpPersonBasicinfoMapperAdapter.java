@@ -111,6 +111,11 @@ public class TpPersonBasicinfoMapperAdapter implements TpPersonBasicinfoMapper {
     }
     
     @Override
+    public int physicalDeleteByPersonId(String personId) {
+        return userPersonMapper.physicalDeleteByPersonId(personId);
+    }
+
+    @Override
     public TpPersonBasicinfo selectByPhoneAndPersonId(String phone, String personId) {
         return userPersonMapper.selectByPhoneAndPersonId(phone, personId);
     }

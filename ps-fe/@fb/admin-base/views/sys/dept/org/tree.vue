@@ -295,7 +295,7 @@ export default {
                 'ascnId': ascnId,
             }
 
-            this.$refs.TpDialog.show(import('../../../../views/sys/dept/org/add-basicinfo.vue'), param, '修改')
+            this.$refs.TpDialog.show(import('../../../../views/sys/dept/org/add-basicinfo.vue'), param, '添加')
 //            let tabArry = [
 //                {
 //                    url: import('../../../../views/sys/dept/org/add-basicinfo.vue'),

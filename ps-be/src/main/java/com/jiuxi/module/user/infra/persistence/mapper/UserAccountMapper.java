@@ -53,6 +53,15 @@ public interface UserAccountMapper {
     int deleteByPersonId(@Param("personId") String personId, @Param("updateTime") String updateTime, @Param("username") String username, @Param("phone") String phone);
 
     /**
+     * 根据人员id，物理删除账号信息
+     * @param personId 人员id
+     * @return 删除的记录数
+     * @author 系统生成
+     * @date 2024/12/24
+     */
+    int physicalDeleteByPersonId(@Param("personId") String personId);
+
+    /**
      * 根据手机号查询账户信息
      * @author 杨攀
      * @date 2024/5/27 13:44

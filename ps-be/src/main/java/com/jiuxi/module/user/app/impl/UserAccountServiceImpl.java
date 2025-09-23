@@ -789,8 +789,9 @@ public class UserAccountServiceImpl implements UserAccountService {
         return tpAccountMapper.getTpAccountByUsername(username);
     }
 
+
     /**
-     * 根据人员id，删除账号信息
+     * 根据人员id，删除账号信息 物理删除版本
      *
      * @param personId 人员id
      * @return void
@@ -811,6 +812,59 @@ public class UserAccountServiceImpl implements UserAccountService {
         } catch (Exception e) {
             LOGGER.warn("删除用户账号时发生异常，可能用户无账号记录，跳过账号删除。personId:{}, 异常:{}", personId, e.getMessage());
             // 不抛出异常，允许删除流程继续进行
+        }
+    }
+
+    // /**
+    //  * 根据人员id，删除账号信息 逻辑删除版本，不要删除
+    //  *
+    //  * @param personId 人员id
+    //  * @return void
+    //  * @author 杨占锐
+    //  * @date 2024/5/29 11:08
+    //  */
+    // @Override
+    // public void deleteByPersonId(String personId) {
+    //     try {
+    //         TpAccountVO view = tpAccountMapper.viewByPersonId(personId);
+    //         if (view == null) {
+    //             LOGGER.warn("根据人员id未查询到账号信息，跳过账号删除。personId:{}", personId);
+    //             return;
+    //         }
+    //         String updateTime = CommonDateUtil.now();
+    //         tpAccountMapper.deleteByPersonId(personId, updateTime, CommonUniqueIndexUtil.addDeleteTime(view.getUsername()), CommonUniqueIndexUtil.addDeleteTime(view.getPhone()));
+    //         LOGGER.info("成功删除用户账号信息。personId:{}", personId);
+    //     } catch (Exception e) {
+    //         LOGGER.warn("删除用户账号时发生异常，可能用户无账号记录，跳过账号删除。personId:{}, 异常:{}", personId, e.getMessage());
+    //         // 不抛出异常，允许删除流程继续进行
+    //     }
+    // }
+
+    /**
+     * 根据人员id，物理删除账号信息
+     *
+     * @param personId 人员id
+     * @return void
+     * @author 系统生成
+     * @date 2024/12/24
+     */
+    @Override
+    public void physicalDeleteByPersonId(String personId) {
+        try {
+            TpAccountVO view = tpAccountMapper.viewByPersonId(personId);
+            if (view == null) {
+                LOGGER.warn("根据人员id未查询到账号信息，跳过账号物理删除。personId:{}", personId);
+                return;
+            }
+            int deletedCount = tpAccountMapper.physicalDeleteByPersonId(personId);
+            if (deletedCount > 0) {
+                LOGGER.info("成功物理删除用户账号信息。personId:{}, 删除记录数:{}", personId, deletedCount);
+            } else {
+                LOGGER.warn("物理删除用户账号信息失败，未找到匹配记录。personId:{}", personId);
+            }
+        } catch (Exception e) {
+            LOGGER.error("物理删除用户账号时发生异常。personId:{}, 异常:{}", personId, e.getMessage(), e);
+            throw new TopinfoRuntimeException(-1, "物理删除用户账号失败：" + e.getMessage());
         }
     }
 

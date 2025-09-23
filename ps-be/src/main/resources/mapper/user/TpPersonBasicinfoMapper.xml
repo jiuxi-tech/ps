@@ -63,7 +63,16 @@
             left join tp_account ta on tpb.PERSON_ID = ta.PERSON_ID and ta.ACTIVED = 1
         </if>
         where
-        tpb.ACTIVED = 1
+        <choose>
+            <when test="query.includeInactive">
+                <!-- 物理删除开关启用时，显示所有人员包括ACTIVED=0的 -->
+                (tpb.ACTIVED = 1 OR tpb.ACTIVED = 0)
+            </when>
+            <otherwise>
+                <!-- 物理删除开关未启用时，只显示ACTIVED=1的人员 -->
+                tpb.ACTIVED = 1
+            </otherwise>
+        </choose>
         and tpb.PERSON_ID != '1111111111111111111'
         <if test="query.deptId != null and query.deptId != ''">
             AND tpd.DEPT_ID = #{query.deptId}
@@ -219,5 +228,9 @@
     <update id="deleteByPersonId">
         update tp_person_basicinfo set ACTIVED = 0, UPDATOR = #{updator}, UPDATE_TIME = #{updateTime}, PHONE = #{phone} where PERSON_ID = #{personId} and ACTIVED = 1
     </update>
+
+    <delete id="physicalDeleteByPersonId">
+        delete from tp_person_basicinfo where PERSON_ID = #{personId}
+    </delete>
 
 </mapper>

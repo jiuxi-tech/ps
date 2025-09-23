@@ -34,6 +34,16 @@ public interface UserPersonService {
 
     void deletes(String deptIds, String personIds, String pid);
 
+    /**
+     * 根据人员ID物理删除人员信息
+     *
+     * @param personId 人员ID
+     * @return void
+     * @author 系统生成
+     * @date 2024/12/24
+     */
+    void physicalDeleteByPersonId(String personId);
+
     int parttime(String personId, String deptIds);
 
     List<TpPersonRoleVO> personRoles(String deptId, String personId);
