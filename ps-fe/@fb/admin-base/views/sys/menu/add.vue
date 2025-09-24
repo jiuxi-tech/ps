@@ -229,14 +229,19 @@
 			},
 			add() {
 				let originalUri = this.formData.menuUri;
-				// url编码
-				this.formData.menuUri = encodeURIComponent(this.formData.menuUri);
+				// url编码 - 只编码一次，避免双重编码
+				if (this.formData.menuUri) {
+					this.formData.menuUri = encodeURIComponent(this.formData.menuUri);
+				}
 				// 界面校验
 				this.$refs.fbform.validate((result) => {
 					if (result === true) {
+						// 创建清理后的数据副本，过滤null值和无效参数
+						const cleanFormData = this.cleanFormData(this.formData);
+						
 						if (this.formData.menuId) {
 							// 修改
-							this.service.update(this.formData).then((result) => {
+							this.service.update(cleanFormData).then((result) => {
 								// 判断code
 								if (result && result.code == 1) {
 									this.$message.success('修改成功');
@@ -245,11 +250,19 @@
 								} else {
 									// 报错后需要还原
 									this.formData.menuUri = originalUri;
+									if (result && result.message) {
+										this.$message.error('修改失败: ' + result.message);
+									}
 								}
+							}).catch((error) => {
+								// 异常处理
+								this.formData.menuUri = originalUri;
+								this.$message.error('修改失败，请检查参数是否正确');
+								console.error('Menu update error:', error);
 							})
 						} else {
 							// 新增
-							this.service.add(this.formData).then((result) => {
+							this.service.add(cleanFormData).then((result) => {
 								// 判断code
 								if (result && result.code == 1) {
 									this.$message.success('新增成功');
@@ -258,12 +271,72 @@
 								} else {
 									// 报错后需要还原
 									this.formData.menuUri = originalUri;
+									if (result && result.message) {
+										this.$message.error('新增失败: ' + result.message);
+									}
 								}
+							}).catch((error) => {
+								// 异常处理
+								this.formData.menuUri = originalUri;
+								this.$message.error('新增失败，请检查参数是否正确');
+								console.error('Menu add error:', error);
 							})
 						}
 
 					}
 				})
+			},
+
+			/**
+			 * 清理表单数据，过滤null值和无效参数
+			 * 避免参数绑定失败
+			 */
+			cleanFormData(rawData) {
+				const cleanedData = {};
+				
+				// 遍历原始数据
+				for (const key in rawData) {
+					if (rawData.hasOwnProperty(key)) {
+						const value = rawData[key];
+						
+						// 过滤条件：
+						// 1. 不为null和undefined
+						// 2. 不为字符串'null'
+						// 3. 不为空字符串（除非是必须的字段）
+						if (value !== null && 
+							value !== undefined && 
+							value !== 'null' && 
+							value !== '') {
+							cleanedData[key] = value;
+						} else if (this.isRequiredField(key) && value === '') {
+							// 必需字段即使为空字符串也保留（后端会进行验证）
+							cleanedData[key] = value;
+						}
+					}
+				}
+				
+				// 确保orderIndex为Double类型
+				if (cleanedData.orderIndex !== undefined) {
+					cleanedData.orderIndex = parseFloat(cleanedData.orderIndex) || 0.0;
+				}
+				
+				// 确保menuSource为Integer类型
+				if (cleanedData.menuSource !== undefined) {
+					cleanedData.menuSource = parseInt(cleanedData.menuSource) || 1;
+				}
+				
+				console.log('原始表单数据:', rawData);
+				console.log('清理后数据:', cleanedData);
+				
+				return cleanedData;
+			},
+
+			/**
+			 * 判断是否为必需字段
+			 */
+			isRequiredField(fieldName) {
+				const requiredFields = ['menuId', 'menuName', 'menuTreePid', 'menuSource', 'menuType', 'orderIndex'];
+				return requiredFields.includes(fieldName);
 			},
 
 		    // 下拉选项数据加载完成后
