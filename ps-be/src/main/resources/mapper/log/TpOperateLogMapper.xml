@@ -78,7 +78,7 @@
             and tol.CITY_CODE like concat(#{query.cityCode} ,'%')
         </if>
         <if test="null != query.username and query.username != ''">
-            and tol.USERNAME = #{query.username}
+            and tol.USERNAME   like concat(#{query.username} ,'%')
         </if>
         <if test="null != query.personId and query.personId != ''">
             and tol.PERSON_ID = #{query.personId}

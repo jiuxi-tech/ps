@@ -40,26 +40,26 @@
 
                         <fb-col span="4"></fb-col>
                     </fb-row>
-                    <!--                    <fb-row>-->
-                    <!--                        <fb-col offset="1" span="10">-->
-                    <!--                            <fb-form-item label="行政区划">-->
-                    <!--                                <fb-tree-select :header-format="cityTreeHeaderFormat"-->
-                    <!--                                                :param="{'sync': 1, 'expand': false, 'cityId': '-1'}"-->
-                    <!--                                                :placeholder="'请选择'"-->
-                    <!--                                                :reader="{value:'value', label: 'text'}"-->
-                    <!--                                                :service="$svc.sys.city.tree"-->
-                    <!--                                                clearable-->
-                    <!--                                                v-model="formData.cityCode">-->
-                    <!--                                </fb-tree-select>-->
-                    <!--                            </fb-form-item>-->
-                    <!--                        </fb-col>-->
-                    <!--                        <fb-col offset="1" span="10">-->
-                    <!--                            <fb-form-item label="用户名">-->
-                    <!--                                <fb-input v-model="formData.username"></fb-input>-->
-                    <!--                            </fb-form-item>-->
-                    <!--                        </fb-col>-->
-                    <!--                        <fb-col span="4"></fb-col>-->
-                    <!--                    </fb-row>-->
+                                       <fb-row>
+                                           <!-- <fb-col offset="1" span="10">
+                                               <fb-form-item label="行政区划">
+                                                   <fb-tree-select :header-format="cityTreeHeaderFormat"
+                                                                   :param="{'sync': 1, 'expand': false, 'cityId': '-1'}"
+                                                                   :placeholder="'请选择'"
+                                                                   :reader="{value:'value', label: 'text'}"
+                                                                   :service="$svc.sys.city.tree"
+                                                                   clearable
+                                                                   v-model="formData.cityCode">
+                                                   </fb-tree-select>
+                                               </fb-form-item>
+                                           </fb-col> -->
+                                           <fb-col offset="1" span="10">
+                                               <fb-form-item label="用户名">
+                                                   <fb-input v-model="formData.username"></fb-input>
+                                               </fb-form-item>
+                                           </fb-col>
+                                           <fb-col span="4"></fb-col>
+                                       </fb-row>
                     <fb-row>
                         <fb-col offset="1" span="10">
                             <fb-form-item label="操作类型">
