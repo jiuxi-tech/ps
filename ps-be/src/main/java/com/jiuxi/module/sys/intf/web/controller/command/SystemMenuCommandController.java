@@ -44,6 +44,15 @@ public class SystemMenuCommandController {
     /**
      * 保存菜单信息
      */
+    @RequestMapping("/add")
+    public JsonResponse add(@Validated(value = AddGroup.class) TpMenuVO vo, String jwtpid) {
+        TpMenuVO result = tpMenuService.save(vo, jwtpid);
+        return JsonResponse.buildSuccess(result);
+    }
+
+    /**
+     * 保存菜单信息
+     */
     @RequestMapping("/save")
     public JsonResponse save(@Validated(value = AddGroup.class) TpMenuVO vo, String jwtpid) {
         TpMenuVO result = tpMenuService.save(vo, jwtpid);
