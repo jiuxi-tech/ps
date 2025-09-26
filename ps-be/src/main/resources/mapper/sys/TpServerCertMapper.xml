@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpServerCertMapper">
+
+    <!-- 结果映射 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpServerCert" id="tpServerCertMap">
+        <result property="certId" column="cert_id"/>
+        <result property="certName" column="cert_name"/>
+        <result property="certDesc" column="cert_desc"/>
+        <result property="pemContent" column="pem_content"/>
+        <result property="keyContent" column="key_content"/>
+        <result property="domainNames" column="domain_names"/>
+        <result property="issuer" column="issuer"/>
+        <result property="subjectCn" column="subject_cn"/>
+        <result property="subjectO" column="subject_o"/>
+        <result property="subjectOu" column="subject_ou"/>
+        <result property="issueDate" column="issue_date"/>
+        <result property="expireDate" column="expire_date"/>
+        <result property="status" column="status"/>
+        <result property="isInUse" column="is_in_use"/>
+        <result property="isExpired" column="is_expired"/>
+        <result property="appliedTime" column="applied_time"/>
+        <result property="createPersonId" column="create_person_id"/>
+        <result property="createPersonName" column="create_person_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updatePersonId" column="update_person_id"/>
+        <result property="updatePersonName" column="update_person_name"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="actived" column="actived"/>
+    </resultMap>
+
+    <!-- 基础查询字段 -->
+    <sql id="Base_Column_List">
+        cert_id, cert_name, cert_desc, pem_content, key_content, domain_names, 
+        issuer, subject_cn, subject_o, subject_ou, issue_date, expire_date,
+        status, is_in_use, is_expired, applied_time, create_person_id, create_person_name,
+        create_time, update_person_id, update_person_name, update_time, actived
+    </sql>
+
+    <!-- 列表查询字段（不包含大字段） -->
+    <sql id="List_Column_List">
+        cert_id, cert_name, cert_desc, domain_names, issuer, subject_cn, subject_o, subject_ou,
+        issue_date, expire_date, status, is_in_use, is_expired, applied_time,
+        create_person_id, create_person_name, create_time, update_person_id, update_person_name, update_time,
+        status AS statusCode, is_in_use AS useStatusCode, is_expired AS expiredStatusCode
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id="Where_Condition">
+        <where>
+            actived = 1
+            <if test="query.certName != null and query.certName != ''">
+                AND cert_name LIKE CONCAT('%', #{query.certName}, '%')
+            </if>
+            <if test="query.status != null">
+                AND status = #{query.status}
+            </if>
+            <if test="query.isInUse != null">
+                AND is_in_use = #{query.isInUse}
+            </if>
+            <if test="query.isExpired != null">
+                AND is_expired = #{query.isExpired}
+            </if>
+            <if test="query.createTimeStart != null">
+                AND create_time >= #{query.createTimeStart}
+            </if>
+            <if test="query.createTimeEnd != null">
+                AND create_time &lt;= #{query.createTimeEnd}
+            </if>
+            <if test="query.expireDateStart != null">
+                AND expire_date >= #{query.expireDateStart}
+            </if>
+            <if test="query.expireDateEnd != null">
+                AND expire_date &lt;= #{query.expireDateEnd}
+            </if>
+            <if test="query.createPersonName != null and query.createPersonName != ''">
+                AND create_person_name LIKE CONCAT('%', #{query.createPersonName}, '%')
+            </if>
+            <if test="query.issuer != null and query.issuer != ''">
+                AND issuer LIKE CONCAT('%', #{query.issuer}, '%')
+            </if>
+            <if test="query.subjectCn != null and query.subjectCn != ''">
+                AND subject_cn LIKE CONCAT('%', #{query.subjectCn}, '%')
+            </if>
+        </where>
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="selectPageQuery" resultType="com.jiuxi.admin.core.bean.vo.TpServerCertVO">
+        SELECT <include refid="List_Column_List"/>
+        FROM tp_server_cert
+        <include refid="Where_Condition"/>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据条件查询 -->
+    <select id="selectByCondition" resultType="com.jiuxi.admin.core.bean.vo.TpServerCertVO">
+        SELECT <include refid="List_Column_List"/>
+        FROM tp_server_cert
+        <include refid="Where_Condition"/>
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据主键查询 -->
+    <select id="selectByPrimaryKey" resultType="com.jiuxi.admin.core.bean.vo.TpServerCertVO">
+        SELECT <include refid="Base_Column_List"/>,
+               status AS statusCode, is_in_use AS useStatusCode, is_expired AS expiredStatusCode
+        FROM tp_server_cert
+        WHERE cert_id = #{certId} AND actived = 1
+    </select>
+
+    <!-- 根据证书名称查询 -->
+    <select id="selectByCertName" resultMap="tpServerCertMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM tp_server_cert
+        WHERE cert_name = #{certName} AND actived = 1
+    </select>
+
+    <!-- 新增 -->
+    <insert id="insert" parameterType="com.jiuxi.admin.core.bean.entity.TpServerCert">
+        INSERT INTO tp_server_cert (
+            cert_id, cert_name, cert_desc, pem_content, key_content, domain_names,
+            issuer, subject_cn, subject_o, subject_ou, issue_date, expire_date,
+            status, is_in_use, is_expired, applied_time, create_person_id, create_person_name,
+            create_time, update_person_id, update_person_name, update_time, actived
+        ) VALUES (
+            #{certId}, #{certName}, #{certDesc}, #{pemContent}, #{keyContent}, #{domainNames},
+            #{issuer}, #{subjectCn}, #{subjectO}, #{subjectOu}, #{issueDate}, #{expireDate},
+            #{status}, #{isInUse}, #{isExpired}, #{appliedTime}, #{createPersonId}, #{createPersonName},
+            #{createTime}, #{updatePersonId}, #{updatePersonName}, #{updateTime}, #{actived}
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateByPrimaryKey" parameterType="com.jiuxi.admin.core.bean.entity.TpServerCert">
+        UPDATE tp_server_cert
+        <set>
+            <if test="certName != null and certName != ''">cert_name = #{certName},</if>
+            <if test="certDesc != null">cert_desc = #{certDesc},</if>
+            <if test="pemContent != null and pemContent != ''">pem_content = #{pemContent},</if>
+            <if test="keyContent != null and keyContent != ''">key_content = #{keyContent},</if>
+            <if test="domainNames != null">domain_names = #{domainNames},</if>
+            <if test="issuer != null">issuer = #{issuer},</if>
+            <if test="subjectCn != null">subject_cn = #{subjectCn},</if>
+            <if test="subjectO != null">subject_o = #{subjectO},</if>
+            <if test="subjectOu != null">subject_ou = #{subjectOu},</if>
+            <if test="issueDate != null">issue_date = #{issueDate},</if>
+            <if test="expireDate != null">expire_date = #{expireDate},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="isInUse != null">is_in_use = #{isInUse},</if>
+            <if test="isExpired != null">is_expired = #{isExpired},</if>
+            <if test="appliedTime != null">applied_time = #{appliedTime},</if>
+            <if test="updatePersonId != null">update_person_id = #{updatePersonId},</if>
+            <if test="updatePersonName != null">update_person_name = #{updatePersonName},</if>
+            update_time = #{updateTime}
+        </set>
+        WHERE cert_id = #{certId} AND actived = 1
+    </update>
+
+    <!-- 逻辑删除 -->
+    <update id="deleteByPrimaryKey">
+        UPDATE tp_server_cert
+        SET actived = 0,
+            update_person_id = #{updatePersonId},
+            update_person_name = #{updatePersonName},
+            update_time = NOW()
+        WHERE cert_id = #{certId} AND actived = 1
+    </update>
+
+    <!-- 更新状态 -->
+    <update id="updateStatus">
+        UPDATE tp_server_cert
+        SET status = #{status},
+            <if test="appliedTime != null">applied_time = #{appliedTime},</if>
+            update_person_id = #{updatePersonId},
+            update_person_name = #{updatePersonName},
+            update_time = NOW()
+        WHERE cert_id = #{certId} AND actived = 1
+    </update>
+
+    <!-- 更新使用状态 -->
+    <update id="updateInUseStatus">
+        UPDATE tp_server_cert
+        SET is_in_use = #{isInUse},
+            update_time = NOW()
+        WHERE cert_id = #{certId} AND actived = 1
+    </update>
+
+    <!-- 批量更新使用状态为未使用 -->
+    <update id="updateAllInUseStatusToFalse">
+        UPDATE tp_server_cert
+        SET is_in_use = 0,
+            update_time = NOW()
+        WHERE actived = 1
+    </update>
+
+    <!-- 根据过期时间更新过期状态 -->
+    <update id="updateExpiredStatus">
+        UPDATE tp_server_cert
+        SET is_expired = CASE 
+                            WHEN expire_date &lt; NOW() THEN 1 
+                            ELSE 0 
+                         END,
+            update_time = NOW()
+        WHERE actived = 1
+    </update>
+
+    <!-- 查询当前正在使用的证书 -->
+    <select id="selectCurrentInUseCert" resultType="com.jiuxi.admin.core.bean.vo.TpServerCertVO">
+        SELECT <include refid="List_Column_List"/>
+        FROM tp_server_cert
+        WHERE actived = 1 AND is_in_use = 1
+        LIMIT 1
+    </select>
+
+    <!-- 查询即将过期的证书 -->
+    <select id="selectExpiringCerts" resultType="com.jiuxi.admin.core.bean.vo.TpServerCertVO">
+        SELECT <include refid="List_Column_List"/>
+        FROM tp_server_cert
+        WHERE actived = 1 
+          AND is_expired = 0
+          AND expire_date BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL #{days} DAY)
+        ORDER BY expire_date ASC
+    </select>
+
+</mapper>
