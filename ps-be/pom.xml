@@ -8,7 +8,7 @@
     <artifactId>ps-be</artifactId>
     <version>1.0.0</version>
 
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>党校后台</name>
 
     <properties>
@@ -459,16 +459,6 @@
         </resources>
         
         <plugins>
-            <!-- Maven WAR插件 - 解决failOnMissingWebXml错误 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.3</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-            
             <!-- Maven编译器插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
