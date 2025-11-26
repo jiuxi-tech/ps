@@ -36,9 +36,9 @@
 				<fb-button ref="buttonAdd" @on-click="handleManualBackup" icon="add-circle">
 					手动备份
 				</fb-button>
-				<fb-button @on-click="handleCheckConfig" icon="setting">
+				<!-- <fb-button @on-click="handleCheckConfig" icon="setting">
 					配置检查
-				</fb-button>
+				</fb-button> -->
 			</template>
 
 			<template slot="actions">

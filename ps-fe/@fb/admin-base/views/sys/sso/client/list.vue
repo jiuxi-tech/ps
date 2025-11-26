@@ -15,7 +15,7 @@
 
 			<template slot="buttons">
 				<fb-button ref="buttonAdd" @on-click="handleAdd" icon="add-circle">
-					新增应用
+					注册应用
 				</fb-button>
 			</template>
 
