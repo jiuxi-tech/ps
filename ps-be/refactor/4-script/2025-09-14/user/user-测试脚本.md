@@ -4,7 +4,7 @@
 
 ```bash
 # 正常获取用户信息
-curl -X GET "http://localhost:8082/api/v1/users/me" \
+curl -X GET "http://192.168.0.139:8082/api/v1/users/me" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Dept-Id: {DEPT_ID}" \
   -H "X-User-Person-Id: {PERSON_ID}" \
@@ -12,14 +12,14 @@ curl -X GET "http://localhost:8082/api/v1/users/me" \
   -H "X-User-City-Code: {CITY_CODE}"
 
 # 无认证信息访问
-curl -X GET "http://localhost:8082/api/v1/users/me"
+curl -X GET "http://192.168.0.139:8082/api/v1/users/me"
 ```
 
 ## 2. 创建用户接口测试脚本
 
 ```bash
 # 正常创建用户
-curl -X POST "http://localhost:8082/api/v1/users" \
+curl -X POST "http://192.168.0.139:8082/api/v1/users" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}" \
@@ -35,7 +35,7 @@ curl -X POST "http://localhost:8082/api/v1/users" \
   }'
 
 # 创建用户数据验证失败
-curl -X POST "http://localhost:8082/api/v1/users" \
+curl -X POST "http://192.168.0.139:8082/api/v1/users" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}" \
@@ -50,7 +50,7 @@ curl -X POST "http://localhost:8082/api/v1/users" \
 
 ```bash
 # 正常更新用户信息
-curl -X PUT "http://localhost:8082/api/v1/users/{PERSON_ID}" \
+curl -X PUT "http://192.168.0.139:8082/api/v1/users/{PERSON_ID}" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}" \
@@ -61,7 +61,7 @@ curl -X PUT "http://localhost:8082/api/v1/users/{PERSON_ID}" \
   }'
 
 # 更新不存在的用户
-curl -X PUT "http://localhost:8082/api/v1/users/NON_EXISTENT_ID" \
+curl -X PUT "http://192.168.0.139:8082/api/v1/users/NON_EXISTENT_ID" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}" \
@@ -76,11 +76,11 @@ curl -X PUT "http://localhost:8082/api/v1/users/NON_EXISTENT_ID" \
 
 ```bash
 # 正常查看用户详情
-curl -X GET "http://localhost:8082/api/v1/users/{PERSON_ID}" \
+curl -X GET "http://192.168.0.139:8082/api/v1/users/{PERSON_ID}" \
   -H "Authorization: Bearer {JWT_TOKEN}"
 
 # 查看不存在的用户详情
-curl -X GET "http://localhost:8082/api/v1/users/NON_EXISTENT_ID" \
+curl -X GET "http://192.168.0.139:8082/api/v1/users/NON_EXISTENT_ID" \
   -H "Authorization: Bearer {JWT_TOKEN}"
 ```
 
@@ -88,12 +88,12 @@ curl -X GET "http://localhost:8082/api/v1/users/NON_EXISTENT_ID" \
 
 ```bash
 # 正常根据用户名查询用户
-curl -X GET "http://localhost:8082/api/v1/users/username/testuser" \
+curl -X GET "http://192.168.0.139:8082/api/v1/users/username/testuser" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-Tenant-Id: {TENANT_ID}"
 
 # 查询不存在的用户名
-curl -X GET "http://localhost:8082/api/v1/users/username/nonexistent" \
+curl -X GET "http://192.168.0.139:8082/api/v1/users/username/nonexistent" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-Tenant-Id: {TENANT_ID}"
 ```
@@ -102,11 +102,11 @@ curl -X GET "http://localhost:8082/api/v1/users/username/nonexistent" \
 
 ```bash
 # 正常根据部门查询用户列表
-curl -X GET "http://localhost:8082/api/v1/users/departments/{DEPT_ID}" \
+curl -X GET "http://192.168.0.139:8082/api/v1/users/departments/{DEPT_ID}" \
   -H "Authorization: Bearer {JWT_TOKEN}"
 
 # 查询不存在的部门
-curl -X GET "http://localhost:8082/api/v1/users/departments/NON_EXISTENT_DEPT" \
+curl -X GET "http://192.168.0.139:8082/api/v1/users/departments/NON_EXISTENT_DEPT" \
   -H "Authorization: Bearer {JWT_TOKEN}"
 ```
 
@@ -114,12 +114,12 @@ curl -X GET "http://localhost:8082/api/v1/users/departments/NON_EXISTENT_DEPT" \
 
 ```bash
 # 正常删除用户
-curl -X DELETE "http://localhost:8082/api/v1/users/{PERSON_ID}" \
+curl -X DELETE "http://192.168.0.139:8082/api/v1/users/{PERSON_ID}" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}"
 
 # 删除不存在的用户
-curl -X DELETE "http://localhost:8082/api/v1/users/NON_EXISTENT_ID" \
+curl -X DELETE "http://192.168.0.139:8082/api/v1/users/NON_EXISTENT_ID" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}"
 ```
@@ -128,14 +128,14 @@ curl -X DELETE "http://localhost:8082/api/v1/users/NON_EXISTENT_ID" \
 
 ```bash
 # 正常批量删除用户
-curl -X DELETE "http://localhost:8082/api/v1/users/batch" \
+curl -X DELETE "http://192.168.0.139:8082/api/v1/users/batch" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}" \
   -d '["{PERSON_ID_1}", "{PERSON_ID_2}"]'
 
 # 批量删除部分不存在的用户
-curl -X DELETE "http://localhost:8082/api/v1/users/batch" \
+curl -X DELETE "http://192.168.0.139:8082/api/v1/users/batch" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}" \
@@ -146,12 +146,12 @@ curl -X DELETE "http://localhost:8082/api/v1/users/batch" \
 
 ```bash
 # 正常激活用户
-curl -X PUT "http://localhost:8082/api/v1/users/{PERSON_ID}/activate" \
+curl -X PUT "http://192.168.0.139:8082/api/v1/users/{PERSON_ID}/activate" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}"
 
 # 激活不存在的用户
-curl -X PUT "http://localhost:8082/api/v1/users/NON_EXISTENT_ID/activate" \
+curl -X PUT "http://192.168.0.139:8082/api/v1/users/NON_EXISTENT_ID/activate" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}"
 ```
@@ -160,12 +160,12 @@ curl -X PUT "http://localhost:8082/api/v1/users/NON_EXISTENT_ID/activate" \
 
 ```bash
 # 正常停用用户
-curl -X PUT "http://localhost:8082/api/v1/users/{PERSON_ID}/deactivate" \
+curl -X PUT "http://192.168.0.139:8082/api/v1/users/{PERSON_ID}/deactivate" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}"
 
 # 停用不存在的用户
-curl -X PUT "http://localhost:8082/api/v1/users/NON_EXISTENT_ID/deactivate" \
+curl -X PUT "http://192.168.0.139:8082/api/v1/users/NON_EXISTENT_ID/deactivate" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-User-Person-Id: {OPERATOR_ID}"
 ```
@@ -174,7 +174,7 @@ curl -X PUT "http://localhost:8082/api/v1/users/NON_EXISTENT_ID/deactivate" \
 
 ```bash
 # 正常分页查询用户列表
-curl -X POST "http://localhost:8082/api/v1/users/search" \
+curl -X POST "http://192.168.0.139:8082/api/v1/users/search" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-Tenant-Id: {TENANT_ID}" \
@@ -185,7 +185,7 @@ curl -X POST "http://localhost:8082/api/v1/users/search" \
   }'
 
 # 分页查询无结果
-curl -X POST "http://localhost:8082/api/v1/users/search" \
+curl -X POST "http://192.168.0.139:8082/api/v1/users/search" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer {JWT_TOKEN}" \
   -H "X-Tenant-Id: {TENANT_ID}" \

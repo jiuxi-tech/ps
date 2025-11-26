@@ -3,6 +3,10 @@ package com.jiuxi.admin.core.service.impl;
 import com.jiuxi.admin.core.bean.entity.TpKeycloakAccount;
 import com.jiuxi.admin.core.service.KeycloakSyncService;
 import com.jiuxi.admin.core.service.TpKeycloakAccountService;
+import com.jiuxi.admin.core.bean.vo.TpAccountVO;
+import com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO;
+import com.jiuxi.module.user.app.service.UserAccountService;
+import com.jiuxi.module.user.app.service.UserPersonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +34,12 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired(required = false)
+    private UserAccountService userAccountService;
+
+    @Autowired(required = false)
+    private UserPersonService userPersonService;
 
     @Value("${keycloak.server-url:http://localhost:8080}")
     private String keycloakServerUrl;
@@ -70,6 +80,16 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
                         keycloakAccount.setKcUserId(existingUserId);
                         tpKeycloakAccountService.updateById(keycloakAccount);
                     }
+
+                    // 推送人员姓名、工号、邮箱到Keycloak（已存在用户也做属性更新）
+                    Map<String, Object> extra = buildPersonExtras(accountId);
+                    String email = (String) extra.getOrDefault("email", null);
+                    String firstName = (String) extra.getOrDefault("firstName", null);
+                    Map<String, Object> attributes = (Map<String, Object>) extra.getOrDefault("attributes", Collections.emptyMap());
+                    boolean attrUpdate = updateKeycloakUserInfo(adminToken, existingUserId, username, null, email, firstName, attributes);
+                    if (!attrUpdate) {
+                        log.warn("Keycloak用户属性更新失败(存在用户): accountId={}, userId={}", accountId, existingUserId);
+                    }
                     return KeycloakSyncResult.success("用户已存在，本地记录已更新", existingUserId);
                 } else {
                     return KeycloakSyncResult.failure("更新本地Keycloak账号记录失败");
@@ -77,7 +97,11 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
             }
 
             // 3. 创建新用户
-            String keycloakUserId = createKeycloakUser(adminToken, username, password);
+            Map<String, Object> extra = buildPersonExtras(accountId);
+            String email = (String) extra.getOrDefault("email", null);
+            String firstName = (String) extra.getOrDefault("firstName", null);
+            Map<String, Object> attributes = (Map<String, Object>) extra.getOrDefault("attributes", Collections.emptyMap());
+            String keycloakUserId = createKeycloakUser(adminToken, username, password, email, firstName, attributes);
             if (!StringUtils.hasText(keycloakUserId)) {
                 return KeycloakSyncResult.failure("在Keycloak中创建用户失败");
             }
@@ -112,7 +136,7 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
 
             TpKeycloakAccount keycloakAccount = tpKeycloakAccountService.getByAccountId(accountId);
             if (keycloakAccount == null || !StringUtils.hasText(keycloakAccount.getKcUserId())) {
-                return KeycloakSyncResult.failure("未找到对应的Keycloak账号记录");
+                log.warn("本地未记录kcUserId，尝试按用户名在Keycloak中查找: accountId={}, username={}", accountId, username);
             }
 
             String adminToken = getAdminAccessToken();
@@ -120,7 +144,52 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
                 return KeycloakSyncResult.failure("获取Keycloak管理员令牌失败");
             }
 
-            boolean updateResult = updateKeycloakUserInfo(adminToken, keycloakAccount.getKcUserId(), username, password);
+            // 读取人员信息，推送邮箱/姓名及自定义属性
+            Map<String, Object> extra = buildPersonExtras(accountId);
+            String email = (String) extra.getOrDefault("email", null);
+            String firstName = (String) extra.getOrDefault("firstName", null);
+            Map<String, Object> attributes = (Map<String, Object>) extra.getOrDefault("attributes", Collections.emptyMap());
+
+            // 先确保Keycloak端存在用户，并校准kcUserId
+            String existingUserId = findUserByUsername(adminToken, username);
+            if (!StringUtils.hasText(existingUserId)) {
+                log.warn("Keycloak中未找到该用户名对应的用户，准备创建: username={}", username);
+                String createdUserId = createKeycloakUser(adminToken, username, 
+                        // 如果未提供密码，则使用本地记录中的密码或生成新密码
+                        (StringUtils.hasText(password) ? password : null), 
+                        email, firstName, attributes);
+                if (!StringUtils.hasText(createdUserId)) {
+                    return KeycloakSyncResult.failure("在Keycloak中创建用户失败");
+                }
+                // 更新本地记录的kcUserId
+                TpKeycloakAccount refreshed = tpKeycloakAccountService.getByAccountId(accountId);
+                if (refreshed != null) {
+                    refreshed.setKcUserId(createdUserId);
+                    tpKeycloakAccountService.updateById(refreshed);
+                }
+                // 创建后，无需再次update基本信息（已携带email/firstName/attributes），但如有密码且之前为null需重置
+                if (StringUtils.hasText(password)) {
+                    // 已在create时设置密码，无需重复
+                    log.info("Keycloak用户创建完成并已设置密码: accountId={}, userId={}", accountId, createdUserId);
+                }
+                // 更新本地账号记录（用户名/密码等）
+                boolean localResultAfterCreate = tpKeycloakAccountService.createOrUpdateKeycloakAccount(accountId, username, password, updater);
+                if (!localResultAfterCreate) {
+                    log.warn("Keycloak用户创建成功，但本地记录更新失败: accountId={}", accountId);
+                }
+                return KeycloakSyncResult.success("用户创建并完成信息同步", createdUserId);
+            }
+
+            // 如本地kcUserId与Keycloak查到的不一致，进行校准
+            if (keycloakAccount != null && StringUtils.hasText(keycloakAccount.getKcUserId())
+                    && !existingUserId.equals(keycloakAccount.getKcUserId())) {
+                log.warn("本地kcUserId与Keycloak不一致，进行校准: local={}, remote={}", keycloakAccount.getKcUserId(), existingUserId);
+                keycloakAccount.setKcUserId(existingUserId);
+                tpKeycloakAccountService.updateById(keycloakAccount);
+            }
+
+            // 执行信息更新（用户名/邮箱/姓名/属性；密码非空则重置）
+            boolean updateResult = updateKeycloakUserInfo(adminToken, existingUserId, username, password, email, firstName, attributes);
             if (!updateResult) {
                 return KeycloakSyncResult.failure("更新Keycloak用户信息失败");
             }
@@ -132,7 +201,7 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
             }
 
             log.info("Keycloak用户更新成功: accountId={}, username={}", accountId, username);
-            return KeycloakSyncResult.success("用户更新成功", keycloakAccount.getKcUserId());
+            return KeycloakSyncResult.success("用户更新成功", existingUserId);
 
         } catch (Exception e) {
             log.error("更新Keycloak用户失败: accountId={}, username={}, error={}", accountId, username, e.getMessage(), e);
@@ -269,7 +338,7 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
      */
     private String findUserByUsername(String adminToken, String username) {
         try {
-            String usersUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users?username=" + username;
+            String usersUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users?username=" + username + "&exact=true";
 
             HttpHeaders headers = new HttpHeaders();
             headers.setBearerAuth(adminToken);
@@ -293,34 +362,7 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
      */
     private String createKeycloakUser(String adminToken, String username, String password) {
         try {
-            String usersUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users";
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setBearerAuth(adminToken);
-            headers.setContentType(MediaType.APPLICATION_JSON);
-
-            Map<String, Object> userRepresentation = new HashMap<>();
-            userRepresentation.put("username", username);
-            userRepresentation.put("enabled", true);
-            userRepresentation.put("emailVerified", true);
-
-            // 设置密码
-            Map<String, Object> credential = new HashMap<>();
-            credential.put("type", "password");
-            credential.put("value", password);
-            credential.put("temporary", false);
-            userRepresentation.put("credentials", Arrays.asList(credential));
-
-            HttpEntity<Map<String, Object>> request = new HttpEntity<>(userRepresentation, headers);
-            ResponseEntity<String> response = restTemplate.postForEntity(usersUrl, request, String.class);
-
-            if (response.getStatusCode() == HttpStatus.CREATED) {
-                // 从Location头获取用户ID
-                String location = response.getHeaders().getFirst("Location");
-                if (StringUtils.hasText(location)) {
-                    return location.substring(location.lastIndexOf('/') + 1);
-                }
-            }
+            return createKeycloakUser(adminToken, username, password, null, null, Collections.emptyMap());
         } catch (Exception e) {
             log.error("创建Keycloak用户失败: username={}, error={}", username, e.getMessage(), e);
         }
@@ -330,7 +372,7 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
     /**
      * 更新Keycloak用户信息
      */
-    private boolean updateKeycloakUserInfo(String adminToken, String userId, String username, String password) {
+    private boolean updateKeycloakUserInfo(String adminToken, String userId, String username, String password, String email, String firstName, Map<String, Object> attributes) {
         try {
             String userUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users/" + userId;
 
@@ -341,6 +383,16 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
             Map<String, Object> userRepresentation = new HashMap<>();
             userRepresentation.put("username", username);
             userRepresentation.put("enabled", true);
+            if (StringUtils.hasText(email)) {
+                userRepresentation.put("email", email);
+                userRepresentation.put("emailVerified", true);
+            }
+            if (StringUtils.hasText(firstName)) {
+                userRepresentation.put("firstName", firstName);
+            }
+            if (attributes != null && !attributes.isEmpty()) {
+                userRepresentation.put("attributes", attributes);
+            }
 
             HttpEntity<Map<String, Object>> request = new HttpEntity<>(userRepresentation, headers);
             ResponseEntity<String> response = restTemplate.exchange(userUrl, HttpMethod.PUT, request, String.class);
@@ -356,6 +408,176 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
             log.error("更新Keycloak用户信息失败: userId={}, username={}, error={}", userId, username, e.getMessage(), e);
         }
         return false;
+    }
+
+    /**
+     * 创建Keycloak用户（含邮箱、姓名、属性）
+     */
+    private String createKeycloakUser(String adminToken, String username, String password, String email, String firstName, Map<String, Object> attributes) {
+        String usersUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(adminToken);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, Object> userRepresentation = new HashMap<>();
+        userRepresentation.put("username", username);
+        userRepresentation.put("enabled", true);
+        if (StringUtils.hasText(email)) {
+            userRepresentation.put("email", email);
+            userRepresentation.put("emailVerified", true);
+        }
+        if (StringUtils.hasText(firstName)) {
+            userRepresentation.put("firstName", firstName);
+        }
+        if (attributes != null && !attributes.isEmpty()) {
+            userRepresentation.put("attributes", attributes);
+        }
+
+        // 设置密码（有值时）
+        if (StringUtils.hasText(password)) {
+            Map<String, Object> credential = new HashMap<>();
+            credential.put("type", "password");
+            credential.put("value", password);
+            credential.put("temporary", false);
+            userRepresentation.put("credentials", Arrays.asList(credential));
+        }
+
+        try {
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(userRepresentation, headers);
+            ResponseEntity<String> response = restTemplate.postForEntity(usersUrl, request, String.class);
+
+            if (response.getStatusCode() == HttpStatus.CREATED) {
+                String location = response.getHeaders().getFirst("Location");
+                if (StringUtils.hasText(location)) {
+                    return location.substring(location.lastIndexOf('/') + 1);
+                }
+            } else if (response.getStatusCode() == HttpStatus.CONFLICT) {
+                // 已存在，回查ID
+                String existId = findUserByUsername(adminToken, username);
+                if (StringUtils.hasText(existId)) {
+                    return existId;
+                }
+            }
+        } catch (org.springframework.web.client.HttpStatusCodeException e) {
+            HttpStatus status = e.getStatusCode();
+            String body = e.getResponseBodyAsString();
+            log.error("创建Keycloak用户失败: username={}, status={}, body={}", username, status.value(), body);
+
+            if (status == HttpStatus.CONFLICT) {
+                // 已存在，回查ID
+                String existId = findUserByUsername(adminToken, username);
+                if (StringUtils.hasText(existId)) {
+                    return existId;
+                }
+            }
+            if (status == HttpStatus.INTERNAL_SERVER_ERROR) {
+                // 500未知错误，尝试最小化创建再补充更新
+                String minimalId = createKeycloakUserMinimal(adminToken, username);
+                if (StringUtils.hasText(minimalId)) {
+                    // 密码与信息补充
+                    boolean pwdOk = true;
+                    if (StringUtils.hasText(password)) {
+                        pwdOk = resetKeycloakUserPassword(adminToken, minimalId, password);
+                    }
+                    boolean infoOk = updateKeycloakUserInfo(adminToken, minimalId, username, null, email, firstName, attributes);
+                    if (pwdOk && infoOk) {
+                        return minimalId;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error("创建Keycloak用户失败: username={}, error={}", username, e.getMessage(), e);
+        }
+        return null;
+    }
+
+    /**
+     * 最小化创建Keycloak用户（仅用户名与启用），用于服务端500回退场景
+     */
+    private String createKeycloakUserMinimal(String adminToken, String username) {
+        try {
+            String usersUrl = keycloakServerUrl + "/admin/realms/" + keycloakRealm + "/users";
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(adminToken);
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            Map<String, Object> userRepresentation = new HashMap<>();
+            userRepresentation.put("username", username);
+            userRepresentation.put("enabled", true);
+
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(userRepresentation, headers);
+            ResponseEntity<String> response = restTemplate.postForEntity(usersUrl, request, String.class);
+            if (response.getStatusCode() == HttpStatus.CREATED) {
+                String location = response.getHeaders().getFirst("Location");
+                if (StringUtils.hasText(location)) {
+                    return location.substring(location.lastIndexOf('/') + 1);
+                }
+            } else if (response.getStatusCode() == HttpStatus.CONFLICT) {
+                String existId = findUserByUsername(adminToken, username);
+                if (StringUtils.hasText(existId)) {
+                    return existId;
+                }
+            }
+        } catch (org.springframework.web.client.HttpStatusCodeException e) {
+            log.error("最小化创建Keycloak用户失败: username={}, status={}, body={}", username, e.getStatusCode().value(), e.getResponseBodyAsString());
+            if (e.getStatusCode() == HttpStatus.CONFLICT) {
+                String existId = findUserByUsername(adminToken, username);
+                if (StringUtils.hasText(existId)) {
+                    return existId;
+                }
+            }
+        } catch (Exception e) {
+            log.error("最小化创建Keycloak用户失败: username={}, error={}", username, e.getMessage(), e);
+        }
+        return null;
+    }
+
+    /**
+     * 构建人员额外信息（邮箱、姓名、工号、自定义属性）
+     */
+    private Map<String, Object> buildPersonExtras(String accountId) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            if (userAccountService == null || userPersonService == null) {
+                log.warn("无法加载用户服务，跳过人员扩展信息构建: accountId={}", accountId);
+                return result;
+            }
+            TpAccountVO accountVO = userAccountService.selectByAccountId(accountId);
+            if (accountVO == null || !StringUtils.hasText(accountVO.getPersonId())) {
+                log.warn("未找到账号或人员ID为空，跳过扩展信息: accountId={}", accountId);
+                return result;
+            }
+            TpPersonBasicinfoVO person = userPersonService.getPersonBasicinfo(accountVO.getPersonId());
+            if (person == null) {
+                log.warn("未找到人员信息，跳过扩展信息: personId={}", accountVO.getPersonId());
+                return result;
+            }
+            String email = person.getEmail();
+            String personName = person.getPersonName();
+            String personNo = person.getPersonNo();
+            String username = accountVO.getUsername();
+
+            result.put("email", email);
+            result.put("firstName", personName);
+
+            Map<String, Object> attributes = new HashMap<>();
+            if (StringUtils.hasText(personName)) {
+                attributes.put("PERSON_NAME", Collections.singletonList(personName));
+            }
+            if (StringUtils.hasText(personNo)) {
+                attributes.put("PERSON_NO", Collections.singletonList(personNo));
+            }
+            if (StringUtils.hasText(email)) {
+                attributes.put("EMAIL", Collections.singletonList(email));
+            }
+            if (StringUtils.hasText(username)) {
+                attributes.put("USERNAME", Collections.singletonList(username));
+            }
+            result.put("attributes", attributes);
+        } catch (Exception e) {
+            log.warn("构建人员扩展信息失败: accountId={}, error={}", accountId, e.getMessage());
+        }
+        return result;
     }
 
     /**

@@ -36,7 +36,7 @@ module.exports = {
 
 	server: {
 		host: '0.0.0.0',
-		port: 10801,
+		port: 3006,
 		https: false,
 		hmr: true
 	},

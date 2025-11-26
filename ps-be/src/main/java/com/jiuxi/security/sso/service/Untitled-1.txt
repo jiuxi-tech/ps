@@ -1,3 +1,3 @@
-http://localhost:8180/realms/ps-realm/protocol/openid-connect/auth?client_id=ps-be&redirect_uri=http://localhost:10801/getKKToken&response_type=code&scope=openid
-http://localhost:8180/realms/ps-realm/login-actions/required-action?execution=UPDATE_PASSWORD&client_id=ps-be&tab_id=k-YFFP9g83k&redirect_uri=http://localhost:10801/getKKToken&response_type=code&scope=openid
-http://localhost:10801/?session_state=8553573c-5ce9-4050-b5ca-11cd1b0e4819&iss=http%3A%2F%2Flocalhost%3A8180%2Frealms%2Fps-realm&code=7469979e-01f5-4863-96a4-e7a301f70243.8553573c-5ce9-4050-b5ca-11cd1b0e4819.e67b6996-95dd-4ee1-8409-227fefeaf0a8#/login
+http://localhost:8180/realms/ps-realm/protocol/openid-connect/auth?client_id=ps-be&redirect_uri=http://192.168.0.139/getKKToken&response_type=code&scope=openid
+http://localhost:8180/realms/ps-realm/login-actions/required-action?execution=UPDATE_PASSWORD&client_id=ps-be&tab_id=k-YFFP9g83k&redirect_uri=http://192.168.0.139/getKKToken&response_type=code&scope=openid
+http://192.168.0.139/?session_state=8553573c-5ce9-4050-b5ca-11cd1b0e4819&iss=http%3A%2F%2Flocalhost%3A8180%2Frealms%2Fps-realm&code=7469979e-01f5-4863-96a4-e7a301f70243.8553573c-5ce9-4050-b5ca-11cd1b0e4819.e67b6996-95dd-4ee1-8409-227fefeaf0a8#/login

@@ -13,7 +13,7 @@ app:
   
   # 开发环境监控配置
   monitor:
-    server-url: http://localhost:8082/ps-be
+    server-url: http://192.168.0.139:8082/ps-be
     client-id: ps-bmp-backend-dev
   
   # 开发环境数据库配置
@@ -21,7 +21,7 @@ app:
     datasource:
       url: jdbc:mariadb://alilaoba.cn:13307/ps-bmp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
-      password: W4HV=QxtHz
+      password: $D8BZ8Qmav
     
     # 开发环境使用较小的连接池
     pool:

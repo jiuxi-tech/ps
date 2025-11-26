@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # Nginx反向代理服务
+  # Nginx反向代理服务 - 保持不变
   nginx-proxy:
     image: nginx:1.25-alpine
     container_name: ps-nginx-proxy
@@ -25,7 +25,7 @@ services:
       - keycloak
       - redis
 
-  # PostgreSQL数据库 - Keycloak使用
+  # PostgreSQL数据库 - 保持不变
   postgres:
     image: postgres:15
     container_name: keycloak-postgres
@@ -45,71 +45,83 @@ services:
       timeout: 10s
       retries: 3
 
-  # Keycloak身份认证服务器
+  # Keycloak身份认证服务器 - 主要修改部分
   keycloak:
-    image: quay.io/keycloak/keycloak:23.0.1
+    image: quay.io/keycloak/keycloak:26.2.5  # 更新版本
     container_name: keycloak-server
     environment:
-      # 数据库配置
+      # 数据库配置 - 保持不变
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak123
       
-      # Keycloak管理员账户
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin123
+      # ⚠️ Keycloak 26 使用新的管理员账户环境变量
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin123
       
-      # 开发模式配置
-      KC_HOSTNAME_STRICT: "false"
-      KC_HOSTNAME_STRICT_HTTPS: "false"
+      # ⚠️ 主机名配置需要调整（Keycloak 26 使用新的 Hostname V2）
+      # 根据你的实际域名调整下面的配置
+      KC_HOSTNAME: http://localhost:18080  # 使用有效URL或纯主机名
+      
+      # HTTP 和特性配置
       KC_HTTP_ENABLED: "true"
       KC_HEALTH_ENABLED: "true"
       KC_METRICS_ENABLED: "true"
+      
+      # 主题配置
+      KC_SPI_THEME_CACHE_THEMES: "false"
+      KC_SPI_THEME_CACHE_TEMPLATES: "false"
+      
+      # 开发环境无需使用 Hostname v1 严格选项
+      
+      # ⚠️ 新增：配置管理接口（Keycloak 26 将管理端点和指标分离）
+      KC_HTTP_MANAGEMENT_PORT: 9000
+
+    volumes:
+      - ./ps-theme/dist_keycloak/keycloak-theme-for-kc-all-other-versions.jar:/opt/keycloak/providers/ps-theme.jar:ro
+
     command:
       - start-dev
     ports:
       - "18080:8080"
-    
-    volumes:
-      - ./ps-theme/dist_keycloak/keycloak-theme-for-kc-22-to-25.jar:/opt/keycloak/providers/ps-theme.jar:ro
-  
+      - "19000:9000"  # ⚠️ 新增：暴露管理端口
     networks:
       - keycloak-network
     depends_on:
       postgres:
         condition: service_healthy
     healthcheck:
+      # ⚠️ Keycloak 26 健康检查端点可能变化
       test: ["CMD-SHELL", "curl -f http://localhost:8080/health/ready || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
-      start_period: 60s
+      start_period: 90s  # ⚠️ 增加启动等待时间，因为迁移需要更长时间
 
-  # MySQL数据库 - 应用使用
-  # mysql:
-  #   image: mysql:5.7
-  #   container_name: ps-mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: W4HV=QxtHz
-  #     MYSQL_DATABASE: ps-bmp
-  #     MYSQL_USER: ps-user
-  #     MYSQL_PASSWORD: ps-password
-  #   ports:
-  #     - "3306:3306"
-  #   volumes:
-  #     - mysql_data:/var/lib/mysql
-  #   networks:
-  #     - keycloak-network
-  #   restart: always
-  #   healthcheck:
-  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-  #     interval: 30s
-  #     timeout: 10s
-  #     retries: 3
-  #   command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  # 以下服务保持不变...
+  mysql:
+    image: mysql:5.7
+    container_name: ps-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: W4HV=QxtHz
+      MYSQL_DATABASE: ps-bmp
+      MYSQL_USER: ps-user
+      MYSQL_PASSWORD: ps-password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - keycloak-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
-  # Redis缓存服务
   redis:
     image: redis:7-alpine
     container_name: ps-redis
@@ -129,8 +141,8 @@ services:
 volumes:
   postgres_data:
     driver: local
-  # mysql_data:
-  #   driver: local
+  mysql_data:
+    driver: local
   redis_data:
     driver: local
   nginx_logs:

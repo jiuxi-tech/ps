@@ -3,7 +3,7 @@
 - **数据库地址**: alilaoba.cn:13307
 - **数据库名称**: ps-bmp
 - **用户名**: root
-- **密码**: W4HV=QxtHz
+- **密码**: $D8BZ8Qmav
 - **驱动**: MariaDB/MySQL
 - mysql 命令不要使用 < `The '<' operator is reserved for future use.`
 
@@ -113,11 +113,11 @@ admin密码为 `admin123`
 
 
 # 测试服务器
-- 开发环境是甲方客户提供的 4C 8G 的阿里云服务器。
+<!-- - 开发环境是甲方客户提供的 4C 8G 的阿里云服务器。
 - 硬件配置 `4C 8G`
 - 操作系统 `Ubuntu`
 - 公网 IP `60.205.161.235`
 - 账号 `root`
 - 密码 `Dangxiao@123`
 - 运行目录 `/root/ps-bmp`
-- 使用 sudo
+- 使用 sudo -->

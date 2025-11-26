@@ -339,6 +339,14 @@ export default {
                 this.$refs.table.doSearch()
             }
         },
+
+        /**
+         * 重新加载人员列表
+         */
+        handleReload () { 
+            this.$refs.table.reload()
+        },
+
         /**
          * 表格行选择事件处理
          * @param {Object} row - 当前选中的行数据
@@ -450,7 +458,7 @@ export default {
                 }).then((result) => {
                     // 判断code
                     if (result.code == 1) {
-                        this.handleQuery()
+                        this.handleReload()
                         this.$message.success('删除成功')
                     } else {
                         // 服务器返回失败
@@ -582,7 +590,7 @@ export default {
          * @param {Object} param - 弹窗返回参数
          */
         closeDialog (param) {
-            this.handleQuery()
+            this.handleReload()
             console.log(param)
         },
         /**
@@ -591,7 +599,7 @@ export default {
          */
         closeDialogTab (param) {
             // 弹窗关闭后刷新列表数据
-            this.handleQuery()
+            this.handleReload()
         },
 
         /**

@@ -5,14 +5,14 @@
 				<fb-row>
 					<fb-col span="24">
 						<fb-form-item label="账号" prop="userName" :rule="[{required: true}]">
-							<fb-input autocomplete="off" v-model="userName" placeholder="请输入账号"></fb-input>
+							<fb-input autocomplete="nope" v-model="userName" placeholder="请输入账号"></fb-input>
 						</fb-form-item>
 					</fb-col>
 				</fb-row>
 				<fb-row v-if="!deptShowFlag">
 					<fb-col span="24">
 						<fb-form-item label="密码" prop="userPwd" :rule="[{required: true}, {type: 'password'}]">
-							<fb-input autocomplete="off" v-model="userPwd" placeholder="请输入密码" type="password"></fb-input>
+							<fb-input autocomplete="new-password" v-model="userPwd" placeholder="请输入密码" type="password"></fb-input>
 						</fb-form-item>
 					</fb-col>
 				</fb-row>

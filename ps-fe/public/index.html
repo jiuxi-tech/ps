@@ -10,15 +10,18 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<!--<meta http-equiv="X-FRAME-OPTIONS" content="DENY">-->
-	<link rel="icon" href="<%= assetPrefix %>favicon.ico">
+	<link rel="icon" href="<%= assetPrefix %>/favicon.ico">
 	<title>中共陕西省委党校业务中台</title>
 	<!-- <title><%= htmlWebpackPlugin.options.title %></title> -->
 
-	<script src="<%= assetPrefix %>config/index.js"></script>
+	<script src="<%= assetPrefix %>/config/index.js"></script>
 
 	<!--  plugins_head	-->
 	<script>
 		let BASE_URL = "<%= assetPrefix %>"
+	</script>
+	<script>
+		let PS_FE_VERSION = "<%= version %>"
 	</script>
 	<script>
 		<%= htmlWebpackPlugin.options.plugins_head %>

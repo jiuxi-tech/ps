@@ -460,7 +460,7 @@ export default {
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
-  animation: float 6s ease-in-out infinite;
+  animation: none;
 }
 
 .background-decoration .decoration-circle.circle-1 {
@@ -487,17 +487,7 @@ export default {
   animation-delay: 4s;
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  33% {
-    transform: translateY(-20px) rotate(120deg);
-  }
-  66% {
-    transform: translateY(10px) rotate(240deg);
-  }
-}
+/* 移除背景装饰动画：保留静态装饰元素，无动画效果 */
 
 @media (max-width: 768px) {
   .config-error-container {

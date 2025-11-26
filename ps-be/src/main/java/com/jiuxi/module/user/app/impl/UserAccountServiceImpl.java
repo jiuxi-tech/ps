@@ -577,6 +577,25 @@ public class UserAccountServiceImpl implements UserAccountService {
                 applicationContext.publishEvent(new TpAccountEvent("账号密码修改同步监听", tpAccountEventService, bean, OpertionTypeEnum.DELETE.getOpertionType()));
             }
 
+            // 同步密码到Keycloak（最小改动：直接调用更新接口）
+            if (null != keycloakSyncService) {
+                try {
+                    String operator = "system"; // 默认操作者
+                    KeycloakSyncService.KeycloakSyncResult syncResult =
+                            keycloakSyncService.updateKeycloakUser(tpAccountVO.getAccountId(), tpAccountVO.getUsername(), userpwd, operator);
+                    if (syncResult.isSuccess()) {
+                        LOGGER.info("密码同步到Keycloak成功: accountId={}, username={}",
+                                tpAccountVO.getAccountId(), tpAccountVO.getUsername());
+                    } else {
+                        LOGGER.warn("密码同步到Keycloak失败: accountId={}, username={}, message={}",
+                                tpAccountVO.getAccountId(), tpAccountVO.getUsername(), syncResult.getMessage());
+                    }
+                } catch (Exception e) {
+                    LOGGER.error("同步密码到Keycloak时发生异常: accountId={}, username={}, error={}",
+                            tpAccountVO.getAccountId(), tpAccountVO.getUsername(), e.getMessage(), e);
+                }
+            }
+
             return count;
         } catch (Exception e) {
             LOGGER.error("账号密码修改失败！personId:{}, 错误:{}", personId, ExceptionUtils.getStackTrace(e));
@@ -644,6 +663,25 @@ public class UserAccountServiceImpl implements UserAccountService {
                 applicationContext.publishEvent(new TpAccountEvent("账号密码修改同步监听", tpAccountEventService, bean, OpertionTypeEnum.DELETE.getOpertionType()));
             }
 
+            // 同步密码到Keycloak（最小改动：直接调用更新接口）
+            if (null != keycloakSyncService) {
+                try {
+                    String operator = "system"; // 默认操作者
+                    KeycloakSyncService.KeycloakSyncResult syncResult =
+                            keycloakSyncService.updateKeycloakUser(tpAccountVO.getAccountId(), tpAccountVO.getUsername(), userpwd, operator);
+                    if (syncResult.isSuccess()) {
+                        LOGGER.info("密码同步到Keycloak成功: accountId={}, username={}",
+                                tpAccountVO.getAccountId(), tpAccountVO.getUsername());
+                    } else {
+                        LOGGER.warn("密码同步到Keycloak失败: accountId={}, username={}, message={}",
+                                tpAccountVO.getAccountId(), tpAccountVO.getUsername(), syncResult.getMessage());
+                    }
+                } catch (Exception e) {
+                    LOGGER.error("同步密码到Keycloak时发生异常: accountId={}, username={}, error={}",
+                            tpAccountVO.getAccountId(), tpAccountVO.getUsername(), e.getMessage(), e);
+                }
+            }
+
             return count;
         } catch (Exception e) {
             LOGGER.error("账号密码修改失败！personId:{}, 错误:{}", personId, ExceptionUtils.getStackTrace(e));
@@ -678,6 +716,29 @@ public class UserAccountServiceImpl implements UserAccountService {
             if (null != tpAccountEventService) {
                 bean.setUserpwd(resetPwd);
                 applicationContext.publishEvent(new TpAccountEvent("账号信息修改同步监听", tpAccountEventService, bean, OpertionTypeEnum.DELETE.getOpertionType()));
+            }
+
+            // 同步重置密码到Keycloak（最小改动：直接调用更新接口）
+            if (null != keycloakSyncService) {
+                try {
+                    TpAccountVO accountVO = selectByAccountId(accountId);
+                    if (accountVO != null) {
+                        String operator = "system"; // 默认操作者
+                        KeycloakSyncService.KeycloakSyncResult syncResult =
+                                keycloakSyncService.updateKeycloakUser(accountVO.getAccountId(), accountVO.getUsername(), resetPwd, operator);
+                        if (syncResult.isSuccess()) {
+                            LOGGER.info("重置密码同步到Keycloak成功: accountId={}, username={}",
+                                    accountVO.getAccountId(), accountVO.getUsername());
+                        } else {
+                            LOGGER.warn("重置密码同步到Keycloak失败: accountId={}, username={}, message={}",
+                                    accountVO.getAccountId(), accountVO.getUsername(), syncResult.getMessage());
+                        }
+                    } else {
+                        LOGGER.warn("未找到账号信息，跳过Keycloak密码同步: accountId={}", accountId);
+                    }
+                } catch (Exception e) {
+                    LOGGER.error("重置密码同步到Keycloak时发生异常: accountId={}, error={}", accountId, e.getMessage(), e);
+                }
             }
 
             return resetPwd;
@@ -1113,8 +1174,27 @@ public class UserAccountServiceImpl implements UserAccountService {
                 // 检查是否已存在Keycloak账号记录
                 boolean exists = tpKeycloakAccountService.existsByAccountId(accountId);
                 if (exists) {
-                    LOGGER.info("账号已同步到Keycloak，accountId: {}", accountId);
-                    return true;
+                    // 已存在关联记录时，强制同步用户信息（USERNAME、PERSON_NAME、PERSON_NO、EMAIL）
+                    if (keycloakSyncService != null) {
+                        try {
+                            String operator = "system";
+                            KeycloakSyncService.KeycloakSyncResult result =
+                                    keycloakSyncService.updateKeycloakUser(accountVO.getAccountId(), accountVO.getUsername(), null, operator);
+                            if (result.isSuccess()) {
+                                LOGGER.info("已关联账号的用户信息同步到Keycloak成功: accountId={}, username={}", accountVO.getAccountId(), accountVO.getUsername());
+                                return true;
+                            } else {
+                                LOGGER.warn("已关联账号的用户信息同步到Keycloak失败: accountId={}, username={}, message={}", accountVO.getAccountId(), accountVO.getUsername(), result.getMessage());
+                                return false;
+                            }
+                        } catch (Exception e) {
+                            LOGGER.error("同步已关联账号的用户信息到Keycloak时发生异常: accountId={}, username={}, error={}", accountVO.getAccountId(), accountVO.getUsername(), e.getMessage(), e);
+                            return false;
+                        }
+                    } else {
+                        LOGGER.warn("keycloakSyncService为空，已关联账号的用户信息同步被跳过: accountId={}, username={}", accountVO.getAccountId(), accountVO.getUsername());
+                        return true;
+                    }
                 }
             }
 

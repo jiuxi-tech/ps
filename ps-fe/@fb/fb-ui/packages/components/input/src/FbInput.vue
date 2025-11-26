@@ -176,7 +176,7 @@ export default {
 		// 自动完成
 		autocomplete: {
 			type: String,
-			default: 'off',
+			default: 'nope',
 		},
 		// 圆角
 		round: {

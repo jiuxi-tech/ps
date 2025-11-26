@@ -38,7 +38,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Value("${file.upload.allowed-types:jpg,jpeg,png,gif,pdf,doc,docx,xls,xlsx,txt}")
     private String allowedTypes;
     
-    @Value("${file.upload.base-url:http://localhost:8082/ps-be}")
+    @Value("${file.upload.base-url:http://192.168.0.139:8082/ps-be}")
     private String baseUrl;
     
     @Override

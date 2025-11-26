@@ -24,7 +24,7 @@ public class KeycloakServiceImpl implements KeycloakService {
     
     private static final Logger logger = LoggerFactory.getLogger(KeycloakServiceImpl.class);
     
-    @Value("${keycloak.server-url:http://localhost:18080}")
+    @Value("${keycloak.server-url:http://192.168.0.139:18080}")
     private String keycloakServerUrl;
     
     @Value("${keycloak.realm:ps-realm}")
