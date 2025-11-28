@@ -143,15 +143,16 @@
 			handleAdd() {
 				let param = {};
 				let options = {"height": 400};
-				// 打开新增界面弹出窗
-				this.$refs.TpDialog.show(import('./add.vue'), param, "新增标签", options);
+				// 打开新增界面弹出窗，传递 meta 参数标识为新增操作
+				this.$refs.TpDialog.show(import('./add.vue'), param, "新增标签", options, { action: 'add' });
 			},
 			// 修改方法
 			handleEdit(row) {
 				let param = {"id": row.tagId, "passKey": row.passKey};
 				let options = {"height": 400};
 
-				this.$refs.TpDialog.show(import('./add.vue'), param, "修改标签", options);
+				// 打开修改界面弹出窗，传递 meta 参数标识为修改操作
+				this.$refs.TpDialog.show(import('./add.vue'), param, "修改标签", options, { action: 'edit' });
 			},
 			// 删除方法
 			handleDel(row) {
@@ -170,7 +171,8 @@
 				}).then((result) => {
 					if (result.code == 1) {
 						this.$message.success('删除成功');
-						this.handleQuery();
+						// 删除成功后使用 doReload 刷新当前页
+						this.$refs.table.doReload();
 					} else {
 						// 服务器返回失败
 						this.$message.error('删除失败: ' + result.message)
@@ -182,14 +184,28 @@
 			handleView(row) {
 				let param = {"id": row.tagId, "passKey": row.passKey}
 				let options = {"height": 400};
-				this.$refs.TpDialog.show(import('./view.vue'), param, "查看标签", options);
+				// 打开查看界面弹出窗，传递 meta 参数标识为查看操作
+				this.$refs.TpDialog.show(import('./view.vue'), param, "查看标签", options, { action: 'view' });
 			},
 			// 下拉回调
 			onSelectChange(e) {
 				console.log("下拉选择：" + e);
 			},
-			closeDialog(param) {
-				this.handleQuery();
+			closeDialog(result) {
+				// 根据不同操作类型决定列表刷新方式
+				if (!result || !result.success) {
+					// 直接关闭或操作失败，不刷新列表
+					return
+				}
+				
+				if (result.action === 'add') {
+					// 新增成功：重新查询（定位到第一页）
+					this.$refs.table.doSearch()
+				} else if (result.action === 'edit') {
+					// 修改成功：刷新当前页
+					this.$refs.table.doReload()
+				}
+				// 查看操作（action === 'view'）不刷新列表
 			},
 			handleTableSelect(row) {
 				// 表格行选择事件

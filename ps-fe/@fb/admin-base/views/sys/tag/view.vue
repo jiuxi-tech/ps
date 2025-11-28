@@ -70,6 +70,10 @@ import dayjs from "dayjs";
 			parentPage: {
 				type: Object,
 				default: null
+			},
+			meta: {
+				type: Object,
+				default: () => ({})
 			}
 		},
 		// 组件
@@ -116,8 +120,8 @@ import dayjs from "dayjs";
 
 			// 取消
 			handleClose() {
-				// 关闭，并传递参数
-				this.closeTpDialog("xxxx");
+				// 关闭弹窗，不传递参数（表示未成功保存）
+				this.closeTpDialog()
 			},
 
 			view(tagId, passKey) {

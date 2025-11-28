@@ -153,6 +153,12 @@ public class TpTagServiceImpl implements TpTagService {
     @Override
     public int update(TpTagVO vo, String updator) {
         try {
+            // 检查标签名称是否重复（排除当前标签）
+            TpTag existTag = tpTagMapper.selectByTagName(vo.getTagName(), vo.getTenantId(), vo.getAscnId());
+            if (existTag != null && !existTag.getTagId().equals(vo.getTagId())) {
+                throw new TopinfoRuntimeException(-1, "标签名称已存在！");
+            }
+            
             TpTag bean = new TpTag();
             BeanUtil.copyProperties(vo, bean);
             
@@ -162,6 +168,8 @@ public class TpTagServiceImpl implements TpTagService {
             
             int count = tpTagMapper.update(bean);
             return count;
+        } catch (TopinfoRuntimeException e) {
+            throw e;
         } catch (Exception e) {
             LOGGER.error("更新标签失败！vo:{}, 错误: {}", JSONObject.toJSONString(vo), ExceptionUtils.getStackTrace(e));
             throw new TopinfoRuntimeException(-1, "更新标签失败！");
