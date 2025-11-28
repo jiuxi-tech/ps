@@ -191,6 +191,10 @@ export default {
 		param: {
 			type: Object,
 			default: () => ({})
+		},
+		parentPage: {
+			type: Object,
+			default: null
 		}
 	},
 
@@ -347,11 +351,17 @@ export default {
 
 		// 修改证书
 		handleEdit() {
-			this.parentPage.closeDialog();
-			// 触发父页面的编辑操作
-			setTimeout(() => {
-				this.parentPage.handleEdit(this.formData);
-			}, 100);
+			if (this.parentPage && this.parentPage.closeDialog && this.parentPage.handleEdit) {
+				this.parentPage.closeDialog();
+				// 触发父页面的编辑操作
+				setTimeout(() => {
+					this.parentPage.handleEdit(this.formData);
+				}, 100);
+			} else {
+				// 如果没有parentPage，关闭当前弹窗并提示
+				this.handleClose();
+				this.$message.info('请从列表页面执行修改操作');
+			}
 		},
 
 		// 删除证书

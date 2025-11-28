@@ -3,28 +3,21 @@
 
         <fb-page-tree title="组织机构树" :spans="[8,16]">
             <template slot="tree">
-                <!-- 异步加载 -->
-                <fb-tree style="overflow: auto" v-autoheight="152" ref="deptTree" :data="deptData"
-                         :reader="{ value: 'id', label: 'text' }" :load-data="loadDeptTreeData"
-                         @on-select-change="handleSelectChange">
-
+                <!-- 同步加载 -->
+                <fb-tree
+                    :data="deptData"
+                    :reader="{value: 'id', label: 'text'}"
+                    ref="deptTree"
+                    style="overflow: auto"
+                    v-autoheight="152"
+                    @on-select-change="handleSelectChange">
+                    
                     <template #node="props">
                         <fb-flex height="30px" ai-center gap="4px">
-
                             {{props.node.text}}
-
                         </fb-flex>
                     </template>
-
                 </fb-tree>
-                <!-- 同步加载 -->
-                <!--<fb-tree
-                  :data="deptData"
-                  :reader="{value: 'id', label: 'text'}"
-                  ref="deptTree"
-                  style="overflow: auto"
-                  v-autoheight="152"
-                  @on-select-change="handleSelectChange"></fb-tree>-->
             </template>
             <template slot="tree-actions">
 
@@ -238,17 +231,21 @@ export default {
 
     // 方法
     methods: {
-        // 初始化树数据
+        // 初始化树数据(同步加载完整树)
         initDeptTreeData (deptId, selectDeptId) {
             this.service.org.tree({
                 deptId: deptId,
-                'sync': 0,
+                'sync': 1,  // 改为同步加载
             }).then((result) => {
                 if (result.code == 1) {
                     if (result.data.length > 0) {
                         this.deptData = result.data
-                        // 默认选中根节点
+                        // 默认展开所有节点并选中根节点
                         this.$nextTick(() => {
+                            // 默认展开所有节点
+                            this.$refs.deptTree.expandAll(true)
+                            this.treeExpand = true
+                            
                             if (selectDeptId) {
                                 this.$refs.deptTree.selectNodeByValue(selectDeptId)
                             } else {

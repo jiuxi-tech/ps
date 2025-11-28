@@ -122,24 +122,42 @@
                     </fb-col>
                 </fb-row>
 
+                <!-- 职位字段已废弃，统一使用职务职级和职称 -->
                 <fb-row>
                     <fb-col span="12">
-                        <fb-form-item label="职位">
-                            <fb-input
-                                type="text"
-                                v-model="formData.office"
-                                placeholder="请输入职位">
-                            </fb-input>
-                        </fb-form-item>
-                    </fb-col>
-                    <fb-col span="12">
-                        <!--						<fb-form-item label="人员编号" prop="personNo" :rule="[{required: true}]">-->
                         <fb-form-item label="人员编号" prop="personNo">
                             <fb-input
                                 v-model="formData.personNo"
                                 type="text"
                                 placeholder="请输入人员编号">
                             </fb-input>
+                        </fb-form-item>
+                    </fb-col>
+                    <fb-col span="12">
+                        <fb-form-item label="职务职级">
+                            <fb-input
+                                type="text"
+                                v-model="formData.zwzj"
+                                placeholder="请输入职务职级">
+                            </fb-input>
+                        </fb-form-item>
+                    </fb-col>
+                </fb-row>
+
+                <fb-row>
+                    <fb-col span="12">
+                        <fb-form-item label="职称">
+                            <fb-input
+                                type="text"
+                                v-model="formData.zhicheng"
+                                placeholder="请输入职称">
+                            </fb-input>
+                        </fb-form-item>
+                    </fb-col>
+                    <fb-col span="12">
+                        <fb-form-item label="参加工作时间">
+                            <tp-datepicker v-model="formData.partWorkDate" format="YYYY-MM-DD"
+                                           value-format="YYYYMMDD"></tp-datepicker>
                         </fb-form-item>
                     </fb-col>
                 </fb-row>
@@ -254,6 +272,12 @@ export default {
                 tel: '',
                 email: '',
                 office: '',
+                // 职务职级（新字段）
+                zwzj: '',
+                // 职称（新字段）
+                zhicheng: '',
+                // 参加工作时间
+                partWorkDate: '',
                 // 所属机构（单位）id 政府存机构ID，企业存单位id，存在分公司的，存所在分公司单位id
                 ascnId: '',
             },

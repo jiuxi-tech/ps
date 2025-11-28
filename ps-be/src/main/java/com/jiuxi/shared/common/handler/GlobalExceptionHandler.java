@@ -253,8 +253,56 @@ public class GlobalExceptionHandler {
     public BaseResponse<Object> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e, HttpServletRequest request) {
         log.warn("文件上传大小超限: {}", e.getMessage());
         
-        return BaseResponse.error(ResponseCodeEnum.PAYLOAD_TOO_LARGE.getCode(), "上传文件大小超出限制")
+        // 提取文件大小限制信息
+        String message = "上传文件大小超出限制";
+        long maxSize = -1;
+        
+        // 尝试从异常信息中提取文件大小限制
+        if (e.getCause() != null && e.getCause().getMessage() != null) {
+            String causeMsg = e.getCause().getMessage();
+            // 匹配 "exceeds its maximum permitted size of 1048576 bytes" 这样的消息
+            if (causeMsg.contains("maximum permitted size of")) {
+                try {
+                    int start = causeMsg.indexOf("size of ") + 8;
+                    int end = causeMsg.indexOf(" bytes", start);
+                    if (start > 8 && end > start) {
+                        maxSize = Long.parseLong(causeMsg.substring(start, end).trim());
+                    }
+                } catch (Exception ex) {
+                    log.debug("无法解析文件大小限制", ex);
+                }
+            }
+        }
+        
+        // 如果成功提取到文件大小，转换为友好的格式
+        if (maxSize > 0) {
+            String sizeStr = formatFileSize(maxSize);
+            message = String.format("上传文件太大，单个文件大小不能超过 %s", sizeStr);
+        } else if (e.getMaxUploadSize() > 0) {
+            String sizeStr = formatFileSize(e.getMaxUploadSize());
+            message = String.format("上传文件太大，总大小不能超过 %s", sizeStr);
+        }
+        
+        return BaseResponse.error(ResponseCodeEnum.PAYLOAD_TOO_LARGE.getCode(), message)
                 .traceId(getTraceId(request));
+    }
+    
+    /**
+     * 格式化文件大小，转换为友好的显示格式
+     * 
+     * @param size 文件大小（字节）
+     * @return 格式化后的文件大小字符串
+     */
+    private String formatFileSize(long size) {
+        if (size < 1024) {
+            return size + "B";
+        } else if (size < 1024 * 1024) {
+            return String.format("%.1fKB", size / 1024.0);
+        } else if (size < 1024 * 1024 * 1024) {
+            return String.format("%.1fMB", size / (1024.0 * 1024));
+        } else {
+            return String.format("%.1fGB", size / (1024.0 * 1024 * 1024));
+        }
     }
 
     /**

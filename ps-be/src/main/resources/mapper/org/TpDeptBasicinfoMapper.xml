@@ -36,7 +36,7 @@
 
     <select id="selectDeptById" parameterType="string"
             resultType="com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO">
-        select DEPT_ID, PDEPT_ID, DEPT_FULL_NAME, DEPT_LEVELCODE, ASCN_ID, LEAF
+        select DEPT_ID, PDEPT_ID, DEPT_FULL_NAME, FULL_DEPT_NAME, FULL_DEPT_CODE, DEPT_LEVELCODE, ASCN_ID, LEAF
         from tp_dept_basicinfo
         where DEPT_ID = #{deptId}
           and ACTIVED = 1

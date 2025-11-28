@@ -5,24 +5,14 @@
         <fb-page-tree-table title="机构树">
             <!-- 左侧部门树 -->
             <template slot="tree">
-                <!-- 部门树组件：显示组织架构，支持节点选择 -->
+                <!-- 部门树组件：同步加载，显示组织架构，支持节点选择 -->
                 <fb-tree
                     style="overflow: auto"
                     v-autoheight="152"
                     ref="deptTree"
                     :data="deptData"
                     :reader="{value: 'id', label: 'text'}"
-                    :load-data="loadDeptTreeData"
                     @on-select-change="handleSelectChange"></fb-tree>
-
-                <!--	同步树			<fb-tree-->
-                <!--					v-autoheight="152"-->
-                <!--					ref="tree"-->
-                <!--					:service="$svc.sys.dept.org.tree"-->
-                <!--					:param="{deptId: '', sync: 1}"-->
-                <!--					:reader="{value:'id', label: 'text'}"-->
-                <!--					@on-select-change="handleSelectChange"-->
-                <!--					@on-data-load="callBack"></fb-tree>-->
             </template>
             <!-- 树操作按钮 -->
             <template slot="tree-actions">
@@ -166,6 +156,44 @@
         <tp-dialog ref="TpDialog" @closeTpDialog="closeDialog"></tp-dialog>
         <!-- 多标签页弹窗：用于新增、修改等复杂表单 -->
         <tp-dialog-tab ref="TpDialogTab" @closeTpDialog="closeDialogTab"></tp-dialog-tab>
+        
+        <!-- 导入错误详情对话框 -->
+        <fb-dialog ref="importErrorDialog" 
+                   title="数据导入失败" 
+                   width="700px"
+                   :close-on-click-modal="false">
+            <div style="max-height: 500px; overflow-y: auto;">
+                <!-- 错误统计信息 -->
+                <div style="margin-bottom: 15px; padding: 10px; background: #FFF7E6; border-left: 4px solid #E6A23C; border-radius: 4px;">
+                    <p style="margin: 0; font-weight: bold; color: #E6A23C;">
+                        共 {{ importErrors.totalRows }} 行数据，发现 {{ importErrors.errorCount }} 个错误，请修正后重新导入
+                    </p>
+                </div>
+                
+                <!-- 错误详情列表 -->
+                <div style="background: #FEF0F0; padding: 15px; border-radius: 4px; border-left: 4px solid #F56C6C;">
+                    <div v-for="(errors, rowNum) in importErrors.errorsByRow" :key="rowNum" 
+                         style="margin-bottom: 15px;">
+                        <!-- 行号 -->
+                        <div style="font-weight: bold; color: #303133; margin-bottom: 8px; font-size: 14px;">
+                            第 {{ rowNum }} 行：
+                        </div>
+                        <!-- 该行的所有错误 -->
+                        <div v-for="(error, index) in errors" :key="index" 
+                             style="padding-left: 20px; margin-bottom: 5px; color: #606266; line-height: 1.6;">
+                            <span style="color: #909399;">•</span>
+                            <span v-if="error.field" style="color: #909399;">[字段: {{ error.field }}]</span>
+                            <span v-if="error.value" style="color: #909399;">[值: {{ error.value }}]</span>
+                            <span style="color: #F56C6C;">{{ error.message }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <template slot="footer-right">
+                <fb-button type="primary" @on-click="closeImportErrorDialog">我知道了</fb-button>
+            </template>
+        </fb-dialog>
     </div>
 </template>
 
@@ -206,6 +234,12 @@ export default {
             importLoading: false,
             // 下载模板加载状态：防止重复点击
             templateLoading: false,
+            // 导入错误信息：存储导入失败的错误详情
+            importErrors: {
+                totalRows: 0,
+                errorCount: 0,
+                errorsByRow: {}
+            },
             // 当前选中的部门节点信息
             selectNode: {
                 deptId: '', // 部门ID
@@ -301,20 +335,24 @@ export default {
     // 组件方法
     methods: {
         /**
-         * 初始化部门树数据
+         * 初始化部门树数据(同步加载完整树)
          * @param {string} deptId - 部门ID，空字符串表示加载根节点
          * @param {string} selectDeptId - 需要选中的部门ID
          */
         initDeptTreeData (deptId, selectDeptId) {
             this.service_dept.org.tree({
                 deptId: deptId,
-                'sync': 1,
+                'sync': 1,  // 同步加载完整树
             }).then((result) => {
                 if (result.code == 1) {
                     if (result.data.length > 0) {
                         this.deptData = result.data
-                        // 默认选中根节点
+                        // 默认展开所有节点并选中根节点
                         this.$nextTick(() => {
+                            // 默认展开所有节点
+                            this.$refs.deptTree.expandAll(true)
+                            this.treeExpand = true
+                            
                             if (selectDeptId) {
                                 this.$refs.deptTree.selectNodeByValue(selectDeptId)
                             } else {
@@ -607,7 +645,7 @@ export default {
          */
         handleTreeExpand () {
             this.treeExpand = !this.treeExpand
-            this.$refs.tree.expandAll(this.treeExpand)
+            this.$refs.deptTree.expandAll(this.treeExpand)
         },
         /**
          * 导出Excel功能
@@ -724,30 +762,21 @@ export default {
                 formData.append('deptId', this.selectNode.deptId)
                 formData.append('ascnId', this.selectNode.ascnId)
 
-                // 调用导入API（这里需要根据实际后端接口调整）
-                // 注意：这里假设后端有对应的导入接口，如果没有需要先实现
+                // 调用导入API
                 app.$svc.sys.person.importExcel(formData).then((response) => {
                     if (response.code === 1) {
-                        this.$message.success('导入成功')
+                        // 导入成功
+                        const result = response.data
+                        if (result && result.successRows > 0) {
+                            this.$message.success(`导入成功！共导入 ${result.successRows} 条数据`)
+                        } else {
+                            this.$message.success('导入成功')
+                        }
                         // 刷新列表
                         this.handleQuery()
                     } else {
-                        // 检查是否是重复手机号错误
-                        if (response.message  ) {
-                            // 使用确认框显示重复手机号错误
-                            this.$confirm(response.message, '导入失败', {
-                                confirmButtonText: '确定',
-                                showCancelButton: false,
-                                type: 'error'
-                            }).then(() => {
-                                // 用户点击确定后不需要特殊处理
-                            }).catch(() => {
-                                // 用户取消（虽然没有取消按钮，但保留catch以防万一）
-                            })
-                        } else {
-                            // 其他错误使用普通错误提示
-                            this.$message.error('导入失败：' + response.message)
-                        }
+                        // 导入失败，展示详细错误信息
+                        this.showImportErrors(response)
                     }
                 }).catch((error) => {
                     console.error('导入失败:', error)
@@ -791,6 +820,45 @@ export default {
             } finally {
                 this.templateLoading = false
             }
+        },
+        /**
+         * 展示导入错误信息
+         * 将错误详情以友好的方式展示给用户
+         */
+        showImportErrors(response) {
+            const result = response.data
+            
+            // 如果没有结构化数据，使用简单错误提示
+            if (!result || !result.errors || result.errors.length === 0) {
+                this.$message.error(response.message || '导入失败，请检查数据格式')
+                return
+            }
+            
+            // 按行号分组错误
+            const errorsByRow = {}
+            result.errors.forEach(error => {
+                const rowNum = error.row || '?'
+                if (!errorsByRow[rowNum]) {
+                    errorsByRow[rowNum] = []
+                }
+                errorsByRow[rowNum].push(error)
+            })
+            
+            // 更新错误数据
+            this.importErrors = {
+                totalRows: result.totalRows || 0,
+                errorCount: result.errors.length,
+                errorsByRow: errorsByRow
+            }
+            
+            // 显示错误对话框
+            this.$refs.importErrorDialog.show()
+        },
+        /**
+         * 关闭导入错误对话框
+         */
+        closeImportErrorDialog() {
+            this.$refs.importErrorDialog.hide()
         },
     },
 }

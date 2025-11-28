@@ -159,9 +159,16 @@
                         <div class="info-row">
                             <div class="info-label">
                                 <i class="iconfont jpx-icon-work-parameter label-icon"></i>
-                                <span>职位</span>
+                                <span>职务职级</span>
                             </div>
-                            <div class="info-value">{{ userInfo.office || '-' }}</div>
+                            <div class="info-value">{{ userInfo.zwzj || '-' }}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">
+                                <i class="iconfont jpx-icon-committee-add label-icon"></i>
+                                <span>职称</span>
+                            </div>
+                            <div class="info-value">{{ userInfo.zhicheng || '-' }}</div>
                         </div>
                         <div class="info-row">
                             <div class="info-label">
@@ -169,6 +176,13 @@
                                 <span>人员编号</span>
                             </div>
                             <div class="info-value">{{ userInfo.personNo || '-' }}</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">
+                                <fb-icon name="calendar" class="label-icon"></fb-icon>
+                                <span>参加工作时间</span>
+                            </div>
+                            <div class="info-value">{{ formatDate(userInfo.partWorkDate) }}</div>
                         </div>
 <!--                        <div class="info-row">
                             <div class="info-label">

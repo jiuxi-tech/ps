@@ -68,6 +68,10 @@ export default {
 			parentPage: {
 				type: Object,
 				default: null
+			},
+			meta: {
+				type: Object,
+				default: () => ({})
 			}
 		},
 	// 初始化方法
@@ -142,7 +146,9 @@ export default {
 						this.loading = false
 						if (data.code == 1) {
 							this.$message.success(this.configKey ? '修改成功' : '新增成功')
-							this.handleClose()
+							// 传递成功结果和操作类型
+							const action = this.meta?.action || (this.configKey ? 'edit' : 'add')
+							this.closeTpDialog({ success: true, action })
 						} else {
 							this.$message.error(data.msg || '保存失败')
 						}
@@ -158,8 +164,8 @@ export default {
 		},
 		// 取消
       handleClose() {
-          // 关闭，并传递参数
-          this.closeTpDialog("xxxx");
+          // 关闭弹窗，不传递参数（表示未成功保存）
+          this.closeTpDialog()
       },
 	}
 }

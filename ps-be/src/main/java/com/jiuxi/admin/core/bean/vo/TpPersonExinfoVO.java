@@ -96,6 +96,20 @@ public class TpPersonExinfoVO implements Serializable {
      */
     private String position;
     /**
+     * 职务职级（如：四级调研员、二级主任科员等）
+     * @deprecated 已废弃，请使用 zwzj 字段
+     */
+    @Deprecated
+    private String rank;
+    /**
+     * 职务职级（新字段，推荐使用）
+     */
+    private String zwzj;
+    /**
+     * 职称（新字段，推荐使用）
+     */
+    private String zhicheng;
+    /**
      * 参加工作时间
      */
     private String partWorkDate;
@@ -374,5 +388,29 @@ public class TpPersonExinfoVO implements Serializable {
 
     public void setDiplomaCodeName(String diplomaCodeName) {
         this.diplomaCodeName = diplomaCodeName;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    public String getZwzj() {
+        return zwzj;
+    }
+
+    public void setZwzj(String zwzj) {
+        this.zwzj = zwzj;
+    }
+
+    public String getZhicheng() {
+        return zhicheng;
+    }
+
+    public void setZhicheng(String zhicheng) {
+        this.zhicheng = zhicheng;
     }
 }

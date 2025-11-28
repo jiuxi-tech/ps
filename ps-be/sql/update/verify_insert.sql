@@ -1,0 +1,18 @@
+-- 验证插入结果
+
+SELECT 
+    COUNT(*) as 部门总数
+FROM tp_dept_basicinfo 
+WHERE PDEPT_ID = '1111111111111111111' 
+  AND ACTIVED = 1;
+
+-- 列出所有部门
+SELECT 
+    DEPT_ID,
+    DEPT_FULL_NAME,
+    DEPT_SIMPLE_NAME,
+    ORDER_INDEX
+FROM tp_dept_basicinfo 
+WHERE PDEPT_ID = '1111111111111111111' 
+  AND ACTIVED = 1
+ORDER BY ORDER_INDEX;

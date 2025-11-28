@@ -154,22 +154,22 @@ export default {
     mixins: [],
     // 接收父组件的传参
     props: {
-     	param: {
-				type: Object,
-				require: false
-			},
-			parentPage: {
-				type: Object,
-				default: null
-			}
+        param: {
+            type: Object,
+            require: false
+        },
+        parentPage: {
+            type: Object,
+            default: null
+        }
     },
 
     // 初始化方法
-    mounted () {
+    mounted() {
         this.init()
     },
 
-    data () {
+    data() {
         return {
             formData: {
                 certId: '',
@@ -213,7 +213,7 @@ export default {
     // 方法
     methods: {
         // 初始化
-        init () {
+        init() {
             this.isEdit = this.param.mode === 'edit' && this.param.certId
 
             if (this.isEdit) {
@@ -222,7 +222,7 @@ export default {
         },
 
         // 加载证书数据（修改时）
-        loadCertData () {
+        loadCertData() {
             app.$svc.sys.serverCert.view({certId: this.param.certId}).then((result) => {
                 if (result.code == 1) {
                     this.formData = {
@@ -272,12 +272,12 @@ export default {
 
         // ==== PEM证书文件处理 ====
         // 选择PEM文件
-        selectPemFile () {
+        selectPemFile() {
             this.$refs.pemFileInput.click()
         },
 
         // PEM文件选择事件
-        onPemFileSelect (event) {
+        onPemFileSelect(event) {
             const files = event.target.files
             if (!files || files.length === 0) {
                 return
@@ -341,7 +341,7 @@ export default {
         },
 
         // 移除PEM文件
-        removePemFile () {
+        removePemFile() {
             this.formData.pemContent = ''
             this.pemFileName = ''
             this.certInfo = null
@@ -349,12 +349,12 @@ export default {
 
         // ==== 私钥文件处理 ====
         // 选择私钥文件
-        selectKeyFile () {
+        selectKeyFile() {
             this.$refs.keyFileInput.click()
         },
 
         // 私钥文件选择事件
-        onKeyFileSelect (event) {
+        onKeyFileSelect(event) {
             const files = event.target.files
             if (!files || files.length === 0) {
                 return
@@ -414,13 +414,13 @@ export default {
         },
 
         // 移除私钥文件
-        removeKeyFile () {
+        removeKeyFile() {
             this.formData.keyContent = ''
             this.keyFileName = ''
         },
 
         // 解析证书信息
-        parseCertificate () {
+        parseCertificate() {
             if (!this.formData.pemContent) {
                 return
             }
@@ -436,7 +436,7 @@ export default {
         },
 
         // 验证证书和私钥匹配
-        validateCertAndKey () {
+        validateCertAndKey() {
             if (!this.formData.pemContent || !this.formData.keyContent) {
                 return
             }
@@ -454,7 +454,7 @@ export default {
         },
 
         // 保存
-        save () {
+        save() {
             this.$refs.fbform.validate((valid) => {
                 if (valid) {
                     if (!this.formData.pemContent) {
@@ -508,18 +508,18 @@ export default {
         },
 
 	// 取消
-			handleClose() {
-				// 关闭，并传递参数
-				this.closeTpDialog("xxxx");
-			},
+		handleClose() {
+			// 关闭，并传递参数
+			this.closeTpDialog("xxxx");
+		},
 
         // 格式化日期
-        formatDate (date) {
+        formatDate(date) {
             return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
         },
 
         // 检查是否即将过期
-        isExpiringSoon (expireDate) {
+        isExpiringSoon(expireDate) {
             if (!expireDate) return false
             const expire = dayjs(expireDate)
             const now = dayjs()

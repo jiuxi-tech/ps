@@ -4,51 +4,26 @@
 			<template slot="query">
 				<fb-form ref="query-form" mode="query">
 					<fb-row>
-						<fb-col span="12">
+						<fb-col span="8">
 							<fb-form-item label="证书名称">
 								<fb-input v-model="formData.certName" placeholder="请输入证书名称"></fb-input>
 							</fb-form-item>
 						</fb-col>
-						<!-- <fb-col span="6">
-							<fb-form-item label="状态">
-								<fb-select v-model="formData.status" placeholder="请选择状态" clearable
-									:data="statusOptions">
-								</fb-select>
-							</fb-form-item>
-						</fb-col> -->
-						<fb-col span="12">
+						<fb-col span="8">
 							<fb-form-item label="使用状态">
 								<fb-select v-model="formData.isInUse" placeholder="请选择使用状态" clearable
 									:data="useStatusOptions">
 								</fb-select>
 							</fb-form-item>
 						</fb-col>
-						<!-- <fb-col span="6">
+						<fb-col span="8">
 							<fb-form-item label="过期状态">
 								<fb-select v-model="formData.isExpired" placeholder="请选择过期状态" clearable
 									:data="expiredStatusOptions">
 								</fb-select>
 							</fb-form-item>
-						</fb-col> -->
+						</fb-col>
 					</fb-row>
-					<!-- <fb-row>
-						<fb-col span="6">
-							<fb-form-item label="发证机构">
-								<fb-input v-model="formData.issuer" placeholder="请输入发证机构"></fb-input>
-							</fb-form-item>
-						</fb-col>
-						<fb-col span="6">
-							<fb-form-item label="公用名">
-								<fb-input v-model="formData.subjectCn" placeholder="请输入公用名"></fb-input>
-							</fb-form-item>
-						</fb-col>
-						<fb-col span="6">
-							<fb-form-item label="创建人">
-								<fb-input v-model="formData.createPersonName" placeholder="请输入创建人"></fb-input>
-							</fb-form-item>
-						</fb-col>
-						<fb-col span="6"></fb-col>
-					</fb-row> -->
 				</fb-form>
 			</template>
 
@@ -138,20 +113,7 @@
 
 		data() {
 			return {
-				formData: {
-					certName: '',
-					status: '',
-					isInUse: '',
-					isExpired: '',
-					issuer: '',
-					subjectCn: '',
-					createPersonName: ''
-				},
-				// 状态选项
-				statusOptions: [
-					{ value: 0, label: '未应用' },
-					{ value: 1, label: '已应用' }
-				],
+				formData: {},
 				useStatusOptions: [
 					{ value: 0, label: '未使用' },
 					{ value: 1, label: '使用中' }
@@ -259,20 +221,7 @@
 						},
 					],
 				},
-				formatters: {
-					// createTime: (row) => {
-					// 	return row.createTime ? dayjs(row.createTime).format('YYYY-MM-DD HH:mm:ss') : '';
-					// },
-					// issueDate: (row) => {
-					// 	return row.issueDate ? dayjs(row.issueDate).format('YYYY-MM-DD HH:mm:ss') : '-';
-					// },
-					// expireDate: (row) => {
-					// 	return row.expireDate ? dayjs(row.expireDate).format('YYYY-MM-DD HH:mm:ss') : '';
-					// },
-					// appliedTime: (row) => {
-					// 	return !row ? '-' : (row.appliedTime && row.appliedTime !== null) ? dayjs(row.appliedTime).format('YYYY-MM-DD HH:mm:ss') : '-';
-					// }
-				}
+				formatters: {}
 			}
 		},
 
@@ -285,15 +234,7 @@
 
 			// 重置
 			handleReset() {
-				this.formData = {
-					certName: '',
-					status: '',
-					isInUse: '',
-					isExpired: '',
-					issuer: '',
-					subjectCn: '',
-					createPersonName: ''
-				};
+				this.formData = {};
 				this.$refs.table.doSearch();
 			},
 

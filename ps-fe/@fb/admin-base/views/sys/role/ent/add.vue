@@ -65,6 +65,10 @@
 			parentPage: {
 				type: Object,
 				default: null
+			},
+			meta: {
+				type: Object,
+				default: () => ({})
 			}
 		},
 		// 组件
@@ -132,8 +136,8 @@
 
 			// 取消
 			handleClose() {
-				// 隐藏
-				this.closeTpDialog("xxxx");
+				// 关闭弹窗，不传递参数（表示未成功保存）
+				this.closeTpDialog()
 			},
 			// 新增
 			add() {
@@ -148,7 +152,9 @@
 								if (result.code == 1) {
 									this.$message.success('修改成功');
 
-									this.closeTpDialog("xxxx");
+									// 传递成功结果和操作类型
+									const action = this.meta?.action || (this.formData.roleId ? 'edit' : 'add')
+									this.closeTpDialog({ success: true, action });
 								} else {
 									this.$message.error('修改失败:' + result.data.message)
 								}
@@ -161,7 +167,9 @@
 								if (result.code == 1) {
 									this.$message.success('新增成功');
 
-									this.closeTpDialog("xxxx");
+									// 传递成功结果和操作类型
+									const action = this.meta?.action || (this.formData.roleId ? 'edit' : 'add')
+									this.closeTpDialog({ success: true, action });
 								} else {
 									// 服务器返回失败
 									this.$message.error('新增失败' + result.data.message)

@@ -46,6 +46,14 @@ public class TpDeptBasicinfoVO implements Serializable {
     @NotBlank(message = "部门全称不能为空", groups = AddGroup.class)
     private String deptFullName;
     /**
+     * 完整部门路径名称（包含层级，用>分隔，如：AAA部>BBB部>CCC办公室）
+     */
+    private String fullDeptName;
+    /**
+     * 完整部门路径编码（包含层级，用>分隔）
+     */
+    private String fullDeptCode;
+    /**
      * 部门简称
      */
     private String deptSimpleName;
@@ -204,6 +212,22 @@ public class TpDeptBasicinfoVO implements Serializable {
 
     public void setDeptFullName(String deptFullName) {
         this.deptFullName = deptFullName;
+    }
+
+    public String getFullDeptName() {
+        return fullDeptName;
+    }
+
+    public void setFullDeptName(String fullDeptName) {
+        this.fullDeptName = fullDeptName;
+    }
+
+    public String getFullDeptCode() {
+        return fullDeptCode;
+    }
+
+    public void setFullDeptCode(String fullDeptCode) {
+        this.fullDeptCode = fullDeptCode;
     }
 
     public String getDeptSimpleName() {

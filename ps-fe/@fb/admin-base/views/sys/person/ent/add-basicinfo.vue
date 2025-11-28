@@ -166,6 +166,27 @@
 							</fb-input>
 						</fb-form-item>
 					</fb-col>
+					<fb-col span="12">
+						<fb-form-item label="职务职级">
+							<fb-input
+								type="text"
+								v-model="formData.zwzj"
+								placeholder="请输入职务职级">
+							</fb-input>
+						</fb-form-item>
+					</fb-col>
+				</fb-row>
+
+				<fb-row>
+					<fb-col span="12">
+						<fb-form-item label="职称">
+							<fb-input
+								type="text"
+								v-model="formData.zhicheng"
+								placeholder="请输入职称">
+							</fb-input>
+						</fb-form-item>
+					</fb-col>
 				</fb-row>
 
 				<fb-row>
@@ -241,6 +262,10 @@
 					tel: '',
 					email: '',
 					office: '',
+					// 职务职级（新字段）
+					zwzj: '',
+					// 职称（新字段）
+					zhicheng: '',
 					// 所属机构（单位）id 政府存机构ID，企业存单位id，存在分公司的，存所在分公司单位id
 					ascnId: '',
 					// 是否有效

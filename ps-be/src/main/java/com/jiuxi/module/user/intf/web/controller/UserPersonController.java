@@ -8,6 +8,8 @@ import com.jiuxi.admin.core.bean.vo.TpAccountVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonExinfoVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonRoleVO;
+import com.jiuxi.module.user.app.dto.ImportResultDTO;
+import com.jiuxi.module.user.app.service.UserImportExportService;
 import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.service.TpCityService;
 import com.jiuxi.module.user.app.service.UserPersonService;
@@ -53,6 +55,9 @@ public class UserPersonController {
 
     @Autowired
     private TpAccountService tpAccountService;
+
+    @Autowired
+    private UserImportExportService userImportExportService;
 
     @Autowired
     private UserAccountService userAccountService;
@@ -354,36 +359,73 @@ public class UserPersonController {
     }
 
     /**
-     * 导出用户信息到Excel
+     * 导出用户信息到Excel（重构版本）
      */
     @RequestMapping(value = "/export-excel")
-    public void exportExcel(@RequestBody TpPersonBasicQuery query, String jwtpid, HttpServletResponse response) {
+    public void exportExcel(@RequestBody TpPersonBasicQuery query, String jwtpid, String jwtTid, HttpServletResponse response) {
         try {
-            tpPersonBasicinfoService.exportExcel(query, jwtpid, response);
+            // 设置响应头
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding("UTF-8");
+            String fileName = "用户信息_" + System.currentTimeMillis() + ".xlsx";
+            response.setHeader("Content-Disposition", "attachment; filename=" + java.net.URLEncoder.encode(fileName, "UTF-8"));
+
+            // 调用新的导出服务
+            userImportExportService.exportUsers(
+                query.getDeptId(),
+                query.getDeptLevelcode(),
+                query.getSelectedUserIds(), // 如果有选中的用户ID列表
+                jwtTid,
+                response.getOutputStream()
+            );
         } catch (Exception e) {
             throw new RuntimeException("导出Excel失败", e);
         }
     }
 
     /**
-     * 导入用户信息从Excel
+     * 导入用户信息从Excel（重构版本）
      */
     @RequestMapping(value = "/import-excel")
-    public JsonResponse importExcel(@RequestParam("file") MultipartFile file, @RequestParam("deptId") String deptId, String jwtpid) {
+    public JsonResponse importExcel(@RequestParam("file") MultipartFile file, 
+                                    @RequestParam(value = "deptId", required = false) String deptId, 
+                                    String jwtpid, 
+                                    String jwtTid,
+                                    String jwtAscnId) {
         try {
-            return tpPersonBasicinfoService.importExcel(file, deptId, jwtpid);
+            // 调用新的导入服务
+            ImportResultDTO result = userImportExportService.importUsers(
+                file,
+                jwtpid,
+                jwtTid,
+                jwtAscnId
+            );
+
+            if (result.getSuccess()) {
+                return JsonResponse.buildSuccess(result);
+            } else {
+                // 有错误但需要返回详细错误信息
+                return JsonResponse.build(0, "数据导入失败，请查看错误详情", result);
+            }
         } catch (Exception e) {
-            throw new RuntimeException("导入Excel失败", e);
+            return JsonResponse.buildFailure("导入Excel失败：" + e.getMessage());
         }
     }
 
     /**
-     * 下载Excel导入模板
+     * 下载Excel导入模板（重构版本）
      */
     @RequestMapping(value = "/download-template")
     public void downloadTemplate(HttpServletResponse response) {
         try {
-            tpPersonBasicinfoService.downloadTemplate(response);
+            // 设置响应头
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding("UTF-8");
+            String fileName = "用户导入模板.xlsx";
+            response.setHeader("Content-Disposition", "attachment; filename=" + java.net.URLEncoder.encode(fileName, "UTF-8"));
+
+            // 调用新的模板生成服务
+            userImportExportService.downloadTemplate(response.getOutputStream());
         } catch (Exception e) {
             throw new RuntimeException("下载模板失败", e);
         }

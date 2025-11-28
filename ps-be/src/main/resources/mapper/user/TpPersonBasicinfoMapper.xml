@@ -159,6 +159,16 @@
             resultType="com.jiuxi.admin.core.bean.entity.TpPersonBasicinfo">
         select tpb.PERSON_ID, tpb.PERSON_NAME, tpb.EMAIL from tp_person_basicinfo tpb WHERE tpb.EMAIL = #{email} and tpb.ACTIVED = 1 limit 1
     </select>
+    
+    <select id="selectByIdCard" parameterType="java.lang.String"
+            resultType="com.jiuxi.admin.core.bean.entity.TpPersonBasicinfo">
+        select tpb.PERSON_ID, tpb.PERSON_NAME, tpb.IDCARD 
+        from tp_person_basicinfo tpb 
+        where tpb.IDCARD = #{idcard} 
+        and tpb.ACTIVED = 1 
+        limit 1
+    </select>
+    
     <select id="getBaseInfoByIdCard" resultType="com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO"
             parameterType="java.lang.String">
         select *

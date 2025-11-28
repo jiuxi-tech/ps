@@ -86,8 +86,28 @@ public class TpPersonBasicinfoVO implements Serializable {
     private String email;
     /**
      * 职位
+     * @deprecated 已废弃，请使用 zwzj 字段
      */
+    @Deprecated
     private String office;
+    /**
+     * 职称 字典编码SYS12
+     * @deprecated 已废弃，请使用 zhicheng 字段
+     */
+    @Deprecated
+    private String titleCode;
+    /**
+     * 职务职级（新字段，推荐使用）
+     */
+    private String zwzj;
+    /**
+     * 职称（新字段，推荐使用）
+     */
+    private String zhicheng;
+    /**
+     * 参加工作时间
+     */
+    private String partWorkDate;
     /**
      * 是否有效
      */
@@ -330,6 +350,30 @@ public class TpPersonBasicinfoVO implements Serializable {
         this.office = office;
     }
 
+    public String getTitleCode() {
+        return titleCode;
+    }
+
+    public void setTitleCode(String titleCode) {
+        this.titleCode = titleCode;
+    }
+
+    public String getZwzj() {
+        return zwzj;
+    }
+
+    public void setZwzj(String zwzj) {
+        this.zwzj = zwzj;
+    }
+
+    public String getZhicheng() {
+        return zhicheng;
+    }
+
+    public void setZhicheng(String zhicheng) {
+        this.zhicheng = zhicheng;
+    }
+
     public Integer getActived() {
         return actived;
     }
@@ -472,5 +516,13 @@ public class TpPersonBasicinfoVO implements Serializable {
 
     public void setPassKey(String passKey) {
         this.passKey = passKey;
+    }
+
+    public String getPartWorkDate() {
+        return partWorkDate;
+    }
+
+    public void setPartWorkDate(String partWorkDate) {
+        this.partWorkDate = partWorkDate;
     }
 }

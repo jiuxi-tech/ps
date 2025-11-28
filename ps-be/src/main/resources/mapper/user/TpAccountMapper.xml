@@ -41,6 +41,15 @@
         ACTIVED = 1
     </select>
 
+    <!-- 根据人员ID查询账号信息（返回Entity类型） -->
+    <select id="selectByPersonId" parameterType="String" resultType="com.jiuxi.admin.core.bean.entity.TpAccount">
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_account
+        where PERSON_ID = #{personId}
+        and ACTIVED = 1
+        limit 1
+    </select>
+
     <select id="selectByAccountId" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
         select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
         from tp_account
@@ -168,6 +177,87 @@
             UPDATE_TIME = NOW()
         WHERE ACCOUNT_ID = #{accountId}
           AND ACTIVED = 1
+    </update>
+
+    <!-- 以下方法为了兼容TpAccountMapper接口而添加 -->
+    <insert id="insert" parameterType="com.jiuxi.admin.core.bean.entity.TpAccount">
+        INSERT INTO tp_account
+            (ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, LAST_PASSWORD_CHANGE_TIME, EXTEND01, EXTEND02, EXTEND03)
+		VALUES
+			(#{accountId}, #{username}, #{userpwd}, #{phone}, #{expiredTime}, #{locked}, #{enabled}, #{personId}, #{tenantId}, #{weixin}, #{dingding}, #{threeId}, 1, #{createTime}, #{updateTime}, #{lastPasswordChangeTime}, #{extend01}, #{extend02}, #{extend03})
+    </insert>
+    
+    <update id="updateByPrimaryKey" parameterType="com.jiuxi.admin.core.bean.entity.TpAccount">
+        update tp_account
+        set USERNAME = #{username},
+            USERPWD = #{userpwd},
+            PHONE = #{phone},
+            EXPIRED_TIME = #{expiredTime},
+            LOCKED = #{locked},
+            ENABLED = #{enabled},
+            TENANT_ID = #{tenantId},
+            WEIXIN = #{weixin},
+            DINGDING = #{dingding},
+            THREE_ID = #{threeId},
+            ACTIVED = #{actived},
+            EXTEND01 = #{extend01},
+            EXTEND02 = #{extend02},
+            EXTEND03 = #{extend03},
+            UPDATE_TIME = #{updateTime}
+        where ACCOUNT_ID = #{accountId}
+    </update>
+    
+    <update id="deleteByPrimaryKey">
+        update tp_account 
+        set ACTIVED = 0,
+            UPDATE_TIME = NOW()
+        where ACCOUNT_ID = #{accountId}
+    </update>
+    
+    <select id="selectByPrimaryKey" resultType="com.jiuxi.admin.core.bean.entity.TpAccount">
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, VERIFICATION_CODE, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_account 
+        where ACCOUNT_ID = #{accountId} 
+        and ACTIVED = 1
+    </select>
+    
+    <select id="selectByCondition" resultType="com.jiuxi.admin.core.bean.entity.TpAccount">
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, VERIFICATION_CODE, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_account 
+        where ACTIVED = 1
+        <if test="username != null and username != ''">
+            and USERNAME = #{username}
+        </if>
+        <if test="phone != null and phone != ''">
+            and PHONE = #{phone}
+        </if>
+        <if test="personId != null and personId != ''">
+            and PERSON_ID = #{personId}
+        </if>
+    </select>
+    
+    <update id="updatePassword">
+        update tp_account 
+        set USERPWD = #{password},
+            UPDATE_TIME = NOW()
+        where ACCOUNT_ID = #{accountId} 
+        and ACTIVED = 1
+    </update>
+    
+    <update id="updateStatus">
+        update tp_account 
+        set ENABLED = #{enabled},
+            UPDATE_TIME = NOW()
+        where ACCOUNT_ID = #{accountId} 
+        and ACTIVED = 1
+    </update>
+    
+    <update id="updateLockStatus">
+        update tp_account 
+        set LOCKED = #{locked},
+            UPDATE_TIME = NOW()
+        where ACCOUNT_ID = #{accountId} 
+        and ACTIVED = 1
     </update>
 
 </mapper>

@@ -128,28 +128,20 @@ export default {
             let param = { mode: 'add' };
             let options = { "height": 350 };
 
-            this.$refs.TpDialog.show(import('./add.vue'), param, "新增", options);
+            this.$refs.TpDialog.show(import('./add.vue'), param, "新增", options, { action: 'add' });
         },
         // 修改
         handleEdit(row) {
-
-
-
             let param = { "configKey": row.configKey, "passKey": row.passKey, mode: 'edit' };
             let options = { "height": 350 };
 
-            this.$refs.TpDialog.show(import('./add.vue'), param, "修改", options);
-
+            this.$refs.TpDialog.show(import('./add.vue'), param, "修改", options, { action: 'edit' });
         },
         // 查看
         handleView(row) {
-
-
             let param = { "configKey": row.configKey, }
             let options = { "height": 350 };
-            this.$refs.TpDialog.show(import('./view.vue'), param, "查看", options);
-
-
+            this.$refs.TpDialog.show(import('./view.vue'), param, "查看", options, { action: 'view' });
         },
 
 
@@ -159,16 +151,28 @@ export default {
                 this.$svc.sys.config.delete(row.configKey).then(data => {
                     if (data.code == 1) {
                         this.$message.success('删除成功')
-                        this.handleQuery()
+                        this.$refs.table.doReload()
                     } else {
                         this.$message.error(data.msg || '删除失败')
                     }
                 })
             })
         },
-        closeDialog() {
-
-            this.handleQuery()
+        closeDialog(result) {
+            // 根据不同操作类型决定列表刷新方式
+            if (!result || !result.success) {
+                // 直接关闭或操作失败，不刷新列表
+                return
+            }
+            
+            if (result.action === 'add') {
+                // 新增成功：重新查询（定位到第一页）
+                this.$refs.table.doSearch()
+            } else if (result.action === 'edit') {
+                // 修改成功：刷新当前页
+                this.$refs.table.doReload()
+            }
+            // 查看操作（action === 'view'）不刷新列表
         }
     }
 }

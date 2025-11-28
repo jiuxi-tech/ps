@@ -486,7 +486,7 @@ export default {
 			data: formData,
 			headers: { 'Content-Type': 'application/json' },
 			responseType: 'blob', // 重要：设置为blob以处理文件下载
-			timeout: 30000, // 导出可能需要更长时间
+			timeout: 300000, // 导出超时时间：5分钟
 		}).then(e => {
 			return e
 

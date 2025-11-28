@@ -90,48 +90,32 @@
 
                 <fb-row>
                     <fb-col span="12">
-                        <fb-form-item label="职位" prop="office">
-                            <fb-input type="text" v-model="formData.office" placeholder="请输入职位">
+                        <fb-form-item label="职务职级" prop="zwzj">
+                            <fb-input type="text" v-model="formData.zwzj" placeholder="请输入职务职级">
                             </fb-input>
                         </fb-form-item>
                     </fb-col>
+                    <fb-col span="12">
+                        <fb-form-item label="职称" prop="zhicheng">
+                            <fb-input type="text" v-model="formData.zhicheng" placeholder="请输入职称">
+                            </fb-input>
+                        </fb-form-item>
+                    </fb-col>
+                </fb-row>
+
+                <fb-row>
                     <fb-col span="12">
                         <fb-form-item label="人员编号" prop="personNo">
                             <fb-input v-model="formData.personNo" placeholder="请输入人员编号"></fb-input>
                         </fb-form-item>
                     </fb-col>
                     <fb-col span="12">
-                        <!-- 空列，保持布局平衡 -->
+                        <fb-form-item label="参加工作时间" prop="partWorkDate">
+                            <tp-datepicker v-model="formData.partWorkDate" format="YYYY-MM-DD" value-format="YYYYMMDD"
+                                clearable></tp-datepicker>
+                        </fb-form-item>
                     </fb-col>
-<!--                    <fb-col span="12">-->
-<!--                        <fb-form-item label="职称" prop="titleCode">-->
-<!--                        -->
-<!--                        <fb-select v-model="formData.titleCode"-->
-<!--									   :service="$svc.sys.dict.select"-->
-<!--									   :param="{'pdicCode': 'SYS12'}"-->
-<!--									   placeholder="请选择"-->
-<!--									   clearable>-->
-<!--			</fb-select>-->
-<!--                        </fb-form-item>-->
-<!--                    </fb-col>-->
                 </fb-row>
-
-<!--                <fb-row>-->
-<!--                    <fb-col span="12">-->
-<!--                        <fb-form-item label="政治面貌" prop="politicsCode">-->
-<!--                            <fb-select v-model="formData.politicsCode"-->
-<!--                                       :service="$svc.sys.dict.select"-->
-<!--                                       :param="{'pdicCode': 'SYS13'}"-->
-<!--                                       placeholder="请选择"-->
-<!--                                       clearable>-->
-<!--                            </fb-select>-->
-<!--                        </fb-form-item>-->
-<!--                    </fb-col>-->
-<!--                    <fb-col span="12">-->
-<!--                        &lt;!&ndash; 空列，保持布局平衡 &ndash;&gt;-->
-<!--                    </fb-col>-->
-<!--                </fb-row>-->
-
 
 <!--                <fb-row>-->
 <!--                    <fb-col span="12">-->
@@ -251,8 +235,10 @@ export default {
                 email: '',
                 maddress: '',
                 position: '',
-                office: '',
-                titleCode: '',
+                // office: '', // 已废弃
+                // titleCode: '', // 已废弃
+                zwzj: '', // 职务职级（新字段）
+                zhicheng: '', // 职称（新字段）
                 politicsCode: '',
                 personNo: '',
                 partWorkDate: '',
@@ -314,8 +300,10 @@ export default {
                     email: userInfo.email || '',
                     maddress: userInfo.maddress || '',
                     position: userInfo.position || '',
-                    office: userInfo.office || '',
-                    titleCode: userInfo.titleCode || '',
+                    // office: userInfo.office || '', // 已废弃
+                    // titleCode: userInfo.titleCode || '', // 已废弃
+                    zwzj: userInfo.zwzj || '', // 职务职级（新字段）
+                    zhicheng: userInfo.zhicheng || '', // 职称（新字段）
                     politicsCode: userInfo.politicsCode || '',
                     personNo: userInfo.personNo || '',
                     partWorkDate: userInfo.partWorkDate || '',
@@ -369,7 +357,10 @@ export default {
                         tel: this.formData.tel,
                         email: this.formData.email,
                         position: this.formData.position,
-                        office: this.formData.office,
+                        // office: this.formData.office, // 已废弃
+                        zwzj: this.formData.zwzj, // 职务职级（新字段）
+                        zhicheng: this.formData.zhicheng, // 职称（新字段）
+                        partWorkDate: this.formData.partWorkDate, // 参加工作时间
                         personNo: this.formData.personNo,
                         file: this.file
                     }
@@ -377,7 +368,7 @@ export default {
                     // 准备扩展信息数据
                     const expData = {
                         personId: this.formData.personId,
-                        titleCode: this.formData.titleCode,
+                        // titleCode: this.formData.titleCode, // 已废弃，移到基本信息
                         politicsCode: this.formData.politicsCode,
                         maddress: this.formData.maddress,
                         partWorkDate: this.formData.partWorkDate,

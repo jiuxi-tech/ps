@@ -242,6 +242,20 @@ public class UserPersonServiceImpl implements UserPersonService {
             int deptCount = tpPersonDeptMapper.save(personDeptBean);
             LOGGER.info("用户部门关系插入结果：{}, 影响行数：{}", deptCount > 0 ? "成功" : "失败", deptCount);
 
+            // 保存职称、职务职级、参加工作时间到扩展信息表（如果有）
+            if (StrUtil.isNotBlank(vo.getZhicheng()) || StrUtil.isNotBlank(vo.getZwzj()) || StrUtil.isNotBlank(vo.getPartWorkDate())) {
+                LOGGER.info("准备保存扩展信息，personId：{}, zhicheng：{}, zwzj：{}, partWorkDate：{}", 
+                            personId, vo.getZhicheng(), vo.getZwzj(), vo.getPartWorkDate());
+                TpPersonExinfo exinfo = new TpPersonExinfo();
+                exinfo.setPersonId(personId);
+                exinfo.setZhicheng(vo.getZhicheng());
+                exinfo.setZwzj(vo.getZwzj());
+                exinfo.setPartWorkDate(vo.getPartWorkDate());
+                exinfo.setTenantId(bean.getTenantId());
+                tpPersonExinfoMapper.save(exinfo);
+                LOGGER.info("扩展信息保存成功");
+            }
+
             // 发布事件，推送人员给第三方系统
             if (null != tpPersonBasicinfoEventService) {
                 applicationContext.publishEvent(new TpPersonBasicinfoEvent("人员信息新增同步监听", tpPersonBasicinfoEventService, bean, 1));
@@ -298,6 +312,18 @@ public class UserPersonServiceImpl implements UserPersonService {
             if (vo != null && StrUtil.isNotBlank(vo.getPhone())) {
                 String decryptedPhone = PhoneEncryptionUtils.safeDecrypt(vo.getPhone());
                 vo.setPhone(decryptedPhone);
+            }
+
+            // 查询扩展信息，并将zwzj、zhicheng、partWorkDate等字段赋值到基本信息VO
+            TpPersonExinfoVO exinfoVO = tpPersonExinfoMapper.view(personId);
+            if (exinfoVO != null) {
+                vo.setZwzj(exinfoVO.getZwzj());
+                vo.setZhicheng(exinfoVO.getZhicheng());
+                vo.setPartWorkDate(exinfoVO.getPartWorkDate());
+                LOGGER.debug("查询扩展信息成功，personId: {}, zwzj: {}, zhicheng: {}, partWorkDate: {}", 
+                            personId, exinfoVO.getZwzj(), exinfoVO.getZhicheng(), exinfoVO.getPartWorkDate());
+            } else {
+                LOGGER.debug("扩展信息不存在，personId: {}", personId);
             }
 
             // 根据用户id查询所在部门
@@ -434,6 +460,31 @@ public class UserPersonServiceImpl implements UserPersonService {
 
             // 更新人员基本信息
             int count = tpPersonBasicinfoMapper.update(bean);
+
+            // 更新或保存职务职级、职称、参加工作时间到扩展信息表
+            if (StrUtil.isNotBlank(vo.getZwzj()) || StrUtil.isNotBlank(vo.getZhicheng()) || StrUtil.isNotBlank(vo.getPartWorkDate())) {
+                LOGGER.info("准备更新扩展信息，personId：{}, zwzj：{}, zhicheng：{}, partWorkDate：{}", 
+                            personId, vo.getZwzj(), vo.getZhicheng(), vo.getPartWorkDate());
+                
+                // 检查扩展信息是否存在
+                int exinfoCount = tpPersonExinfoMapper.count(personId);
+                TpPersonExinfo exinfo = new TpPersonExinfo();
+                exinfo.setPersonId(personId);
+                exinfo.setZwzj(vo.getZwzj());
+                exinfo.setZhicheng(vo.getZhicheng());
+                exinfo.setPartWorkDate(vo.getPartWorkDate());
+                
+                if (exinfoCount == 0) {
+                    // 不存在则新增
+                    exinfo.setTenantId(bean.getTenantId());
+                    tpPersonExinfoMapper.save(exinfo);
+                    LOGGER.info("扩展信息新增成功");
+                } else {
+                    // 存在则更新
+                    tpPersonExinfoMapper.update(exinfo);
+                    LOGGER.info("扩展信息更新成功");
+                }
+            }
 
             // 发布事件，推送人员给第三方系统
             if (null != tpPersonBasicinfoEventService) {

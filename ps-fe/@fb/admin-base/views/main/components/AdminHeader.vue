@@ -123,7 +123,7 @@
 								<p>{{ userId }}</p>
 								<p>{{ userName }}</p>
 							</div>
-							<p>{{ userDepts }}</p>
+							<!-- <p>{{ userDepts }}</p> -->
 						</div>
 
 						<div class="card-body">
