@@ -4,18 +4,19 @@
 			<template slot="query">
 				<fb-form ref="query-form" mode="query">
 					<fb-row>
-						<fb-col span="8">
+						<fb-col span="16">
 							<fb-form-item label="证书名称">
-								<fb-input v-model="formData.certName" placeholder="请输入证书名称"></fb-input>
+								<fb-input v-model="formData.certName" placeholder="请输入证书名称"
+                clearable></fb-input>
 							</fb-form-item>
 						</fb-col>
-						<fb-col span="8">
-							<fb-form-item label="使用状态">
-								<fb-select v-model="formData.isInUse" placeholder="请选择使用状态" clearable
-									:data="useStatusOptions">
-								</fb-select>
-							</fb-form-item>
-						</fb-col>
+<!--						<fb-col span="8">-->
+<!--							<fb-form-item label="使用状态">-->
+<!--								<fb-select v-model="formData.isInUse" placeholder="请选择使用状态" clearable-->
+<!--									:data="useStatusOptions">-->
+<!--								</fb-select>-->
+<!--							</fb-form-item>-->
+<!--						</fb-col>-->
 						<fb-col span="8">
 							<fb-form-item label="过期状态">
 								<fb-select v-model="formData.isExpired" placeholder="请选择过期状态" clearable
@@ -31,9 +32,9 @@
 				<fb-button ref="buttonAdd" @on-click="handleAdd" icon="add-circle">
 					新增
 				</fb-button>
-				<fb-button @on-click="handleUpdateExpired" icon="refresh">
-					更新过期状态
-				</fb-button>
+<!--				<fb-button @on-click="handleUpdateExpired" icon="refresh">-->
+<!--					更新过期状态-->
+<!--				</fb-button>-->
 			</template>
 
 			<template slot="actions">
@@ -56,12 +57,12 @@
 
 					<template v-slot:actions="props">
 						<fb-space>
-							<fb-button v-if="props.row.status == 0" 
-									   @on-click="handleApply(props.row)" 
-									   type="primary" size="s">应用</fb-button>
-							<fb-button v-if="props.row.status == 1" 
-									   @on-click="handleRestart(props.row)" 
-									   type="warning" size="s">重启</fb-button>
+<!--							<fb-button v-if="props.row.status == 0" -->
+<!--									   @on-click="handleApply(props.row)" -->
+<!--									   type="primary" size="s">应用</fb-button>-->
+<!--							<fb-button v-if="props.row.status == 1" -->
+<!--									   @on-click="handleRestart(props.row)" -->
+<!--									   type="warning" size="s">重启</fb-button>-->
 							<fb-button @on-click="handleEdit(props.row)" 
 									   editor size="s">修改</fb-button>
 							<fb-button @on-click="handleDel(props.row)" 
@@ -172,20 +173,20 @@
 							sortable: false,
 							width: 150,
 						},
-						{
-							name: 'status',
-							label: '状态',
-							slot: 'status',
-							sortable: false,
-							width: 100,
-						},
-						{
-							name: 'isInUse',
-							label: '使用状态',
-							slot: 'isInUse',
-							sortable: false,
-							width: 100,
-						},
+//						{
+//							name: 'status',
+//							label: '状态',
+//							slot: 'status',
+//							sortable: false,
+//							width: 100,
+//						},
+//						{
+//							name: 'isInUse',
+//							label: '使用状态',
+//							slot: 'isInUse',
+//							sortable: false,
+//							width: 100,
+//						},
 						{
 							name: 'isExpired',
 							label: '过期状态',
@@ -193,12 +194,12 @@
 							sortable: false,
 							width: 100,
 						},
-						{
-							name: 'appliedTime',
-							label: '应用时间',
-							sortable: false,
-							width: 150,
-						},
+//						{
+//							name: 'appliedTime',
+//							label: '应用时间',
+//							sortable: false,
+//							width: 150,
+//						},
 						{
 							name: 'createPersonName',
 							label: '创建人',
@@ -217,7 +218,7 @@
 							label: '操作',
 							sortable: false,
 							slot: 'actions',
-							width: 200,
+							width: 80,
 						},
 					],
 				},

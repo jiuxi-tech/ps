@@ -11,8 +11,9 @@
 				</fb-row>
 				<fb-row v-if="!deptShowFlag">
 					<fb-col span="24">
-						<fb-form-item label="密码" prop="userPwd" :rule="[{required: true}, {type: 'password'}]">
+						<fb-form-item label="密码" prop="userPwd" :rule="passwordRules">
 							<fb-input v-model="userPwd" placeholder="请输入密码" type="password"></fb-input>
+							<div v-if="passwordPolicyDesc" class="password-policy-hint">{{ passwordPolicyDesc }}</div>
 						</fb-form-item>
 					</fb-col>
 				</fb-row>
@@ -89,7 +90,7 @@
 </template>
 
 <script>
-
+	import { createPasswordValidator, getPasswordPolicyDescription } from '../../../../util/passwordPolicyUtil';
 
 	export default {
 		name: 'account-add',
@@ -111,9 +112,11 @@
 		created() {
 		},
 		// 初始化方法
-		mounted() {
+		async mounted() {
 			// 执行界面初始化
 			this.init(this.param);
+			// 加载密码策略
+			await this.loadPasswordPolicy();
 		},
 		data() {
 			return {
@@ -123,6 +126,10 @@
 
 				userName: '',
 				userPwd: '',
+
+				// 密码策略相关
+				passwordRules: [{required: true}],
+				passwordPolicyDesc: '',
 
 				// 表单数据
 				formData: {
@@ -276,6 +283,28 @@
 				})
 			},
 
+			// 加载密码策略
+			async loadPasswordPolicy() {
+				console.log('[account-add] 开始加载密码策略...');
+				try {
+					// 获取密码验证规则
+					const passwordValidator = await createPasswordValidator(this.userName);
+					this.passwordRules = [
+						{required: true},
+						passwordValidator
+					];
+					// 获取密码策略描述
+					this.passwordPolicyDesc = await getPasswordPolicyDescription();
+					console.log('[account-add] 密码策略加载成功:', this.passwordPolicyDesc);
+					console.log('[account-add] 密码验证规则:', this.passwordRules);
+				} catch (error) {
+					console.error('[account-add] 加载密码策略失败:', error);
+					// 降级到最基本的必填验证，不使用旧的password规则
+					this.passwordRules = [{required: true}];
+					this.passwordPolicyDesc = '密码策略加载失败，请确保密码符合安全要求';
+				}
+			},
+
 			// 检查密码过期状态
 			checkPasswordExpiry(accountData) {
 				if (!accountData.lastPasswordChangeTime) {
@@ -316,5 +345,10 @@
 </script>
 
 <style lang="less" scoped>
-
+	.password-policy-hint {
+		font-size: 12px;
+		color: #999;
+		margin-top: 4px;
+		line-height: 1.5;
+	}
 </style>

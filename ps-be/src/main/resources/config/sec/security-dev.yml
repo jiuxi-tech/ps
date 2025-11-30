@@ -47,6 +47,44 @@ topinfo:
         - /druid/**
         - /actuator/**
 
+      # 密码策略配置
+      password-policy:
+        # 密码长度配置
+        length:
+          min: 6                    # 开发环境降低要求，最小6位
+          max: 20                   # 最大20位
+        
+        # 密码复杂度配置
+        complexity:
+          enabled: true             # 启用复杂度验证
+          require-uppercase: false  # 开发环境不强制大写字母
+          require-lowercase: true   # 必须包含小写字母
+          require-digit: true       # 必须包含数字
+          require-special: false    # 开发环境不强制特殊字符
+          allowed-special-chars: "@$!%*?&" # 允许的特殊字符集
+          custom-regex: ""          # 自定义正则表达式（为空则使用复杂度规则）
+        
+        # 弱密码检测
+        weak-password:
+          enabled: true             # 启用弱密码检测
+          blacklist:                # 弱密码黑名单
+            - "123456"
+            - "password"
+            - "admin123"
+            - "12345678"
+            - "qwerty"
+          check-username-similarity: true  # 检查与用户名相似度
+          min-strength-level: 1     # 开发环境允许弱密码（1=弱，2=中，3=强）
+      
+      # 账户锁定策略配置
+      account-lockout:
+        enabled: true               # 启用账户锁定功能
+        max-attempts: 10            # 开发环境放宽限制，最大10次错误
+        lockout-duration: 10        # 锁定10分钟
+        max-total-attempts: 30      # 累计最大错误次数30次
+        reset-attempts-after: 60    # 错误次数重置时间60分钟
+        lockout-type: "temporary"   # 临时锁定（默认）temporary,超过 lockoutDuration 时间后自动解锁; 永久锁定 permanent, 需要管理员手动解锁;
+
 ############################################################
 #############  文件服务器配置
 ############################################################

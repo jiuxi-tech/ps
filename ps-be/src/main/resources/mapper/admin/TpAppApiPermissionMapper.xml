@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpAppApiPermissionMapper">
+
+    <!-- 应用API权限关联表结果映射 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpAppApiPermission" id="tpAppApiPermissionMap">
+        <result property="permissionId" column="permission_id"/>
+        <result property="appId" column="app_id"/>
+        <result property="apiId" column="api_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!-- 基础查询SQL -->
+    <sql id="baseSql">
+        SELECT
+            permission_id,
+            app_id,
+            api_id,
+            creator,
+            create_time
+        FROM tp_app_api_permission
+    </sql>
+
+    <!-- 根据应用ID查询API权限列表 -->
+    <select id="selectByAppId" resultType="com.jiuxi.admin.core.bean.entity.TpAppApiPermission">
+        <include refid="baseSql"/>
+        WHERE app_id = #{appId}
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据应用ID查询API ID列表 -->
+    <select id="selectApiIdsByAppId" resultType="String">
+        SELECT api_id
+        FROM tp_app_api_permission
+        WHERE app_id = #{appId}
+    </select>
+
+    <!-- 根据API ID查询应用权限列表 -->
+    <select id="selectByApiId" resultType="com.jiuxi.admin.core.bean.entity.TpAppApiPermission">
+        <include refid="baseSql"/>
+        WHERE api_id = #{apiId}
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 检查应用是否有API访问权限 -->
+    <select id="checkPermission" resultType="com.jiuxi.admin.core.bean.entity.TpAppApiPermission">
+        <include refid="baseSql"/>
+        WHERE app_id = #{appId} AND api_id = #{apiId}
+        LIMIT 1
+    </select>
+
+    <!-- 新增应用API权限 -->
+    <insert id="insert" parameterType="com.jiuxi.admin.core.bean.entity.TpAppApiPermission">
+        INSERT INTO tp_app_api_permission (
+            permission_id,
+            app_id,
+            api_id,
+            creator,
+            create_time
+        ) VALUES (
+            #{permissionId},
+            #{appId},
+            #{apiId},
+            #{creator},
+            #{createTime}
+        )
+    </insert>
+
+    <!-- 批量新增应用API权限 -->
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO tp_app_api_permission (permission_id, app_id, api_id, creator, create_time)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.permissionId}, #{item.appId}, #{item.apiId}, #{item.creator}, #{item.createTime})
+        </foreach>
+    </insert>
+
+    <!-- 删除应用API权限 -->
+    <delete id="delete">
+        DELETE FROM tp_app_api_permission
+        WHERE permission_id = #{permissionId}
+    </delete>
+
+    <!-- 根据应用ID删除所有权限 -->
+    <delete id="deleteByAppId">
+        DELETE FROM tp_app_api_permission
+        WHERE app_id = #{appId}
+    </delete>
+
+    <!-- 根据API ID删除所有权限 -->
+    <delete id="deleteByApiId">
+        DELETE FROM tp_app_api_permission
+        WHERE api_id = #{apiId}
+    </delete>
+
+    <!-- 删除指定应用的指定API权限 -->
+    <delete id="deleteByAppIdAndApiId">
+        DELETE FROM tp_app_api_permission
+        WHERE app_id = #{appId} AND api_id = #{apiId}
+    </delete>
+
+</mapper>

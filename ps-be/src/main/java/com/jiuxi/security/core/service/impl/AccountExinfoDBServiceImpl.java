@@ -79,9 +79,13 @@ public class AccountExinfoDBServiceImpl implements LoginApplicationService {
 
         // 更新最后一次登陆失败时间
         jdbcTemplate.update(updateErrSql, new Object[]{errCount + 1, now, accountId});
-        if (errCount >= properties.getAuthentication().getErrCount() - 1) {
+        
+        // 使用新的配置获取最大错误次数
+        int maxAttempts = properties.getAuthentication().getAccountLockout().getMaxAttempts();
+        if (errCount >= maxAttempts - 1) {
             // 锁定账号
             jdbcTemplate.update(lockSql, new Object[]{now, accountId});
+            LOGGER.info("账户登录失败次数达到上限，账户已锁定: accountId={}, failureCount={}", accountId, errCount + 1);
         }
     }
 

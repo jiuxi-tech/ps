@@ -84,8 +84,10 @@ public class TpTimeRuleServiceImpl implements TpTimeRuleService {
 
             // 设置主键和基础信息
             entity.setId(SnowflakeIdUtil.nextIdStr());
-            entity.setCreatorId(creatorId);
+            entity.setCreator(creatorId);
             entity.setCreateTime(CommonDateUtil.now());
+            entity.setUpdator(creatorId);
+            entity.setUpdateTime(entity.getCreateTime());
             entity.setActived(1);
             entity.setLogDelete(0);
 
@@ -129,9 +131,8 @@ public class TpTimeRuleServiceImpl implements TpTimeRuleService {
             TpTimeRule entity = new TpTimeRule();
             BeanUtil.copyProperties(vo, entity);
 
-            // 设置修改信息
-            entity.setModifierId(modifierId);
-            entity.setModifyTime(CommonDateUtil.now());
+            entity.setUpdator(modifierId);
+            entity.setUpdateTime(CommonDateUtil.now());
 
             // 执行更新
             int result = tpTimeRuleMapper.update(entity);
@@ -140,8 +141,8 @@ public class TpTimeRuleServiceImpl implements TpTimeRuleService {
             }
 
             // 返回结果
-            vo.setModifierId(modifierId);
-            vo.setModifyTime(entity.getModifyTime());
+            vo.setUpdator(modifierId);
+            vo.setUpdateTime(entity.getUpdateTime());
             convertDisplayNames(vo);
 
             LOGGER.info("更新时间规则成功，规则ID：{}, 规则名称：{}", entity.getId(), entity.getRuleName());
@@ -260,37 +261,67 @@ public class TpTimeRuleServiceImpl implements TpTimeRuleService {
         try {
             String currentTime = CommonDateUtil.now();
             LOGGER.info("验证登录时间 - 当前时间: {}, 用户ID: {}, 角色IDs: {}", currentTime, userId, JSONObject.toJSONString(roleIds));
-            List<TpTimeRuleVO> rules = new ArrayList<>();
+            List<TpTimeRuleVO> allRules = new ArrayList<>();  // 查询到的所有规则（不受时间限制）
+            List<TpTimeRuleVO> rules = new ArrayList<>();      // 符合时间范围的规则
 
-            // 查询用户相关的时间规则
+            // 查询用户相关的时间规则（包括时间范围外的）
             if (StrUtil.isNotBlank(userId)) {
                 List<TpTimeRuleVO> userRules = tpTimeRuleMapper.selectValidRulesByUser(userId, currentTime);
-                LOGGER.info("查询到用户相关规则数量: {}", userRules != null ? userRules.size() : 0);
+                LOGGER.info("查询到用户相关规则总数: {}", userRules != null ? userRules.size() : 0);
                 if (CollUtil.isNotEmpty(userRules)) {
+                    allRules.addAll(userRules);
                     for (TpTimeRuleVO rule : userRules) {
-                        LOGGER.info("用户规则: ID={}, 名称={}, 开始时间={}, 结束时间={}, 允许登录={}", 
-                                rule.getId(), rule.getRuleName(), rule.getStartTime(), rule.getEndTime(), rule.getAllowLogin());
+                        LOGGER.info("检查用户规则时间范围: 规则ID={}, 名称={}, 开始时间={}, 结束时间={}, 当前时间={}, 允许登录={}", 
+                                rule.getId(), rule.getRuleName(), rule.getStartTime(), rule.getEndTime(), currentTime, rule.getAllowLogin());
+                        // 在Java层进行时间范围检查，避免SQL时间比较问题
+                        if (isTimeInRange(currentTime, rule.getStartTime(), rule.getEndTime())) {
+                            LOGGER.info("✓ 用户规则时间范围内: ID={}, 名称={}", rule.getId(), rule.getRuleName());
+                            rules.add(rule);
+                        } else {
+                            LOGGER.info("✗ 用户规则时间范围外: ID={}, 名称={}", rule.getId(), rule.getRuleName());
+                        }
                     }
-                    rules.addAll(userRules);
                 }
             }
 
-            // 查询角色相关的时间规则
+            // 查询角色相关的时间规则（包括时间范围外的）
             if (CollUtil.isNotEmpty(roleIds)) {
                 List<TpTimeRuleVO> roleRules = tpTimeRuleMapper.selectValidRulesByRoles(roleIds, currentTime);
-                LOGGER.info("查询到角色相关规则数量: {}", roleRules != null ? roleRules.size() : 0);
+                LOGGER.info("查询到角色相关规则总数: {}", roleRules != null ? roleRules.size() : 0);
                 if (CollUtil.isNotEmpty(roleRules)) {
+                    allRules.addAll(roleRules);
                     for (TpTimeRuleVO rule : roleRules) {
-                        LOGGER.info("角色规则: ID={}, 名称={}, 开始时间={}, 结束时间={}, 允许登录={}", 
-                                rule.getId(), rule.getRuleName(), rule.getStartTime(), rule.getEndTime(), rule.getAllowLogin());
+                        LOGGER.info("检查角色规则时间范围: 规则ID={}, 名称={}, 开始时间={}, 结束时间={}, 当前时间={}, 允许登录={}", 
+                                rule.getId(), rule.getRuleName(), rule.getStartTime(), rule.getEndTime(), currentTime, rule.getAllowLogin());
+                        // 在Java层进行时间范围检查，避免SQL时间比较问题
+                        if (isTimeInRange(currentTime, rule.getStartTime(), rule.getEndTime())) {
+                            LOGGER.info("✓ 角色规则时间范围内: ID={}, 名称={}", rule.getId(), rule.getRuleName());
+                            rules.add(rule);
+                        } else {
+                            LOGGER.info("✗ 角色规则时间范围外: ID={}, 名称={}", rule.getId(), rule.getRuleName());
+                        }
                     }
-                    rules.addAll(roleRules);
                 }
             }
 
-            // 如果没有找到相关规则，默认允许登录
+            // 关键逻辑修正：
+            // 1. 如果查询到规则但都在时间范围外 -> 拒绝登录
+            // 2. 如果没有配置任何规则 -> 允许登录
+            if (CollUtil.isNotEmpty(allRules) && CollUtil.isEmpty(rules)) {
+                // 配置了规则但当前时间都不在任何规则的时间范围内
+                LOGGER.warn("找到了时间规则但都在时间范围外，拒绝登录。用户ID={}, 角色IDs={}", userId, JSONObject.toJSONString(roleIds));
+                return new TpTimeRuleService.LoginTimeValidationResult(false, "当前时间段不在任何时间规则的范围内，不允许登录", null);
+            }
+
+            // 如果没有配置任何相关规则，默认允许登录
             if (CollUtil.isEmpty(rules)) {
+                LOGGER.info("没有找到任何相关的时间规则配置，默认允许登录。用户ID={}, 角色IDs={}", userId, JSONObject.toJSONString(roleIds));
                 return new TpTimeRuleService.LoginTimeValidationResult(true, null, null);
+            }
+
+            LOGGER.info("符合时间范围的时间规则总数: {}", rules.size());
+            for (TpTimeRuleVO rule : rules) {
+                LOGGER.info("  - 规则: ID={}, 名称={}, 允许登录={}", rule.getId(), rule.getRuleName(), rule.getAllowLogin());
             }
 
             // 按规则类型分组处理
@@ -302,29 +333,16 @@ public class TpTimeRuleServiceImpl implements TpTimeRuleService {
             LOGGER.info("拒绝规则数量: {}", denyRules != null ? denyRules.size() : 0);
             if (CollUtil.isNotEmpty(denyRules)) {
                 for (TpTimeRuleVO rule : denyRules) {
-                    LOGGER.info("检查拒绝规则: ID={}, 当前时间={}, 开始时间={}, 结束时间={}", 
-                            rule.getId(), currentTime, rule.getStartTime(), rule.getEndTime());
-                    boolean inRange = isTimeInRange(currentTime, rule.getStartTime(), rule.getEndTime());
-                    LOGGER.info("时间是否在范围内: {}", inRange);
-                    if (inRange) {
-                        LOGGER.info("拒绝登录: 规则={}", rule.getRuleName());
-                        return new TpTimeRuleService.LoginTimeValidationResult(false, 
-                                "当前时间段不允许登录", rule.getRuleName());
-                    }
+                    LOGGER.info("拒绝登录: 规则={}", rule.getRuleName());
+                    return new TpTimeRuleService.LoginTimeValidationResult(false, 
+                            "当前时间段不允许登录", rule.getRuleName());
                 }
             }
 
             // 处理允许规则（allowLogin = 1）
             List<TpTimeRuleVO> allowRules = rulesByType.get(1);
             if (CollUtil.isNotEmpty(allowRules)) {
-                for (TpTimeRuleVO rule : allowRules) {
-                    if (isTimeInRange(currentTime, rule.getStartTime(), rule.getEndTime())) {
-                        return new TpTimeRuleService.LoginTimeValidationResult(true, null, rule.getRuleName());
-                    }
-                }
-                // 如果有允许规则但当前时间不在任何允许范围内，则拒绝
-                return new TpTimeRuleService.LoginTimeValidationResult(false, 
-                        "当前时间段不在允许的登录时间范围内", null);
+                return new TpTimeRuleService.LoginTimeValidationResult(true, null, allowRules.get(0).getRuleName());
             }
 
             // 默认允许登录
@@ -332,8 +350,8 @@ public class TpTimeRuleServiceImpl implements TpTimeRuleService {
         } catch (Exception e) {
             LOGGER.error("校验登录时间权限失败! userId:{}, roleIds:{}, 错误:{}", 
                     userId, JSONObject.toJSONString(roleIds), ExceptionUtils.getStackTrace(e));
-            // 出现异常时默认允许登录，避免影响正常业务
-            return new TpTimeRuleService.LoginTimeValidationResult(true, null, null);
+            // 异常时不再默认允许，而是记录错误并继续验证
+            return new TpTimeRuleService.LoginTimeValidationResult(false, "登录时间验证出错: " + e.getMessage(), null);
         }
     }
 
@@ -445,10 +463,23 @@ public class TpTimeRuleServiceImpl implements TpTimeRuleService {
      * @return 是否在范围内
      */
     private boolean isTimeInRange(String currentTime, String startTime, String endTime) {
-        boolean result = currentTime.compareTo(startTime) >= 0 && currentTime.compareTo(endTime) <= 0;
-        LOGGER.debug("时间范围检查: {} >= {} && {} <= {} = {}", 
-                currentTime, startTime, currentTime, endTime, result);
-        return result;
+        // 转换为 Long 进行数值比较
+        try {
+            long current = Long.parseLong(currentTime);
+            long start = Long.parseLong(startTime);
+            long end = Long.parseLong(endTime);
+            boolean result = current >= start && current <= end;
+            LOGGER.info("时间范围检查: current={} >= start={} && current={} <= end={} = {}", 
+                    current, start, current, end, result);
+            return result;
+        } catch (NumberFormatException e) {
+            LOGGER.error("时间格式转换失败: current={}, start={}, end={}", currentTime, startTime, endTime, e);
+            // 格式错误时，使用字符串比较作为备选
+            boolean result = currentTime.compareTo(startTime) >= 0 && currentTime.compareTo(endTime) <= 0;
+            LOGGER.warn("使用字符串比较: {} >= {} && {} <= {} = {}", 
+                    currentTime, startTime, currentTime, endTime, result);
+            return result;
+        }
     }
 
     /**

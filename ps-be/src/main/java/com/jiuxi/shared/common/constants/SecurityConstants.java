@@ -118,21 +118,43 @@ public final class SecurityConstants {
     public static final class Password {
         /** 默认密码 */
         public static final String DEFAULT_PASSWORD = "123456";
-        /** 密码最小长度 */
+        
+        /** 
+         * 密码最小长度 
+         * @deprecated 请使用 topinfo.security.authentication.password-policy.length.min 配置
+         */
+        @Deprecated
         public static final int MIN_LENGTH = 6;
-        /** 密码最大长度 */
+        
+        /** 
+         * 密码最大长度 
+         * @deprecated 请使用 topinfo.security.authentication.password-policy.length.max 配置
+         */
+        @Deprecated
         public static final int MAX_LENGTH = 20;
+        
         /** 密码强度：弱 */
         public static final String STRENGTH_WEAK = "weak";
         /** 密码强度：中 */
         public static final String STRENGTH_MEDIUM = "medium";
         /** 密码强度：强 */
         public static final String STRENGTH_STRONG = "strong";
+        
         /** 密码加密算法 */
         public static final String ENCODER_TYPE = "BCrypt";
-        /** 密码重试次数 */
+        
+        /** 
+         * 密码重试次数 
+         * @deprecated 请使用 topinfo.security.authentication.account-lockout.max-attempts 配置
+         */
+        @Deprecated
         public static final int MAX_RETRY_COUNT = 5;
-        /** 密码锁定时间（分钟） */
+        
+        /** 
+         * 密码锁定时间（分钟） 
+         * @deprecated 请使用 topinfo.security.authentication.account-lockout.lockout-duration 配置
+         */
+        @Deprecated
         public static final int LOCK_TIME_MINUTES = 30;
     }
 

@@ -206,7 +206,10 @@ public class EncryptUtil {
     
     /**
      * 简单密码强度检查
+     * @deprecated 请使用 {@link com.jiuxi.security.core.service.PasswordValidationService#getPasswordStrengthLevel(String)}
+     *             该方法使用硬编码的强度标准，建议迁移到配置化的验证服务
      */
+    @Deprecated
     public static boolean isStrongPassword(String password) {
         if (password == null || password.length() < 8) {
             return false;
@@ -235,7 +238,10 @@ public class EncryptUtil {
     /**
      * 获取密码强度等级
      * @return 1-弱, 2-中, 3-强
+     * @deprecated 请使用 {@link com.jiuxi.security.core.service.PasswordValidationService#getPasswordStrengthLevel(String)}
+     *             该方法使用硬编码的强度标准，建议迁移到配置化的验证服务
      */
+    @Deprecated
     public static int getPasswordStrength(String password) {
         if (password == null || password.length() < 6) {
             return 1;

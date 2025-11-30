@@ -10,7 +10,7 @@ export default [
 	{
 		path: '/sys/server-cert/list',
 		meta: {
-			title: '标签管理',
+			title: '服务器证书管理',
 		},
 		component: () => import('../../../views/sys/server-cert/list.vue'),
 	}

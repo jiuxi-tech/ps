@@ -366,21 +366,34 @@ export default {
 		},
 		// 心跳 5 分钟一次
 		heartbeat() {
-			
 			let token = app.$datax.get('token')
-			let baseURL = app.service.defaults.baseURL
-			// 组装请求地址， 小于 10k
-			let query = baseURL + '/platform/stationline/heartbeat?jt=' + token
-
-			let img = new Image()
-			img.onerror = img.onload = function() {
+			if (!token) {
+				console.warn('[心跳] TOKEN不存在，跳过本次心跳')
+				clearTimeout(this.heartbeatTimer)
+				this.heartbeatTimer = setTimeout(() => {
+					this.heartbeat()
+				}, 300000)
+				return
 			}
-			img.src = query
-clearTimeout(this.heartbeatTimer)
+			
+			// 改用axios请求以支持TOKEN自动刷新
+			app.service.get('/platform/stationline/heartbeat', {
+				params: { jt: token },
+				loading: false  // 关键：不显示loading，避免影响用户体验
+			}).then(response => {
+				// 响应拦截器会自动处理newToken更新
+				if (response && response.data && response.data.newToken) {
+					console.log('[心跳] TOKEN已自动刷新')
+				}
+			}).catch(error => {
+				// 心跳失败不影响用户操作，仅记录日志
+				console.error('[心跳] 心跳请求失败', error)
+			})
+			
+			clearTimeout(this.heartbeatTimer)
 			this.heartbeatTimer = setTimeout(() => {
 				this.heartbeat()
 			}, 300000)
-
 		},
 		updateUserInfo() {
 			let that = this

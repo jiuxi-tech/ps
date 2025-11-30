@@ -19,12 +19,14 @@ import com.jiuxi.admin.core.service.EmailService;
 import com.jiuxi.admin.core.mapper.TpPersonBasicinfoMapper;
 import com.jiuxi.admin.core.service.PersonAccountService;
 import com.jiuxi.admin.core.service.KeycloakSyncService;
+import com.jiuxi.admin.core.service.PasswordHistoryService;
 import com.jiuxi.module.user.app.service.PersonAccountApplicationService;
 import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.admin.core.service.TpKeycloakAccountService;
 import com.jiuxi.common.exception.ExceptionUtils;
 import com.jiuxi.common.util.*;
 import com.jiuxi.common.util.PhoneEncryptionUtils;
+import com.jiuxi.common.util.HttpRequestUtils;
 import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.autoconfig.SecurityConfigurationProperties;
 // import com.jiuxi.sms.core.service.SmsSendService;
@@ -95,6 +97,9 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Autowired(required = false)
     private TpKeycloakAccountService tpKeycloakAccountService;
+
+    @Autowired(required = false)
+    private PasswordHistoryService passwordHistoryService;
 
 
 
@@ -596,6 +601,29 @@ public class UserAccountServiceImpl implements UserAccountService {
                 }
             }
 
+            // 保存密码历史记录（用户主动修改）
+            if (null != passwordHistoryService) {
+                try {
+                    passwordHistoryService.savePasswordHistory(
+                            tpAccountVO.getAccountId(),
+                            personId,
+                            tpAccountVO.getUsername(),
+                            SmUtils.digestHexSM3(userpwd),
+                            1, // 用户主动修改
+                            "用户主动修改密码",
+                            personId,
+                            null, // 操作人姓名，由PasswordHistoryService自动查询
+                            HttpRequestUtils.getCurrentClientIp(),
+                            HttpRequestUtils.getCurrentUserAgent(),
+                            tpAccountVO.getTenantId()
+                    );
+                } catch (Exception e) {
+                    // 记录失败日志，不影响主流程
+                    LOGGER.warn("保存密码历史记录失败: accountId={}, error={}",
+                            tpAccountVO.getAccountId(), e.getMessage());
+                }
+            }
+
             return count;
         } catch (Exception e) {
             LOGGER.error("账号密码修改失败！personId:{}, 错误:{}", personId, ExceptionUtils.getStackTrace(e));
@@ -682,6 +710,28 @@ public class UserAccountServiceImpl implements UserAccountService {
                 }
             }
 
+            // 保存密码历史记录（密码过期强制修改）
+            if (null != passwordHistoryService) {
+                try {
+                    passwordHistoryService.savePasswordHistory(
+                            tpAccountVO.getAccountId(),
+                            personId,
+                            tpAccountVO.getUsername(),
+                            SmUtils.digestHexSM3(userpwd),
+                            3, // 密码过期强制修改
+                            "密码过期后强制修改密码",
+                            personId,
+                            null, // 操作人姓名，由PasswordHistoryService自动查询
+                            HttpRequestUtils.getCurrentClientIp(),
+                            HttpRequestUtils.getCurrentUserAgent(),
+                            tpAccountVO.getTenantId()
+                    );
+                } catch (Exception e) {
+                    LOGGER.warn("保存密码历史记录失败: accountId={}, error={}",
+                            tpAccountVO.getAccountId(), e.getMessage());
+                }
+            }
+
             return count;
         } catch (Exception e) {
             LOGGER.error("账号密码修改失败！personId:{}, 错误:{}", personId, ExceptionUtils.getStackTrace(e));
@@ -738,6 +788,31 @@ public class UserAccountServiceImpl implements UserAccountService {
                     }
                 } catch (Exception e) {
                     LOGGER.error("重置密码同步到Keycloak时发生异常: accountId={}, error={}", accountId, e.getMessage(), e);
+                }
+            }
+
+            // 保存密码历史记录（管理员重置）
+            if (null != passwordHistoryService) {
+                try {
+                    TpAccountVO accountVO = selectByAccountId(accountId);
+                    if (accountVO != null) {
+                        passwordHistoryService.savePasswordHistory(
+                                accountVO.getAccountId(),
+                                accountVO.getPersonId(),
+                                accountVO.getUsername(),
+                                SmUtils.digestHexSM3(resetPwd),
+                                2, // 管理员重置
+                                "管理员重置密码",
+                                null, // 操作人ID，后续可从上下文获取
+                                null, // 操作人姓名，后续可从上下文获取
+                                HttpRequestUtils.getCurrentClientIp(),
+                                HttpRequestUtils.getCurrentUserAgent(),
+                                accountVO.getTenantId()
+                        );
+                    }
+                } catch (Exception e) {
+                    LOGGER.warn("保存密码历史记录失败: accountId={}, error={}",
+                            accountId, e.getMessage());
                 }
             }
 

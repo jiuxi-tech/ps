@@ -222,23 +222,25 @@ public class PwdAccountServiceImpl implements AccountService {
             int errCount = accountExinfoVO.getErrCount();
             String lastErrTimeStr = accountExinfoVO.getLastErrTime();
             LocalDateTime lastErrTime = LocalDateTime.parse(lastErrTimeStr, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-            // 1.1 解锁时间 = 最后一次登陆错误时间 + 30分钟
-            LocalDateTime delockingTime = lastErrTime.plusMinutes(properties.getAuthentication().getDeblocking());
+            // 1.1 解锁时间 = 最后一次登陆错误时间 + 锁定时长（使用新配置）
+            int lockoutDuration = properties.getAuthentication().getAccountLockout().getLockoutDuration();
+            LocalDateTime delockingTime = lastErrTime.plusMinutes(lockoutDuration);
             LocalDateTime now = LocalDateTime.now();
             if (delockingTime.isAfter(now)) {
-                LOGGER.error("账号被冻结 {} 分钟内登录失败，当前登录用户名:{}", properties.getAuthentication().getDeblocking(), userName);
+                LOGGER.error("账号被冻结 {} 分钟内登录失败，当前登录用户名:{}", lockoutDuration, userName);
                 Duration between = Duration.between(now, delockingTime);
                 String timeStr = between.toMinutes() > 0 ? between.toMinutes() + "分钟" : between.toMillis() / 1000 + "秒";
                 throw new TopinfoRuntimeException(-1, "登录信息错误次数超限，请" + timeStr + "后再试！");
             }
 
-            // 2。半个小时外但是登陆错误次数大于30次，抛账号被冻结异常
-            if (errCount > properties.getAuthentication().getMaxErrCount()) {
-                LOGGER.error("尝试登陆错误次数超过 {} 次登录失败，当前登录用户名:{}", properties.getAuthentication().getMaxErrCount(), userName);
+            // 2。锁定时长外但是登陆错误次数大于最大累计次数，抛账号被冻结异常
+            int maxTotalAttempts = properties.getAuthentication().getAccountLockout().getMaxTotalAttempts();
+            if (errCount > maxTotalAttempts) {
+                LOGGER.error("尝试登陆错误次数超过 {} 次登录失败，当前登录用户名:{}", maxTotalAttempts, userName);
                 throw new TopinfoRuntimeException(-1, "登录信息错误次数超限，该账号已被冻结，请联系管理员解冻！");
             }
 
-            // 3。半个小时外且登陆错误次数小于30次，再次登陆
+            // 3。锁定时长外且登陆错误次数小于最大累计次数，再次登陆
         }
 
         if (!SmUtils.match(passWord, accountVO.getUserpwd())) {

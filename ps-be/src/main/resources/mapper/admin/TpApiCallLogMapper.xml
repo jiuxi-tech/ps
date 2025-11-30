@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpApiCallLogMapper">
+
+    <!-- 基础SQL片段 -->
+    <sql id="baseSql">
+        SELECT
+            LOG_ID,
+            APP_ID,
+            APP_NAME,
+            API_ID,
+            API_PATH,
+            HTTP_METHOD,
+            REQUEST_IP,
+            REQUEST_PARAMS,
+            RESPONSE_STATUS,
+            RESPONSE_TIME,
+            ERROR_MESSAGE,
+            CALL_TIME
+        FROM tp_api_call_log
+    </sql>
+
+    <!-- 列表查询SQL片段（不查询大字段） -->
+    <sql id="listSql">
+        SELECT
+            LOG_ID,
+            APP_ID,
+            APP_NAME,
+            API_ID,
+            API_PATH,
+            HTTP_METHOD,
+            REQUEST_IP,
+            RESPONSE_STATUS,
+            RESPONSE_TIME,
+            CALL_TIME
+        FROM tp_api_call_log
+    </sql>
+
+    <!-- 分页查询API调用日志列表 -->
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpApiCallLogQuery" resultType="com.jiuxi.admin.core.bean.vo.TpApiCallLogVO">
+        <include refid="listSql"/>
+        <where>
+            1=1
+            <if test="query.appName != null and query.appName != ''">
+                AND APP_NAME LIKE CONCAT('%', #{query.appName}, '%')
+            </if>
+            <if test="query.apiPath != null and query.apiPath != ''">
+                AND API_PATH LIKE CONCAT('%', #{query.apiPath}, '%')
+            </if>
+            <if test="query.httpMethod != null and query.httpMethod != ''">
+                AND HTTP_METHOD = #{query.httpMethod}
+            </if>
+            <if test="query.responseStatus != null">
+                AND RESPONSE_STATUS = #{query.responseStatus}
+            </if>
+            <if test="query.requestIp != null and query.requestIp != ''">
+                AND REQUEST_IP = #{query.requestIp}
+            </if>
+            <if test="query.startTime != null and query.startTime != ''">
+                AND CALL_TIME &gt;= #{query.startTime}
+            </if>
+            <if test="query.endTime != null and query.endTime != ''">
+                AND CALL_TIME &lt;= #{query.endTime}
+            </if>
+        </where>
+        ORDER BY CALL_TIME DESC
+    </select>
+
+    <!-- 查看API调用日志详情 -->
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpApiCallLogVO">
+        <include refid="baseSql"/>
+        WHERE LOG_ID = #{logId}
+    </select>
+
+    <!-- 插入API调用日志 -->
+    <insert id="insert" parameterType="com.jiuxi.admin.core.bean.entity.TpApiCallLog">
+        INSERT INTO tp_api_call_log (
+            LOG_ID,
+            APP_ID,
+            APP_NAME,
+            API_ID,
+            API_PATH,
+            HTTP_METHOD,
+            REQUEST_IP,
+            REQUEST_PARAMS,
+            RESPONSE_STATUS,
+            RESPONSE_TIME,
+            ERROR_MESSAGE,
+            CALL_TIME
+        ) VALUES (
+            #{logId},
+            #{appId},
+            #{appName},
+            #{apiId},
+            #{apiPath},
+            #{httpMethod},
+            #{requestIp},
+            #{requestParams},
+            #{responseStatus},
+            #{responseTime},
+            #{errorMessage},
+            #{callTime}
+        )
+    </insert>
+
+</mapper>

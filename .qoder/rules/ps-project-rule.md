@@ -8,9 +8,23 @@ description: 编码、文档生成、分析等
 - **数据库地址**: alilaoba.cn:13307
 - **数据库名称**: ps-bmp
 - **用户名**: root
-- **密码**: W4HV=QxtHz
+- **密码**: $D8BZ8Qmav
 - **驱动**: MariaDB/MySQL
 - mysql 命令不要使用 < `The '<' operator is reserved for future use.`
+
+时间格式化：
+- 数据库存储格式为14位时间字符串：YYYYMMDDHHmmss
+- 前端显示时格式化为：YYYY-MM-DD HH:mm:ss
+
+## 数据表标准字段（创建人ID，创建时间，更新人ID，更新时间）命名, 以下为标准：
+```
+CREATE_TIME	varchar(14)	 'YYYYMMDDHHmmss'
+CREATOR	varchar(36) 
+UPDATE_TIME	varchar(14)	 'YYYYMMDDHHmmss'
+UPDATOR	varchar(36)
+```
+- CREATOR、UPDATOR 字段存储的是 `tp_person_basicinfo` 表的主键 `PERSON_ID`
+
 
 # 后端
 端口为`8082`

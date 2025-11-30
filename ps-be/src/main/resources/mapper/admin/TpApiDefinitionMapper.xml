@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpApiDefinitionMapper">
+
+    <!-- API定义表结果映射 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpApiDefinition" id="tpApiDefinitionMap">
+        <result property="apiId" column="api_id"/>
+        <result property="apiCode" column="api_code"/>
+        <result property="apiName" column="api_name"/>
+        <result property="apiPath" column="api_path"/>
+        <result property="httpMethod" column="http_method"/>
+        <result property="category" column="category"/>
+        <result property="isSensitive" column="is_sensitive"/>
+        <result property="description" column="description"/>
+        <result property="requireSecret" column="require_secret"/>
+        <result property="status" column="status"/>
+        <result property="orderIndex" column="order_index"/>
+        <result property="actived" column="actived"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updator" column="updator"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- 基础查询SQL -->
+    <sql id="baseSql">
+        SELECT
+            api_id,
+            api_code,
+            api_name,
+            api_path,
+            http_method,
+            category,
+            is_sensitive,
+            description,
+            require_secret,
+            status,
+            order_index,
+            actived,
+            creator,
+            create_time,
+            updator,
+            update_time
+        FROM tp_api_definition
+    </sql>
+
+    <!-- 查询所有API定义列表 -->
+    <select id="selectAll" resultType="com.jiuxi.admin.core.bean.entity.TpApiDefinition">
+        <include refid="baseSql"/>
+        ORDER BY category ASC, api_code ASC
+    </select>
+
+    <!-- 根据状态查询API定义列表 -->
+    <select id="selectByStatus" resultType="com.jiuxi.admin.core.bean.entity.TpApiDefinition">
+        <include refid="baseSql"/>
+        WHERE status = #{status}
+        ORDER BY category ASC, api_code ASC
+    </select>
+
+    <!-- 根据分类查询API定义列表 -->
+    <select id="selectByCategory" resultType="com.jiuxi.admin.core.bean.entity.TpApiDefinition">
+        <include refid="baseSql"/>
+        WHERE category = #{category}
+        ORDER BY api_code ASC
+    </select>
+
+    <!-- 根据API ID查询API定义 -->
+    <select id="selectById" resultType="com.jiuxi.admin.core.bean.entity.TpApiDefinition">
+        <include refid="baseSql"/>
+        WHERE api_id = #{apiId}
+    </select>
+
+    <!-- 根据API编码查询API定义 -->
+    <select id="selectByApiCode" resultType="com.jiuxi.admin.core.bean.entity.TpApiDefinition">
+        <include refid="baseSql"/>
+        WHERE api_code = #{apiCode}
+    </select>
+
+    <!-- 根据API路径和HTTP方法查询API定义 -->
+    <select id="selectByPathAndMethod" resultType="com.jiuxi.admin.core.bean.entity.TpApiDefinition">
+        <include refid="baseSql"/>
+        WHERE api_path = #{apiPath} AND http_method = #{httpMethod}
+    </select>
+
+    <!-- 新增API定义 -->
+    <insert id="insert" parameterType="com.jiuxi.admin.core.bean.entity.TpApiDefinition">
+        INSERT INTO tp_api_definition (
+            api_id,
+            api_code,
+            api_name,
+            api_path,
+            http_method,
+            category,
+            is_sensitive,
+            description,
+            require_secret,
+            status,
+            order_index,
+            actived,
+            creator,
+            create_time,
+            updator,
+            update_time
+        ) VALUES (
+            #{apiId},
+            #{apiCode},
+            #{apiName},
+            #{apiPath},
+            #{httpMethod},
+            #{category},
+            #{isSensitive},
+            #{description},
+            #{requireSecret},
+            #{status},
+            #{orderIndex},
+            #{actived},
+            #{creator},
+            #{createTime},
+            #{updator},
+            #{updateTime}
+        )
+    </insert>
+
+    <!-- 更新API定义 -->
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpApiDefinition">
+        UPDATE tp_api_definition
+        <set>
+            <if test="apiCode != null and apiCode != ''">api_code = #{apiCode},</if>
+            <if test="apiName != null and apiName != ''">api_name = #{apiName},</if>
+            <if test="apiPath != null and apiPath != ''">api_path = #{apiPath},</if>
+            <if test="httpMethod != null and httpMethod != ''">http_method = #{httpMethod},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="isSensitive != null">is_sensitive = #{isSensitive},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="requireSecret != null">require_secret = #{requireSecret},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="orderIndex != null">order_index = #{orderIndex},</if>
+            <if test="actived != null">actived = #{actived},</if>
+            <if test="updator != null">updator = #{updator},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        WHERE api_id = #{apiId}
+    </update>
+
+    <!-- 删除API定义 -->
+    <delete id="delete">
+        DELETE FROM tp_api_definition
+        WHERE api_id = #{apiId}
+    </delete>
+
+</mapper>

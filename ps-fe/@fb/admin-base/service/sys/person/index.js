@@ -27,7 +27,7 @@ export default {
 				responseType: 'json', // 默认的
 				// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 				// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-				timeout: 5000,
+				timeout: 30000,
 			})
 		},
 		add(formData) {
@@ -37,7 +37,7 @@ export default {
 
 	ent: {
 		list(formData) {
-			return app.service.get('/sys/person/ent/list', { params: formData })
+			return app.service.get('/sys/person/ent/list', { params: formData, timeout: 30000 })
 		},
 
 		add(formData) {
@@ -153,7 +153,12 @@ export default {
 			timeout: 5000,
 		})
 	},
-	updatePwd(formData) {
+	updatePwd(originalFormData) {
+
+		let formData = {
+			...originalFormData
+		}
+
 		// 账号新增, 如果开启加密，需要将账号密码加密传输
 		let sysconfig = app.projectConfig.sysconfig;
 		if (sysconfig.passwordEncryption && sysconfig.passwordEncryption === true) {

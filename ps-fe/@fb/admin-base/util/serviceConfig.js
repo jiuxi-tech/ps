@@ -109,6 +109,17 @@ export function setServiceReqRes(_this) {
 		}
 
 		console.log(`响应 ${res.config.url} ${res.status} `)
+		
+		// ================== TOKEN自动刷新逻辑 ==================
+		// 检查响应数据中是否包含新TOKEN（心跳接口会返回）
+		if (res.data && res.data.data && res.data.data.newToken) {
+			const newToken = res.data.data.newToken;
+			// 更新本地存储的TOKEN
+			_this.$datax.set('token', newToken);
+			console.log('[TOKEN自动刷新] 检测到新TOKEN，已自动更新');
+		}
+		// ================== END TOKEN自动刷新逻辑 ==================
+		
 		// 全局拦截，将头部token放入缓存中
 		if (res.headers.token) {
 			_this.$datax.set('token', res.headers.token)

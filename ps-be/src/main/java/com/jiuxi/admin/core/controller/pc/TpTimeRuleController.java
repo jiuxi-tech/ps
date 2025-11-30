@@ -65,7 +65,7 @@ public class TpTimeRuleController {
     @RequestMapping(value = "/add")
     public JsonResponse add(@Validated(value = AddGroup.class) TpTimeRuleVO vo, String jwtpid, String jwtaid) {
         // 设置创建人信息
-        vo.setCreatorId(jwtpid);
+        vo.setCreator(jwtpid);
         
         TpTimeRuleVO result = tpTimeRuleService.save(vo, jwtpid);
         return JsonResponse.buildSuccess(result.getId());
@@ -88,7 +88,7 @@ public class TpTimeRuleController {
     @Authorization(businessKey = PASS_KEY)
     public JsonResponse update(@Validated(value = UpdateGroup.class) TpTimeRuleVO vo, String jwtpid) {
         // 设置修改人信息
-        vo.setModifierId(jwtpid);
+        vo.setUpdator(jwtpid);
         
         TpTimeRuleVO result = tpTimeRuleService.update(vo, jwtpid);
         return JsonResponse.buildSuccess(result);

@@ -18,6 +18,7 @@ import java.util.List;
  */
 @Deprecated
 @Component
+@org.springframework.context.annotation.Primary
 public class TpPersonBasicinfoMapperAdapter implements TpPersonBasicinfoMapper {
 
     @Autowired

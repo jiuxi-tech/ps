@@ -10,7 +10,7 @@
 
 				<fb-form ref="fbform" :rule="rules">
 					<fb-form-item prop="userpwd" label="新密码" :showLabel="false"
-								  :rule="[{required: true }, {type: 'password'}]">
+								  :rule="passwordRules">
 						<fb-input v-model="formData.userpwd"
 								  size="l"
 								  type="password"
@@ -20,10 +20,11 @@
 								  autocomplete="off"
 						>
 						</fb-input>
+						<div v-if="passwordPolicyDesc" class="password-policy-hint">{{ passwordPolicyDesc }}</div>
 					</fb-form-item>
 
 					<fb-form-item prop="confirmUserPwd" label="确认密码" :showLabel="false"
-								  :rule="[{required: true }, {type: 'password'}]">
+								  :rule="[{required: true }]">
 						<fb-input v-model="formData.confirmUserPwd"
 								  size="l"
 								  type="password"
@@ -51,6 +52,7 @@
 </template>
 
 <script>
+	import { createPasswordValidator, getPasswordPolicyDescription } from '../../util/passwordPolicyUtil';
 
 	export default {
 		name: 'update-pwd',
@@ -73,13 +75,20 @@
 		created() {
 		},
 		// 初始化方法
-		mounted() {
+		async mounted() {
 			// 执行界面初始化
+			// 加载密码策略
+			await this.loadPasswordPolicy();
 		},
 		data() {
 			return {
 				// 请求的 service
 				// service: this.$svc.sys.account,
+				
+				// 密码策略相关
+				passwordRules: [{required: true}],
+				passwordPolicyDesc: '',
+				
 				rules: {
 					"confirmUserPwd": {
 						validator: (rule, value, callback, source, options) => {
@@ -113,13 +122,33 @@
 				})
 			},
 
+			// 加载密码策略
+			async loadPasswordPolicy() {
+				try {
+					// 获取密码验证规则
+					const passwordValidator = await createPasswordValidator();
+					this.passwordRules = [
+						{required: true},
+						passwordValidator
+					];
+					// 获取密码策略描述
+					this.passwordPolicyDesc = await getPasswordPolicyDescription();
+					console.log('密码策略加载成功:', this.passwordPolicyDesc);
+				} catch (error) {
+					console.error('加载密码策略失败:', error);
+					// 降级到最基本的必填验证，不使用旧的password规则
+					this.passwordRules = [{required: true}];
+					this.passwordPolicyDesc = '密码策略加载失败，请确保密码符合安全要求';
+				}
+			},
+
 		}
 	}
 </script>
 
 <style lang="less" scoped>
 
-	@import ~"../../assets/styles/common";
+	@import "../../assets/styles/common";
 
 	.login-dialog {
 		.loginCardCom();
@@ -133,6 +162,13 @@
 			font-size:   10px;
 			color:       #FF2600;
 			text-align:  center;
+		}
+		
+		.password-policy-hint {
+			font-size: 12px;
+			color: #999;
+			margin-top: 4px;
+			line-height: 1.5;
 		}
 	}
 

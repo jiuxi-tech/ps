@@ -61,7 +61,10 @@ public class ValidationUtil {
      * 
      * @param password 密码
      * @return 校验结果，null表示通过，否则返回错误信息
+     * @deprecated 请使用 {@link com.jiuxi.security.core.service.PasswordValidationService} 进行密码验证
+     *             该方法使用硬编码的最小长度（6位），建议迁移到配置化的验证服务
      */
+    @Deprecated
     public static String validatePassword(String password) {
         if (password == null || password.trim().isEmpty()) {
             return "密码不能为空";
@@ -72,6 +75,28 @@ public class ValidationUtil {
         }
         
         return null;
+    }
+
+    /**
+     * 校验密码（增强版，支持配置化）
+     * 注意：该方法需要注入PasswordValidationService，如果在非 Spring 环境下调用，请使用 validatePassword(String) 方法
+     * 
+     * @param password 密码
+     * @param username 用户名（可选，用于相似度检查）
+     * @param validationService 密码验证服务（可从 Spring 容器获取）
+     * @return 校验结果，null表示通过，否则返回错误信息
+     */
+    public static String validatePasswordWithPolicy(String password, String username, 
+            com.jiuxi.security.core.service.PasswordValidationService validationService) {
+        if (validationService == null) {
+            // 降级使用旧方法
+            return validatePassword(password);
+        }
+        
+        com.jiuxi.security.core.entity.vo.ValidationResult result = 
+            validationService.validatePassword(password, username);
+        
+        return result.isValid() ? null : result.getErrorMessage();
     }
 
     /**

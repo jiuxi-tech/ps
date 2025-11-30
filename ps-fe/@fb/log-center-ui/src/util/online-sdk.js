@@ -10,8 +10,6 @@ export class WebOnline {
 
     /**
      * 统计当前登录人数-心跳
-     * @param token
-     * @param data
      * @param time 定时
      */
     heartbeat(time) {
@@ -28,41 +26,40 @@ export class WebOnline {
             return;
         }
 
-        // 日志服务地址 baseURL
-        this.baseURL = app.service.defaults.baseURL
-
         if (!time) {
             // 5 分钟请求一次
             time = 300000
         }
 
-        let img = new Image()
-        img.onerror = img.onload = function () {
+        // 定义心跳发送函数
+        const sendHeartbeat = () => {
+            const currentToken = app.$datax.get('token')
+            if (!currentToken) {
+                clearInterval(this.ivsession)
+                console.warn('[心跳] TOKEN不存在，停止心跳')
+                return;
+            }
+            
+            // 改用axios请求以支持TOKEN自动刷新
+            app.service.get('/platform/stationline/heartbeat', {
+                params: { jt: currentToken },
+                loading: false  // 不显示loading
+            }).then(response => {
+                // 响应拦截器会自动处理TOKEN更新
+                console.log('[心跳] 心跳成功')
+            }).catch(error => {
+                console.error('[心跳] 心跳失败', error)
+            })
         }
 
-        // 组装请求地址， 小于 10k
-        let query = this.baseURL + '/platform/stationline/heartbeat?jt=' + token;
-        // 立即执行一次
-        img.src = query
+        // 立即发送一次心跳
+        sendHeartbeat()
 
         // 清除原来的
         clearInterval(this.ivsession)
 
         // 定时请求
-        this.ivsession = setInterval(()=>{
-
-            token = app.$datax.get('token')
-            if (!token) {
-                clearInterval(this.ivsession)
-                return;
-            }
-
-            // 组装请求地址， 小于 10k
-            let query = this.baseURL + '/platform/stationline/heartbeat?jt=' + token;
-            // 执行
-            img.src = query
-
-        }, time);
+        this.ivsession = setInterval(sendHeartbeat, time);
 
     }
 

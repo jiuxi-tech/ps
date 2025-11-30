@@ -20,7 +20,7 @@ public final class SystemConstants {
      */
     public static final class System {
         /** 系统名称 */
-        public static final String NAME = "九息统一认证平台";
+        public static final String NAME = "业务中台统一认证平台";
         /** 系统版本 */
         public static final String VERSION = "2.2.2-SNAPSHOT";
         /** 系统编码 */

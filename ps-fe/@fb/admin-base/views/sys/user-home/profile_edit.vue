@@ -536,7 +536,7 @@ export default {
         }
 
         .fb-col {
-            span: 24 !important;
+            //span: 24 !important;
         }
     }
 }

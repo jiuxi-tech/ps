@@ -70,7 +70,7 @@ public class TpTimeRule implements Serializable {
     /**
      * 创建人ID
      */
-    private String creatorId;
+    private String creator;
 
     /**
      * 创建时间（yyyyMMddHHmmss格式）
@@ -80,12 +80,12 @@ public class TpTimeRule implements Serializable {
     /**
      * 修改人ID
      */
-    private String modifierId;
+    private String updator;
 
     /**
      * 修改时间（yyyyMMddHHmmss格式）
      */
-    private String modifyTime;
+    private String updateTime;
 
     /**
      * 是否有效（1：有效，0：无效）
@@ -194,12 +194,12 @@ public class TpTimeRule implements Serializable {
         this.userNames = userNames;
     }
 
-    public String getCreatorId() {
-        return creatorId;
+    public String getCreator() {
+        return creator;
     }
 
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public String getCreateTime() {
@@ -210,20 +210,20 @@ public class TpTimeRule implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getModifierId() {
-        return modifierId;
+    public String getUpdator() {
+        return updator;
     }
 
-    public void setModifierId(String modifierId) {
-        this.modifierId = modifierId;
+    public void setUpdator(String updator) {
+        this.updator = updator;
     }
 
-    public String getModifyTime() {
-        return modifyTime;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public void setModifyTime(String modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
     public Integer getActived() {

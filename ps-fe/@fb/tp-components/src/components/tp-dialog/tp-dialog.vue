@@ -99,26 +99,35 @@ export default {
         }
         console.log('页面可见区域宽', currentWidth + ',' + this.dialog.width + ',' + this.dialog.height)
 
-        // this.currentComponent = () => import('@/views' + url)
+        // 处理三种组件加载方式
         if (isString(url)) {
-          console.warn('请以 import 方式传入url，string形式预计在2x废弃！！！')
+          // 字符串模式：直接使用异步导入
+          this.currentComponent = () => ({
+            // 需要加载的组件 (应该是一个 `Promise` 对象)
+            component: import('@/views' + url),
+            // 异步组件加载时使用的组件
+            loading: {template: '<div><fb-spin></fb-spin></div>'},
+            // 加载失败时使用的组件
+            error: {template: '<div>加载组件失败</div>'},
+            // 展示加载时组件的延时时间。默认值是 200 (毫秒)
+            delay: 1000,
+            // 如果提供了超时时间且组件加载也超时了，
+            // 则使用加载失败时使用的组件。默认值是：`Infinity`
+            timeout: 10000
+          })
+        } else if (typeof url === 'function') {
+          // 函数模式：直接使用，Vue 会自动处理 Promise
+          this.currentComponent = url
+        } else {
+          // Promise 模式：包装成异步组件
+          this.currentComponent = () => ({
+            component: url,
+            loading: {template: '<div><fb-spin></fb-spin></div>'},
+            error: {template: '<div>加载组件失败</div>'},
+            delay: 1000,
+            timeout: 10000
+          })
         }
-        /**
-         * 减少项目改造成本，默认以 @/views 开头引入
-         */
-        this.currentComponent = () => ({
-          // 需要加载的组件 (应该是一个 `Promise` 对象)
-          component: isString(url) ? import('@/views' + url) : url,
-          // 异步组件加载时使用的组件
-          loading: {template: '<div><fb-spin></fb-spin></div>'},
-          // 加载失败时使用的组件
-          error: {template: '<div>加载组件失败</div>'},
-          // 展示加载时组件的延时时间。默认值是 200 (毫秒)
-          delay: 1000,
-          // 如果提供了超时时间且组件加载也超时了，
-          // 则使用加载失败时使用的组件。默认值是：`Infinity`
-          timeout: 10000
-        })
 
 
         this.dialog.title = title

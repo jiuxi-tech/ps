@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiuxi.admin.core.mapper.TpThirdPartyAppMapper">
+
+    <!-- 第三方应用表结果映射 -->
+    <resultMap type="com.jiuxi.admin.core.bean.entity.TpThirdPartyApp" id="tpThirdPartyAppMap">
+        <result property="appId" column="app_id"/>
+        <result property="appName" column="app_name"/>
+        <result property="apiKey" column="api_key"/>
+        <result property="status" column="status"/>
+        <result property="expireTime" column="expire_time"/>
+        <result property="ipWhitelist" column="ip_whitelist"/>
+        <result property="rateLimit" column="rate_limit"/>
+        <result property="description" column="description"/>
+        <result property="contactPerson" column="contact_person"/>
+        <result property="contactPhone" column="contact_phone"/>
+        <result property="contactEmail" column="contact_email"/>
+        <result property="actived" column="actived"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updator" column="updator"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="tenantId" column="tenant_id"/>
+    </resultMap>
+
+    <!-- 基础查询SQL -->
+    <sql id="baseSql">
+        SELECT
+            app_id,
+            app_name,
+            api_key,
+            status,
+            expire_time,
+            ip_whitelist,
+            rate_limit,
+            description,
+            contact_person,
+            contact_phone,
+            contact_email,
+            actived,
+            creator,
+            create_time,
+            updator,
+            update_time,
+            tenant_id
+        FROM tp_third_party_app
+    </sql>
+
+    <!-- 分页查询第三方应用列表 -->
+    <select id="getPage" parameterType="com.jiuxi.admin.core.bean.query.TpThirdPartyAppQuery" resultType="com.jiuxi.admin.core.bean.vo.TpThirdPartyAppVO">
+        SELECT
+            t.app_id,
+            t.app_name,
+            t.api_key,
+            t.status,
+            t.expire_time,
+            t.rate_limit,
+            t.description,
+            t.contact_person,
+            t.contact_phone,
+            t.contact_email,
+            t.creator,
+            t.create_time,
+            t.updator,
+            t.update_time,
+            cp.PERSON_NAME as createPersonName,
+            up.PERSON_NAME as updatePersonName
+        FROM tp_third_party_app t
+        LEFT JOIN tp_person_basicinfo cp ON t.creator = cp.PERSON_ID
+        LEFT JOIN tp_person_basicinfo up ON t.updator = up.PERSON_ID
+        <where>
+            1=1
+            <if test="query.appName != null and query.appName != ''">
+                AND t.app_name LIKE CONCAT('%', #{query.appName}, '%')
+            </if>
+            <if test="query.status != null">
+                AND t.status = #{query.status}
+            </if>
+            <if test="query.contactPerson != null and query.contactPerson != ''">
+                AND t.contact_person LIKE CONCAT('%', #{query.contactPerson}, '%')
+            </if>
+        </where>
+        ORDER BY t.create_time DESC
+    </select>
+
+    <!-- 查询第三方应用列表 -->
+    <select id="getList" parameterType="com.jiuxi.admin.core.bean.query.TpThirdPartyAppQuery" resultType="com.jiuxi.admin.core.bean.vo.TpThirdPartyAppVO">
+        SELECT
+            t.app_id,
+            t.app_name,
+            t.api_key,
+            t.status,
+            t.expire_time,
+            t.rate_limit,
+            t.description,
+            t.contact_person,
+            t.contact_phone,
+            t.contact_email,
+            t.creator,
+            t.create_time,
+            t.updator,
+            t.update_time,
+            cp.PERSON_NAME as createPersonName,
+            up.PERSON_NAME as updatePersonName
+        FROM tp_third_party_app t
+        LEFT JOIN tp_person_basicinfo cp ON t.creator = cp.PERSON_ID
+        LEFT JOIN tp_person_basicinfo up ON t.updator = up.PERSON_ID
+        <where>
+            1=1
+            <if test="query.appName != null and query.appName != ''">
+                AND t.app_name LIKE CONCAT('%', #{query.appName}, '%')
+            </if>
+            <if test="query.status != null">
+                AND t.status = #{query.status}
+            </if>
+            <if test="query.contactPerson != null and query.contactPerson != ''">
+                AND t.contact_person LIKE CONCAT('%', #{query.contactPerson}, '%')
+            </if>
+        </where>
+        ORDER BY t.create_time DESC
+    </select>
+
+    <!-- 新增第三方应用 -->
+    <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpThirdPartyApp">
+        INSERT INTO tp_third_party_app (
+            app_id,
+            app_name,
+            app_code,
+            api_key,
+            status,
+            expire_time,
+            ip_whitelist,
+            rate_limit,
+            description,
+            contact_person,
+            contact_phone,
+            contact_email,
+            actived,
+            creator,
+            create_time,
+            updator,
+            update_time,
+            tenant_id
+        ) VALUES (
+            #{appId},
+            #{appName},
+            #{appId},
+            #{apiKey},
+            #{status},
+            #{expireTime},
+            #{ipWhitelist},
+            #{rateLimit},
+            #{description},
+            #{contactPerson},
+            #{contactPhone},
+            #{contactEmail},
+            1,
+            #{creator},
+            #{createTime},
+            #{updator},
+            #{updateTime},
+            #{tenantId}
+        )
+    </insert>
+
+    <!-- 更新第三方应用 -->
+    <update id="update" parameterType="com.jiuxi.admin.core.bean.entity.TpThirdPartyApp">
+        UPDATE tp_third_party_app
+        <set>
+            <if test="appName != null and appName != ''">app_name = #{appName},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="expireTime != null">expire_time = #{expireTime},</if>
+            <if test="ipWhitelist != null">ip_whitelist = #{ipWhitelist},</if>
+            <if test="rateLimit != null">rate_limit = #{rateLimit},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="contactPerson != null">contact_person = #{contactPerson},</if>
+            <if test="contactPhone != null">contact_phone = #{contactPhone},</if>
+            <if test="contactEmail != null">contact_email = #{contactEmail},</if>
+            <if test="updator != null">updator = #{updator},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        WHERE app_id = #{appId}
+    </update>
+
+    <!-- 查看第三方应用详情 -->
+    <select id="view" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpThirdPartyAppVO">
+        SELECT
+            t.app_id,
+            t.app_name,
+            t.api_key,
+            t.status,
+            t.expire_time,
+            t.ip_whitelist,
+            t.rate_limit,
+            t.description,
+            t.contact_person,
+            t.contact_phone,
+            t.contact_email,
+            t.creator,
+            t.create_time,
+            t.updator,
+            t.update_time,
+            cp.PERSON_NAME as createPersonName,
+            up.PERSON_NAME as updatePersonName
+        FROM tp_third_party_app t
+        LEFT JOIN tp_person_basicinfo cp ON t.creator = cp.PERSON_ID
+        LEFT JOIN tp_person_basicinfo up ON t.updator = up.PERSON_ID
+        WHERE t.app_id = #{appId}
+    </select>
+
+    <!-- 删除第三方应用（物理删除） -->
+    <delete id="delete" parameterType="com.jiuxi.admin.core.bean.entity.TpThirdPartyApp">
+        DELETE FROM tp_third_party_app
+        WHERE app_id = #{appId}
+    </delete>
+
+    <!-- 根据API Key查询应用 -->
+    <select id="selectByApiKey" resultType="com.jiuxi.admin.core.bean.entity.TpThirdPartyApp">
+        <include refid="baseSql"/>
+        WHERE api_key = #{apiKey}
+    </select>
+
+    <!-- 更新应用状态 -->
+    <update id="updateStatus" parameterType="com.jiuxi.admin.core.bean.entity.TpThirdPartyApp">
+        UPDATE tp_third_party_app
+        SET status = #{status},
+            updator = #{updator},
+            update_time = #{updateTime}
+        WHERE app_id = #{appId}
+    </update>
+
+    <!-- 更新应用最后调用时间 -->
+    <update id="updateLastCallTime">
+        UPDATE tp_third_party_app
+        SET last_call_time = #{lastCallTime}
+        WHERE app_id = #{appId}
+    </update>
+
+</mapper>
