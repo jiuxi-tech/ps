@@ -1,28 +1,31 @@
 <template>
 	<div class="login-scan-code" >
 		<div class="login-scan-code--img" :style="getStyle">
-			<fb-qrcode v-model="loginUrl"></fb-qrcode>
+			<fb-qrcode v-model="loginUrl" v-if="loginUrl"></fb-qrcode>
 		</div>
 		<div v-show="isMask" class="login-scan-code--mask">
-			<span>二维码已失效</span>
+			<span>二维码加载中</span>
+			
 			<fb-button type="primary" size="l" @on-click="handleClick" :disabled="disabled" :loading="loading">点击刷新</fb-button>
 		</div>
 	</div>
 </template>
 
 <script>
+import FbSpin from '../../../fb-ui/packages/components/spin/src/FbSpin.vue'
 	/**
 	 * SystemCapture
 	 * (c) 2020 lincong1987
 	 */
 
 	export default {
+  components: { FbSpin },
 		name: 'SystemScancode',
 
 		props: {
 			api: {
 				type: String,
-				default: 'http://admin.dlszywz.cn/include/captcha/captcha.php?',
+				default: 'https://ywtb.shxdx.com',
 			},
 		},
 
@@ -47,13 +50,21 @@
 		methods: {
 
 			getCapture () {
+				this.loginUrl = ''
+				this.isMask = true
 				this.disabled = true
 				this.loading = true
 				//this.backgroundImage = this.api + new Date().getTime()
-this.loginUrl = 'http://admin.dlszywz.cn/include/captcha/captcha.php?'
+				
 
 				this.$nextTick(() => {
+					
+					
+
 					setTimeout(() => {
+
+						this.loginUrl = 'https://ywtb.shxdx.com'
+
 						this.disabled = false
 						this.loading = false
 						this.isMask = false
@@ -72,9 +83,9 @@ this.loginUrl = 'http://admin.dlszywz.cn/include/captcha/captcha.php?'
 			this.getCapture()
 
 			// 模拟超时
-			setTimeout(() => {
-				this.overtimeCode()
-			},2000)
+			// setTimeout(() => {
+			// 	this.overtimeCode()
+			// },2000)
 		},
 
 	}

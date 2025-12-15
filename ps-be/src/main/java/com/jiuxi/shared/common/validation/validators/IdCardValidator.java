@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * @ClassName: IdCardValidator
  * @Description: 身份证号验证器
- * @Author: System
+ * @Author: Qdd
  * @Date: 2025/01/07
  * @Copyright: 2025 www.jiuxi.com Inc. All rights reserved.
  */

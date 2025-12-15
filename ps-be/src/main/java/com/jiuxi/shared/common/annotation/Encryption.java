@@ -13,9 +13,9 @@ import java.lang.annotation.Target;
 /**
  * @Description: 加密注解，字段加密
  * @ClassName: encryption
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-01 19:24
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

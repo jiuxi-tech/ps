@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * @ClassName: PassKeyUtil
  * @Description: PassKey 工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/24 10:05
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class PassKeyUtil {
 
@@ -48,7 +48,7 @@ public class PassKeyUtil {
 
     /**
      * 判断是否是 Mybatis 的分页IPage对象
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 20:37
      * @param vo
      * @return boolean
@@ -73,7 +73,7 @@ public class PassKeyUtil {
 
     /**
      * 判断是否是 VO 对象
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/24 10:28
      * @param vo
      * @return boolean
@@ -99,7 +99,7 @@ public class PassKeyUtil {
      * @param businessKeyVal 业务主键值
      * @param jwtpid  当前登录人
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/24 10:06
      */
     private static String create(String businessKeyVal, String jwtpid) {
@@ -115,7 +115,7 @@ public class PassKeyUtil {
      * @param businessKeyVal 业务主键值
      * @param jwtpid  当前登录人
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/24 10:09
      */
     public static boolean check(String passKey, String businessKeyVal, String jwtpid) {
@@ -131,7 +131,7 @@ public class PassKeyUtil {
 
     /**
      * 生成 passKey
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 20:52
      * @param item 对象
      * @param jwtpid
@@ -168,7 +168,7 @@ public class PassKeyUtil {
 
     /**
      * 生成 PassKey
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/7/24 10:05
      * @param data 可以传入：Page对象，VO对象，List对象
      * @param jwtpid

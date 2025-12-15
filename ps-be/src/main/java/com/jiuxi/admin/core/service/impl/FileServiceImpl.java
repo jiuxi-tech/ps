@@ -32,9 +32,9 @@ import java.util.Optional;
 /**
  * @Description: 图片上传业务逻辑
  * @ClassName: FileServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-10-15 10:51
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("fileService")
 public class FileServiceImpl implements FileService {
@@ -67,7 +67,7 @@ public class FileServiceImpl implements FileService {
      * @param referType: 图片类型
      * @param referId:   业务id
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/26 13:47
      */
     @Override
@@ -129,7 +129,7 @@ public class FileServiceImpl implements FileService {
      * @param referType: 图片类型
      * @param referId:   业务id
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/26 13:53
      */
     @Override

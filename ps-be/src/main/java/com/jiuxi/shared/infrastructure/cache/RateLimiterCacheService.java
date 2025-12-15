@@ -3,9 +3,9 @@ package com.jiuxi.shared.infrastructure.cache;
 /**
  * @ClassName: CaptchaCacheService
  * @Description: 限流缓存服务
- * @Author: pand
+ * @Author: pdd
  * @Date: 2022/12/13 14:26
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface RateLimiterCacheService {
 

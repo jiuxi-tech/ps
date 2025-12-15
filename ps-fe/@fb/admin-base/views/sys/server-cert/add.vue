@@ -447,7 +447,7 @@ export default {
             }).then((result) => {
                 if (result.code == 1) {
                     if (!result.data) {
-                        this.$message.warning('证书文件与私钥文件不匹配，请检查文件')
+                        this.$message.warn('证书文件与私钥文件不匹配，请检查文件')
                     }
                 }
             })

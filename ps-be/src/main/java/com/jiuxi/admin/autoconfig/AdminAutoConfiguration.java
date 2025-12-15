@@ -28,9 +28,9 @@ import org.springframework.context.annotation.Import;
 /**
  * @ClassName: AdminAutoConfiguration
  * @Description: 自动配置
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/11/18 14:25
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Configuration
 @EnableConfigurationProperties({AdminConfigurationProperties.class})
@@ -42,7 +42,7 @@ public class AdminAutoConfiguration {
      * @param
      * @return com.jiuxi.admin.core.service.TpSmsSendService
      * @description: 发送验证码，存到mysql的通用方法
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/26 10:37
      */
     @Bean

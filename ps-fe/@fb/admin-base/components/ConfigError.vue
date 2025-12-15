@@ -13,7 +13,7 @@
       <!-- 主要内容 -->
       <div class="error-content">
         <h1 class="error-title">{{ errorTitle }}</h1>
-        <p class="error-message">{{ errorMessage }}</p>
+        <!-- <p class="error-message">{{ errorMessage }}</p> -->
         
         <!-- 错误详情 -->
         <div v-if="showDetails" class="error-details">
@@ -35,12 +35,12 @@
         <div class="error-actions">
           <fb-button 
             type="primary" 
-            size="large"
+            size="l"  
             :loading="retrying"
             @on-click="handleRetry"
             class="retry-btn"
           >
-            <fb-icon name="reload" v-if="!retrying"></fb-icon>
+            <fb-icon name="refresh" v-if="!retrying" mr="8px" ></fb-icon>
             {{ retrying ? '重试中...' : '重新加载' }}
           </fb-button>
           
@@ -263,7 +263,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(180deg,#fde7d8,#d10000,#ffad99 35%,#fbe6d7 65%,#fdf4ed);
   padding: 20px;
   overflow: hidden;
 }

@@ -21,7 +21,7 @@ import java.util.List;
  * @Description: 字典表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/app/sys/dict")
@@ -107,7 +107,7 @@ public class TpDictionaryControllerApp {
      * 根据多个字典code批量查询字典
      *
      * @param dicCodes 字典编码,逗号隔开，如：HZD12,HZD13...
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/10/8 13:51
      */
     @RequestMapping(value = "/list-by-dic-codes")

@@ -510,7 +510,8 @@ public class SsoController {
         // 检查是否有错误
         if (error != null) {
             logger.error("OIDC 认证失败: {} - {}", error, errorDescription);
-            String errorUrl = properties.getRedirect().getErrorUrl() + "&error_detail=" + java.net.URLEncoder.encode(errorDescription != null ? errorDescription : error, "UTF-8");
+            String errorUrl = buildErrorUrl(properties.getRedirect().getErrorUrl(), 
+                errorDescription != null ? errorDescription : error);
             response.sendRedirect(errorUrl);
             return;
         }
@@ -518,14 +519,26 @@ public class SsoController {
         // 检查授权码
         if (code == null || code.trim().isEmpty()) {
             logger.error("未收到授权码");
-            String errorUrl = properties.getRedirect().getErrorUrl() + "&error_detail=" + java.net.URLEncoder.encode("未收到授权码", "UTF-8");
+            String errorUrl = buildErrorUrl(properties.getRedirect().getErrorUrl(), "未收到授权码");
             response.sendRedirect(errorUrl);
             return;
         }
         
         try {
             // 1. 使用授权码向 Keycloak 换取访问令牌
-            String redirectUri = request.getRequestURL().toString();
+            // 从系统配置表获取与授权请求时相同的 redirect_uri
+            String redirectUri = tpSystemConfigService.getConfigValue("sso.keycloak.redirect.uri");
+            if (redirectUri == null || redirectUri.trim().isEmpty()) {
+                // 降级方案：从配置文件获取，并转换为后端回调地址
+                redirectUri = properties.getRedirect().getSuccessUrl();
+                if (redirectUri != null && redirectUri.contains("/#/sso/login")) {
+                    // 将前端地址转换为后端回调地址
+                    redirectUri = redirectUri.replace("/#/sso/login", "/ps-be/api/sso/callback");
+                }
+                logger.warn("系统配置表中未找到 sso.keycloak.redirect.uri，使用降级方案: {}", redirectUri);
+            }
+            
+            logger.info("Token交换使用的redirect_uri: {}", redirectUri);
             KeycloakOAuth2Service.TokenResponse tokenResponse = oAuth2Service.exchangeCodeForToken(code, redirectUri);
             
             // 2. 使用访问令牌获取用户信息
@@ -540,14 +553,15 @@ public class SsoController {
                 accountVO = accountService.queryAccountByUsername(keycloakUsername);
                 if (accountVO == null) {
                     logger.warn("用户名 {} 在ps-be系统中不存在", keycloakUsername);
-                    String errorUrl = properties.getRedirect().getErrorUrl() + "&error_detail=" + java.net.URLEncoder.encode("用户名在系统中不存在: " + keycloakUsername, "UTF-8");
+                    String errorUrl = buildErrorUrl(properties.getRedirect().getErrorUrl(), 
+                        "用户名在系统中不存在: " + keycloakUsername);
                     response.sendRedirect(errorUrl);
                     return;
                 }
                 logger.info("在ps-be系统中找到用户: personId={}, userName={}", accountVO.getPersonId(), accountVO.getUserName());
             } catch (Exception e) {
                 logger.error("查询用户信息时发生异常: {}", e.getMessage(), e);
-                String errorUrl = properties.getRedirect().getErrorUrl() + "&error_detail=" + java.net.URLEncoder.encode("查询用户信息失败", "UTF-8");
+                String errorUrl = buildErrorUrl(properties.getRedirect().getErrorUrl(), "查询用户信息失败");
                 response.sendRedirect(errorUrl);
                 return;
             }
@@ -566,8 +580,8 @@ public class SsoController {
                 
                 if (!validationResult.isAllowed()) {
                     logger.warn("用户 {} 登录被时间规则拒绝: {}", keycloakUsername, validationResult.getReason());
-                    String errorUrl = properties.getRedirect().getErrorUrl() + "&error_detail=" + 
-                        java.net.URLEncoder.encode("登录失败: " + validationResult.getReason(), "UTF-8");
+                    String errorUrl = buildErrorUrl(properties.getRedirect().getErrorUrl(), 
+                        "登录失败: " + validationResult.getReason());
                     response.sendRedirect(errorUrl);
                     return;
                 }
@@ -575,8 +589,7 @@ public class SsoController {
                 logger.info("用户 {} 通过时间规则验证", keycloakUsername);
             } catch (Exception e) {
                 logger.error("验证登录时间规则时发生异常: {}", e.getMessage(), e);
-                String errorUrl = properties.getRedirect().getErrorUrl() + "&error_detail=" + 
-                    java.net.URLEncoder.encode("登录时间验证失败", "UTF-8");
+                String errorUrl = buildErrorUrl(properties.getRedirect().getErrorUrl(), "登录时间验证失败");
                 response.sendRedirect(errorUrl);
                 return;
             }
@@ -588,27 +601,42 @@ public class SsoController {
                 
                 logger.info("成功为用户 {} 生成token", keycloakUsername);
                 
-                // 登录成功，重定向到成功页面
-                String successUrl = properties.getRedirect().getSuccessUrl();
-                // 可以在URL中添加token参数，供前端使用
-                if (successUrl.contains("?")) {
-                    successUrl += "&token=" + java.net.URLEncoder.encode(token, "UTF-8");
-                } else {
-                    successUrl += "?token=" + java.net.URLEncoder.encode(token, "UTF-8");
+                // 登录成功，重定向到 sso.html 中转页面（避免 Hash 路由问题）
+                // 从配置或系统配置表获取前端地址
+                String frontendUrl = tpSystemConfigService.getConfigValue("sso.keycloak.callback.url");
+                if (frontendUrl == null || frontendUrl.trim().isEmpty()) {
+                    // 降级：从 success-url 中提取基础 URL
+                    String successUrl = properties.getRedirect().getSuccessUrl();
+                    if (successUrl != null && successUrl.contains("#")) {
+                        frontendUrl = successUrl.substring(0, successUrl.indexOf("#"));
+                    } else {
+                        frontendUrl = "https://mid.shxdx.com";
+                    }
                 }
-                response.sendRedirect(successUrl);
+                
+                // 确保 URL 不以 / 结尾
+                if (frontendUrl.endsWith("/")) {
+                    frontendUrl = frontendUrl.substring(0, frontendUrl.length() - 1);
+                }
+                
+                // 构建中转页面 URL
+                String redirectUrl = frontendUrl + "/sso.html?token=" + java.net.URLEncoder.encode(token, "UTF-8");
+                logger.info("重定向到 SSO 中转页面: {}", redirectUrl);
+                
+                response.sendRedirect(redirectUrl);
                 return;
                 
             } catch (Exception e) {
                 logger.error("生成token时发生异常: {}", e.getMessage(), e);
-                String errorUrl = properties.getRedirect().getErrorUrl() + "&error_detail=" + java.net.URLEncoder.encode("生成token失败", "UTF-8");
+                String errorUrl = buildErrorUrl(properties.getRedirect().getErrorUrl(), "生成token失败");
                 response.sendRedirect(errorUrl);
                 return;
             }
             
         } catch (Exception e) {
             logger.error("处理回调失败", e);
-            String errorUrl = properties.getRedirect().getErrorUrl() + "&error_detail=" + java.net.URLEncoder.encode("处理回调失败: " + e.getMessage(), "UTF-8");
+            String errorUrl = buildErrorUrl(properties.getRedirect().getErrorUrl(), 
+                "处理回调失败: " + e.getMessage());
             response.sendRedirect(errorUrl);
             return;
         }
@@ -653,6 +681,43 @@ public class SsoController {
         response.put("success", false);
         response.put("message", message);
         return response;
+    }
+    
+    /**
+     * 构建错误重定向 URL，使用 sso.html 作为中转页面
+     * 
+     * @param baseUrl 基础 URL
+     * @param errorDetail 错误详情
+     * @return 完整的错误 URL
+     */
+    private String buildErrorUrl(String baseUrl, String errorDetail) {
+        try {
+            String encodedError = java.net.URLEncoder.encode(errorDetail, "UTF-8");
+            
+            // 如果是 Hash 路由地址，使用 sso.html 作为中转页面
+            if (baseUrl.contains("#")) {
+                // 提取基础 URL（# 之前的部分）
+                String[] parts = baseUrl.split("#", 2);
+                String frontendBaseUrl = parts[0];
+                
+                // 确保 URL 不以 / 结尾
+                if (frontendBaseUrl.endsWith("/")) {
+                    frontendBaseUrl = frontendBaseUrl.substring(0, frontendBaseUrl.length() - 1);
+                }
+                
+                // 使用 sso.html 作为中转页面，它会自动处理 error_detail 参数并跳转到登录页
+                return frontendBaseUrl + "/sso.html?error_detail=" + encodedError;
+            } else if (baseUrl.contains("?")) {
+                // URL 已有查询参数
+                return baseUrl + "&error_detail=" + encodedError;
+            } else {
+                // 普通 URL
+                return baseUrl + "?error_detail=" + encodedError;
+            }
+        } catch (Exception e) {
+            logger.error("构建错误 URL 失败", e);
+            return baseUrl;
+        }
     }
     
     /**

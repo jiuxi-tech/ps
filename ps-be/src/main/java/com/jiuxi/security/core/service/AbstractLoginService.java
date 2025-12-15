@@ -25,9 +25,9 @@ import java.util.Optional;
 /**
  * @Description: 登陆抽象类
  * @ClassName: AbstractLoginService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-08-27 18:25
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public abstract class AbstractLoginService {
 
@@ -61,7 +61,7 @@ public abstract class AbstractLoginService {
     /**
      * @return com.jiuxi.security.core.entity.vo.PersonVO
      * @description: 登录
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/21 11:16
      */
     public abstract AccountVO login(AccountVO vo);

@@ -15,7 +15,7 @@ import java.util.List;
  * @Description: 角色表
  * @Author pand
  * @Date 2020-11-18 11:05:17
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TpRoleService {
 

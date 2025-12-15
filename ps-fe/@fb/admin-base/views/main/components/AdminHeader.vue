@@ -141,10 +141,14 @@
 							<!--							</div>-->
 						</div>
 						<div class="card-footer">
-							<div @click="logout" class="card-item">
+							<div @click="globalLogout" class="card-item">
 								<fb-icon :name="'exit'"></fb-icon>
 								退出登录
 							</div>
+							<!-- <div @click="globalLogout" class="card-item global-logout-item">
+								<fb-icon :name="'logout'"></fb-icon>
+								全局退出（SSO）
+							</div> -->
 						</div>
 					</fb-card>
 				</fb-popup-picker>
@@ -492,6 +496,114 @@ export default {
 
 			// 日志埋点
 			this.$logger.send(data)
+		},
+
+		/**
+		 * SSO 全局退出
+		 * 该方法将清除 Keycloak 服务器端的所有会话，实现真正的全局退出
+		 */
+		globalLogout() {
+			const title = '全局退出确认'
+			const message = '确定要退出所有关联系统吗？退出后需要重新登录才能访问。'
+			
+			this.$msgbox.confirm(message, () => {
+				// 触发退出日志埋点
+				this.logoutLog()
+				
+				// 调用 SSO 全局退出接口
+				this.$svc.sys.sso.user.logout()
+					.then(res => {
+						if (res.code === 1) {
+							// 清除本地数据
+							const removeDatax = ['login', 'token', 'TOKEN_REAL', 'userInfo']
+							const removeStore = ['admin/removeToken', 'menu/clear', 'tabbar/clear']
+							
+							app.trigger('monitor-login-out', {
+								removeDatax,
+								removeStore,
+							})
+							
+							removeDatax.forEach((key) => {
+								this.$datax.remove(key)
+							})
+							
+							removeStore.forEach((key) => {
+								this.$store.dispatch(key)
+							})
+							
+							// 根据退出类型显示不同的提示信息
+							const logoutType = res.data?.logoutType || 'unknown'
+							const messageText = res.data?.message || res.message || '退出成功'
+							
+							if (logoutType === 'sso') {
+								// SSO 全局退出成功
+								this.$message.success('全局退出成功,已清除所有系统会话')
+							} else if (logoutType === 'local') {
+								// 本地退出
+								this.$message.success('退出成功')
+							} else if (logoutType === 'partial') {
+								// 部分退出
+								this.$message.warn('退出成功,本地会话已清除')
+							} else {
+								// 未知类型,显示返回的消息
+								this.$message.success(messageText)
+							}
+							
+							// 跳转到登录页
+							this.$router.replace(this.$datax.get('GLOBAL_CONFIG').loginPath)
+						} else {
+							// 接口返回失败,仍然执行本地清理
+							this.$message.warn(res.message || 'SSO 退出失败,已执行本地退出')
+							
+							// 清除本地数据
+							const removeDatax = ['login', 'token', 'TOKEN_REAL', 'userInfo']
+							const removeStore = ['admin/removeToken', 'menu/clear', 'tabbar/clear']
+							
+							app.trigger('monitor-login-out', {
+								removeDatax,
+								removeStore,
+							})
+							
+							removeDatax.forEach((key) => {
+								this.$datax.remove(key)
+							})
+							
+							removeStore.forEach((key) => {
+								this.$store.dispatch(key)
+							})
+							
+							// 跳转到登录页
+							this.$router.replace(this.$datax.get('GLOBAL_CONFIG').loginPath)
+						}
+					})
+					.catch(error => {
+						// 网络异常或接口调用失败,执行本地清理
+						console.error('SSO 全局退出失败:', error)
+						this.$message.warn('SSO 退出服务暂时不可用,已执行本地退出')
+						
+						// 清除本地数据
+						const removeDatax = ['login', 'token', 'TOKEN_REAL', 'userInfo']
+						const removeStore = ['admin/removeToken', 'menu/clear', 'tabbar/clear']
+						
+						app.trigger('monitor-login-out', {
+							removeDatax,
+							removeStore,
+						})
+						
+						removeDatax.forEach((key) => {
+							this.$datax.remove(key)
+						})
+						
+						removeStore.forEach((key) => {
+							this.$store.dispatch(key)
+						})
+						
+						// 跳转到登录页
+						this.$router.replace(this.$datax.get('GLOBAL_CONFIG').loginPath)
+					})
+			}, null, {
+				title: title
+			})
 		},
 
 		 
@@ -1130,6 +1242,11 @@ export default {
 					.card-footer {
 						padding: 5px 0;
 						border-top: 1px solid #E8E8E8;
+						
+						// 全局退出选项样式
+						.global-logout-item {
+							border-top: 1px solid #F0F0F0;
+						}
 					}
 				}
 			}

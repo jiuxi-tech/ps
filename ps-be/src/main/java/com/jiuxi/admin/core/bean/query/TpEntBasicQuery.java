@@ -3,9 +3,9 @@ package com.jiuxi.admin.core.bean.query;
 /**
  * @ClassName: TpEntBasicQuery
  * @Description: 企业查询
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/11/27 13:43
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpEntBasicQuery {
 

@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @ClassName: CommonIpUtil
  * @Description: 获取IP地址 工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/11 15:57
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CommonIpUtil {
 
@@ -21,7 +21,7 @@ public class CommonIpUtil {
      * 获取IP地址
      * 使用Nginx等反向代理软件， 则不能通过request.getRemoteAddr()获取IP地址
      * 如果使用了多级反向代理的话，X-Forwarded-For的值并不止一个，而是一串IP地址，X-Forwarded-For中第一个非unknown的有效IP字符串，则为真实IP地址
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/11 15:59
      * @param request
      * @return java.lang.String

@@ -3,9 +3,9 @@ package com.jiuxi.module.user.app.service;
 /**
  * @Description: 人员和账号信息相关接口，接口可以被项目覆盖
  * @ClassName: PersonAccountService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-18 14:23
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface PersonAccountApplicationService {
 
@@ -48,7 +48,7 @@ public interface PersonAccountApplicationService {
      * @param personId 人员id
      * @param phone    手机号
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 17:32
      */
     void updatePhone(String personId, String phone);

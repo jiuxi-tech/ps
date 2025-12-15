@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 /**
  * @Description: 部门基本信息同步监听事件，废弃原因：TpDeptBasicinfoEvent类的add,update,delete方法中的if控制方法，不在框架中控制，需要业务上自己控制。
  * @ClassName: TpDeptBasicinfoListener
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-08 11:17
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Deprecated
 public class TpDeptBasicinfoListener implements ApplicationListener<TpDeptBasicinfoEvent> {

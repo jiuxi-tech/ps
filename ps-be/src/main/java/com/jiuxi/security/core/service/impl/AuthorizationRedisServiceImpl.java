@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 /**
  * @ClassName: AuthorizationRedisServiceImpl
  * @Description: 鉴权实现类 - Redis模式
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/22 16:51
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Deprecated
 public class AuthorizationRedisServiceImpl implements AuthorizationService {

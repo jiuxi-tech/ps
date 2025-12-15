@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * @ClassName: TpIpAccessLog
  * @Description: IP访问控制日志表实体类
- * @Author: System
+ * @Author: Qdd
  * @Date: 2024-01-27
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

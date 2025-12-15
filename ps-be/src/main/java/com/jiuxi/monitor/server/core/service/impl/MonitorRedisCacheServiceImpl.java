@@ -13,9 +13,9 @@ import java.util.function.Supplier;
 /**
  * @ClassName: Addd
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2023/7/18 8:58
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Component
 public class MonitorRedisCacheServiceImpl implements MonitorRedisCacheService {
@@ -36,7 +36,7 @@ public class MonitorRedisCacheServiceImpl implements MonitorRedisCacheService {
      * @param days        缓存的天数
      * @param supplier    查询业务数据的方法
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/7/18 9:21
      */
     @Override
@@ -53,7 +53,7 @@ public class MonitorRedisCacheServiceImpl implements MonitorRedisCacheService {
      * @param timeUnit    时间单位
      * @param supplier    查询业务数据的方法
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/7/18 9:21
      */
     @Override

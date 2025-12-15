@@ -13,9 +13,9 @@ import java.util.Date;
 /**
  * @ClassName: CommonDateUtil
  * @Description: 时间格式化工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/12 10:06
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CommonDateUtil {
 
@@ -35,7 +35,7 @@ public class CommonDateUtil {
 
     /**
      * 日期格式，标准日期格式：yyyyMMddHHmmss
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/18 17:02
      * @param dateTime
      * @return void
@@ -46,7 +46,7 @@ public class CommonDateUtil {
 
     /**
      * 日期格式，格式推荐使用 hutool 的 DatePattern， 如：DatePattern.PURE_DATETIME_PATTERN
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/18 17:03
      * @param dateTime
      * @param format  格式推荐使用 hutool 的 DatePattern， 如：DatePattern.PURE_DATETIME_PATTERN
@@ -58,7 +58,7 @@ public class CommonDateUtil {
 
     /**
      * 获取当前东八时区的 时间戳
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/23 9:19
      * @param
      * @return long
@@ -70,7 +70,7 @@ public class CommonDateUtil {
 
     /**
      * 获取传入时间的 时间戳
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/18 17:02
      * @param dateTime 日期格式，标准日期格式：yyyyMMddHHmmss
      * @return void
@@ -83,7 +83,7 @@ public class CommonDateUtil {
 
     /**
      * 获取传入时间的 时间戳
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/18 17:02
      * @param localDateTime 日期时间
      * @return void
@@ -95,7 +95,7 @@ public class CommonDateUtil {
 
     /**
      * 获取当前时间，返回：yyyyMMddHHmmss
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 10:25
      * @param
      * @return java.lang.String
@@ -107,7 +107,7 @@ public class CommonDateUtil {
 
     /**
      * 获取当前日期，返回：yyyyMMdd
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 10:25
      * @param
      * @return java.lang.String
@@ -119,7 +119,7 @@ public class CommonDateUtil {
 
     /**
      * 根据日期获取是周几
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 10:27
      * @param localDate
      * @return java.lang.String
@@ -154,7 +154,7 @@ public class CommonDateUtil {
 
     /**
      * 把 yyyy-MM-dd HH:mm:ss 格式化为 yyyyMMddHHmmss
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/6/8 18:15
      * @param dateTime yyyy-MM-dd HH:mm:ss
      * @return java.lang.String
@@ -170,7 +170,7 @@ public class CommonDateUtil {
 
     /**
      * Date 转 LocalDateTime
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 15:37
      * @param date
      * @return java.time.LocalDateTime
@@ -186,7 +186,7 @@ public class CommonDateUtil {
 
     /**
      * LocalDateTime 转 Date
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 15:34
      * @param dateTime
      * @return java.util.Date
@@ -203,7 +203,7 @@ public class CommonDateUtil {
 
     /**
      * 将日期格式化为仿微信的日期
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 10:15
      * @param dateTime
      * @return java.lang.String
@@ -214,7 +214,7 @@ public class CommonDateUtil {
     }
     /**
      * 将日期格式化为仿微信的日期
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 10:07
      * @param date
      * @return java.lang.String
@@ -290,7 +290,7 @@ public class CommonDateUtil {
 
     /**
      * 判断日期是否是本周
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 10:12
      * @param date
      * @return boolean
@@ -306,7 +306,7 @@ public class CommonDateUtil {
 
     /**
      * 根据今天时间获取 早中晚
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 10:11
      * @param date
      * @return java.lang.String

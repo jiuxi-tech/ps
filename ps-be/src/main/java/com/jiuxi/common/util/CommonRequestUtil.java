@@ -24,9 +24,9 @@ import java.util.Map;
 /**
  * @ClassName: RequestUtil
  * @Description: 请求工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/11 16:11
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CommonRequestUtil {
 
@@ -35,7 +35,7 @@ public class CommonRequestUtil {
      *
      * @param
      * @return javax.servlet.http.HttpServletRequest
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/11 16:18
      */
     public static HttpServletRequest getHttpServletRequest() {
@@ -51,7 +51,7 @@ public class CommonRequestUtil {
      *
      * @param
      * @return javax.servlet.http.HttpServletResponse
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/11 16:23
      */
     public static HttpServletResponse getHttpServletResponse() {
@@ -68,7 +68,7 @@ public class CommonRequestUtil {
      *
      * @param
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/11 16:20
      */
     public static String getBasicPath() {
@@ -82,7 +82,7 @@ public class CommonRequestUtil {
      *
      * @param request
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/11 16:11
      */
     public static String getBasicPath(HttpServletRequest request) {
@@ -103,7 +103,7 @@ public class CommonRequestUtil {
 
     /**
      * 获取请求类型为：application/x-www-form-urlencoded 的HttpServletRequest 中的所有参数，
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 11:09
      * @param request
      * @return Map<String,String>
@@ -124,7 +124,7 @@ public class CommonRequestUtil {
 
     /**
      * 获取请求类型为：application/json 的HttpServletRequest 中的json字符串
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 11:11
      * @param request
      * @return java.lang.String
@@ -140,7 +140,7 @@ public class CommonRequestUtil {
      *
      * @param request
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:02
      */
     public static String getBrowser(HttpServletRequest request) {
@@ -158,7 +158,7 @@ public class CommonRequestUtil {
      *
      * @param request
      * @return cn.hutool.http.useragent.UserAgent
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:02
      */
     private static UserAgent getUserAgent(HttpServletRequest request) {
@@ -177,7 +177,7 @@ public class CommonRequestUtil {
      *
      * @param request
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:02
      */
     public static String getOs(HttpServletRequest request) {
@@ -195,7 +195,7 @@ public class CommonRequestUtil {
      *
      * @param paramName 参数名
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:05
      */
     public static String getCookieParam(String paramName) {
@@ -209,7 +209,7 @@ public class CommonRequestUtil {
      * @param request
      * @param paramName 参数名
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:06
      */
     public static String getCookieParam(HttpServletRequest request, String paramName) {
@@ -227,7 +227,7 @@ public class CommonRequestUtil {
 
     /**
      * 从header里读取，注意：必须有一个HTTP请求正在处理，如果没有HTTP请求，那么这个方法将无法工作。
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:08
      * @param paramName 参数名
      * @return java.lang.String
@@ -239,7 +239,7 @@ public class CommonRequestUtil {
 
     /**
      * 从header里读取Token，注意：必须有一个HTTP请求正在处理，如果没有HTTP请求，那么这个方法将无法工作。
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:08
      * @return java.lang.String
      */

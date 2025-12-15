@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @ClassName: TestEmailController
  * @Author: Trae AI
  * @Date: 2025/01/21
- * @Copyright: 2025 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2025 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/test_email")

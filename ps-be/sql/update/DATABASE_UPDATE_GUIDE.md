@@ -8,7 +8,7 @@
 - **数据库地址**: alilaoba.cn:13307
 - **数据库名称**: ps-bmp
 - **用户名**: root
-- **密码**: W4HV=QxtHz
+- **密码**: $D8BZ8Qmav
 - **驱动**: MariaDB/MySQL
 
 ## 执行步骤
@@ -19,7 +19,7 @@
 **命令行方式**：
 ```bash
 mysql -h alilaoba.cn -P 13307 -u root -p ps-bmp
-# 输入密码: W4HV=QxtHz
+# 输入密码: $D8BZ8Qmav
 ```
 
 **图形化工具**：

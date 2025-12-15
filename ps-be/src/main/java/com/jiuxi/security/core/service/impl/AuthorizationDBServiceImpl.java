@@ -20,9 +20,9 @@ import java.util.List;
 /**
  * @ClassName: AuthorizationServiceImpl
  * @Description: 鉴权实现类 - 数据库模式
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/22 16:50
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AuthorizationDBServiceImpl implements AuthorizationService {
 
@@ -53,7 +53,7 @@ public class AuthorizationDBServiceImpl implements AuthorizationService {
      * @param token:
      * @param path:
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2020-08-25 17:03
      */
     @Override
@@ -110,7 +110,7 @@ public class AuthorizationDBServiceImpl implements AuthorizationService {
      * @param roles
      * @param path  请求路径
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/28 15:56
      */
     private boolean checkAuthorization(String roles, String path) {

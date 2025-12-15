@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * @Description: TODO
  * @ClassName: TpEntBasicinfoEventCollection
- * @Author: pand
+ * @Author: pdd
  * @Date: 2022-03-13 14:34
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpEntBasicinfoEventCollection {
 

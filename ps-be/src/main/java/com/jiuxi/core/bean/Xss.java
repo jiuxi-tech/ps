@@ -3,9 +3,9 @@ package com.jiuxi.core.bean;
 /**
  * @Description: xss防御配置项
  * @ClassName: Xss
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-09 17:39
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class Xss {
 

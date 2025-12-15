@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @Description: 菜单修改历史记录表
  * @Author: AI Assistant
  * @Date: 2025-01-29
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpMenuHistory implements Serializable {
 

@@ -3,9 +3,9 @@ package com.jiuxi.common.map.bean;
 /**
  * @ClassName: Point
  * @Description: 坐标点 - lng1,lat1
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/7/16 16:48
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class Marker {
 
@@ -29,7 +29,7 @@ public class Marker {
 
     /**    
      * @description: 默认图标标注
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/16 17:20 
      * @param longitude 经度
      * @param latitude 纬度
@@ -42,7 +42,7 @@ public class Marker {
 
     /**
      * @description: 自定义标签
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/16 17:19
      * @param longitude 经度
      * @param latitude 纬度
@@ -59,7 +59,7 @@ public class Marker {
 
     /**    
      * @description: 获取标注
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/17 10:57
      * @param 
      * @return java.lang.String
@@ -70,7 +70,7 @@ public class Marker {
 
     /**
      * @description: 获取标注样式
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/17 10:57
      * @param
      * @return java.lang.String

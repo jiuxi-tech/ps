@@ -5,9 +5,9 @@ import java.util.List;
 
 /**
  * @Description: 服务器相关信息
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/3/12 13:27
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class ServerInfo {
 

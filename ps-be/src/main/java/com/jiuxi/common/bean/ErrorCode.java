@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * @ClassName: ResponseCode
  * @Description: 错误码code
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/1/10 11:30
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public enum ErrorCode implements Serializable {
 

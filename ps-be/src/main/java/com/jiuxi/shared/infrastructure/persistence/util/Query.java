@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * @description: 查询参数
- * @author 杨攀
+ * @author Ypp
  * @date 2020/6/8 10:57
  */
 public class Query<T> {

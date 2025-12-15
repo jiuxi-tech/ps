@@ -36,7 +36,7 @@ import java.util.Optional;
  * @Description: 中介表
  * @Author pand
  * @Date 2021-05-25 17:32:41
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpMediorgService")
 public class TpMediorgServiceImpl implements TpMediorgService {

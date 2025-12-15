@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * @ClassName: Path
  * @Description: 折线，每条折线的点之间用分号";"分隔;点坐标用逗号","分隔。坐标格式：lng <经度>，lat <纬度>，例如116.39127,39.90712。
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/7/16 17:26
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class Path {
 
@@ -33,7 +33,7 @@ public class Path {
 
     /**
      * @description: 获取折线
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/17 11:06
      * @param
      * @return java.lang.String
@@ -56,7 +56,7 @@ public class Path {
 
     /**
      * @description: 折线的样式
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/17 11:18
      * @param
      * @return java.lang.String

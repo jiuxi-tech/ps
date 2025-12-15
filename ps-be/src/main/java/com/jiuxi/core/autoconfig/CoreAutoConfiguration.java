@@ -71,9 +71,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * @ClassName: SecurityAutoConfiguration
  * @Description: 认证及鉴权自动配置
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/22 18:33
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Configuration
 @EnableConfigurationProperties({CoreConfigurationProperties.class})
@@ -374,7 +374,7 @@ public class CoreAutoConfiguration {
      *
      * @param
      * @return com.jiuxi.core.core.customizer.TopinfoTomcatConnectorCustomizer
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/11/4 13:01
      */
     @Bean

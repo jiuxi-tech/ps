@@ -10,9 +10,9 @@ import java.net.URLDecoder;
 /**
  * @Description: URL解码
  * @ClassName: UrlJsonSerializer
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-09-18 11:21
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class UrlJsonSerializer extends JsonSerializer<String> {
     @Override

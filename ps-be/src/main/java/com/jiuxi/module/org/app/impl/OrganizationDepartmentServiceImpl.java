@@ -16,7 +16,7 @@ import java.util.List;
  * @Description: 组织部门服务实现 - 委托给原有服务保证功能不变
  * @Author DDD重构
  * @Date 2025-09-12
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class OrganizationDepartmentServiceImpl implements OrganizationDepartmentService {

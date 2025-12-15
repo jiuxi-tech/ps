@@ -13,9 +13,9 @@ import java.util.List;
 /**
  * @Description: base64，image相关操作
  * @ClassName: ImageUtils
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-08-20 10:19
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class ImageUtils {
 
@@ -89,7 +89,7 @@ public class ImageUtils {
 
     /**
      * 图片添加文字
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/3/18 20:26 
      * @param srcPath 源图片路径，如： d:/xxxx.jpg
      * @param targetPath 目标图片地址, 如：d:/zzz.jpg
@@ -163,7 +163,7 @@ public class ImageUtils {
 
     /**
      * 图片添加文字
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/3/18 20:26
      * @param srcPath 源图片路径，如： d:/xxxx.jpg
      * @param drawList 需要添加的文字及样式列表，一个坐标一个ImageDraw

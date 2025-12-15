@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Description:  监控服务端接口
  * @Author yangzr
  * @Date 2024/11/18 9:49
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface MonitorServerService {
 
@@ -21,7 +21,7 @@ public interface MonitorServerService {
      * @param heartbeatInfo
      * @param request
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 14:35
      */
     void handleHeartbeat(ClientHeartbeatInfo heartbeatInfo, HttpServletRequest request);
@@ -32,7 +32,7 @@ public interface MonitorServerService {
      * @param clientVO
      * @param configVO
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 15:13
      */
     void offlineAlarm(TpMonitorClientVO clientVO, TpMonitorConfigVO configVO);

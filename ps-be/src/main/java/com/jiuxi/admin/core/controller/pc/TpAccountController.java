@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @Description: 账号表
  * @ClassName: TpAccountController
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-17 15:34
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/account")

@@ -6,9 +6,9 @@ import java.io.Serializable;
 /**
  * @ClassName: Image
  * @Description: 图片实体
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/3/18 19:22
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  *
  *  ImageDraw draw = new ImageDraw();
  *  draw.setText("图讯科技");

@@ -16,9 +16,9 @@ import java.util.Optional;
 /**
  * @ClassName: MapTdtStaticImage
  * @Description: 天地图 - 静态图片工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/7/16 16:43
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  *
  *   官网API： http://lbs.tianditu.gov.cn/staticapi/static.html
  *   使用示例：
@@ -72,7 +72,7 @@ public class MapTdtStaticImage {
 
     /**
      * @description: 静态地图 , URL请求长度为2048， 点标记数量26个
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/17 13:07
      * @param rootDir 图片下载的跟路径
      * @param tk 您的密钥

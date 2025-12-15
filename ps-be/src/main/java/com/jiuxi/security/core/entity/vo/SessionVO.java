@@ -4,9 +4,9 @@ package com.jiuxi.security.core.entity.vo;
 /**
  * @ClassName: SessionVO
  * @Description: 会话 VO
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/17 19:34
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  *
  * 过期，请使用 com.jiuxi.common.bean.SessionVO
  *

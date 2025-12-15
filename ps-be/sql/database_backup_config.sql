@@ -132,7 +132,7 @@ INSERT INTO tp_system_config (
     update_time
 ) VALUES ( 
     'database_backup_password',
-    'W4HV=QxtHz',
+    '$D8BZ8Qmav',
     '数据库备份时使用的MySQL密码（建议加密存储）',
  NOW(),
 

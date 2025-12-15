@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * @ClassName: TpDataPermissionsVO
  * @Description: 人员数据权限表 VO
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/1 14:54
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpDataPermissionsVO implements Serializable {
 

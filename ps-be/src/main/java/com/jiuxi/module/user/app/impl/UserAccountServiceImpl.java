@@ -51,9 +51,9 @@ import java.util.Optional;
 /**
  * @Description: 账户Service
  * @ClassName: TpAccountServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-05-07 11:32
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("userAccountService")
 public class UserAccountServiceImpl implements UserAccountService {
@@ -109,7 +109,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      * @param vo              账号信息
      * @param decryptStrSM2   是否需要解密账号密码
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 9:47
      */
     @Override
@@ -888,7 +888,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     /**
      * 根据手机号查询账户信息
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/5/27 13:44
      * @param phone
      * @return com.jiuxi.admin.core.bean.vo.TpAccountVO
@@ -917,7 +917,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      *
      * @param username 用户名
      * @return com.jiuxi.admin.core.bean.vo.TpAccountVO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 9:15
      */
     @Override
@@ -931,7 +931,7 @@ public class UserAccountServiceImpl implements UserAccountService {
      *
      * @param personId 人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 11:08
      */
     @Override
@@ -956,7 +956,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     //  *
     //  * @param personId 人员id
     //  * @return void
-    //  * @author 杨占锐
+    //  * @author jiuxx
     //  * @date 2024/5/29 11:08
     //  */
     // @Override

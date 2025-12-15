@@ -23,9 +23,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 /**
  * @ClassName: SecurityAutoConfiguration
  * @Description: 认证及鉴权自动配置
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/22 18:33
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Configuration
 @EnableConfigurationProperties({SecurityConfigurationProperties.class})
@@ -49,7 +49,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.interceptor.AuthenticationHandlerInterceptor
      * @description: 认证 拦截器
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/22 17:10
      */
     @Bean
@@ -62,7 +62,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.service.AuthenticationService
      * @description: 认证
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/26 10:37
      */
     @Bean
@@ -77,7 +77,7 @@ public class SecurityAutoConfiguration {
      *
      * @param
      * @return com.jiuxi.security.core.interceptor.AnalysisTokenHandlerInterceptor
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 19:52
      */
     @Bean
@@ -91,7 +91,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.interceptor.AuthorizationHandlerInterceptor
      * @description: 鉴权拦截器
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/22 17:11
      */
     @Bean
@@ -135,7 +135,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.service.AuthorizationService
      * @description: DB 鉴权
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/22 18:07
      */
     @Bean
@@ -173,7 +173,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.service.AuthorizationService
      * @description: Redis鉴权
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/22 18:08
      */
     /*
@@ -189,7 +189,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.service.AbstractLoginService
      * @description: 默认登录服务
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/26 16:25
      */
     @Bean
@@ -202,7 +202,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.service.AbstractLoginService
      * @description: 短信登录服务
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/26 16:25
      */
     @Bean
@@ -226,7 +226,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.service.LoginService
      * @description: 用户名查用户
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/26 16:25
      */
     @Bean
@@ -239,7 +239,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.service.LoginService
      * @description: 短信查用户
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/26 16:25
      */
     @Bean
@@ -251,7 +251,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.service.LoginService
      * @description: 查询用户信息
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/26 16:25
      */
     @Bean
@@ -265,7 +265,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.resolver.PersonIdHandlerMethodArgumentResolver
      * @description: Token 中 PersonId 解析
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/28 15:06
      */
     @Bean
@@ -277,7 +277,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.resolver.AscnIdHandlerMethodArgumentResolver
      * @description: Token 中 AscnId 解析
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/2 11:40
      */
     @Bean
@@ -289,7 +289,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.resolver.DeptIdHandlerMethodArgumentResolver
      * @description: Token 中 DeptId 解析
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/2 11:40
      */
     @Bean
@@ -301,7 +301,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.resolver.CityCodeHandlerMethodArgumentResolver
      * @description: Token 中 cityCode 解析
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/2 11:40
      */
     @Bean
@@ -313,7 +313,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.resolver.TokenHandlerMethodArgumentResolver
      * @description: Token 解析
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/2 11:39
      */
     @Bean
@@ -325,7 +325,7 @@ public class SecurityAutoConfiguration {
      * @param
      * @return com.jiuxi.security.core.resolver.RoleIdsHandlerMethodArgumentResolver
      * @description: roleIds 解析
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/2 11:39
      */
     @Bean
@@ -350,7 +350,7 @@ public class SecurityAutoConfiguration {
      *
      * @param
      * @return com.jiuxi.security.core.listener.TpRoleAuthorizationLisenter
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/24 9:53
      */
     @Bean
@@ -363,7 +363,7 @@ public class SecurityAutoConfiguration {
      *
      * @param
      * @return com.jiuxi.shared.infrastructure.cache.AuthorizationCacheService
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/25 13:28
      */
     @Bean
@@ -376,7 +376,7 @@ public class SecurityAutoConfiguration {
      * 退出登录服务
      *
      * @return com.jiuxi.security.core.service.TopinfoSecurityLogoutService
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/10/8 14:00
      */
     @Bean

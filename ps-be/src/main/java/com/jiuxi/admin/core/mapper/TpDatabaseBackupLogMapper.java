@@ -13,9 +13,9 @@ import java.util.List;
 /**
  * @ClassName: TpDatabaseBackupLogMapper
  * @Description: 数据库备份记录表Mapper接口
- * @Author: system
+ * @Author: Qdd
  * @Date: 2025-09-24
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpDatabaseBackupLogMapper {

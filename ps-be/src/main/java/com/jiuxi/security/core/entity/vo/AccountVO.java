@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * @Description: 账号基本信息
  * @ClassName: PersonBasicVO
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-08-27 09:37
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AccountVO extends BaseVO  implements Serializable {
 

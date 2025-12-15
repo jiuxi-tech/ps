@@ -3,9 +3,9 @@ package com.jiuxi.shared.common.enums;
 /**
  * @Description: 脱敏类型定义
  * @ClassName: SensitiveType
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-08-28 16:13
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public enum SensitiveType {
     /**

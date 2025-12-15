@@ -11,7 +11,7 @@ import com.jiuxi.admin.core.bean.query.TpEntBasicQuery;
  * @Description: 企业应用服务接口
  * @Author DDD重构
  * @Date 2025-09-12
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface EnterpriseApplicationService {
 
@@ -28,7 +28,7 @@ public interface EnterpriseApplicationService {
      *
      * @param entUnifiedCode
      * @return com.jiuxi.admin.core.bean.entity.TpEntBasicinfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 14:14
      */
     String selectByEntUnifiedCode(String entUnifiedCode);
@@ -39,7 +39,7 @@ public interface EnterpriseApplicationService {
      * @param entUnifiedCode  统一社会信用代码
      * @param entId           企业id，不为空时，排除当前企业
      * @return boolean        存在时返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 15:46
      */
     boolean existsEntUnifiedCode(String entUnifiedCode, String entId);
@@ -50,7 +50,7 @@ public interface EnterpriseApplicationService {
      * @param vo
      * @param jwtpid
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 16:21
      */
     String add(TpEntBasicinfoVO vo, String jwtpid);
@@ -61,7 +61,7 @@ public interface EnterpriseApplicationService {
      * @param vo
      * @param jwtpid
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 16:21
      */
     String addInfo(TpEntBasicinfoVO vo, String jwtpid);
@@ -72,7 +72,7 @@ public interface EnterpriseApplicationService {
      * @param vo
      * @param jwtpid
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 16:23
      */
     int update(TpEntBasicinfoVO vo, String jwtpid);
@@ -83,7 +83,7 @@ public interface EnterpriseApplicationService {
      * @param entId
      * @param jwtpid
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 17:14
      */
     int delete(String entId, String jwtpid);
@@ -93,7 +93,7 @@ public interface EnterpriseApplicationService {
      *
      * @param entUnifiedCode 统一信用代码
      * @return com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 13:56
      */
     TpEntBasicinfoVO getBaseInfoByEntUnifiedCode(String entUnifiedCode);
@@ -102,7 +102,7 @@ public interface EnterpriseApplicationService {
      * 根据企业id获取企业基本信息-包含已删除的数据
      *
      * @param entId 企业id
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/15 17:13
      */
     TpEntBasicinfoVO getBaseInfoIncludeNotActive(String entId);
@@ -112,7 +112,7 @@ public interface EnterpriseApplicationService {
      *
      * @param entId
      * @return boolean 存在返回true, 不存在返回false
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/8/5 15:39
      */
     boolean existsByEntId(String entId);

@@ -396,7 +396,7 @@ export default {
 		height: 56px;
 		margin: 0 auto 8px;
 		border-radius: 14px;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		background: linear-gradient(180deg,#fde7d8,#d10000,#ffad99 35%,#fbe6d7 65%,#fdf4ed);
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
 		img {

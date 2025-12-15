@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * @Description: 登陆的自定义事件
  * @ClassName: LoginApplicationEvent
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-08 14:34
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class LoginApplicationEvent extends ApplicationEvent {
 

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * @Description: 手机号加密工具类，专门用于tp_person_basicinfo表phone字段的对称加密
  * @Author: ps-bmp
  * @Date: 2024/01/20
- * @Copyright: 2024 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2024 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class PhoneEncryptionUtils {
 

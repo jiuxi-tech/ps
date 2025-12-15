@@ -6,9 +6,9 @@ import java.util.Map;
 /**
  * @Description: httpClient 连接配置项
  * @ClassName: HttpClientPoolConfig
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-09 10:15
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class HttpClientPoolConfig {
 

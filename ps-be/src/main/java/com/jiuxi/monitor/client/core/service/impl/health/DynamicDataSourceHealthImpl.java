@@ -18,9 +18,9 @@ import java.util.Set;
 /**
  * @ClassName: DynamicDataSourceHealthImpl
  * @Description: 单数据源实现
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/20 17:11
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class DynamicDataSourceHealthImpl implements MonitorHealthService {
@@ -39,7 +39,7 @@ public class DynamicDataSourceHealthImpl implements MonitorHealthService {
      * 判断mysql是否健康
      *
      * @return boolean
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/20 17:12
      */
     @Override

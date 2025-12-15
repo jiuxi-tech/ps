@@ -3,9 +3,9 @@ package com.jiuxi.common.map.bean;
 /**
  * @ClassName: Point
  * @Description: 坐标点
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/7/16 17:53
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class Point {
 

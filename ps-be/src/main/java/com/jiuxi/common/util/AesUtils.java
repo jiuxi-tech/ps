@@ -8,9 +8,9 @@ import cn.hutool.crypto.symmetric.AES;
 /**
  * @ClassName: AesUtils
  * @Description: AesUtils 基于hutool上加密工具类封装
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/26 13:23
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AesUtils {
 
@@ -45,7 +45,7 @@ public class AesUtils {
      * @param content 需要加密的内容
      * @return java.lang.String
      * @description: 加密为十六进制
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/26 13:51
      */
     public static String encryptHex(String content) {
@@ -57,7 +57,7 @@ public class AesUtils {
      * @param encrypt 十六进制的密文
      * @return java.lang.String
      * @description: 解密十六进制的密文
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/26 13:52
      */
     public static String decryptStr(String encrypt) {

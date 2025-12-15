@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @ClassName: TpTimeRuleMapper
  * @Description: 登录时间段控制规则表 - Mapper
- * @Author: System
+ * @Author: Qdd
  * @Date: 2025-01-20
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

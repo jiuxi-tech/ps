@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * @ClassName: TpOperateLogServiceImpl
  * @Description: 操作日志表服务实现类
- * @Author: System
+ * @Author: Qdd
  * @Date: 2024-01-17
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

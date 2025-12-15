@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
  * @since 2.2.2-SNAPSHOT
  */
 @Slf4j
-@RestControllerAdvice(basePackages = {"com.jiuxi.shared", "com.jiuxi.admin", "com.jiuxi.module"})
+@RestControllerAdvice(basePackages = {"com.jiuxi.shared", "com.jiuxi.admin", "com.jiuxi.module", "com.jiuxi.security"})
 @Component("enhancedGlobalExceptionHandler")
 public class GlobalExceptionHandler {
 

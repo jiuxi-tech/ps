@@ -18,9 +18,9 @@ import static org.locationtech.spatial4j.distance.DistanceUtils.KM_TO_DEG;
  *
  * @ClassName: Spatial4jDistancesUtils
  * @Description: Spatial4j 距离的封装 : API: https://locationtech.github.io/spatial4j/apidocs/
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/29 15:51
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class GeoUtils {
 
@@ -53,7 +53,7 @@ public class GeoUtils {
      * @param lat2 第二个点的纬度
      * @param lon2 第二个点的经度
      * @return double
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/29 16:53
      */
     public static double distance(double lat1, double lon1, double lat2, double lon2) {
@@ -68,7 +68,7 @@ public class GeoUtils {
      * @param point1 第一个点
      * @param point2 第二个点
      * @return double
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/29 17:45
      */
     public static double distance(Point point1, Point point2) {
@@ -85,7 +85,7 @@ public class GeoUtils {
      * @param lat 纬度
      * @param lon 经度
      * @return org.locationtech.spatial4j.shape.Point
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/29 16:47
      */
     public static Point pLL(double lat, double lon) {
@@ -102,7 +102,7 @@ public class GeoUtils {
      * @param lon2   第二个点的经度
      * @param radius 半径，单位：千米
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/29 17:51
      */
     public static boolean calcBoxContainsByDistFromPt(double lat1, double lon1, double lat2, double lon2, double radius) {
@@ -122,7 +122,7 @@ public class GeoUtils {
      * @param point2 第二个点
      * @param radius 半径，单位：千米
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/29 17:51
      */
     public static boolean calcBoxContainsByDistFromPt(Point point1, Point point2, double radius) {
@@ -149,7 +149,7 @@ public class GeoUtils {
      * <p>
      * r.getMinY() - r.getMinX(); 左下角
      * r.getMaxY(); - r.getMaxX(); 右上角
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/29 18:31
      */
     public static Rectangle calcBoxByDistFromPt(double lat, double lon, double radius) {
@@ -168,7 +168,7 @@ public class GeoUtils {
      * <p>
      * r.getMinY() - r.getMinX(); 左下角
      * r.getMaxY(); - r.getMaxX(); 右上角
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/29 18:31
      */
     public static Rectangle calcBoxByDistFromPt(Point pointCenter, double radius) {
@@ -184,7 +184,7 @@ public class GeoUtils {
      * @description: 距离计算器, 默认： Haversine公式
      * @param
      * @return org.locationtech.spatial4j.distance.DistanceCalculator
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/29 16:49
      */
     private static DistanceCalculator distanceCalculator() {
@@ -205,7 +205,7 @@ public class GeoUtils {
 
     /**
      * @description: geohash
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/6/1 11:12
      * @param lat
      * @param lon
@@ -219,7 +219,7 @@ public class GeoUtils {
 
     /**    
      * @description: geohash
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/6/1 11:17
      * @param lat
      * @param lon
@@ -247,7 +247,7 @@ public class GeoUtils {
 
     /**
      * @description: 根据geohash解析出对应的坐标
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/6/1 11:20
      * @param geohash
      * @return org.locationtech.spatial4j.shape.Point
@@ -259,7 +259,7 @@ public class GeoUtils {
 
     /**
      * 判断点是否在多边形内
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/6/29 11:11
      * @param point  测试点
      * @param polygon 多边形的点

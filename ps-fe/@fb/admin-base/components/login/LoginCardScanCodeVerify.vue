@@ -3,7 +3,7 @@
 	<transition name="slide-to-down">
 		<div class="login-dialog">
 			<!-- 扫码登录角标  -->
-			<!-- <div class="point-code" :class="[showScanCode ? 'pc' : '']" @click="changeCard"></div> -->
+			<div class="point-code" :class="[showScanCode ? 'pc' : '']" @click="changeCard"></div>
 			<div v-if="!showScanCode" class="login-form">
 				<div class="login-form__caption">
 					<fb-tabs v-model="currentTab">
@@ -66,7 +66,7 @@
 						<span>打开浙政钉扫描二维码登录</span>
 					</div> -->
 					<div class="links">
-						<span @click="toForget">忘记密码？</span>
+						<!-- <span @click="toForget">忘记密码？</span> -->
 						<!-- <em>|</em>
 						<span @click="toRegister">点击注册</span> -->
 					</div>
@@ -77,8 +77,8 @@
 			<template>
 				<div v-show="showCardBottom" class="login-card-bottom">
 					<div class="login-card-bottom-left">
-						<fb-icon name="telephone-fill" size="16"></fb-icon>
-						<span>TEL：</span>
+						<!-- <fb-icon name="telephone-fill" size="16"></fb-icon>
+						<span>TEL：</span> -->
 					</div>
 					<!-- <div class="login-card-bottom-right">
 						<slot>

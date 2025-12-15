@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @ClassName: AuthenticationServiceImpl
  * @Description: 认证默认实现
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/25 16:13
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AuthenticationServiceImpl implements AuthenticationService {
 

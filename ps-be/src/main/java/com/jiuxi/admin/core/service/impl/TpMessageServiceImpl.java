@@ -33,7 +33,7 @@ import java.util.Optional;
  * @Description:
  * @Author yangp
  * @Date 2021-03-24 16:04:29
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpMessageService")
 public class TpMessageServiceImpl implements TpMessageService {
@@ -76,7 +76,7 @@ public class TpMessageServiceImpl implements TpMessageService {
      *
      * @param tpMessage
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/3/25 20:44
      */
     @Override
@@ -118,7 +118,7 @@ public class TpMessageServiceImpl implements TpMessageService {
      *
      * @param jwtpid
      * @return java.util.List<com.jiuxi.admin.core.bean.vo.TpMessageVO>
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/3/26 10:47
      */
     @Override

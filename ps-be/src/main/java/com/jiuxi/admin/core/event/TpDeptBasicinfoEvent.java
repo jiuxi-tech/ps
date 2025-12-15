@@ -8,9 +8,9 @@ import org.springframework.context.ApplicationEvent;
 /**
  * @Description: 部门基本信息操作的监听事件, 废弃原因：add,update,delete方法中的if控制方法，不在框架中控制，需要业务上自己控制。
  * @ClassName: TpDeptBasicinfoEvent
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-08 17:14
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Deprecated
 public class TpDeptBasicinfoEvent extends ApplicationEvent {

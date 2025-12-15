@@ -10,9 +10,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 /**
  * @Description: 用户信息接口
  * @ClassName: PersonServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-02-03 21:35
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class PersonServiceImpl implements PersonService {
 

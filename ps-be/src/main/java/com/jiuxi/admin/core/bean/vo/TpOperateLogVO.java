@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * @ClassName: TpOperateLogVO
  * @Description: 操作日志表VO
- * @Author: System
+ * @Author: Qdd
  * @Date: 2024-01-17
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

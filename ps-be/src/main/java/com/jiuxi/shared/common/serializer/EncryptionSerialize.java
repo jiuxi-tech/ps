@@ -18,9 +18,9 @@ import java.util.Objects;
 /**
  * @Description: 加密注解实现
  * @ClassName: EncryptionSerialize
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-01 19:37
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class EncryptionSerialize extends JsonSerializer<String> implements ContextualSerializer {
 

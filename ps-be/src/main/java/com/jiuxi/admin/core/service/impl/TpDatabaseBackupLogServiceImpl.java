@@ -27,9 +27,9 @@ import java.util.Optional;
 /**
  * @ClassName: TpDatabaseBackupLogServiceImpl
  * @Description: 数据库备份记录Service实现类
- * @Author: system
+ * @Author: Qdd
  * @Date: 2025-09-24
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpDatabaseBackupLogService")
 public class TpDatabaseBackupLogServiceImpl implements TpDatabaseBackupLogService {

@@ -15,9 +15,9 @@ import java.util.Set;
 /**
  * @ClassName: DataPermissionsUtil
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2023/11/2 13:43
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Component
 public class CommonDataPermissionsUtil {
@@ -33,7 +33,7 @@ public class CommonDataPermissionsUtil {
      *
      * @param personId 人员id
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:53
      */
     public static Set<String> listDataPermPersonId(String personId) {
@@ -45,7 +45,7 @@ public class CommonDataPermissionsUtil {
      * 查询当前登陆人的所有数据权限部门id
      *
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:53
      */
     public static Set<String> listCurrentPersonDataPerm() {
@@ -65,7 +65,7 @@ public class CommonDataPermissionsUtil {
      *
      * @param deptIds 部门id
      * @return 全部有返回true，否则返回false
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:09
      */
     public static boolean isExistsDataPermissions(Set<String> deptIds) {
@@ -82,7 +82,7 @@ public class CommonDataPermissionsUtil {
      * @param personId 人员id
      * @param deptIds  部门id
      * @return 全部有返回true，否则返回false
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:09
      */
     public static boolean isExistsDataPermissions(String personId, Set<String> deptIds) {
@@ -109,7 +109,7 @@ public class CommonDataPermissionsUtil {
      * @param personId 人员id
      * @param deptId   部门id
      * @return 有权限返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:09
      */
     public static boolean isExistsDataPermissions(String personId, String deptId) {
@@ -126,7 +126,7 @@ public class CommonDataPermissionsUtil {
      *               为空则返回登录人的部门id
      *               不为空则判断是否具有当前部门权限，无权限则抛出异常，有权限则返回部门id
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 14:34
      */
     public static Set<String> listCurrentDeptDataPermissions(String deptId) {
@@ -144,7 +144,7 @@ public class CommonDataPermissionsUtil {
      *                为空则返回登录人的部门id
      *                不为空则判断是否具有当前部门权限，无权限则抛出异常，有权限则返回部门id
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 14:34
      */
     public static Set<String> listCurrentDeptDataPermissions(Set<String> deptIds) {
@@ -175,7 +175,7 @@ public class CommonDataPermissionsUtil {
      *               不为空则返回当前部门或下级部门数据权限（根据includeChildren确定）
      * @param includeChildren 是否包含下级
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 14:34
      */
     public static Set<String> listAllDeptDataPermissions(String deptId, boolean includeChildren) {
@@ -217,7 +217,7 @@ public class CommonDataPermissionsUtil {
      *               为空则返回当前登录人所有数据权限
      *               不为空则返回当前部门及下级部门数据权限
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 14:34
      */
     public static Set<String> listAllDeptDataPermissions(String deptId) {
@@ -230,7 +230,7 @@ public class CommonDataPermissionsUtil {
      *
      * @param deptIds 部门id，如果为空则返回登录人的所有数据权限的部门id
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 14:34
      */
     public static Set<String> listAllDeptDataPermissions(Set<String> deptIds) {

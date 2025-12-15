@@ -13,7 +13,7 @@ import java.util.List;
  * @Description: 字典表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TpDictionaryService {
 
@@ -119,7 +119,7 @@ public interface TpDictionaryService {
      *
      * @param dicCode 字典编码
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/27 17:11
      */
     List<TreeNode> treeByDicCode(String dicCode, boolean returnTopNode);

@@ -549,6 +549,12 @@ export default {
 					}
 				}
 			})
+			.catch(error => {
+				// 登录请求失败时的处理
+				this.inLoginProcess = false
+				this.$store.commit('login/setDragImgStatus', 'fail')
+				console.error('登录失败:', error)
+			})
 		},
 		// 上传许可证
 		handleLicence() {
@@ -764,7 +770,7 @@ export default {
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: linear-gradient(180deg,#fde7d8,#d10000,#ffad99 35%,#fbe6d7 65%,#fdf4ed);
 	color: white;
 	
 	.fb-spin {
@@ -778,7 +784,7 @@ export default {
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: linear-gradient(180deg,#fde7d8,#d10000,#ffad99 35%,#fbe6d7 65%,#fdf4ed);
 	padding: 20px;
 	
 	.fb-result {

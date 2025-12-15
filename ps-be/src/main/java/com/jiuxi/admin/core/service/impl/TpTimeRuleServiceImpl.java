@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * @ClassName: TpTimeRuleServiceImpl
  * @Description: 登录时间段控制规则表 - Service实现类
- * @Author: System
+ * @Author: Qdd
  * @Date: 2025-01-20
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

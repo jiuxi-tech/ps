@@ -189,7 +189,7 @@
 			// 批量注销会话
 			handleBatchLogout() {
 				if (this.selectedRows.length === 0) {
-					this.$message.warning('请选择要注销的会话');
+					this.$message.warn('请选择要注销的会话');
 					return;
 				}
 

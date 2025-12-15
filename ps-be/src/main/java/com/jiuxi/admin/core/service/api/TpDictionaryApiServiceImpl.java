@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 /**
  * @ClassName: TpDictionaryApiServiceImpl
  * @Description: 字典 api
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/15 15:03
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpDictionaryApiService")
 public class TpDictionaryApiServiceImpl /* implements TpDictionaryApiService */ {
@@ -32,7 +32,7 @@ public class TpDictionaryApiServiceImpl /* implements TpDictionaryApiService */ 
      *
      * @param dicCode
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 10:13
      */
     public String getDicNameByCode(String dicCode) {
@@ -44,7 +44,7 @@ public class TpDictionaryApiServiceImpl /* implements TpDictionaryApiService */ 
      *
      * @param dicCodes 字典编码,逗号隔开，如：HZD12,HZD13...
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 10:24
      */
     public String getDicNameByCodes(String dicCodes) {
@@ -85,7 +85,7 @@ public class TpDictionaryApiServiceImpl /* implements TpDictionaryApiService */ 
      *
      * @param dicCode
      * @return com.jiuxi.plugin.api.bean.dto.TpDictionaryDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/26 10:51
      */
     public Object getDicByCode(String dicCode) {
@@ -102,7 +102,7 @@ public class TpDictionaryApiServiceImpl /* implements TpDictionaryApiService */ 
      *
      * @param dicId
      * @return com.jiuxi.plugin.api.bean.dto.TpDictionaryDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/26 10:51
      */
     public Object getDicById(String dicId) {
@@ -119,7 +119,7 @@ public class TpDictionaryApiServiceImpl /* implements TpDictionaryApiService */ 
      *
      * @param dicCode 字典编码
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/27 17:11
      */
     public List<TreeNode> listChildrenByDicCode(String dicCode) {
@@ -131,7 +131,7 @@ public class TpDictionaryApiServiceImpl /* implements TpDictionaryApiService */ 
      *
      * @param dicCode 字典编码
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/27 17:11
      */
     /*

@@ -23,7 +23,7 @@ import java.util.List;
  * @Description: 消息管理
  * @Author yangp
  * @Date 2021-03-24 16:04:29
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/message")
@@ -48,7 +48,7 @@ public class TpMessageController {
      * @param tpMessage
      * @param jwtpid    当前登录人id
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/3/25 20:32
      */
     @RequestMapping("/send")

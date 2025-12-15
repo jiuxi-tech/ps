@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @ClassName: TpIpAccessLogQuery
  * @Description: IP访问控制日志表查询对象
- * @Author: System
+ * @Author: Qdd
  * @Date: 2024-01-27
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

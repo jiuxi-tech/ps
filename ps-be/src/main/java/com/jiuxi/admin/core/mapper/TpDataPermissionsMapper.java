@@ -13,9 +13,9 @@ import java.util.Set;
 /**
  * @ClassName: TpDataPermissionsMapper
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2023/11/1 15:50
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpDataPermissionsMapper {
@@ -25,7 +25,7 @@ public interface TpDataPermissionsMapper {
      *
      * @param personId 人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 15:53
      */
     void deleteByPersonId(@Param("personId") String personId);
@@ -33,7 +33,7 @@ public interface TpDataPermissionsMapper {
     /**
      * 批量保存数据权限
      *
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 15:59
      */
     void batchAdd(@Param("list") List<TpDataPermissions> list);
@@ -43,7 +43,7 @@ public interface TpDataPermissionsMapper {
      *
      * @param personId 人员id
      * @return java.util.List<com.jiuxi.admin.core.bean.vo.TpDataPermissionsVO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:59
      */
     List<TpDataPermissionsVO> listPerm(@Param("personId") String personId);
@@ -53,7 +53,7 @@ public interface TpDataPermissionsMapper {
      *
      * @param personId 人员id
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:53
      */
     Set<String> listPermIds(@Param("personId") String personId);
@@ -63,7 +63,7 @@ public interface TpDataPermissionsMapper {
      *
      * @param permQuery 人员id、部门类型
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 20:46
      */
     List<TreeNode> treeSimplePerm(@Param("query") TpTreePermQuery permQuery);
@@ -75,7 +75,7 @@ public interface TpDataPermissionsMapper {
      * @param ascnIds        单位id
      * @param permIds        具有数据权限的部门id
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 20:45
      */
     List<TreeNode> listByDeptLevelCodes(@Param("list") Set<String> deptLevelCodes, @Param("ascnIds") Set<String> ascnIds, @Param("permIds") Set<String> permIds);
@@ -86,7 +86,7 @@ public interface TpDataPermissionsMapper {
      * @param personId 人员id
      * @param deptId   部门id
      * @return 人员id
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:12
      */
     String isExistsDataPermissions(@Param("personId") String personId, @Param("deptId") String deptId);
@@ -97,7 +97,7 @@ public interface TpDataPermissionsMapper {
      * @param personId       人员id
      * @param deptLevelcode  部门层级编码
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/7 20:20
      */
     Set<String> listAllDeptDataPermissions(@Param("personId") String personId, @Param("deptLevelcode") String deptLevelcode);

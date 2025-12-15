@@ -19,7 +19,7 @@ import com.jiuxi.monitor.server.core.service.TpSendMailRecordService;
  * @Description: 邮件发送记录表
  * @Author yangzr
  * @Date 2024-11-20 10:36:59
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/mail-record")

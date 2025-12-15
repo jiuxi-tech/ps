@@ -21,9 +21,9 @@ import java.util.Map;
 /**
  * @ClassName: TpDatabaseBackupController
  * @Description: 数据库备份管理控制器
- * @Author: system
+ * @Author: Qdd
  * @Date: 2025-09-24
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/database-backup")

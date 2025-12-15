@@ -9,15 +9,15 @@ import java.util.Map;
 /**
  * @ClassName: TokenUtil
  * @Description: token 工具， 屏蔽 token 的版本差异
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/16 13:58
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TokenUtil {
 
     /**
      * 解析 token
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/16 13:59
      * @param token
      * @return boolean
@@ -29,7 +29,7 @@ public class TokenUtil {
 
     /**
      * 判断 token 是否是 v3 版本的
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/16 14:37
      * @param token
      * @return boolean
@@ -50,7 +50,7 @@ public class TokenUtil {
 
     /**
      *  获得token中的Exinfo
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/16 14:04
      * @param token
      * @return java.lang.String
@@ -70,7 +70,7 @@ public class TokenUtil {
 
     /**
      *  获得token中的TenantId
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/16 14:04
      * @param token
      * @return java.lang.String
@@ -91,7 +91,7 @@ public class TokenUtil {
 
     /**
      *  获得token中的getAscnId
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/16 14:04
      * @param token
      * @return java.lang.String
@@ -111,7 +111,7 @@ public class TokenUtil {
 
     /**
      *  获得token中的getPersonId
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/16 14:04
      * @param token
      * @return java.lang.String
@@ -132,7 +132,7 @@ public class TokenUtil {
 
     /**
      *  获得token中的getRoles
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/16 14:04
      * @param token
      * @return java.lang.String
@@ -152,7 +152,7 @@ public class TokenUtil {
 
     /**
      *  获得token中的getRoles
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/16 14:04
      * @param token
      * @return java.lang.String
@@ -172,7 +172,7 @@ public class TokenUtil {
 
     /**
      *  获得token中的getCityCode
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/16 14:04
      * @param token
      * @return java.lang.String
@@ -192,7 +192,7 @@ public class TokenUtil {
 
     /**
      * 获取 SessionVO
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/16 14:21
      * @param
      * @return SessionVO

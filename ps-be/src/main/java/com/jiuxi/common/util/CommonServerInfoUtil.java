@@ -36,9 +36,9 @@ import java.util.Properties;
  *         <version>5.14.0</version>
  *     </dependency>
  * </pre>
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/3/12 9:10
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CommonServerInfoUtil {
 
@@ -49,7 +49,7 @@ public class CommonServerInfoUtil {
      *
      * @param serverInfo ServerInfo本身 或 继承自ServerInfo
      * @return com.jiuxi.common.bean.ServerInfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/3/12 9:15
      */
     public static <T extends ServerInfo> void buildServerInfo(T serverInfo) {
@@ -66,7 +66,7 @@ public class CommonServerInfoUtil {
      * 获取服务器信息
      *
      * @return com.jiuxi.common.bean.ServerInfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/3/12 13:53
      */
     private static <T extends ServerInfo> void setServerInfo(T serverInfo) {

@@ -23,9 +23,9 @@ import java.util.List;
 /**
  * @Description: 附件方法
  * @ClassName: TpAttachinfoServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-01-19 14:55
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpAttachinfoService")
 public class TpAttachinfoServiceImpl implements TpAttachinfoService {
@@ -240,7 +240,7 @@ public class TpAttachinfoServiceImpl implements TpAttachinfoService {
      * @param referId   业务id
      * @param pid       操作人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 15:29
      */
     @Override
@@ -262,7 +262,7 @@ public class TpAttachinfoServiceImpl implements TpAttachinfoService {
      * @param attachId 附件id
      * @param pid      操作人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 15:34
      */
     @Override
@@ -275,7 +275,7 @@ public class TpAttachinfoServiceImpl implements TpAttachinfoService {
      *
      * @param attachId
      * @return boolean
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/22 14:51
      */
     @Override

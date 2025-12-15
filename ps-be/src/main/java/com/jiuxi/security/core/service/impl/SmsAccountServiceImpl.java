@@ -14,9 +14,9 @@ import java.util.List;
 /**
  * @Description: 手机号/验证码登陆实现类
  * @ClassName: PersonServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-08-28 13:46
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class SmsAccountServiceImpl implements SmsAccountService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SmsAccountServiceImpl.class);

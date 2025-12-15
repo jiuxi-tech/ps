@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @Description: 人员基本信息扩展表
  * @Author pand
  * @Date 2020-11-18 11:05:17
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpPersonExinfoMapper {

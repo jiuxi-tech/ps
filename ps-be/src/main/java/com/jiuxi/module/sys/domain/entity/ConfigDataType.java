@@ -3,7 +3,7 @@ package com.jiuxi.module.sys.domain.entity;
 /**
  * @ClassName: ConfigDataType
  * @Description: 配置数据类型枚举
- * @Author: System
+ * @Author: Qdd
  * @Date: 2025/01/07
  * @Copyright: 2025 www.jiuxi.com Inc. All rights reserved.
  */

@@ -8,9 +8,9 @@ import java.util.Map;
 /**
  * @ClassName: AlarmSource
  * @Description: 报警资源
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/28 14:43
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AlarmSource {
 

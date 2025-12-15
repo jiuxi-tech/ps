@@ -5,9 +5,9 @@ import com.jiuxi.security.core.entity.vo.PersonVO;
 /**
  * @Description: TODO
  * @ClassName: PersonService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-02-03 21:34
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 
 public interface PersonService {

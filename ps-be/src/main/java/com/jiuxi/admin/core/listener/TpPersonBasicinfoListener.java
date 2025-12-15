@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 /**
  * @Description: 人员信息同步监听事件
  * @ClassName: TpPersonBasicinfoListener
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-08 11:17
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpPersonBasicinfoListener implements ApplicationListener<TpPersonBasicinfoEvent> {
 

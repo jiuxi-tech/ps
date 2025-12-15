@@ -8,9 +8,9 @@ import java.util.*;
 /**
  * @ClassName: TreeUtil
  * @Description:
- * @author: 杨占锐
+ * @author: jiuxx
  * @Date: 2020/11/19  8:54
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CommonTreeUtil {
 
@@ -22,7 +22,7 @@ public class CommonTreeUtil {
      *
      * @param list
      * @return java.util.List<T>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/27 17:34
      */
     public static <T extends Tree> List<T> buildTree(List<T> list) {
@@ -35,7 +35,7 @@ public class CommonTreeUtil {
      * @param list         将扁平数据
      * @param setTreeLeaf  是否设置leaf
      * @return java.util.List<T>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/4 19:55
      */
     public static <T extends Tree> List<T> buildTree(List<T> list, boolean setTreeLeaf) {
@@ -77,7 +77,7 @@ public class CommonTreeUtil {
      *
      * @param list
      * @return java.util.List<T>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/27 17:34
      */
     @Deprecated
@@ -91,7 +91,7 @@ public class CommonTreeUtil {
      *     1. getOrderNo 不为空，则根据getOrderNo的返回值进行排序
      *     2. getOrderNo 为空，则根据getTreeId的返回值进行排序
      * </pre>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 16:41
      */
     private static Comparator<Tree> comparator() {
@@ -108,7 +108,7 @@ public class CommonTreeUtil {
 
     /**
      * 树 接口，实现此接口的数据都可以组装为树结构
-     * @author 杨占锐
+     * @author jiuxx
      */
     public interface Tree<T>{
         @JsonIgnore

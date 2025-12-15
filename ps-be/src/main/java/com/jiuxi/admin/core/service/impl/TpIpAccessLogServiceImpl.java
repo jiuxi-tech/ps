@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * @ClassName: TpIpAccessLogServiceImpl
  * @Description: IP访问控制日志表服务实现类
- * @Author: System
+ * @Author: Qdd
  * @Date: 2024-01-27
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

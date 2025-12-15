@@ -9,9 +9,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * @Description: 线程池任务队列拒绝策略
  * @ClassName: TaskRejectedExecutionHandler
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-09 10:20
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TaskRejectedExecutionHandler implements RejectedExecutionHandler {
 

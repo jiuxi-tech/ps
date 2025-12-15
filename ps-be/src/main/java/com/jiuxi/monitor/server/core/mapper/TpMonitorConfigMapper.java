@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @Description: 监控配置
  * @Author yangzr
  * @Date 2024-11-18 16:30:42
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpMonitorConfigMapper {
@@ -23,7 +23,7 @@ public interface TpMonitorConfigMapper {
      *
      * @param bean
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/27 17:53
      */
     int add(TpMonitorConfig bean);
@@ -33,7 +33,7 @@ public interface TpMonitorConfigMapper {
      *
      * @param bean
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/27 17:53
      */
     int update(TpMonitorConfig bean);
@@ -42,7 +42,7 @@ public interface TpMonitorConfigMapper {
      * 查询唯一一条的配置信息
      *
      * @return com.jiuxi.monitor.server.core.bean.vo.TpMonitorConfigVO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 10:29
      */
     TpMonitorConfigVO getOne();

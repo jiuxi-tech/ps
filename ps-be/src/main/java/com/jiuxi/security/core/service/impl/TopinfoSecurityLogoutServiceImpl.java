@@ -22,9 +22,9 @@ import javax.annotation.PostConstruct;
 /**
  * @ClassName: TopinfoSecurityLogoutServiceImpl
  * @Description: 退出登录接口
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/10/8 13:45
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TopinfoSecurityLogoutServiceImpl implements TopinfoSecurityLogoutService {
 
@@ -60,7 +60,7 @@ public class TopinfoSecurityLogoutServiceImpl implements TopinfoSecurityLogoutSe
      *
      * @param token
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/10/8 13:26
      */
     @Override
@@ -101,7 +101,7 @@ public class TopinfoSecurityLogoutServiceImpl implements TopinfoSecurityLogoutSe
      *
      * @param token
      * @return boolean 无效返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/10/8 15:13
      */
     @Override
@@ -121,7 +121,7 @@ public class TopinfoSecurityLogoutServiceImpl implements TopinfoSecurityLogoutSe
      *
      * @param jti
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2025/2/7 17:49
      */
     @Override

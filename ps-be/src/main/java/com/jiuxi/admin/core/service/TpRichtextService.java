@@ -7,7 +7,7 @@ import com.jiuxi.admin.core.bean.vo.TpRichtextVO;
  * @Description:
  * @Author pand
  * @Date 2021-04-27 14:29:12
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TpRichtextService {
 
@@ -17,7 +17,7 @@ public interface TpRichtextService {
      * @param referId 业务id
      * @param content 内容
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     String add(String referId, String content);
@@ -29,7 +29,7 @@ public interface TpRichtextService {
      * @param txtType 业务分类
      * @param content 内容
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     String add(String referId, String txtType, String content);
@@ -40,7 +40,7 @@ public interface TpRichtextService {
      * @param referId 业务id
      * @param content 内容
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     int update(String referId, String content);
@@ -52,7 +52,7 @@ public interface TpRichtextService {
      * @param txtType 业务分类
      * @param content 内容
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     int update(String referId, String txtType, String content);
@@ -62,7 +62,7 @@ public interface TpRichtextService {
      *
      * @param id
      * @return com.jiuxi.plugin.api.bean.dto.TpRichtextDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     TpRichtextVO view(String id);
@@ -72,7 +72,7 @@ public interface TpRichtextService {
      *
      * @param referId
      * @return com.jiuxi.plugin.api.bean.dto.TpRichtextDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:25
      */
     TpRichtextVO selectByReferId(String referId);
@@ -82,7 +82,7 @@ public interface TpRichtextService {
      *
      * @param referId
      * @return com.jiuxi.plugin.api.bean.dto.TpRichtextDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:25
      */
     TpRichtextVO selectByReferId(String referId, String txtType);
@@ -92,7 +92,7 @@ public interface TpRichtextService {
      *
      * @param referId
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:27
      */
     void deleteByReferId(String referId);
@@ -102,7 +102,7 @@ public interface TpRichtextService {
      *
      * @param referId
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:27
      */
     void deleteByReferId(String referId, String txtType);

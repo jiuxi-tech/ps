@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @ClassName: TenantInterceptor
  * @Description: 租户拦截器
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/6/12 9:38
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TenantInterceptor implements HandlerInterceptor {
 
@@ -29,7 +29,7 @@ public class TenantInterceptor implements HandlerInterceptor {
 
     /**
      * @description: 执行时机：在执行controller之前来执行
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/6/12 15:55
      * @param request
      * @param response
@@ -65,7 +65,7 @@ public class TenantInterceptor implements HandlerInterceptor {
 
     /**
      * 在DispatcherServlet完全处理完请求后被调用，可用于清理资源等。返回处理（已经渲染了页面），
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/6/18 15:52
      * @param request
      * @param response

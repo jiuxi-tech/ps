@@ -11,7 +11,7 @@ import java.util.List;
  * @Description: 应用API权限关联表
  * @Author system
  * @Date 2024-01-18 11:05:17
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpAppApiPermissionMapper {

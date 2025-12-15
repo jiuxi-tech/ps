@@ -9,9 +9,9 @@ import java.util.concurrent.*;
 /**
  * @ClassName: MonitorClientThreadPool
  * @Description: 监控客户端线程池
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/14 17:47
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class MonitorClientThreadPool {
 
@@ -52,7 +52,7 @@ public class MonitorClientThreadPool {
      * 获取线程池实例
      *
      * @return java.util.concurrent.ThreadPoolExecutor
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/21 9:38
      */
     public static ThreadPoolExecutor getPoolExecutor() {
@@ -62,7 +62,7 @@ public class MonitorClientThreadPool {
 
     /**
      * 新建一个线程池，默认拒绝策略为： CallerRunsPolicy，即要求所有的任务都必须被线程池执行,不会抛出异常，而是将任务退回给调用线程，让它自己执行任务。
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/1/8 17:45
      * @param corePoolSize 核心线程数
      * @param maximumPoolSize 最大线程池
@@ -89,7 +89,7 @@ public class MonitorClientThreadPool {
 
     /**
      * 新建一个线程池
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/3/29 15:20
      * @param corePoolSize 核心线程数
      * @param maximumPoolSize 最大线程池

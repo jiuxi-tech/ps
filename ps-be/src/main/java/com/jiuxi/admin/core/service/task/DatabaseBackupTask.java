@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 /**
  * @ClassName: DatabaseBackupTask
  * @Description: 数据库备份定时任务
- * @Author: system
+ * @Author: Qdd
  * @Date: 2025-09-24
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Component
 @ConditionalOnProperty(name = "app.database.backup.enabled", havingValue = "true", matchIfMissing = true)

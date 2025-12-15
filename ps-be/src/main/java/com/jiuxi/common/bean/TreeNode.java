@@ -12,9 +12,9 @@ import java.util.Objects;
 /**
  * @ClassName: ResponseCode
  * @Description: 树形控件节点格式
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/1/10 11:31
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TreeNode implements Serializable, CommonTreeUtil.Tree<TreeNode> {
 

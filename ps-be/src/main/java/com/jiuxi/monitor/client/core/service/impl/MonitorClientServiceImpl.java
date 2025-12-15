@@ -25,9 +25,9 @@ import java.util.List;
 /**
  * @ClassName: MonitorClientServiceImpl
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/14 17:44
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 @ConditionalOnProperty(prefix = "jiuxi.platform.plugin.monitor", name = "server-url")
@@ -50,7 +50,7 @@ public class MonitorClientServiceImpl implements MonitorClientService {
      *
      * @param
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/14 18:24
      */
     @Override
@@ -83,7 +83,7 @@ public class MonitorClientServiceImpl implements MonitorClientService {
      *
      * @param serverInfo
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/14 18:24
      */
     private void sendHeartbeat(ClientHeartbeatInfo serverInfo) {
@@ -119,7 +119,7 @@ public class MonitorClientServiceImpl implements MonitorClientService {
      * 构建心跳信息
      *
      * @return com.jiuxi.monitor.client.core.bean.ClientServerInfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/14 18:24
      */
     public ClientHeartbeatInfo buildServerInfo() {
@@ -181,7 +181,7 @@ public class MonitorClientServiceImpl implements MonitorClientService {
      * 获取项目路径
      *
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/12/18 14:37
      */
     private String getAbsolutePath() {

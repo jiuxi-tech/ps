@@ -17,9 +17,9 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * @ClassName: TopinfoGlobalThreadPool
  * @Description: 全局的线程池, 异步方法在这个线程池中执行。
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/3/19 14:02
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TopinfoGlobalThreadPool {
 
@@ -72,7 +72,7 @@ public class TopinfoGlobalThreadPool {
      * @param
      * @return
      * @description: 私有化
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/6/2 10:13
      */
     private TopinfoGlobalThreadPool() {
@@ -84,7 +84,7 @@ public class TopinfoGlobalThreadPool {
      * @param
      * @return com.jiuxi.core.pool.TopinfoGlobalThreadPool
      * @description: 单例
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/6/2 15:57
      */
     public static TopinfoGlobalThreadPool getInstance() {
@@ -103,7 +103,7 @@ public class TopinfoGlobalThreadPool {
      * @param
      * @return void
      * @description: 线程安全的初始化
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/3/19 14:19
      */
     private void init() {
@@ -116,7 +116,7 @@ public class TopinfoGlobalThreadPool {
      * @param
      * @return void
      * @description: 初始化线程池
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/3/19 14:20
      */
     private void initPool() {
@@ -150,7 +150,7 @@ public class TopinfoGlobalThreadPool {
      * @param runnable
      * @return void
      * @description: 异步执行
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/3/19 14:22
      */
     public void excAsync(Runnable runnable) {
@@ -162,7 +162,7 @@ public class TopinfoGlobalThreadPool {
      * @param task
      * @return Future
      * @description: 同步执行
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/3/19 14:22
      */
     public <T> Future<T> excSync(Callable<T> task) {

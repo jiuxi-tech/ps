@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description: 监控配置, 只会存在一条数据
  * @Author yangzr
  * @Date 2024-11-18 16:30:42
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/monitor-config")

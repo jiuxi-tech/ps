@@ -3,9 +3,9 @@ package com.jiuxi.shared.config.database;
 /**
  * @ClassName: DataSourceConfiguration
  * @Description: 数据源配置实体
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/3/17 17:32
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class DataSourceConfiguration {
 

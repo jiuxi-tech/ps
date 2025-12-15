@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  * @Description: 菜单表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpMenuService")
 public class TpMenuServiceImpl implements TpMenuService {
@@ -277,7 +277,7 @@ public class TpMenuServiceImpl implements TpMenuService {
      * </pre>
      * @param bean
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 8:55
      */
     private void validate(TpMenuVO bean) {
@@ -309,7 +309,7 @@ public class TpMenuServiceImpl implements TpMenuService {
      *
      * @param menuTreePid
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/16 13:59
      */
     private String recursionGetMenuPid(String menuTreePid) {
@@ -376,7 +376,7 @@ public class TpMenuServiceImpl implements TpMenuService {
      *
      * @param vo
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 9:20
      */
     private void validateUpdate(TpMenuVO vo) {

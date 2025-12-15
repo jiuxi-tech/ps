@@ -3,9 +3,9 @@ package com.jiuxi.admin.constant.enums;
 /**
  * @Description: 操作系统类型
  * @ClassName: OSEnum
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-10-14 14:53
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public enum OSEnum {
 

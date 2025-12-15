@@ -29,9 +29,9 @@ import java.util.List;
 /**
  * @Description: oss附件接口
  * @ClassName: FileController
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-10-13 17:34
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/app/sys/file")
@@ -57,7 +57,7 @@ public class FileControllerApp {
      * @param referType 业务类型
      * @param request
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/26 13:39
      */
     @PostMapping(value = "/upload")
@@ -109,7 +109,7 @@ public class FileControllerApp {
      * @param request
      * @param response
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/27 15:14
      */
     private void downloadFile(HttpServletRequest request, HttpServletResponse response) {
@@ -139,7 +139,7 @@ public class FileControllerApp {
      * @param request
      * @param response
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/27 15:14
      */
     @RequestMapping(value = "/download-by-path")
@@ -296,7 +296,7 @@ public class FileControllerApp {
      *
      * @param request
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2025/3/26 16:43
      */
     private void checkToken(HttpServletRequest request) {

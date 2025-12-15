@@ -17,9 +17,9 @@ import java.util.Set;
 /**
  * @Description: excel导出实现
  * @ClassName: DownDataService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-03-26 10:09
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class DownloadDataServiceImpl /* implements DownloadDataService */ {
 

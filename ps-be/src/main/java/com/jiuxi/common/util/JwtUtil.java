@@ -21,9 +21,9 @@ import java.util.Map;
 /**
  * @ClassName: JwtUtil 工具类
  * @Description: 密码强度 工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/12 13:34
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class JwtUtil {
 
@@ -41,7 +41,7 @@ public class JwtUtil {
 
     /**
      * 版本
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 17:26
      * @param null
      * @return
@@ -52,7 +52,7 @@ public class JwtUtil {
     /**
      * jwt的唯一身份标识
      *
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2025/2/7 17:33
      */
     public static final String JTI = "jti";
@@ -60,7 +60,7 @@ public class JwtUtil {
 
     /**
      * jwt签发者
-     * @author 杨攀
+     * @author Ypp
      */
     public static final String JWT_ISS = "com.jiuxi";
 
@@ -88,7 +88,7 @@ public class JwtUtil {
      * @return
      * @throws Exception
      * @Description: JWT生成Token
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年8月21日上午10:48:26
      */
     public static String createToken(String json, int timeout) {
@@ -135,7 +135,7 @@ public class JwtUtil {
 
     /**
      * 解密 Token
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 15:23
      * @param token
      * @return java.util.Map<java.lang.String,com.auth0.jwt.interfaces.Claim>
@@ -156,7 +156,7 @@ public class JwtUtil {
 
     /**
      * 解密 Token
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 15:22
      * @param token
      * @return java.lang.Boolean
@@ -183,7 +183,7 @@ public class JwtUtil {
 
     /**
      * 获取 token 明文 json
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 17:34
      * @param token
      * @return java.lang.String
@@ -205,7 +205,7 @@ public class JwtUtil {
 
     /**
      * 获取 载荷/Payload
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/12 17:34
      * @param token
      * @return java.lang.String
@@ -220,7 +220,7 @@ public class JwtUtil {
      *
      * @param token
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2025/2/7 17:36
      */
     public static String getJti(String token) {

@@ -106,26 +106,26 @@ topinfo:
 ############################################################
 keycloak:
   # Keycloak 服务器地址
-  server-url: http://localhost:18080
+  server-url: https://sso.shxdx.com
   # Realm 名称
   realm: ps-realm
   sso:
     # 启用 Keycloak SSO
     enabled: true
     # Keycloak 服务器地址
-    server-url: http://localhost:18080
+    server-url: https://sso.shxdx.com
     # Realm 名称
     realm: ps-realm
     # 客户端 ID
     client-id: ps-be
     # 客户端密钥（开发环境可以明文，生产环境使用环境变量）
-    client-secret: xMXvDGzby4Z48szob7i2fuZlZy5Wlqrh
+    client-secret: M4ptBhn40qsnE9njVVEt96d9aqI8Hwmb
     # 回调重定向配置
     redirect:
       # 登录成功后重定向地址
-      success-url: http://localhost:10801/#/sso/login
+      success-url: https://mid.shxdx.com/#/sso/login
       # 登录失败后重定向地址
-      error-url: http://localhost:10801/#/login 
+      error-url: https://mid.shxdx.com/#/login 
     # JWT 验证配置
     jwt:
       # 是否验证 Token 过期时间

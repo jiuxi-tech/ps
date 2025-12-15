@@ -12,9 +12,9 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
  *  如： <Connector port="8084" protocol="HTTP/1.1" relaxedPathChars="[]|" relaxedQueryChars="[]|{}^&#x5c;&#x60;&quot;&lt;&gt;" useBodyEncodingForURI="true" connectionTimeout="20000" redirectPort="8443" URIEncoding="UTF-8"/>
  * @ClassName: TopinfoTomcatConnectorCustomizer
  * @Description: TODO
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2021/11/4 11:31
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TopinfoTomcatConnectorCustomizer implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
 

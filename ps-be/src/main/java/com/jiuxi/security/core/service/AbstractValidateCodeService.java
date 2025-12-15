@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * @Description: 验证码的处理，包括生成，保存，发送，校验
  * @ClassName: AbstractValidateCode
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-08-27 13:45
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public abstract class AbstractValidateCodeService implements ValidateCodeService {
 

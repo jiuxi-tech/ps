@@ -15,7 +15,7 @@ import java.util.List;
  * @Description: 客户端基本信息
  * @Author yangzr
  * @Date 2024-11-18 16:30:42
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpMonitorClientMapper {
@@ -25,7 +25,7 @@ public interface TpMonitorClientMapper {
      *
      * @param bean
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:27
      */
     int add(TpMonitorClient bean);
@@ -35,7 +35,7 @@ public interface TpMonitorClientMapper {
      *
      * @param bean
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:27
      */
     int update(TpMonitorClient bean);
@@ -45,7 +45,7 @@ public interface TpMonitorClientMapper {
      *
      * @param clientId
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:27
      */
     TpMonitorClientVO view(String clientId);
@@ -55,7 +55,7 @@ public interface TpMonitorClientMapper {
      *
      * @param clientId
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:27
      */
     int delete(@Param("clientId") String clientId);
@@ -64,7 +64,7 @@ public interface TpMonitorClientMapper {
      * 查询所有客户端信息
      *
      * @return java.util.List<com.jiuxi.monitor.server.core.bean.vo.TpMonitorClientVO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 14:53
      */
     List<TpMonitorClientVO> listAll(TpMonitorClientQuery query);

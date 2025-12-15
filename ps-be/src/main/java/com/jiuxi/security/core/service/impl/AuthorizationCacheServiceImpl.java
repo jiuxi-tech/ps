@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * @ClassName: AuthorizationCacheServiceImpl
  * @Description: 鉴权的缓存操作
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/11/25 13:17
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AuthorizationCacheServiceImpl implements AuthorizationCacheService {
 
@@ -27,7 +27,7 @@ public class AuthorizationCacheServiceImpl implements AuthorizationCacheService 
 
     /**
      * 获取鉴权缓存信息
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/23 17:41
      * @param roles
      * @param path
@@ -46,7 +46,7 @@ public class AuthorizationCacheServiceImpl implements AuthorizationCacheService 
 
     /**
      * 保存鉴权缓存信息
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/23 17:42
      * @param roles
      * @param path
@@ -62,7 +62,7 @@ public class AuthorizationCacheServiceImpl implements AuthorizationCacheService 
 
     /**
      * 删除鉴权缓存信息
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/23 17:21
      * @param
      * @return void

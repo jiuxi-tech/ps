@@ -6,9 +6,9 @@ import com.jiuxi.common.bean.ErrorCode;
 /**
  * @ClassName: TbsException
  * @Description: 自定义错误
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/1/10 11:38
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TopinfoRuntimeException extends RuntimeException {
 
@@ -20,7 +20,7 @@ public class TopinfoRuntimeException extends RuntimeException {
 
     /**
      * 自定义异常
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/8/12 13:45
      * @param errorCode 错误枚举
      * @return
@@ -33,7 +33,7 @@ public class TopinfoRuntimeException extends RuntimeException {
 
     /**
      * 自定义异常
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/8/12 13:44
      * @param errCode 错误码
      * @param message 错误消息
@@ -47,7 +47,7 @@ public class TopinfoRuntimeException extends RuntimeException {
 
     /**
      * 自定义异常
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/8/12 13:44
      * @param errCode 错误码
      * @param message 错误消息

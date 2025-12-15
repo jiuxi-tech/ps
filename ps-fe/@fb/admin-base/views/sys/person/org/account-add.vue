@@ -322,7 +322,7 @@
 			// 同步到SSO
 			syncToSSO() {
 				if (!this.formData.accountId) {
-					this.$message.warning('请先保存账号信息');
+					this.$message.warn('请先保存账号信息');
 					return;
 				}
 

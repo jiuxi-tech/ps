@@ -32,7 +32,7 @@ import java.util.Optional;
  * @Description: 自定义模块信息表 存储模块的信息，按钮信息、路由信息
  * @Author pand
  * @Date 2021-05-11 11:22:40
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpCustomModuleService")
 public class TpCustomModuleServiceImpl implements TpCustomModuleService {

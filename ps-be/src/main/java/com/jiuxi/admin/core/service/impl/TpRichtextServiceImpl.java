@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
  * @Description:
  * @Author pand
  * @Date 2021-04-27 14:29:12
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpRichtextService")
 public class TpRichtextServiceImpl implements TpRichtextService {
@@ -35,7 +35,7 @@ public class TpRichtextServiceImpl implements TpRichtextService {
      * @param referId 业务id
      * @param content 内容
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     @Override
@@ -49,7 +49,7 @@ public class TpRichtextServiceImpl implements TpRichtextService {
      * @param referId 业务id
      * @param content 内容
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     @Override
@@ -78,7 +78,7 @@ public class TpRichtextServiceImpl implements TpRichtextService {
      * @param referId 业务id
      * @param content 内容
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     @Override
@@ -93,7 +93,7 @@ public class TpRichtextServiceImpl implements TpRichtextService {
      * @param txtType 业务分类
      * @param content 内容
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     @Override
@@ -116,7 +116,7 @@ public class TpRichtextServiceImpl implements TpRichtextService {
      *
      * @param referId
      * @return com.jiuxi.plugin.api.bean.dto.TpRichtextDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:25
      */
     @Override
@@ -136,7 +136,7 @@ public class TpRichtextServiceImpl implements TpRichtextService {
      *
      * @param referId
      * @return com.jiuxi.plugin.api.bean.dto.TpRichtextDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:25
      */
     @Override
@@ -155,7 +155,7 @@ public class TpRichtextServiceImpl implements TpRichtextService {
      *
      * @param id
      * @return com.jiuxi.plugin.api.bean.dto.TpRichtextDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     @Override
@@ -175,7 +175,7 @@ public class TpRichtextServiceImpl implements TpRichtextService {
      *
      * @param referId
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:27
      */
     @Override
@@ -199,7 +199,7 @@ public class TpRichtextServiceImpl implements TpRichtextService {
      *
      * @param referId
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:27
      */
     @Override

@@ -3,9 +3,9 @@ package com.jiuxi.monitor.common.constant;
 /**
  * @ClassName: MonitorCommonConstant
  * @Description: 监控公共常量
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/15 13:37
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class MonitorCommonConstant {
 

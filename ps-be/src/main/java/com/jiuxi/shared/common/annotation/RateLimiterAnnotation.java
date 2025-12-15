@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 /**
  * @Description: 接口限流注解
  * @ClassName: RateLimiter
- * @Author: pand
+ * @Author: pdd
  * @Date: 2022-12-13 16:03
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)

@@ -5,15 +5,15 @@ import java.util.concurrent.TimeUnit;
 /**
  * @ClassName: RedisCacheService
  * @Description: redis 缓存服务
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/11/25 17:40
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface RedisCacheService {
 
     /**
      * put Hash
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/25 17:45
      * @param key redis key
      * @param hashKey  map key
@@ -24,7 +24,7 @@ public interface RedisCacheService {
 
     /**
      * put Hash
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/25 17:45
      * @param key redis key
      * @param timeout  过期时间
@@ -35,7 +35,7 @@ public interface RedisCacheService {
 
     /**
      * get Hash
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/25 17:45
      * @param key redis key
      * @param hashKey  map key
@@ -45,7 +45,7 @@ public interface RedisCacheService {
 
     /**
      * 删除 Hash
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/25 17:45 
      * @param key redis key
      * @return void
@@ -55,7 +55,7 @@ public interface RedisCacheService {
 
     /**
      * 获取一个字符串类型的值
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/12/13 13:55
      * @param key
      * @return java.lang.String
@@ -67,7 +67,7 @@ public interface RedisCacheService {
 
     /**
      * 新增一个字符串类型的值
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/12/13 13:55
      * @param key
      * @param value
@@ -79,7 +79,7 @@ public interface RedisCacheService {
 
     /**
      * 新增一个字符串类型的值并设置过期时间
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/12/13 13:58
      * @param key
      * @param value
@@ -93,7 +93,7 @@ public interface RedisCacheService {
 
     /**
      * 删除
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/12/14 17:15
      * @param key
      * @return void
@@ -104,7 +104,7 @@ public interface RedisCacheService {
 
     /**
      * 以增量的方式将 value 存储在变量中。
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/12/13 14:04
      * @param key
      * @param value
@@ -116,7 +116,7 @@ public interface RedisCacheService {
 
     /**
      * 以增量的方式将 value 存储在变量中。
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/12/13 14:04
      * @param key
      * @param value

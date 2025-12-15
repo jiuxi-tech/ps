@@ -3,9 +3,9 @@ package com.jiuxi.security.core.listener;
 /**
  * @Description: 登陆监听器服务接口
  * @ClassName: LoginApplicationService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-10-20 15:51
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 
 public interface LoginApplicationService {

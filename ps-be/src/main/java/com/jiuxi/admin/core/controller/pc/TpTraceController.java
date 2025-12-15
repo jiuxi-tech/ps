@@ -18,7 +18,7 @@ import com.jiuxi.admin.core.service.TpTraceService;
  * @Description: 修改痕迹表
  * @Author yangp
  * @Date 2021-02-26 15:48:55
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/core/tptrace")

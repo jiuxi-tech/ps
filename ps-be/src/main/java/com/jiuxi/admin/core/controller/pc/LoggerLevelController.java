@@ -16,9 +16,9 @@ import java.util.Locale;
 /**
  * @ClassName: LoggerLevelController
  * @Description: 动态修改日志级别
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/4/25 16:41
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/platform/loggerLevel")
@@ -32,7 +32,7 @@ public class LoggerLevelController {
 
     /**
      * 调整日志接口
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/4/25 16:25
      * @param ticket 票据
      * @param className 全类名，如：com.jiuxi.admin.core.controller.pc.LoadRunnerController

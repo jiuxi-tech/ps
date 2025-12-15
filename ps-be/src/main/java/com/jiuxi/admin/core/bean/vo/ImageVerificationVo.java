@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * 封装图片验证码
- * @author 杨攀
+ * @author Ypp
  * @date 2021/3/8 10:19
  */
 public class ImageVerificationVo implements Serializable {

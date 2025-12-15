@@ -7,9 +7,9 @@ import java.io.Serializable;
 /**
  * @ClassName: TpDatabaseBackupLogQuery
  * @Description: 数据库备份记录查询条件类
- * @Author: system
+ * @Author: Qdd
  * @Date: 2025-09-24
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpDatabaseBackupLogQuery implements Serializable {
 

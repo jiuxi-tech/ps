@@ -27,7 +27,7 @@ import java.util.Optional;
  * @Description: 邮件发送记录表
  * @Author yangzr
  * @Date 2024-11-20 10:36:59
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class TpSendMailRecordServiceImpl implements TpSendMailRecordService {
@@ -112,7 +112,7 @@ public class TpSendMailRecordServiceImpl implements TpSendMailRecordService {
      * @param bool    是否发送成功
      * @param content 发送内容
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/20 16:45
      */
     @Override

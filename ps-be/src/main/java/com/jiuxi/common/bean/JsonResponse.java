@@ -9,9 +9,9 @@ import java.io.Serializable;
 /**
  * @ClassName: JsonResponse
  * @Description: 普通结果返回
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/1/10 11:28
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class JsonResponse<T> implements Serializable {
@@ -63,7 +63,7 @@ public class JsonResponse<T> implements Serializable {
      * @param string 
      * @return
      * @Description: 构建一个成功的JsonResponse对象
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年3月10日上午10:41:30
      */
     public static <T> JsonResponse<T> buildSuccess(String string, String logId) {
@@ -75,7 +75,7 @@ public class JsonResponse<T> implements Serializable {
     /**
      * @return
      * @Description: 构建一个成功的JsonResponse对象
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年3月10日上午10:41:30
      */
     public static <T> JsonResponse<T> buildSuccess(T data) {
@@ -89,7 +89,7 @@ public class JsonResponse<T> implements Serializable {
     /**
      * @return
      * @Description: 构建一个成功的JsonResponse对象
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年3月10日上午10:41:30
      */
     public static <T> JsonResponse<T> buildSuccess() {
@@ -102,7 +102,7 @@ public class JsonResponse<T> implements Serializable {
     /**
      * @return
      * @Description: 构建一个失败的JsonResponse对象
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年3月10日上午10:41:50
      */
     public static JsonResponse buildFailure() {
@@ -115,7 +115,7 @@ public class JsonResponse<T> implements Serializable {
      * @param message
      * @return
      * @Description: 构建一个失败的JsonResponse对象
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年3月10日上午10:41:50
      */
     public static JsonResponse buildFailure(String message) {
@@ -129,7 +129,7 @@ public class JsonResponse<T> implements Serializable {
      * @param message
      * @return
      * @Description: 构建一个失败的JsonResponse对象（别名方法）
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年3月10日上午10:41:50
      */
     public static JsonResponse failByMsg(String message) {
@@ -141,7 +141,7 @@ public class JsonResponse<T> implements Serializable {
      * @param message
      * @return
      * @Description: 构建一个JsonResponse对象
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年3月10日上午10:42:00
      */
     public static JsonResponse build(int code, String message) {
@@ -159,7 +159,7 @@ public class JsonResponse<T> implements Serializable {
      * @param data
      * @return
      * @Description: 构建一个JsonResponse对象
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年3月10日上午10:42:11
      */
     public static <T> JsonResponse<T> build(int code, String message, T data) {
@@ -177,7 +177,7 @@ public class JsonResponse<T> implements Serializable {
      * @param expandl
      * @return
      * @Description: 构建一个JsonResponse对象
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年3月10日上午10:42:11
      */
     public static <T> JsonResponse<T> build(int code, String message, T data, Object expandl) {
@@ -196,7 +196,7 @@ public class JsonResponse<T> implements Serializable {
      * @param jwtpid      当前登录人ID
      * @param businessKey 业务主键名称
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/23 17:51
      */
     public JsonResponse buildPassKey(String jwtpid, String businessKey) {

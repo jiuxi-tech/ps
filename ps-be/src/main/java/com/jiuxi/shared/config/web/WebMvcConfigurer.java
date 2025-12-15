@@ -13,9 +13,9 @@ import org.springframework.web.servlet.config.annotation.*;
 /**
  * @ClassName: WebMvcConfigurer
  * @Description: Web MVC 配置器
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/6/12 11:01
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Configuration
 @AutoConfigureAfter(CoreAutoConfiguration.class)
@@ -49,7 +49,7 @@ public class WebMvcConfigurer implements org.springframework.web.servlet.config.
 
     /**
      * 方法不启用，给程序员自己在 application.yml 配置 spring.mvc.static-path-pattern: /static/**
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/2 17:12 
      * @param registry
      * @return void
@@ -62,7 +62,7 @@ public class WebMvcConfigurer implements org.springframework.web.servlet.config.
 
     /**
      * 设置异步执行的线程池
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/7/31 16:02
      * @param configurer
      * @return void

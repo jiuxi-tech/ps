@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 /**
  * @ClassName: RedisHealthImpl
  * @Description: redis 健康检查
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/20 17:11
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class RedisHealthImpl implements MonitorHealthService {
@@ -33,7 +33,7 @@ public class RedisHealthImpl implements MonitorHealthService {
      * 判断redis是否健康
      *
      * @return boolean
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/20 17:12
      */
     @Override

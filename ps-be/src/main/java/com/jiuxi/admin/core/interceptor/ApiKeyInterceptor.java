@@ -25,7 +25,7 @@ import java.io.IOException;
  * @Description: API Key验证拦截器
  * @Author system
  * @Date 2025-01-28
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Component
 public class ApiKeyInterceptor implements HandlerInterceptor {

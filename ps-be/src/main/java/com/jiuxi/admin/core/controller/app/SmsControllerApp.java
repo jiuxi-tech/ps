@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @Description: 短信服务
  * @ClassName: TestDemoController
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-03-08 10:03
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/app/sys/sms")

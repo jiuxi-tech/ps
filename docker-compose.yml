@@ -58,16 +58,30 @@ services:
       
       # Keycloak管理员账户
       KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin123
+      KEYCLOAK_ADMIN_PASSWORD: cotticotti
       
       # 开发模式配置
-      KC_HOSTNAME_STRICT: "false"
-      KC_HOSTNAME_STRICT_HTTPS: "false"
+      # KC_HOSTNAME_STRICT: "false"
+      # KC_HOSTNAME_STRICT_HTTPS: "false"
       KC_HTTP_ENABLED: "true"
       KC_HEALTH_ENABLED: "true"
       KC_METRICS_ENABLED: "true"
+
+      KC_HOSTNAME: sso.shxdx.com
+      KC_HOSTNAME_STRICT: "true"
+      KC_HOSTNAME_STRICT_HTTPS: "true"
+      KC_PROXY: edge
+      
+      # HTTP 超时配置(毫秒)
+      KC_HTTP_REQUEST_TIMEOUT: "60000"
+      KC_HTTP_SOCKET_TIMEOUT: "60000"
+
+      
+
     command:
-      - start-dev
+      # - start-dev
+      - start --optimized 
+      #- --features-disabled=welcome-page   # 👈 加这一行
     ports:
       - "18080:8080"
     

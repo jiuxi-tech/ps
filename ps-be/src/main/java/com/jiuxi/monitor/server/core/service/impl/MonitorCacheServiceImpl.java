@@ -19,9 +19,9 @@ import org.springframework.stereotype.Service;
 /**
  * @ClassName: MonitorCacheServiceImpl
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/18 10:13
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class MonitorCacheServiceImpl implements MonitorCacheService {
@@ -40,7 +40,7 @@ public class MonitorCacheServiceImpl implements MonitorCacheService {
      *
      * @param clientId
      * @return com.jiuxi.monitor.server.bean.ClientBaseInfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:28
      */
     @Override
@@ -62,7 +62,7 @@ public class MonitorCacheServiceImpl implements MonitorCacheService {
      *
      * @param clientId
      * @return com.jiuxi.monitor.server.bean.ClientBaseInfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:28
      */
     @Override
@@ -75,7 +75,7 @@ public class MonitorCacheServiceImpl implements MonitorCacheService {
      *
      * @param info
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:30
      */
     @Override
@@ -89,7 +89,7 @@ public class MonitorCacheServiceImpl implements MonitorCacheService {
      *
      * @param clientId
      * @return com.jiuxi.monitor.server.bean.ClientHeartbeatInfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 15:51
      */
     @Override
@@ -105,7 +105,7 @@ public class MonitorCacheServiceImpl implements MonitorCacheService {
      * 查询服务资源报警配置信息
      *
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:30
      */
     @Override
@@ -142,7 +142,7 @@ public class MonitorCacheServiceImpl implements MonitorCacheService {
      * 删除服务资源报警配置信息
      *
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:30
      */
     @Override

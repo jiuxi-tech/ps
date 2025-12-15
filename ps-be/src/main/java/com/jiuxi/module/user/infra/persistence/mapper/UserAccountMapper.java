@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: 账户表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface UserAccountMapper {
@@ -47,7 +47,7 @@ public interface UserAccountMapper {
      * @param updateTime
      * @param username   账号，删除时需要添加删除时间
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/20 10:56
      */
     int deleteByPersonId(@Param("personId") String personId, @Param("updateTime") String updateTime, @Param("username") String username, @Param("phone") String phone);
@@ -63,7 +63,7 @@ public interface UserAccountMapper {
 
     /**
      * 根据手机号查询账户信息
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/5/27 13:44
      * @param phone
      * @return com.jiuxi.admin.core.bean.vo.TpAccountVO
@@ -75,7 +75,7 @@ public interface UserAccountMapper {
      *
      * @param username 用户名
      * @return com.jiuxi.admin.core.bean.vo.TpAccountVO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 9:15
      */
     TpAccountVO getTpAccountByUsername(@Param("username") String username);

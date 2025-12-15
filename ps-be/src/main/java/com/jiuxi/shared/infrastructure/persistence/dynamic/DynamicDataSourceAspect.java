@@ -15,9 +15,9 @@ import java.lang.reflect.Method;
 /**
  * @ClassName: DynamicDataSourceAspect
  * @Description: 拦截器
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/2/22 15:08
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 // 加上@Order后，让此切面优先于事务的切面执行
 // @Order是很重要的，必须确保DynamicDataSourceAspect的执行优先于TranctionInterceptor。否则数据源会以默认的数据源执行

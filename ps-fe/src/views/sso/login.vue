@@ -1,6 +1,12 @@
 <template>
-	<div>
- sso lodaing, please wait...
+	<div class="sso-login-container">
+		<div class="login-card">
+			<div class="loading-spinner" v-if="loading"></div>
+			<div class="success-icon" v-if="success">✓</div>
+			<div class="error-icon" v-if="error">✕</div>
+			<h3 class="title">{{ statusTitle }}</h3>
+			<p class="message" :class="{ 'success': success, 'error': error }">{{ statusMessage }}</p>
+		</div>
 	</div>
 </template>
 
@@ -27,55 +33,168 @@
 			this.init();
 		},
 		data() {
-			return {}
+			return {
+				loading: true,
+				success: false,
+				error: false,
+				statusTitle: '正在验证登录凭证...',
+				statusMessage: '请稍候'
+			}
 		},
 
 		// 方法
 		methods: {
-			init() {
- 
+			async init() {
+				try {
+					// 获取 URL 中的 token 参数
+					const token = this.getQueryStr("token");
+					
+					if (!token) {
+						this.showError('登录失败', '未能获取到有效的登录凭证，请重新尝试登录');
+						setTimeout(() => {
+							this.$router.replace('/login');
+						}, 3000);
+						return;
+					}
 
-			// http://localhost:10801/#/main?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5YWQ3Mzc1M2M0ZmY5YmFjYjI3MTVhNTQzZWVlM2Q1YmRjOTFlYmUxNmM0ZjBlMWUxMzhlZWE0MTM3ODM0YmNmYTcxMzQ5NTBlYWI2NzZlNzRkNzY4MGJkY2MyMGQ1NTIyNGM1Y2RjYmNiMGFjNjQ1MTk5MjAyMjJhNWUyZTJhMjY0ZWRiOTI0YTJlNWNhYzE4ZTQxNTFiZmM4ZjFjNDkxYTA2OGNjMGNjMGQ2NDM5OTU3Y2RhYWJkODlhNzcwYjc3MmI3NDE4M2RiYjQ0NGQ4NzJhOTZkYjk4ZjQ1OTA3Y2UyYWJmYmEzZWZlMDUyYTRjYjA4MDczODM4NDc5ODIxNDhhNjgyNjY2NjUzZmNhOGYyMWQwYTEwYjQyMGMyODY2OTg1OTU5OTQ4MWNjY2I0NGNmYzljZDgyYWM5ZmU5MWViNTRjZDM2MmIwMzkyMmNmMDU2MjUyZWJjNmUzODE1N2UzMWZkMWI2YjQ4N2JhMzdiNmYwNjBkZDM2MDU3NGQ4YjE0NmQyYmRlODY1NjBmMDE1MDA3MjRhNjlkZGM3YzJmMzJiMTI0NzI5YWI0YzYxNDlkM2E5YTIzOTI0NDM2YzJjZDJhODhmOTFmZDNjY2ViNTQ4OTg4MDA2NWQ4NTZmODZjMWFiMTZmNTQzODJlMjQzN2I1ZDliNDA2MGU2NDUzNjYzYTZmZDQ3OGY4YzJmZGMwYzRiYmJkNWFhOWJjZmZlMzkzMWU5ZDE2MThkMTk4OTI2YWMzYTJlMmVjZmFjMmQyNjIwOTBkODY2OWQzNDllNzc0NzNlZTA3OWE2YjczMDI2NWU4NDRlNjBlOGM5NWEzYTAyZDY5ZDAzNjJkOTJlYmYzMTMzYjAwOGM5YzAxMGIzNGIyMTU2MWExNzhiMWVjNDIyY2EwZjNmNDY1ZTA3MWFlMmRjZjhmNDQyNWYwMWFlYTlmNjNmMzhjODlhYzRmZjdmYWE2YTEzYThmMzUzNGI0NDkxZjUxZjk5MjMwYTM1OTgyNDNlZmZmZDdlNjgxM2QyOWRjMWNlOTJjOGU2YzdmY2UzMzFjODg3NDhhYmQzNjA0ZmM4ODA1ZjYxMTk5NGQ1ZTZkYTNiNTI0YzlmY2FmYWUzYWU5MTQ5NzEzNTVjODcyMDBkYjgxNzciLCJpc3MiOiJjb20uaml1eGkiLCJleHAiOjE3NTU5OTQyMzYsInZlcnNpb24iOiJ2MyIsImlhdCI6MTc1NTk4NzAzNiwianRpIjoiNTU0OWJmYzg2OGQwNGU4YzhmYTY2NDNhMWQ3NWExYWMifQ.n92DlRV6757JC0WNhWZdFef5Wm5kVDXU-SMQvRkqsQw
-				let token = this.getQueryStr("token");
+					// 保存 token
+					this.$datax.set('token', token);
+					
+					// 更新状态：正在获取用户信息
+					this.statusTitle = '正在获取用户信息...';
+					this.statusMessage = '即将进入系统';
 
-			//	alert(token)
-				this.$datax.set('token', token)
-				 
-
-				// 获取登陆人用户信息
-				this.$svc.platform.getUserInfo().then(res => {
-					this.$datax.set('userInfo', res.data)
-					//alert('登陆成功')
-					// 跳转页面
-					this.$message.success('登陆成功', {
-						duration: 3000
-					})
-					 setTimeout(() => {
-					     
-						this.$router.replace('/main')
-
-						 
-
-					 },3000)
-				}).catch(e=>{
-					this.$alert("获取用户信息失败, 请重新登录",()=>{
-						this.$router.replace('/login')
-					})
-				});
+					// 获取登录人用户信息
+					const res = await this.$svc.platform.getUserInfo();
+					this.$datax.set('userInfo', res.data);
+					
+					// 显示成功状态
+					this.showSuccess('登录成功', '正在跳转到系统...');
+					
+					// 跳转到主页面
+					setTimeout(() => {
+						this.$router.replace('/main');
+					}, 1500);
+					
+				} catch (e) {
+					console.error('SSO登录失败:', e);
+					this.showError('登录失败', '获取用户信息失败，请重新登录');
+					
+					setTimeout(() => {
+						this.$router.replace('/login');
+					}, 3000);
+				}
 			},
 
 			getQueryStr(str) {
 				let LocString = String(window.document.location.href);
-
 				var rs = new RegExp("(^|)" + str + "=([^&]*)(&|$)", "gi").exec(LocString), tmp;
 				if (tmp = rs) {
-					return tmp[2];
+					return decodeURIComponent(tmp[2]);
 				}
+				return '';
+			},
+			
+			showSuccess(title, message) {
+				this.loading = false;
+				this.success = true;
+				this.error = false;
+				this.statusTitle = title;
+				this.statusMessage = message;
+			},
+			
+			showError(title, message) {
+				this.loading = false;
+				this.success = false;
+				this.error = true;
+				this.statusTitle = title;
+				this.statusMessage = message;
 			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
+.sso-login-container {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(180deg, #fde7d8, #d10000, #ffad99 35%, #fbe6d7 65%, #fdf4ed);
+}
 
+.login-card {
+	background: white;
+	border-radius: 12px;
+	padding: 40px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	min-width: 320px;
+	
+	.loading-spinner {
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		border: 4px solid #f3f3f3;
+		border-top: 4px solid #c62828;
+		border-radius: 50%;
+		animation: spin 1s linear infinite;
+	}
+	
+	.success-icon {
+		display: inline-block;
+		width: 60px;
+		height: 60px;
+		line-height: 60px;
+		font-size: 36px;
+		color: #67c23a;
+		background: #f0f9ff;
+		border-radius: 50%;
+		animation: scaleIn 0.3s ease-out;
+	}
+	
+	.error-icon {
+		display: inline-block;
+		width: 60px;
+		height: 60px;
+		line-height: 60px;
+		font-size: 36px;
+		color: #f56c6c;
+		background: #fef0f0;
+		border-radius: 50%;
+		animation: scaleIn 0.3s ease-out;
+	}
+	
+	.title {
+		margin: 16px 0 8px 0;
+		color: #333;
+		font-size: 18px;
+		font-weight: 500;
+	}
+	
+	.message {
+		margin: 0;
+		color: #666;
+		font-size: 14px;
+		
+		&.success {
+			color: #67c23a;
+		}
+		
+		&.error {
+			color: #f56c6c;
+		}
+	}
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+@keyframes scaleIn {
+	0% { transform: scale(0); }
+	50% { transform: scale(1.1); }
+	100% { transform: scale(1); }
+}
 </style>

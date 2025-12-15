@@ -2,7 +2,7 @@ package com.jiuxi.security.core.service;
 
 
 /**
- * @author 杨攀
+ * @author Ypp
  * @description: 鉴权接口
  * @date 2020/5/22 16:49
  */

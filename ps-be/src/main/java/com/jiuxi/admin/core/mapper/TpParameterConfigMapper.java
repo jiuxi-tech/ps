@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @Description: 参数配置表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpParameterConfigMapper {
@@ -32,7 +32,7 @@ public interface TpParameterConfigMapper {
      * @param id
      * @param pmKey
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/17 16:06
      */
     int delete(@Param("id") String id, @Param("pmKey") String pmKey);

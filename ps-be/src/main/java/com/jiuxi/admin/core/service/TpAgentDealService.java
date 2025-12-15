@@ -14,7 +14,7 @@ import java.util.List;
  * @Description: 代办处理表
  * @Author pand
  * @Date 2021-06-03 14:28:23
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TpAgentDealService {
 

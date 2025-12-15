@@ -5,9 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @ClassName: MvcConfigurationProperties
  * @Description: MVC 熟悉配置
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/6/12 10:27
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @ConfigurationProperties(prefix = "topinfo.mvc")
 public class MvcConfigurationProperties {

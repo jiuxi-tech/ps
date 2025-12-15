@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * @ClassName: Markers
  * @Description: 标注，为经纬度格式，多个标注之间用竖线隔开，如: lng1,lat1|lng2,lat2|lng3,lat3
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/7/16 17:01
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class Markers {
 

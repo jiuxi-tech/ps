@@ -5,9 +5,9 @@ import com.jiuxi.admin.core.bean.entity.TpCity;
 /**
  * @Description: 发布事件推送行政区划信息给别的系统
  * @ClassName: TpCityEventService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-08 17:31
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 
 public interface TpCityEventService {

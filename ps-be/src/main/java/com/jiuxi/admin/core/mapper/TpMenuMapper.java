@@ -16,7 +16,7 @@ import java.util.Set;
  * @Description: 菜单表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpMenuMapper {
@@ -61,7 +61,7 @@ public interface TpMenuMapper {
      * 超管查询所有菜单  【注： pid 取的是 menuTreePid】
      *
      * @return java.util.Set<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/16 14:59
      */
     List<TreeNode> listAll(@Param("menuId") String menuId);
@@ -71,7 +71,7 @@ public interface TpMenuMapper {
      *
      * @param menuId
      * @return java.util.List<com.jiuxi.admin.core.bean.vo.TpMenuVO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/16 17:34
      */
     List<TpMenuVO> listChildrenByMenuId(@Param("menuId") String menuId);

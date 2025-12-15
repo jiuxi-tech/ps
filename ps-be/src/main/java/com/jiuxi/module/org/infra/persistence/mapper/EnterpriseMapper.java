@@ -19,7 +19,7 @@ import java.util.List;
  * @Description: 组织企业映射接口
  * @Author DDD重构
  * @Date 2025-09-12
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface EnterpriseMapper extends BaseMapper<TpEntBasicinfo> {
@@ -51,7 +51,7 @@ public interface EnterpriseMapper extends BaseMapper<TpEntBasicinfo> {
      *
      * @param entUnifiedCode 统一信用代码
      * @return com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 13:56
      */
     TpEntBasicinfoVO getBaseInfoByEntUnifiedCode(@Param("entUnifiedCode") String entUnifiedCode);
@@ -63,7 +63,7 @@ public interface EnterpriseMapper extends BaseMapper<TpEntBasicinfo> {
      *
      * @param entUnifiedCode
      * @return com.jiuxi.admin.core.bean.entity.TpEntBasicinfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 14:14
      */
     String selectByEntUnifiedCode(@Param("entUnifiedCode") String entUnifiedCode);
@@ -83,7 +83,7 @@ public interface EnterpriseMapper extends BaseMapper<TpEntBasicinfo> {
      * @param entUnifiedCode  统一社会信用代码
      * @param entId           企业id，不为空时，排除当前企业
      * @return boolean        存在时返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 15:46
      */
     String existsEntUnifiedCode(@Param("entUnifiedCode") String entUnifiedCode, @Param("entId") String entId);
@@ -92,7 +92,7 @@ public interface EnterpriseMapper extends BaseMapper<TpEntBasicinfo> {
      * 根据企业id获取企业基本信息-包含已删除的数据
      *
      * @param entId 企业id
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/15 17:13
      */
     TpEntBasicinfoVO getBaseInfoIncludeNotActive(@Param("entId") String entId);
@@ -106,7 +106,7 @@ public interface EnterpriseMapper extends BaseMapper<TpEntBasicinfo> {
      * @param query#current          当前页码，默认1
      * @param query#size             默认返回条数，默认10
      * @return java.util.List<com.jiuxi.plugin.api.bean.dto.TpEntBasicinfoDTO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024//5 16:13
      */
     // List<TpEntBasicinfoVO> listDelete(TpEntDeleteQuery query);
@@ -116,7 +116,7 @@ public interface EnterpriseMapper extends BaseMapper<TpEntBasicinfo> {
      *
      * @param entId
      * @return boolean 存在返回true, 不存在返回false
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/8/5 15:39
      */
     String existsByEntId(@Param("entId") String entId);

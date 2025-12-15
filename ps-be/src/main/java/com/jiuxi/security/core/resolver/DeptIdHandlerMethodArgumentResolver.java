@@ -13,9 +13,9 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 /**
  * @ClassName: DeptIdHandlerMethodArgumentResolver
  * @Description: DeptId参数解析器
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/28 21:05
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class DeptIdHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 

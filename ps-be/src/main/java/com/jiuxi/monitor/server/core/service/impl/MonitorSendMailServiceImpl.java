@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 /**
  * @ClassName: MonitorSendMailServiceImpl
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/20 15:59
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class MonitorSendMailServiceImpl implements MonitorSendMailService {
@@ -38,7 +38,7 @@ public class MonitorSendMailServiceImpl implements MonitorSendMailService {
      * @param config  邮件配置
      * @param content 发送的内容
      * @return boolean
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/20 16:16
      */
     @Override
@@ -90,7 +90,7 @@ public class MonitorSendMailServiceImpl implements MonitorSendMailService {
      * @param subject
      * @param content
      * @return boolean
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/20 16:16
      */
     private boolean sendMail(String email, String subject, String content) {

@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author 杨攀
+ * @author Ypp
  * @description: 忽略鉴权的注解
  * @date 2020/5/22 15:53
  */

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * @ClassName: DictServiceImpl
  * @Description: 系统字典服务实现类
- * @Author: System
+ * @Author: Qdd
  * @Date: 2025/01/07
  * @Copyright: 2025 www.jiuxi.com Inc. All rights reserved.
  */

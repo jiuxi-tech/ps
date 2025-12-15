@@ -3,9 +3,9 @@ package com.jiuxi.mybatis.bean;
 /**
  * @ClassName: TpLicenceVO
  * @Description: 许可证信息
- * @Author: pand
+ * @Author: pdd
  * @Date: 2023/10/18 13:59
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class SecurityLicenceVO {
 

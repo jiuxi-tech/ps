@@ -6,15 +6,15 @@ import java.io.StringWriter;
 /**
  * @ClassName: ExceptionUtils
  * @Description: 异常工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2021/8/4 10:03
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class ExceptionUtils {
 
     /**
      * 获取异常的堆栈信息
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/8/4 10:08
      * @param t
      * @return java.lang.String

@@ -51,7 +51,7 @@ import java.util.stream.Collectors;
  * @Description: 单位/部门/网格/其他基本信息表
  * @Author pand
  * @Date 2020-11-18 11:05:17
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpDeptBasicinfoService")
 public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
@@ -101,7 +101,7 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
      *
      * @param deptId
      * @return com.jiuxi.common.bean.TreeNode
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/20 11:29
      */
     @Override
@@ -137,7 +137,7 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
      *
      * @param deptId
      * @return com.jiuxi.common.bean.TreeNode
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/20 11:29
      */
     @Override
@@ -270,7 +270,7 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
      * 组装树结构
      *
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/20 14:44
      */
     private TreeNode syncTree(TreeNode rootNode, List<TreeNode> deptList) {
@@ -437,7 +437,7 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
      * </pre>
      * @param bean  部门信息
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 10:10
      */
     private void setPdeptId(TpDeptBasicinfo bean) {
@@ -455,7 +455,7 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
      * @param pdeptId  父级部门id
      * @param category 部门类别
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 13:37
      */
     private String levelCode(String ascnId, String pdeptId, int category) {
@@ -860,7 +860,7 @@ public class TpDeptBasicinfoServiceImpl implements TpDeptBasicinfoService {
      * @param ascnId 单位id
      * @param jwtpid 操作人
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 10:09
      */
     @Override

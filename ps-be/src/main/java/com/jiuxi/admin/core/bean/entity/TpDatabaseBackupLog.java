@@ -8,9 +8,9 @@ import java.io.Serializable;
 /**
  * @ClassName: TpDatabaseBackupLog
  * @Description: 数据库备份记录表实体类
- * @Author: system
+ * @Author: Qdd
  * @Date: 2025-09-24
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @TableName("tp_database_backup_log")
 public class TpDatabaseBackupLog implements Serializable {

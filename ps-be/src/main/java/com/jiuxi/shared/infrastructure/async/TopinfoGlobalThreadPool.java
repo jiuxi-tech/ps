@@ -50,7 +50,7 @@ public class TopinfoGlobalThreadPool {
      * @param
      * @return void
      * @description: 初始化线程池
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/3/19 14:20
      */
     private void initPool(CoreConfigurationProperties properties) {
@@ -90,7 +90,7 @@ public class TopinfoGlobalThreadPool {
      * @param runnable
      * @return void
      * @description: 异步执行
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/3/19 14:22
      */
     public void excAsync(Runnable runnable) {
@@ -102,7 +102,7 @@ public class TopinfoGlobalThreadPool {
      * @param task
      * @return Future
      * @description: 同步执行
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/3/19 14:22
      */
     public <T> Future<T> excSync(Callable<T> task) {

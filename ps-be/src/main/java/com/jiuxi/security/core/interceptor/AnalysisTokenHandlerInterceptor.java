@@ -17,9 +17,9 @@ import java.util.Map;
 /**
  * @ClassName: AnalysisTokenHandlerInterceptor
  * @Description: 解析 token
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/19 19:58
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AnalysisTokenHandlerInterceptor implements HandlerInterceptor {
 
@@ -40,7 +40,7 @@ public class AnalysisTokenHandlerInterceptor implements HandlerInterceptor {
 
     /**
      * 前置处理，在执行controller之前来执行
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/17 14:08
      * @param request
      * @param response
@@ -79,7 +79,7 @@ public class AnalysisTokenHandlerInterceptor implements HandlerInterceptor {
 
     /**
      * 后置处理：在controller执行完，视图解析器没有把视图解析成页面,对视图做统一的修改，主要体现在Model上
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/17 14:09
      * @param request
      * @param response
@@ -95,7 +95,7 @@ public class AnalysisTokenHandlerInterceptor implements HandlerInterceptor {
     /**
      * 完成处理：执行时机：视图已经被解析完毕,类似try catch 后的finally, 这个方法的主要作用是用于清理资源的，
      * 当然这个方法也只能在当前这个Interceptor的preHandle方法的返回值为true时才会执行。
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/17 14:09
      * @param request
      * @param response

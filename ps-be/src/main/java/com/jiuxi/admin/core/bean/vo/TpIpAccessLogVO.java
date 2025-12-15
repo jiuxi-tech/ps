@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @ClassName: TpIpAccessLogVO
  * @Description: IP访问控制日志表VO
- * @Author: System
+ * @Author: Qdd
  * @Date: 2024-01-27
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

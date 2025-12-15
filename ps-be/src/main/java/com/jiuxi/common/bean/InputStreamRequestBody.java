@@ -14,9 +14,9 @@ import java.io.InputStream;
 /**
  * @ClassName: InputStreamRequestBody
  * @Description: 重写 writeTo, 以支持上传流的方式 InputStream
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/6/22 13:06
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class InputStreamRequestBody extends RequestBody {
 

@@ -48,9 +48,9 @@ import java.util.Optional;
 /**
  * @ClassName: TpEntBasicinfoServiceImpl
  * @Description: 企业基本信息表
- * @Author 杨攀
+ * @Author Ypp
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpEntBasicinfoService")
 public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
@@ -110,7 +110,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
      * 我是企业分管：<br/>
      *    不能进入该列表界面
      *    </pre>
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/27 14:14
      */
     @Override
@@ -210,7 +210,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
      *
      * @param entId
      * @return com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/30 10:14
      */
     @Override
@@ -225,7 +225,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
      *
      * @param entUnifiedCode 统一信用代码
      * @return com.jiuxi.admin.core.bean.vo.TpEntBasicinfoVO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 13:56
      */
     @Override
@@ -258,7 +258,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
      * @param entUnifiedCode  统一社会信用代码
      * @param entId           企业id，不为空时，排除当前企业
      * @return boolean        存在时返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 15:46
      */
     @Override
@@ -275,7 +275,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
      *
      * @param vo
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/30 17:30
      */
     @Override
@@ -374,7 +374,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
      * @param vo
      * @param jwtpid
      * @return int
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/12/1 10:24
      */
     @Override
@@ -428,7 +428,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
      * @param entId   企业id
      * @param jwtpid  操作人员
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 17:16
      */
     @Override
@@ -474,7 +474,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
      * 根据企业id获取企业基本信息-包含已删除的数据
      *
      * @param entId 企业id
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/15 17:13
      */
     @Override
@@ -494,7 +494,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
      * @param query#current          当前页码，默认1
      * @param query#size             默认返回条数，默认10
      * @return java.util.List<com.jiuxi.plugin.api.bean.dto.TpEntBasicinfoDTO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024//5 16:13
      */
     // @Override
@@ -509,7 +509,7 @@ public class TpEntBasicinfoServiceImpl implements TpEntBasicinfoService {
      *
      * @param entId
      * @return boolean 存在返回true, 不存在返回false
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/8/5 15:39
      */
     @Override

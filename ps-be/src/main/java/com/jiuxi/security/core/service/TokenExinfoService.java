@@ -3,9 +3,9 @@ package com.jiuxi.security.core.service;
 /**
  * @Description: token自定义加入的信息，json字符串
  * @ClassName: TokenExinfoService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-11-09 10:13
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 
 public interface TokenExinfoService {

@@ -5,14 +5,14 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @description: SQL过滤
- * @author 杨攀
+ * @author Ypp
  * @date 2020/7/20 15:14
  */
 public class SQLFilter {
 
     /**
      * @description:  SQL注入过滤
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/20 15:14
      * @param str 待验证的字符串
      * @return java.lang.String

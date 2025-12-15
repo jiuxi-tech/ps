@@ -3,9 +3,9 @@ package com.jiuxi.shared.common.base.vo;
 /**
  * @ClassName: BaseVO
  * @Description: 基础VO
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/11/25 10:02
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class BaseVO {
 

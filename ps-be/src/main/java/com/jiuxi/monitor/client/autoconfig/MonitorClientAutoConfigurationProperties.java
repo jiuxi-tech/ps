@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * @ClassName: MonitorClientAutoConfigurationProperties
  * @Description: 监控客户端配置
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/5 18:13
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @ConfigurationProperties(prefix = "jiuxi.platform.plugin.monitor")
 public class MonitorClientAutoConfigurationProperties {

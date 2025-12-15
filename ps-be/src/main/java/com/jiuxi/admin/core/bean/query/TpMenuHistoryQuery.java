@@ -3,7 +3,7 @@ package com.jiuxi.admin.core.bean.query;
 /**
  * @ClassName: TpMenuHistoryQuery
  * @Description: 菜单历史查询条件
- * @Author: System
+ * @Author: Qdd
  * @Date: 2025-08-30
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

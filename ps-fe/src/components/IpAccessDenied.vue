@@ -188,7 +188,7 @@ export default {
 <style lang="less" scoped>
 .ip-access-denied {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(180deg,#fde7d8,#d10000,#ffad99 35%,#fbe6d7 65%,#fdf4ed);
   display: flex;
   align-items: center;
   justify-content: center;

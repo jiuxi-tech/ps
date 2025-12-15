@@ -6,16 +6,16 @@ import com.jiuxi.security.core.entity.vo.AccountVO;
 /**
  * @ClassName: TopinfoSecurityCommonService
  * @Description: 安全组件 公共service
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/1 16:18
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TopinfoSecurityCommonService {
 
 
     /**
      * 生成token
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 16:23
      * @param accountVO
      * @return java.lang.String
@@ -24,7 +24,7 @@ public interface TopinfoSecurityCommonService {
 
     /**
      * 合作方获取token
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 16:49
      * @param appKey
      * @param accountThirdVO
@@ -35,7 +35,7 @@ public interface TopinfoSecurityCommonService {
 
     /**
      * 人员兼职部门的时候，通过该接口选择要登录的部门
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 17:09
      * @param deptId
      * @param jwtpid
@@ -46,7 +46,7 @@ public interface TopinfoSecurityCommonService {
 
     /**
      * 刷新 token
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/23 14:44
      * @param
      * @return java.lang.String
@@ -56,7 +56,7 @@ public interface TopinfoSecurityCommonService {
 
     /**
      * 交换token
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 17:22
      * @param token 源token
      * @param version 目标token的版本号，版本号： 2.0、2.1、3.0

@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * @ClassName: SecurityUtil
  * @Description: 安全组件 工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/18 16:46
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class SecurityUtil {
 
@@ -62,7 +62,7 @@ public class SecurityUtil {
      *
      * @param personDeptList
      * @return com.jiuxi.security.core.bean.vo.SessionVO
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/19 16:08
      */
     public static SessionVO getDefaultDeptSession(List<SessionVO> personDeptList) {
@@ -81,7 +81,7 @@ public class SecurityUtil {
 
     /**
      * 获取指定的 部门 Session
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/19 18:15
      * @param personDeptList
      * @param deptId

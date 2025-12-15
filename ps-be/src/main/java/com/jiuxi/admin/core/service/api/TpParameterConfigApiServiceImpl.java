@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 /**
  * @ClassName: TpParameterConfigApiServiceImpl
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/5/27 18:03
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpParameterConfigApiServiceImpl")
 public class TpParameterConfigApiServiceImpl /* implements TpParameterConfigApiService */ {
@@ -29,7 +29,7 @@ public class TpParameterConfigApiServiceImpl /* implements TpParameterConfigApiS
      * @param pmKey 配置编码
      * @param clazz 返回的对象类型
      * @return T    返回的对象
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/27 18:01
      */
     public <T> T getConfig(String pmKey, Class<T> clazz) {
@@ -43,7 +43,7 @@ public class TpParameterConfigApiServiceImpl /* implements TpParameterConfigApiS
      *
      * @param pmKey 配置编码
      * @return TpParameterConfigDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/27 18:01
      */
     public Object getConfig(String pmKey) {

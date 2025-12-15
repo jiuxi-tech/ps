@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * @ClassName: ClientServerInfo
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/14 17:45
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class ClientHeartbeatInfo extends ServerInfo {
 

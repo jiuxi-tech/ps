@@ -3,9 +3,9 @@ package com.jiuxi.admin.core.bean.vo;
 /**
  * @Description: 企业账户返回对象
  * @ClassName: TpEntAccountVO
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-09-13 10:16
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpEntAccountVO {
 

@@ -17,9 +17,9 @@ import java.util.Map;
 /**
  * @Description: 启动 Runner
  * @ClassName: AdminCommanLineRunner
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-04-26 20:27
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AdminCommanLineRunner implements CommandLineRunner {
 

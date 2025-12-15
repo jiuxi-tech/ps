@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Description: API响应体拦截器，用于记录业务错误信息
  * @Author system
  * @Date 2025-11-30
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @ControllerAdvice(basePackages = "com.jiuxi.admin.core.controller.openapi")
 public class ApiResponseBodyAdvice implements ResponseBodyAdvice<Object> {

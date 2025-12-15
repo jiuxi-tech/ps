@@ -30,9 +30,9 @@ import java.util.concurrent.CompletableFuture;
 /**
  * @ClassName: DatabaseBackupServiceImpl
  * @Description: 数据库备份服务实现类
- * @Author: system
+ * @Author: Qdd
  * @Date: 2025-09-24
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("databaseBackupService")
 public class DatabaseBackupServiceImpl implements DatabaseBackupService {

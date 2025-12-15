@@ -8,9 +8,9 @@ import java.io.*;
 /**
  * @ClassName: FormFile
  * @Description: 上传的文件对象
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/6/22 9:47
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class FormFile {
 
@@ -36,7 +36,7 @@ public class FormFile {
 
     /**
      * 文件上传对象
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 12:23
      * @param file
      * @param parameterName 文件请求参数名称（表单的名称）
@@ -51,7 +51,7 @@ public class FormFile {
 
     /**
      * 文件上传对象, 大文件上传时，这个性能不是太好
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 12:19
      * @param inputStream
      * @param fileName  文件名称， qq.exe
@@ -66,7 +66,7 @@ public class FormFile {
 
     /**
      * 文件上传对象
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 12:22
      * @param multipartFile
      * @param parameterName 文件请求参数名称（表单的名称）
@@ -80,7 +80,7 @@ public class FormFile {
 
     /**
      * 文件上传对象
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 12:38
      * @param data 文件 byte 数组
      * @param fileName  文件名称， qq.exe

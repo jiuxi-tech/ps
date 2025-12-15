@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * @Description: 合作方登陆实现
  * @ClassName: ClientTokenServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2022-05-25 16:36
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class ClientTokenServiceImpl implements ClientTokenService {
 

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 /**
  * @ClassName: TpRichtextApiServiceImpl
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/9/2 15:36
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class TpRichtextApiServiceImpl /* implements TpRichtextApiService */ {
@@ -27,7 +27,7 @@ public class TpRichtextApiServiceImpl /* implements TpRichtextApiService */ {
      * @param referId 业务id
      * @param content 内容
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     public String add(String referId, String content) {
@@ -41,7 +41,7 @@ public class TpRichtextApiServiceImpl /* implements TpRichtextApiService */ {
      * @param txtType 业务分类
      * @param content 内容
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     public String add(String referId, String txtType, String content) {
@@ -54,7 +54,7 @@ public class TpRichtextApiServiceImpl /* implements TpRichtextApiService */ {
      * @param referId 业务id
      * @param content 内容
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     public int update(String referId, String content) {
@@ -68,7 +68,7 @@ public class TpRichtextApiServiceImpl /* implements TpRichtextApiService */ {
      * @param txtType 业务分类
      * @param content 内容
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     public int update(String referId, String txtType, String content) {
@@ -80,7 +80,7 @@ public class TpRichtextApiServiceImpl /* implements TpRichtextApiService */ {
      *
      * @param id
      * @return com.jiuxi.plugin.api.bean.dto.TpRichtextDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:24
      */
     /*
@@ -96,7 +96,7 @@ public class TpRichtextApiServiceImpl /* implements TpRichtextApiService */ {
      *
      * @param referId
      * @return com.jiuxi.plugin.api.bean.dto.TpRichtextDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:25
      */
     /*
@@ -112,7 +112,7 @@ public class TpRichtextApiServiceImpl /* implements TpRichtextApiService */ {
      *
      * @param referId
      * @return com.jiuxi.plugin.api.bean.dto.TpRichtextDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:25
      */
     /*
@@ -128,7 +128,7 @@ public class TpRichtextApiServiceImpl /* implements TpRichtextApiService */ {
      *
      * @param referId
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:27
      */
     /*
@@ -143,7 +143,7 @@ public class TpRichtextApiServiceImpl /* implements TpRichtextApiService */ {
      *
      * @param referId
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/9/2 15:27
      */
     /*

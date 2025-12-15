@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description: 人员基本信息表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/app/sys/person")

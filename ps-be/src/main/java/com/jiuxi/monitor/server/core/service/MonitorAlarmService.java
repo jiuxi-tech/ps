@@ -8,9 +8,9 @@ import java.util.Set;
 /**
  * @ClassName: MonitorAlarmService
  * @Description: 计算报警服务
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/18 14:09
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface MonitorAlarmService {
 
@@ -20,7 +20,7 @@ public interface MonitorAlarmService {
      * @param clientId
      * @param source
      * @return boolean
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 15:16
      */
     boolean isSendMail(String clientId, String source);
@@ -31,7 +31,7 @@ public interface MonitorAlarmService {
      * @param clientId
      * @param source
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 15:30
      */
     void addSendMailCache(String clientId, String source);
@@ -43,7 +43,7 @@ public interface MonitorAlarmService {
      * @param source      资源名称
      * @param alarmSource 超阈值的资源
      * @return boolean    报警返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/18 14:14
      */
     boolean computeAlarm(String clientId, String source, Set<String> alarmSource);
@@ -53,7 +53,7 @@ public interface MonitorAlarmService {
      *
      * @param heartbeat
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 18:08
      */
     Map<String, String> getAlarmSource(ClientHeartbeatInfo heartbeat);
@@ -64,7 +64,7 @@ public interface MonitorAlarmService {
      * @param clientId 客户端id
      * @param source   报警资源 如：cpu
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/27 16:28
      */
     void deleteAlarmCache(String clientId, String source);

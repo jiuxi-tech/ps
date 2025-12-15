@@ -29,9 +29,9 @@ import java.io.IOException;
 /**
  * @ClassName: MvcAutoConfiguration
  * @Description: 自动配置
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/3/12 12:21
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Configuration
 @ConditionalOnWebApplication // web应用生效
@@ -51,7 +51,7 @@ public class MvcAutoConfiguration {
      * @param
      * @return com.jiuxi.mvc.core.interceptor.TenantInterceptor
      * @description: 租户拦截器
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/6/12 11:05
      */
     @Bean
@@ -62,7 +62,7 @@ public class MvcAutoConfiguration {
 
     /**
      * token 拦截器
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/7/31 16:06
      * @param
      * @return com.jiuxi.mvc.core.interceptor.TokenInterceptor

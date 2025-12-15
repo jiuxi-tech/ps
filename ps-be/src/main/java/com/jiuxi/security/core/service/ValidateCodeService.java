@@ -5,9 +5,9 @@ import com.jiuxi.security.core.entity.vo.ValidateCodeVO;
 /**
  * @Description: 验证码接口定义
  * @ClassName: ValidateCodeService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-08-27 13:24
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface ValidateCodeService {
     /**

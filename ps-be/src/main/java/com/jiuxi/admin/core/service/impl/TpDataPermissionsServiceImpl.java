@@ -30,9 +30,9 @@ import java.util.*;
 /**
  * @ClassName: TpDataPermissionsServiceImpl
  * @Description: 数据权限服务
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2023/11/1 15:39
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpDataPermissionsServiceImpl")
 public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
@@ -48,7 +48,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
     /**
      * 保存数据权限，删除原有的数据
      *
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 16:02
      */
     @Override
@@ -82,7 +82,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
      * 创建数据权限集合
      *
      * @param permissionsVO  数据权限集合VO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 15:56
      */
     private List<TpDataPermissions> createPermissions(TpDataPermissionsVO permissionsVO) {
@@ -103,7 +103,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
      *
      * @param personId 人员id
      * @return java.util.List<com.jiuxi.admin.core.bean.vo.TpDataPermissionsVO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:59
      */
     @Override
@@ -117,7 +117,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
      *
      * @param personId 人员id
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:53
      */
     @Override
@@ -136,7 +136,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
      * </pre>
      * @param permQuery 当前登录人id、部门类型
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 17:00
      */
     @Override
@@ -175,7 +175,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
      * @param personId 人员id
      * @param deptId   部门id
      * @return 有权限返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:09
      */
     @Override
@@ -197,7 +197,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
      * @param personId 人员id
      * @param deptId   部门id
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/7 20:20
      */
     @Override
@@ -224,7 +224,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
      * @param permQuery 人员id、部门类型
      * @param maxLength 单位编码最大长度 企业：22、政府：6
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 17:27
      */
     private List<TreeNode> treePerm(TpTreePermQuery permQuery, int maxLength) {
@@ -256,7 +256,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
      * 提取具有权限的部门id
      *
      * @param treeNodes extend02存储单位id
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 19:49
      */
     private Set<String> extractPermIds(List<TreeNode> treeNodes) {
@@ -271,7 +271,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
      * 提取出单位id
      *
      * @param treeNodes extend02存储单位id
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 19:49
      */
     private Set<String> extractAscnIds(List<TreeNode> treeNodes) {
@@ -293,7 +293,7 @@ public class TpDataPermissionsServiceImpl implements TpDataPermissionsService {
      * @param treeNodes 具有的数据权限
      * @param maxLength 单位编码最大长度 企业：22、政府：6
      * @return java.util.List<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 17:51
      */
     private Set<String> createDeptLevelCodes(List<TreeNode> treeNodes, int maxLength) {

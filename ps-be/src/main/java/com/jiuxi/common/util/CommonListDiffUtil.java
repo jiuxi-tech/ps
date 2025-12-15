@@ -11,9 +11,9 @@ import java.util.Map;
 /**
  * @ClassName: CommonCommonListDiffUtil
  * @Description: 找出两个list中不同的元素工具
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date  2022/1/18  16:59
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CommonListDiffUtil<T extends CommonListDiffUtil.ListItemPrimary> {
 

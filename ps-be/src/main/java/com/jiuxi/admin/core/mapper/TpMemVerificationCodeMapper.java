@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
  * @Description:
  * @Author pand
  * @Date 2021-04-22 15:23:29
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpMemVerificationCodeMapper {

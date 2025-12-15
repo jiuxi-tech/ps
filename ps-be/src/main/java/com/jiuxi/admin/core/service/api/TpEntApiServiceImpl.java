@@ -16,9 +16,9 @@ import java.util.List;
 /**
  * @ClassName: TpEntApiServiceImpl
  * @Description: 企业api
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/15 16:37
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpEntApiService")
 public class TpEntApiServiceImpl /* implements TpEntApiService */ {
@@ -36,7 +36,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      * @param entId 企业id
      * @param clazz 返回的目标对象类型
      * @return T
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 17:13
      */
     /*
@@ -54,7 +54,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      *
      * @param entId 企业id
      * @return TpEntBasicinfoDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 9:19
      */
     /*
@@ -71,7 +71,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      * @param entUnifiedCode 统一信用代码
      * @param clazz          返回的目标对象类型
      * @return T
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 13:54
      */
     public <T> T getBaseInfoByEntUnifiedCode(String entUnifiedCode, Class<T> clazz) {
@@ -84,7 +84,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      *
      * @param entUnifiedCode 企业统一信用代码
      * @return TpEntBasicinfoDTO
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/5/28 9:19
      *
     @Override
@@ -98,7 +98,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      *
      * @param entId
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 14:00
      */
     public String getFullNameById(String entId) {
@@ -114,7 +114,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      *
      * @param entId
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 14:00
      */
     public String getSimpleNameById(String entId) {
@@ -144,7 +144,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      * @param jwtpid
      * @return java.lang.String
      * @throws com.jiuxi.core.bean.TopinfoRuntimeException 校验失败将抛出异常
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 14:21
      */
     /*
@@ -171,7 +171,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      * @param dto    企业信息
      * @param jwtpid 操作人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 15:16
      */
     /*
@@ -202,7 +202,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      * @param jwtpid       操作人
      * @return java.lang.Integer 修改的行数
      * @throws com.jiuxi.core.bean.TopinfoRuntimeException 校验失败将抛出异常
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 14:21
      */
     /*
@@ -224,7 +224,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      * @param dto
      * @param jwtpid
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 15:55
      */
     /*
@@ -249,7 +249,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      * @param entId  企业第
      * @param jwtpid 操作人员id
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 17:02
      */
     /*
@@ -266,7 +266,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      * @param entId 企业id
      * @param clazz 返回的目标对象类型
      * @return T
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/15 17:13
      */
     public <T> T getBaseInfoIncludeNotActive(String entId, Class<T> clazz) {
@@ -281,7 +281,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      *
      * @param entId 企业id
      * @return T
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/15 17:13
      */
     /*
@@ -300,7 +300,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      * @param query#current         当前页码，默认1
      * @param query#size            默认返回条数，默认10
      * @return java.util.List<com.jiuxi.plugin.api.bean.dto.TpEntBasicinfoDTO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024//5 16:13
      */
     /*
@@ -320,7 +320,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      *
      * @param entId
      * @return boolean 存在返回true, 不存在返回false
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/8/5 15:39
      */
     public boolean existsByEntId(String entId) {
@@ -332,7 +332,7 @@ public class TpEntApiServiceImpl /* implements TpEntApiService */ {
      *
      * @param entUnifiedCode 统一信用代码
      * @return boolean 存在返回true, 不存在返回false
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/8/5 15:39
      */
     public boolean existsByEntUnifiedCode(String entUnifiedCode) {

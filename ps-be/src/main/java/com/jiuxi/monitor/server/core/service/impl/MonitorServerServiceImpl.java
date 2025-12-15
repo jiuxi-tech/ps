@@ -22,9 +22,9 @@ import java.util.*;
 /**
  * @ClassName: MonitorServerServiceImpl
  * @Description: 监控服务端接口
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/18 9:49
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class MonitorServerServiceImpl implements MonitorServerService {
@@ -53,7 +53,7 @@ public class MonitorServerServiceImpl implements MonitorServerService {
      * @param heartbeatInfo
      * @param request
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/18 9:51
      */
     @Override
@@ -101,7 +101,7 @@ public class MonitorServerServiceImpl implements MonitorServerService {
      * @param clientVO 客户端信息
      * @param configVO 配置信息
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 15:13
      */
     @Override
@@ -121,7 +121,7 @@ public class MonitorServerServiceImpl implements MonitorServerService {
      * @param clientVO
      * @param alarmSource
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:55
      */
     private void sendMail(TpMonitorClientVO clientVO, AlarmSource alarmSource) {
@@ -178,7 +178,7 @@ public class MonitorServerServiceImpl implements MonitorServerService {
      * @param clientVO
      * @param alarmSource
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/20 16:22
      */
     private String buildMailContent(TpMonitorClientVO clientVO, AlarmSource alarmSource) {
@@ -221,7 +221,7 @@ public class MonitorServerServiceImpl implements MonitorServerService {
      *
      * @param heartbeatInfo 心跳信息
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/18 14:01
      */
     private AlarmSource computeAlarmEvent(ClientHeartbeatInfo heartbeatInfo) {
@@ -267,7 +267,7 @@ public class MonitorServerServiceImpl implements MonitorServerService {
      *
      * @param info
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/18 10:08
      */
     private void createClientId(ClientHeartbeatInfo info) {

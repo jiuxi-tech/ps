@@ -9,7 +9,7 @@ import java.util.List;
  * @Description: 人员标签服务
  * @Author system
  * @Date 2025-01-28
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TpPersonTagService {
 

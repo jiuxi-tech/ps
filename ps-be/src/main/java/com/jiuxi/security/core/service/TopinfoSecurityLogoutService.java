@@ -4,7 +4,7 @@ package com.jiuxi.security.core.service;
 /**
  * TopinfoSecurityLogoutService
  * @Description: 退出登录接口
- * @author 杨占锐
+ * @author jiuxx
  * @date 2024/10/8 13:44
  */
 public interface TopinfoSecurityLogoutService {
@@ -14,7 +14,7 @@ public interface TopinfoSecurityLogoutService {
      *
      * @param token
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/10/8 13:26
      */
     void logout(String token);
@@ -25,7 +25,7 @@ public interface TopinfoSecurityLogoutService {
      *
      * @param token
      * @return boolean 无效返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/10/8 15:13
      */
     boolean isInvalidToken(String token);
@@ -36,7 +36,7 @@ public interface TopinfoSecurityLogoutService {
      *
      * @param jti
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2025/2/7 17:49
      */
     void invalidateToken(String jti);

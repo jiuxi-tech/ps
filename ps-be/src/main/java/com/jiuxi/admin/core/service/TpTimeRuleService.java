@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @ClassName: TpTimeRuleService
  * @Description: 登录时间段控制规则表 - Service接口
- * @Author: System
+ * @Author: Qdd
  * @Date: 2025-01-20
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

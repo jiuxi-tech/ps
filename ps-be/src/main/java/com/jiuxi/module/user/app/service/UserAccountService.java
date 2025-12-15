@@ -7,7 +7,7 @@ import com.jiuxi.admin.core.bean.vo.TpAccountVO;
  * @Description: 人员基本信息表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface UserAccountService {
 
@@ -27,7 +27,7 @@ public interface UserAccountService {
      * @param vo              账号信息
      * @param decryptStrSM2   是否需要解密账号密码(后端直接调用时不需要，参数传false)
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 9:47
      */
     int accountManage(TpAccountVO vo, boolean decryptStrSM2);
@@ -182,7 +182,7 @@ public interface UserAccountService {
 
     /**
      * 根据手机号查询账户信息
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/5/27 13:44
      * @param phone
      * @return com.jiuxi.admin.core.bean.vo.TpAccountVO
@@ -194,7 +194,7 @@ public interface UserAccountService {
      *
      * @param username 用户名
      * @return com.jiuxi.admin.core.bean.vo.TpAccountVO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 9:15
      */
     TpAccountVO getTpAccountByUsername(String username);
@@ -214,7 +214,7 @@ public interface UserAccountService {
      *
      * @param personId 人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 11:08
      */
     void deleteByPersonId(String personId);

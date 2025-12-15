@@ -6,9 +6,9 @@ import com.jiuxi.common.util.SnowflakeIdUtil;
 /**
  * @ClassName: CustomIdGenerator
  * @Description: 自定义ID生成器
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/6/10 17:24
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CustomIdGenerator implements IdentifierGenerator {
 

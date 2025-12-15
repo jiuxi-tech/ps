@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
  * @Description: 代办处理表
  * @Author pand
  * @Date 2021-06-03 14:28:23
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpAgentDealService")
 public class TpAgentDealServiceImpl implements TpAgentDealService {

@@ -7,9 +7,9 @@ import com.jiuxi.monitor.server.core.bean.vo.TpMonitorConfigVO;
 /**
  * @ClassName: MonitorCacheService
  * @Description: 监控缓存服务
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/18 10:13
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface MonitorCacheService {
 
@@ -18,7 +18,7 @@ public interface MonitorCacheService {
      *
      * @param clientId
      * @return com.jiuxi.monitor.server.bean.ClientBaseInfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:28
      */
     TpMonitorClientVO getClientBaseInfo(String clientId);
@@ -28,7 +28,7 @@ public interface MonitorCacheService {
      *
      * @param clientId
      * @return com.jiuxi.monitor.server.bean.ClientBaseInfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:28
      */
     void clearClientInfo(String clientId);
@@ -38,7 +38,7 @@ public interface MonitorCacheService {
      *
      * @param info
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:30
      */
     void setHeartbeat(ClientHeartbeatInfo info);
@@ -48,7 +48,7 @@ public interface MonitorCacheService {
      *
      * @param clientId
      * @return com.jiuxi.monitor.server.bean.ClientHeartbeatInfo
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 15:51
      */
     ClientHeartbeatInfo getHeartbeat(String clientId);
@@ -57,7 +57,7 @@ public interface MonitorCacheService {
      * 查询服务资源报警配置信息
      *
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:30
      */
     TpMonitorConfigVO getConfig();
@@ -66,7 +66,7 @@ public interface MonitorCacheService {
      * 删除服务资源报警配置信息
      *
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:30
      */
     void clearAlarmConfig();

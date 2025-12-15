@@ -10,7 +10,7 @@ import java.util.List;
  * @Description: 表单设计表 表单设计表
  * @Author pand
  * @Date 2021-05-11 11:22:40
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TpCustomFormService {
 

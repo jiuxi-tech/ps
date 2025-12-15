@@ -14,9 +14,9 @@ import java.io.InputStream;
 /**
  * @Description: 附件上传的扩展接口，开发人员可以自己定义上传调用的真实方法，如当使用阿里云oss是，可以指定key
  * @ClassName: FileExpServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2022-03-17 09:43
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class FileExpServiceImpl implements FileExpService {
 
@@ -43,7 +43,7 @@ public class FileExpServiceImpl implements FileExpService {
      * </pre>
      *
      * 上传文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/3/28 13:23
      * @param file
      * @return java.lang.String
@@ -88,7 +88,7 @@ public class FileExpServiceImpl implements FileExpService {
      * </pre>
      *
      * 上传文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/3/28 13:28
      * @param inputStream
      * @param fileSize 文件大小
@@ -128,7 +128,7 @@ public class FileExpServiceImpl implements FileExpService {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/3/28 13:30
      * @param fileid  文件服务器fileid，如：/D1/02/89/xxxxxxxxxxxxxxx.txt
      * @param filename 下载后的文件名称
@@ -153,7 +153,7 @@ public class FileExpServiceImpl implements FileExpService {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/3/28 13:37
      * @param fileid 文件服务器fileid，如：/D1/02/89/xxxxxxxxxxxxxxx.txt
      * @param filename 下载后的文件名称

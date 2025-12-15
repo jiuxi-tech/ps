@@ -5,9 +5,9 @@ import com.jiuxi.admin.core.bean.entity.TpEntBasicinfo;
 /**
  * @Description: 发布事件推送企业基本信息给别的系统
  * @ClassName: TpEntBasicinfoEventService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-08 17:16
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 
 public interface TpEntBasicinfoEventService {

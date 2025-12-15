@@ -24,9 +24,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * @ClassName: MonitorAlarmServiceImpl
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/18 14:10
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class MonitorAlarmServiceImpl implements MonitorAlarmService {
@@ -57,7 +57,7 @@ public class MonitorAlarmServiceImpl implements MonitorAlarmService {
      * @param clientId
      * @param source
      * @return boolean
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 15:16
      */
     @Override
@@ -72,7 +72,7 @@ public class MonitorAlarmServiceImpl implements MonitorAlarmService {
      * @param clientId
      * @param source
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 15:30
      */
     @Override
@@ -95,7 +95,7 @@ public class MonitorAlarmServiceImpl implements MonitorAlarmService {
      * @param source      资源名称
      * @param alarmSource 超阈值的资源
      * @return boolean   报警返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/18 14:14
      */
     @Override
@@ -154,7 +154,7 @@ public class MonitorAlarmServiceImpl implements MonitorAlarmService {
      *
      * @param heartbeatInfo
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 18:08
      */
     @Override
@@ -211,7 +211,7 @@ public class MonitorAlarmServiceImpl implements MonitorAlarmService {
      * @param clientId 客户端id
      * @param source   报警资源 如：cpu
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/27 16:28
      */
     @Override
@@ -225,7 +225,7 @@ public class MonitorAlarmServiceImpl implements MonitorAlarmService {
      *
      * @param clientId
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 15:32
      */
     private String getAlarmInfoCacheKey(String clientId, String source) {
@@ -239,7 +239,7 @@ public class MonitorAlarmServiceImpl implements MonitorAlarmService {
      * @param clientId
      * @param source
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 15:32
      */
     private String getSendMailCacheKey(String clientId, String source) {

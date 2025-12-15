@@ -8,9 +8,9 @@ import org.springframework.context.ApplicationListener;
 /**
  * @ClassName: TpRoleAuthorizationLisenter
  * @Description: 角色授权的监听，用于清除 角色菜单的缓存
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/11/24 9:49
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpRoleAuthorizationLisenter implements ApplicationListener<TpRoleAuthorizationEvent> {
 

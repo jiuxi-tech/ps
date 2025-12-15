@@ -333,7 +333,7 @@
 						this.$message.error(`该账号密码已过期，请立即重置密码！`);
 					} else if (daysDiff <= reminderDays) {
 						// 密码即将过期
-						this.$message.warning(`该账号密码将在${daysDiff}天后过期，建议尽快重置密码！`);
+						this.$message.warn(`该账号密码将在${daysDiff}天后过期，建议尽快重置密码！`);
 					}
 				}).catch(err => {
 					console.warn('获取密码配置失败:', err);

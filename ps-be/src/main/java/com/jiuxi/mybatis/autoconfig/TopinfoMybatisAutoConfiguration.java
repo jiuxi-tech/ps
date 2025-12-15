@@ -61,7 +61,7 @@ public class TopinfoMybatisAutoConfiguration {
 
     /**
      * 数据源
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/1/9 15:09
      * @param
      * @return com.alibaba.druid.pool.DruidDataSource
@@ -121,7 +121,7 @@ public class TopinfoMybatisAutoConfiguration {
      * @param dataSource
      * @return org.springframework.transaction.PlatformTransactionManager
      * @description: 事务配置
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/1/9 15:09
      */
     @Bean
@@ -135,7 +135,7 @@ public class TopinfoMybatisAutoConfiguration {
 
     /**
      * 动态数据源
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/2/22 14:43
      * @param
      * @return com.jiuxi.shared.infrastructure.persistence.dynamic.DynamicDataSource
@@ -218,7 +218,7 @@ public class TopinfoMybatisAutoConfiguration {
 
     /**
      * 动态数据源 SqlSessionFactory
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/2/22 16:15
      * @param dataSource
      * @return org.apache.ibatis.session.SqlSessionFactory
@@ -239,7 +239,7 @@ public class TopinfoMybatisAutoConfiguration {
 
     /**
      * 多数据源事务
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/2/22 16:06
      * @param dataSource
      * @return org.springframework.transaction.PlatformTransactionManager
@@ -252,7 +252,7 @@ public class TopinfoMybatisAutoConfiguration {
 
     /**
      * 多数据源 dynamicDataSourceAspect
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/2/22 16:15
      * @param
      * @return com.jiuxi.shared.infrastructure.persistence.dynamic.DynamicDataSourceAspect
@@ -316,7 +316,7 @@ public class TopinfoMybatisAutoConfiguration {
      * @param
      * @return cn.hutool.core.lang.Snowflake
      * @description:
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/3/17 17:48
      */
     @Bean
@@ -336,7 +336,7 @@ public class TopinfoMybatisAutoConfiguration {
      *
      * @param
      * @return com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/23 14:36
      */
     @ConditionalOnMissingBean(MybatisPlusInterceptor.class)
@@ -356,7 +356,7 @@ public class TopinfoMybatisAutoConfiguration {
     /**
      * @return com.github.pagehelper.PageInterceptor
      * @description: 分页插件 -- 旧版
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/1/9 15:14
      */
     /*

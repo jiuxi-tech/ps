@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 /**
  * @ClassName: TpAccountApiServiceImpl
  * @Description: 账户 api
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2024/5/27 13:23
- * @Copyright: 2024 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2024 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpAccountApiServiceImpl")
 public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
@@ -38,7 +38,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      * @param phone 手机号
      * @param clazz
      * @return T
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/5/27 13:47
      */
     public <T> T getTpAccountByPhone(String phone, Class<T> clazz) {
@@ -53,7 +53,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      *
      * @param phone 手机号
      * @return T
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/5/27 13:47
      */
     public Object getTpAccountByPhone(String phone) {
@@ -67,7 +67,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      * @param username 用户名
      * @param clazz
      * @return T
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 8:51
      */
     public <T> T getTpAccountByUsername(String username, Class<T> clazz) {
@@ -80,7 +80,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      *
      * @param username 用户名
      * @return T
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 8:51
      */
     public Object getTpAccountByUsername(String username) {
@@ -94,7 +94,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      * @param personId 人员id
      * @param clazz
      * @return T
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 8:51
      */
     public <T> T getTpAccountByPersonId(String personId, Class<T> clazz) {
@@ -107,7 +107,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      *
      * @param personId 人员id
      * @return T
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 8:51
      */
     public Object getTpAccountByPersonId(String personId) {
@@ -121,7 +121,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      * @param accountId 账号id
      * @param clazz
      * @return T
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 8:51
      */
     public <T> T getTpAccountByAccountId(String accountId, Class<T> clazz) {
@@ -134,7 +134,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      *
      * @param accountId 账号id
      * @return T
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 8:51
      */
     public Object getTpAccountByAccountId(String accountId) {
@@ -160,7 +160,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      * @param accountDTO 账号信息
      * @param jwtpid     操作人
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 9:50
      */
     public int addAccount(Object accountDTO, String jwtpid) {
@@ -193,7 +193,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      *
      * @param personId 人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 11:08
      */
     public void deleteByPersonId(String personId, String jwtpid) {
@@ -210,7 +210,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      * @param accountDTO
      * @param jwtpid
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 10:56
      */
     /*
@@ -226,7 +226,7 @@ public class TpAccountApiServiceImpl /* implements TpAccountApiService */ {
      *
      * @param accountDTO
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 10:26
      */
     /*

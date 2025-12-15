@@ -7,9 +7,9 @@ import org.springframework.context.ApplicationEvent;
 /**
  * @Description: 账号操作的监听事件
  * @ClassName: TpAccountBasicinfoEvent
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-08 11:09
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpAccountEvent extends ApplicationEvent {
 

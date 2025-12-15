@@ -3,9 +3,9 @@ package com.jiuxi.shared.infrastructure.persistence.dynamic;
 /**
  * @ClassName: DynamicDataSourceContextHolder
  * @Description: 动态数据源上下文管理
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/2/22 15:01
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class DynamicDataSourceContextHolder {
 

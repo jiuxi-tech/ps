@@ -5,7 +5,7 @@ import com.jiuxi.common.bean.ErrorCode;
 /**
  * @ClassName: ValidationException
  * @Description: 参数验证异常类
- * @Author: System
+ * @Author: Qdd
  * @Date: 2025/01/07
  * @Copyright: 2025 www.jiuxi.com Inc. All rights reserved.
  * 

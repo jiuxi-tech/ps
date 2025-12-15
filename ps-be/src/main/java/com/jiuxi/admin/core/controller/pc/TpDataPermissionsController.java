@@ -19,9 +19,9 @@ import java.util.Set;
 /**
  * @ClassName: TpDataPermissionsController
  * @Description: 数据权限
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2023/11/1 15:39
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/data-perm")
@@ -51,7 +51,7 @@ public class TpDataPermissionsController {
      * </pre>
      *
      * @param permissionsVO 数据权限封装
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 15:41
      */
     @RequestMapping(value = "/add")
@@ -68,7 +68,7 @@ public class TpDataPermissionsController {
      *
      * @param personId 人员id
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 16:05
      */
     @RequestMapping(value = "/listPerm")
@@ -87,7 +87,7 @@ public class TpDataPermissionsController {
      *
      * @param personId 人员id
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 16:05
      */
     @RequestMapping(value = "/listPermIds")
@@ -112,7 +112,7 @@ public class TpDataPermissionsController {
      *
      * @param jwtpid 当前登录人id
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 17:00
      */
     @RequestMapping(value = "/treePerm")
@@ -132,7 +132,7 @@ public class TpDataPermissionsController {
      * @param personId 人员id，为空时取当前登录人id
      * @param deptId   部门id
      * @return 有权限返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:09
      */
     @RequestMapping(value = "/isExistsDataPermissions")

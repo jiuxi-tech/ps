@@ -1,96 +1,127 @@
-# 启动前后端（Windows）
+## 变更目标
 
-## 环境前置检查
+* 部门层级仅支持分隔符 '>'。
 
-* 安装并确认 `JDK 11/17`、`Maven`、`Node.js` 与包管理器（`npm` 或 `pnpm`）。
+* 为便于检索与展示，新增部门全路径字段 `FULL_DEPT_CODE`、`FULL_DEPT_NAME`。
 
-* 使用 PowerShell；命令分隔用 `;`，不要使用 `&&`。
+* 部门“协办人”新增简单文本字段 `ASSISTANT_NOTE`。
 
-* 端口占用检查：后端 `8082`、前端 `10801`、Keycloak `18080`。
+* 人员新增“状态（在职/离职）”字段 `EMP_STATUS`；导入层不再写 `EXTEND01..03`。
 
-* 数据库可用性：`alilaoba.cn:13307`，库 `ps-bmp`，用户 `root`，密码 `$D8BZ8Qmav`（项目按 `application.yml` 配置）。
+* 坚持开闭原则：仅加字段与导入层逻辑，尽量不改既有功能；为避免影响现有接口，采用“写入新字段+兼容读取”的策略。
 
-* 认证服务：确保 Keycloak 运行在 `http://localhost:18080`，`realm=ps-realm`，`clientId=ps-be`。
+## 数据库变更
 
-## 后端启动
+### 表 `tp_dept_basicinfo`
 
-* 进入后端目录：`D:\projects\ps-bmp\keycloak-sb-sso\ps-be`。
+* 新增：
 
-* 可选预构建：`mvn -e clean package -DskipTests`。
+  * `FULL_DEPT_CODE` VARCHAR(500) NOT NULL DEFAULT ''（用层级编码/编号/ID拼接的部门路径码）
 
-* 开发运行：`mvn -e spring-boot:run`。
+  * `FULL_DEPT_NAME` VARCHAR(500) NOT NULL DEFAULT ''（'>' 拼接的部门全名路径）
 
-* 期望日志：Spring Boot 启动完成，监听 `8082`，`context-path=/ps-be`。
+  * `ASSISTANT_NOTE` VARCHAR(500) NULL（协办人简单文本）
 
-* 验证（任选其一）：
+* 索引：
 
-  * 如启用 Actuator：访问 `http://localhost:8082/ps-be/actuator/health`。
+  * `IDX_FULL_DEPT_CODE`（`FULL_DEPT_CODE`）
 
-  * 若有测试接口：访问示例 `http://localhost:8082/ps-be/test_user_is_enable`。
+  * `IDX_FULL_DEPT_NAME`（`FULL_DEPT_NAME`）
 
-  * 无内置健康检查时：查看日志无错误且端口开放。
+* 回填策略：
 
-## 前端启动
+  * 以 `PDEPT_ID` 向上追溯，按 '>' 拼接 `DEPT_FULL_NAME` 得到 `FULL_DEPT_NAME`。
 
-* 进入前端目录：`D:\projects\ps-bmp\keycloak-sb-sso\ps-fe`。
+  * `FULL_DEPT_CODE` 推荐优先使用 `DEPT_NO` 路径；如缺失，退化为 `DEPT_ID` 路径或 `DEPT_LEVELCODE`。
 
-* 安装依赖（任选）：
+  * 根节点哨兵 `1111111111111111111` 不参与拼接。
 
-  * `npm install`
+### 表 `tp_person_basicinfo`
 
-  * 或 `pnpm install`
+* 新增：
 
-* 启动开发服务（根据 `package.json` 的 scripts，常见两种）：
+  * `EMP_STATUS` VARCHAR(20) NOT NULL DEFAULT '在职'（枚举值：'在职'、'离职'；也可与字典码联动）
 
-  * `npm run dev`
+* 约束与联动：
 
-  * 或 `npm start`
+  * 导入层将 `EMP_STATUS` 与 `ACTIVED` 联动：'在职'→`ACTIVED=1`，'离职'→`ACTIVED=0`（不强制数据库触发器，控制在服务层）。
 
-* 打开浏览器访问 `http://localhost:10801`。
+* 停用写入：
 
-## 集成与联调
+  * 导入流程不再向 `EXTEND01..03` 写数据；保留兼容读取（如旧接口仍使用时），后续再分步迁移到语义化字段或 `tp_person_exinfo`。
 
-* 前端 API 基础路径应指向后端 `http://localhost:8082/ps-be`；若存在跨域，使用前端开发代理或后端允许指定源。
+## 应用层改动
 
-* 登录与鉴权：使用 Keycloak（`http://localhost:18080`，`ps-realm`，`ps-be`）。管理员账号 `admin/admin123` 验证。
+* 实体与Mapper：
 
-## 故障排查
+  * `DepartmentPO` 增加 `fullDeptCode/fullDeptName/assistantNote` 字段；对应 XML 增加插入/更新/查询列（参考现有 `TpDeptBasicinfoMapper.xml:126-136` 的字段列表与写法）。
 
-* 端口被占用：在 PowerShell 用 `Get-NetTCPConnection | Select-Object -Property LocalAddress,LocalPort,State,OwningProcess | Where-Object {$_.LocalPort -in 8082,10801,18080}`；结束占用进程后重试。
+  * `UserPO` 增加 `empStatus` 字段；`TpPersonBasicinfoMapper.xml` 插入/更新/查询语句添加该列（参考 `TpPersonBasicinfoMapper.xml:100-109, 170-206`）。
 
-* Maven 下载慢：切换镜像或重试；命令默认带 `-e` 便于定位错误。
+* 路径字段维护：
 
-* Node 版本不兼容：使用 LTS（如 18/20）；若脚本不存在，查看 `package.json` 的 `scripts`。
+  * 新增/变更部门时，服务层在持久化前或后重建 `FULL_DEPT_CODE/FULL_DEPT_NAME`（沿父链递归或基于一次性查询构建字典）。
 
-* 数据库连接失败：检查公网连通性与凭据；如需本地复刻数据库，调整 `application.yml`。
+* 兼容性：
 
-* Keycloak 连接失败：确认服务可达与客户端配置（回调地址、密钥）。
+  * 现有查询若依赖 `DEPT_LEVELCODE/DEPT_FULL_NAME` 保持不变；新检索可使用 `FULL_DEPT_*` 提升体验与性能（可选增加 LIKE 或前缀匹配）。
 
-## 其他可选方案
+## 导入适配
 
-* 直接运行可执行包：`mvn -e clean package -DskipTests` 后，用 `java -jar target\*.jar --server.port=8082 --server.servlet.context-path=/ps-be`。
+* 部门导入：
 
-* 容器化：若仓库提供 Docker/Compose，可统一启动三方服务（后端/前端/Keycloak/DB）。
+  * 仅支持 '>' 分隔；逐级 upsert（查重：优先 `DEPT_LEVELCODE`/`DEPT_NO`+父ID；保底 `DEPT_FULL_NAME` 同层级唯一）。
 
-## 立刻可执行的摘要
+  * 显示顺序：同层级最小值+1。
 
-* 后端：`cd D:\projects\ps-bmp\keycloak-sb-sso\ps-be ; mvn -e spring-boot:run`。
+  * 编号：按系统参数 `dept.no.auto.enabled` 自动生成；缺失则置空。
 
-* 前端：`cd D:\projects\ps-bmp\keycloak-sb-sso\ps-fe ; npm install ; npm run dev`。
+  * 协办人：写入 `ASSISTANT_NOTE`；无需结构化绑定。
 
-* 验证：打开 `http://localhost:10801` 与 `http://localhost:8082/ps-be`（或健康检查/测试接口）。
+  * 路径字段：导入完成后计算并写入 `FULL_DEPT_CODE/FULL_DEPT_NAME`。
 
-## 分阶段任务清单
+* 人员导入：
 
-* 检查本地 JDK/Maven/Node 环境版本与端口占用。
+  * 状态（必填）：解析 '在职/离职' → 写 `EMP_STATUS`，并联动 `ACTIVED`；不写 `EXTEND01..03`。
 
-* 启动后端并确认 `8082` 与 `/ps-be` 正常。
+  * 部门（必填）：建立 `tp_person_dept` 主部门 `DEFAULT_DEPT=1`；兼职部门支持多条关联。
 
-* 启动前端并确认 `10801` 正常可访问。
+  * 账号与登录信息：沿用 `tp_account`（`USERNAME/USERPWD/PHONE/EMAIL`），不改结构。
 
-* 校验 Keycloak 登录流程与接口鉴权。
+## 数据迁移与回滚
 
-* 前后端接口联调，确保基本页面/列表加载成功。
+* 数据回填脚本：
 
-* 记录并解决启动过程的任何错误（依赖安装、端口冲突、网络问题）。
+  * 部门：全量构建并回填 `FULL_DEPT_CODE/FULL_DEPT_NAME`，幂等。
+
+  * 人员：默认将在职人员标记 `EMP_STATUS='在职'`，离职人员按既有逻辑或运维清单批量设置。
+
+* 回滚：
+
+  * 可逐步移除新列或停用写入；保留原有列不动，降低风险。
+
+## 验证计划
+
+* 结构校验：`SHOW COLUMNS` 验证新增列与索引。
+
+* 业务校验：小样本模板导入演练；对照失败 Excel/成功记录；树路径与检索验证。
+
+* 性能校验：`FULL_DEPT_*` 上的前缀/LIKE 查询走索引情况评估。
+
+## 待确认点
+
+* `FULL_DEPT_CODE` 的优先拼接依据（`DEPT_NO` > `DEPT_ID` > `DEPT_LEVELCODE`），是否接受该降级策略。
+
+* 人员状态枚举是否固定为中文值（'在职'/'离职'），是否需要字典码映射。
+
+* 根部门哨兵的路径显示策略（是否在名称中显示根）。
+
+## 分阶段任务
+
+1. 冻结字段定义与索引方案
+2. 编写数据回填与联动策略（服务层实现）
+3. 更新实体与Mapper（部门/人员）
+4. 更新导入适配层（层级解析、路径计算、状态联动）
+5. 小样本联调与失败 Excel 回写
+6. 文档与运维脚本交付
 

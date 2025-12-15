@@ -24,9 +24,9 @@ import java.util.List;
 /**
  * @ClassName: SecurityWebMvcConfigurer
  * @Description: 把拦截器添加到配置中
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/22 17:02
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Configuration
 @Order(0)
@@ -148,7 +148,7 @@ public class SecurityWebMvcConfigurer implements WebMvcConfigurer {
      * @param resolvers
      * @return void
      * @description: 添加方法参数解析器
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/28 15:26
      */
     @Override

@@ -28,9 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @ClassName: LoginController
  * @Description: 登录 Controller
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/25 17:17
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/platform")
@@ -244,7 +244,7 @@ public class SecurityPlatformController {
      * @param jwtpid jwt中解析的人员id
      * @return com.jiuxi.mvc.bean.JsonResponse
      * @description: 选择部门
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/7/21 14:10
      */
     @RequestMapping("/select-dept")
@@ -259,7 +259,7 @@ public class SecurityPlatformController {
      *
      * @param jwttoken 自动注入
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/23 14:28
      */
     @RequestMapping(value = "/refresh-token")
@@ -280,7 +280,7 @@ public class SecurityPlatformController {
 
     /**
      * 交换token
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 17:19
      * @param version 目标token的版本号，版本号： 2.0、2.1、3.0
      * @return com.jiuxi.common.bean.JsonResponse
@@ -301,7 +301,7 @@ public class SecurityPlatformController {
      *
      * @param token
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/10/8 13:26
      */
     @RequestMapping("/logout")
@@ -317,7 +317,7 @@ public class SecurityPlatformController {
      *
      * @param token
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/10/8 13:26
      */
     @RequestMapping("/invalidate-token")

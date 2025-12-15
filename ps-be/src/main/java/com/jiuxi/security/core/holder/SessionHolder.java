@@ -6,9 +6,9 @@ import com.jiuxi.common.bean.SessionVO;
 /**
  * @ClassName: SessionHolder
  * @Description: token 上下文 持有, 必须经过 http 请求才能用
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/19 20:04
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class SessionHolder {
 
@@ -21,7 +21,7 @@ public class SessionHolder {
      *
      * @param
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/19 20:05
      */
     public static SessionVO get() {
@@ -34,7 +34,7 @@ public class SessionHolder {
      *
      * @param token
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/19 20:05
      */
     public static void set(SessionVO token) {
@@ -44,7 +44,7 @@ public class SessionHolder {
 
     /**
      * 删除，在使用完成后，必须删除，避免内存溢出
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/19 20:05
      * @param
      * @return void

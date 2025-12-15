@@ -19,15 +19,14 @@ import javax.annotation.PostConstruct;
 /**
  * @ClassName: MonitorClientAutoConfiguration
  * @Description: 监控客户端配置
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/5 18:12
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Configuration
 @ComponentScan({"com.jiuxi.monitor.client.core", "com.jiuxi.monitor.client.controller"})
 @EnableConfigurationProperties({MonitorClientAutoConfigurationProperties.class})
 @ConditionalOnProperty(prefix = "jiuxi.platform.plugin.monitor", name = "server-url")
-@EnableScheduling
 public class MonitorClientAutoConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(MonitorClientAutoConfiguration.class);
@@ -35,8 +34,9 @@ public class MonitorClientAutoConfiguration {
     @PostConstruct
     public void init() {
         logger.info("[监控客户端] 监控客户端自动配置类初始化完成");
-        logger.debug("[监控客户端] 组件扫描包: com.jiuxi.monitor.client.core, com.jiuxi.monitor.client.controller");
-        logger.debug("[监控客户端] 启用定时任务调度");
+        logger.info("[监控客户端] 组件扫描包: com.jiuxi.monitor.client.core, com.jiuxi.monitor.client.controller");
+        logger.info("[监控客户端] MonitorClientAutoConfigurationProperties Bean 已创建");
+        logger.info("[监控客户端] 定时任务调度将使用Application主类的@EnableScheduling配置");
     }
 
 

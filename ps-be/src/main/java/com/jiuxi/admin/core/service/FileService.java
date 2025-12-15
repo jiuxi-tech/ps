@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * @Description: 附件接口
  * @ClassName: FileService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-10-15 10:51
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 
 public interface FileService {
@@ -27,7 +27,7 @@ public interface FileService {
      * @param referType
      * @param referId
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/26 13:53
      */
     List<TpAttachinfo> uploadFile(MultipartFile[] files, String creator, String referType, String referId) throws TopinfoRuntimeException;
@@ -42,7 +42,7 @@ public interface FileService {
      * @param referType
      * @param referId
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/26 13:53
      */
     List<TpAttachinfo> uploadFile(String[] base64s, String[] base64sFileName,String creator, String referType, String referId) throws TopinfoRuntimeException;
@@ -50,7 +50,7 @@ public interface FileService {
 
     /**
      * 附件下载
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/2/15 13:20
      * @param id 附件ID
      * @param request

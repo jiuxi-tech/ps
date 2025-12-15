@@ -8,9 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 /**
  * @Description: 初始化类，当前初始化学法算法id生成工具
  * @ClassName: MybatisCommandLineRunner
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-24 10:30
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class MybatisCommandLineRunner implements CommandLineRunner {
 

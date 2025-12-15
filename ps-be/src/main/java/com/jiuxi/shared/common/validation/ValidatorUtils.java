@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * @description:  hibernate-validator校验工具类
  * 参考文档：http://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/
- * @author 杨攀
+ * @author Ypp
  * @date 2020/7/20 14:53
  */
 public class ValidatorUtils {

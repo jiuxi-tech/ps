@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * @Description: 企业基本信息操作的监听事件
  * @ClassName: TpEntBasicinfoEvent
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-08 17:14
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpEntBasicinfoEvent extends ApplicationEvent {
 

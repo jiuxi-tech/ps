@@ -9,9 +9,9 @@ import java.util.concurrent.*;
 /**
  * @ClassName: CommonThreadPoolExecutorUtil
  * @Description: 线程池工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2024/1/8 17:29
- * @Copyright: 2024 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2024 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CommonThreadPoolExecutorUtil {
 
@@ -20,7 +20,7 @@ public class CommonThreadPoolExecutorUtil {
 
     /**
      * 新建一个线程池，默认拒绝策略为： CallerRunsPolicy，即要求所有的任务都必须被线程池执行,不会抛出异常，而是将任务退回给调用线程，让它自己执行任务。
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/1/8 17:45
      * @param corePoolSize 核心线程数
      * @param maximumPoolSize 最大线程池
@@ -47,7 +47,7 @@ public class CommonThreadPoolExecutorUtil {
 
     /**
      * 新建一个线程池
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/3/29 15:20
      * @param corePoolSize 核心线程数
      * @param maximumPoolSize 最大线程池

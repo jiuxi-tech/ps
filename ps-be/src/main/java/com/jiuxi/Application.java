@@ -10,9 +10,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * @ClassName: Application
  * @Description: PS BMP Backend Application 主启动类
- * @Author: System
+ * @Author: Qdd
  * @Date: 2025-08-18
- * @Copyright: 2025 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2025 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @SpringBootApplication(scanBasePackages = {
     "com.jiuxi",

@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  * @Description: 第三方应用管理服务实现
  * @Author system
  * @Date 2024-01-18 11:05:17
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpThirdPartyAppService")
 public class TpThirdPartyAppServiceImpl implements TpThirdPartyAppService {

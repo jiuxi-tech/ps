@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 /**
  * @ClassName: TpPersonExtApiServiceImpl
  * @Description: 人员扩展信息服务
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/5/30 17:32
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpPersonExtApiServiceImpl")
 public class TpPersonExtApiServiceImpl {
@@ -45,7 +45,7 @@ public class TpPersonExtApiServiceImpl {
      * </pre>
      * @param dto   人员扩展信息
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 17:35
      */
     public void edit(Object dto) {

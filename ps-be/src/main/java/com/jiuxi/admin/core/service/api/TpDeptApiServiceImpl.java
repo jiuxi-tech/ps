@@ -18,9 +18,9 @@ import java.util.List;
 /**
  * @ClassName: TpDeptApiServiceImpl
  * @Description: 部门 api 实现
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/15 15:01
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpDeptApiService")
 public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
@@ -33,7 +33,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
      *
      * @param deptId
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 14:00
      */
     public String getFullNameById(String deptId) {
@@ -49,7 +49,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
      *
      * @param deptId
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 14:00
      */
     public String getSimpleNameById(String deptId) {
@@ -65,7 +65,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
      *
      * @param deptId
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 14:02
      */
     public String getDeptLevelcodeById(String deptId) {
@@ -81,7 +81,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
      *
      * @param deptId
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 16:36
      */
     public String getLineCode(String deptId) {
@@ -90,7 +90,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
 
     /**
      * 根据上级单位id查询下级单位和当前查询单位的部门
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/17 17:11
      * @param parentId 上级id
      * @param deptType SYS05 部门类型 单位or部门or网格or其他，其他是为了满足公众等没有部门的用户分类使用，归为政府编制下
@@ -107,7 +107,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
      * @param dto  部门信息
      * @param pid 登录人id
      * @return com.jiuxi.plugin.api.bean.dto.TpDeptBasicinfoDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 9:39
      */
     /*
@@ -133,7 +133,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
      *     5. 部门类型 != SYS0501时，需要传单位id: ascnId
      *     6. 创建人
      * </pre>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 10:38
      * @throws TopinfoRuntimeException 校验失败抛出异常
      */
@@ -182,7 +182,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
      * @param dto  部门信息
      * @param pid  登录人id
      * @return com.jiuxi.plugin.api.bean.dto.TpDeptBasicinfoDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 10:50
      */
     /*
@@ -204,7 +204,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
      * 校验必要的字段
      *
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 13:17
      */
     /*
@@ -229,7 +229,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
      * @param deptId 部门id
      * @param jwtpid    操作人id
      * @return 修改的行数
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 13:28
      */
     /*
@@ -245,7 +245,7 @@ public class TpDeptApiServiceImpl /* implements TpDeptApiService */ {
      * @param ascnId 单位id
      * @param jwtpid 操作人
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 10:09
      */
     /*

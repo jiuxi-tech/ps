@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: 附件表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpAttachinfoMapper {
@@ -32,7 +32,7 @@ public interface TpAttachinfoMapper {
      *
      * @param attachId
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 16:00
      */
     int delete(@Param("attachId") String attachId);
@@ -47,7 +47,7 @@ public interface TpAttachinfoMapper {
      * @param attachId
      * @param jwtpid
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 16:00
      */
     int physicsDelete(@Param("attachId") String attachId, @Param("jwtpid") String jwtpid);
@@ -59,7 +59,7 @@ public interface TpAttachinfoMapper {
      * @param jwtpid
      * @param updateTime
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 16:01
      */
     int logicDelete(@Param("attachId") String attachId, @Param("jwtpid")String jwtpid, @Param("updateTime")String updateTime);
@@ -69,7 +69,7 @@ public interface TpAttachinfoMapper {
      *
      * @param attachId
      * @return boolean
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/22 14:51
      */
     String exists(@Param("attachId") String attachId);

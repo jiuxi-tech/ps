@@ -7,9 +7,9 @@ import java.util.Objects;
 /**
  * @Description: 菜单树节点
  * @ClassName: MenuTreeNode
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-12-08 09:19
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class MenuTreeNode extends TreeNode {
 

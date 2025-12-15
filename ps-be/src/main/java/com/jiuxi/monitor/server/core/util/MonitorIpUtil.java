@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @ClassName: MonitorIpUtil
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/18 9:42
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class MonitorIpUtil {
 
@@ -18,7 +18,7 @@ public class MonitorIpUtil {
      *
      * @param request
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/8/7 9:14
      */
     public static String getIpAddr(HttpServletRequest request){

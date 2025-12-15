@@ -3,9 +3,9 @@ package com.jiuxi.admin.core.bean.query;
 /**
  * @ClassName: TpDataPermissionsQuery
  * @Description: TODO
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/1 15:12
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpDataPermissionsQuery {
 

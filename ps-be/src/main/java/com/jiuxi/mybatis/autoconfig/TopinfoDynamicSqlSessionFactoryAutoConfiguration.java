@@ -40,9 +40,9 @@ import java.util.function.Consumer;
 /**
  * @ClassName: TopinfoDynamicSqlSessionFactoryAutoConfiguration
  * @Description: 动态数据源的 SqlSessionFactory 重写默认的 SqlSessionFactory
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/6/7 10:56
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Configuration
 @AutoConfigureBefore(DataSourceAutoConfiguration.class)
@@ -73,7 +73,7 @@ public class TopinfoDynamicSqlSessionFactoryAutoConfiguration implements Initial
 
     /**
      * 动态数据源 SqlSessionFactory
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/2/22 16:15
      * @param dataSource
      * @return org.apache.ibatis.session.SqlSessionFactory

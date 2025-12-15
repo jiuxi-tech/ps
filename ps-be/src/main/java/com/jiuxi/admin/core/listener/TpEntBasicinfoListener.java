@@ -14,9 +14,9 @@ import java.time.LocalDateTime;
 /**
  * @Description: 企业基本信息同步监听事件
  * @ClassName: TpEntBasicinfoListener
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-08 11:17
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpEntBasicinfoListener implements ApplicationListener<TpEntBasicinfoEvent> {
 

@@ -5,7 +5,7 @@ import com.jiuxi.common.bean.ErrorCode;
 /**
  * @ClassName: BusinessException
  * @Description: 业务异常类
- * @Author: System
+ * @Author: Qdd
  * @Date: 2025/01/07
  * @Copyright: 2025 www.jiuxi.com Inc. All rights reserved.
  * 

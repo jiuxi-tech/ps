@@ -20,9 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @Description: 限流注解
  * @ClassName: RateLimiterAop
- * @Author: pand
+ * @Author: pdd
  * @Date: 2022-12-13 16:12
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Aspect
 @Component

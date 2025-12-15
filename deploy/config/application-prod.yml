@@ -1,0 +1,651 @@
+############################################################
+#############  生产环境配置文件
+#############  Production Environment Configuration
+#############  
+#############  此文件为外置配置文件，包含所有生产环境配置
+#############  部署时放置在 /opt/ps/config/ 目录
+#############  
+#############  安全说明：
+#############  - 此文件包含敏感信息（数据库密码、Redis密码等）
+#############  - 请设置文件权限为 600：chmod 600 application-prod.yml
+#############  - 请勿将此文件提交到版本控制系统
+#############  - 请定期更换密码（建议每3-6个月）
+############################################################
+
+############################################################
+#############  应用基础配置
+############################################################
+app:
+  info:
+    name: ps-be
+    version: 2.2.2-SNAPSHOT
+    description: PS-BMP Backend System (Production)
+    encoding: UTF-8
+    author: System
+    contact: admin@jiuxi.com
+  
+  # 生产环境文件上传配置
+  upload:
+    max-file-size: 50MB
+    max-request-size: 100MB
+    allowed-types:
+      - image/jpeg
+      - image/png
+      - image/gif
+      - image/bmp
+      - application/pdf
+      - application/msword
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+      - application/vnd.ms-excel
+      - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    upload-dir: /opt/ps/upload
+  
+  # 国际化配置
+  i18n:
+    basename:
+      - i18n/messages
+      - i18n/validation
+    encoding: UTF-8
+    cache-duration: 3600
+    fallback-to-system-locale: true
+    default-locale: zh_CN
+  
+  # 生产环境监控配置
+  monitor:
+    enabled: true
+    server-url: http://localhost:8082/ps-be
+    client-id: ps-bmp-backend-prod
+    system-desc: PS-BMP后端系统（生产环境）
+    connection-timeout: 5000
+    read-timeout: 10000
+
+  # 生产环境数据库配置
+  database:
+    datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      # TODO: 修改为实际的生产数据库地址
+      url: jdbc:mariadb://alilaoba.cn:13307/ps-bmp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: $D8BZ8Qmav
+      validation-query: SELECT 1
+      connection-timeout: 30000
+      max-lifetime: 1800000
+    
+    # 生产环境连接池配置（优化）
+    pool:
+      initial-size: 20
+      min-idle: 20
+      max-active: 500
+      max-wait: 60000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+    
+    # MyBatis 配置
+    mybatis:
+      datacenter-id: 0
+      machine-id: 0
+      tenant: false
+      ignore-tenant-tables:
+        - test
+      page-limit: 1000
+      page-helper-enabled: true
+      # 生产环境禁用性能拦截器
+      performance-interceptor-enabled: false
+      slow-sql-threshold: 3000
+    
+    # 生产环境禁用 Druid 监控界面
+    monitor:
+      enabled: false
+      url-pattern: /druid/*
+      reset-enable: false
+      web-stat-filter:
+        enabled: false
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+  
+  # 生产环境缓存配置
+  cache:
+    redis:
+      # TODO: 修改为实际的 Redis 地址
+      host: localhost
+      port: 6379
+      # TODO: 修改为实际的 Redis 密码
+      password: 
+      database: 0
+      timeout: 10000
+      pool:
+        max-active: 100
+        max-wait: 10000
+        max-idle: 20
+        min-idle: 5
+      cluster:
+        enabled: false
+        nodes: []
+        max-redirects: 3
+      sentinel:
+        enabled: false
+        nodes: []
+    
+    local:
+      type: ehcache
+      ehcache-config: classpath:config/cache/ehcache.xml
+      caffeine:
+        maximum-size: 1000
+        expire-after-write: 3600
+        expire-after-access: 1800
+        initial-capacity: 100
+    
+    distributed-lock:
+      enabled: true
+      wait-time: 3000
+      lease-time: 30000
+      key-prefix: "lock:"
+      watchdog: true
+    
+    # 生产环境缓存策略（启用预热）
+    strategy:
+      default-ttl: 3600
+      short-ttl: 300
+      long-ttl: 86400
+      enable-statistics: true
+      refresh-strategy: async
+      warmup:
+        enabled: true
+        delay: 30
+        data-sources: []
+  
+  # 生产环境安全配置
+  security:
+    basic:
+      enabled: true
+      password-encryption: true
+      session-timeout: 3600
+      csrf-enabled: true
+      xss-enabled: true
+    
+    # 生产环境认证配置（严格控制）
+    authentication:
+      exclude-paths:
+        - /static/**
+        - /sys/captcha/**
+        - /sys/file/preview-pdf
+        - /api/health
+        - /actuator/health
+      max-retry-attempts: 5
+      lockout-duration: 30
+      captcha-enabled: true
+      captcha-expiry: 300
+    
+    # 生产环境 Keycloak SSO 配置
+    keycloak:
+      # TODO: 修改为实际的 Keycloak 服务器地址
+      server-url: https://sso.shxdx.com
+      realm: ps-realm
+      sso:
+        enabled: true
+        client-id: ps-be
+        # TODO: 修改为实际的客户端密钥
+        client-secret: xMXvDGzby4Z48szob7i2fuZlZy5Wlqrh
+        redirect:
+          # TODO: 修改为实际的前端地址
+          success-url: https://192.168.0.139/#/sso/login
+          error-url: https://192.168.0.139/#/login
+          logout-url: https://192.168.0.139/#/logout
+        user-header:
+          user-id-header: X-User-Id
+          username-header: X-Username
+          email-header: X-User-Email
+          name-header: X-User-Name
+          roles-header: X-User-Roles
+          permissions-header: X-User-Permissions
+      admin:
+        client-id: admin-cli
+        # TODO: 修改为实际的管理员用户名和密码
+        username: admin
+        password: cotticotti
+        connection-timeout: 5000
+        read-timeout: 10000
+    
+    # 生产环境 JWT 配置（强化验证）
+    jwt:
+      verify-expiration: true
+      verify-issuer: true
+      verify-audience: true
+      cache-ttl: 1800
+      # TODO: 修改为实际的 JWT 密钥
+      secret: ps-be-jwt-secret-key-2024
+      expiration: 3600
+      refresh-expiration: 7200
+      token-header: Authorization
+      token-prefix: "Bearer "
+    
+    # 生产环境文件服务配置（服务器模式）
+    file-service:
+      mode: server
+      local:
+        base-dir: /opt/ps/upload/jdfs
+        url-prefix: /files
+        max-file-size: 100MB
+        allowed-extensions:
+          - jpg
+          - jpeg
+          - png
+          - gif
+          - bmp
+          - pdf
+          - doc
+          - docx
+          - xls
+          - xlsx
+          - ppt
+          - pptx
+          - txt
+          - zip
+          - rar
+      remote:
+        # TODO: 修改为实际的文件服务器地址
+        server-url: http://192.168.1.102:8080
+        bucket-name: ps-files
+    
+    # 加密配置
+    encryption:
+      password-algorithm: BCrypt
+      bcrypt-strength: 10
+      # TODO: 修改为实际的 AES 密钥
+      aes-key: YourActualAesKey2024
+      rsa-key-length: 2048
+      sm:
+        enabled: false
+
+############################################################
+#############  Spring Boot 生产环境配置
+############################################################
+server:
+  # 生产环境服务器端口
+  port: 8082
+  servlet:
+    context-path: /ps-be
+  tomcat:
+    uri-encoding: UTF-8
+    # 生产环境提升线程数和连接数
+    max-threads: 2000
+    max-connections: 10000
+    connection-timeout: 20000
+    max-http-form-post-size: 100MB
+  max-http-header-size: 100MB
+  # 生产环境启用 HTTP 响应压缩
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml
+    min-response-size: 1024
+
+spring:
+  application:
+    name: ps-be
+    id: ps-be
+  
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  
+  resources:
+    static-locations: classpath:/static/,classpath:/views/
+  
+  mvc:
+    static-path-pattern: /static/**
+  
+  messages:
+    basename: i18n/messages,i18n/validation
+    encoding: UTF-8
+    cache-duration: 3600
+    fallback-to-system-locale: true
+  
+  # 生产环境数据源配置（引用 app.database 配置）
+  datasource:
+    driver-class-name: ${app.database.datasource.driver-class-name}
+    url: ${app.database.datasource.url}
+    username: ${app.database.datasource.username}
+    password: ${app.database.datasource.password}
+    druid:
+      initial-size: ${app.database.pool.initial-size}
+      min-idle: ${app.database.pool.min-idle}
+      max-active: ${app.database.pool.max-active}
+      max-wait: ${app.database.pool.max-wait}
+      validation-query: ${app.database.datasource.validation-query}
+      test-while-idle: ${app.database.pool.test-while-idle}
+      test-on-borrow: ${app.database.pool.test-on-borrow}
+      test-on-return: ${app.database.pool.test-on-return}
+      time-between-eviction-runs-millis: ${app.database.pool.time-between-eviction-runs-millis}
+      min-evictable-idle-time-millis: ${app.database.pool.min-evictable-idle-time-millis}
+      # 生产环境禁用 SQL 监控界面
+      stat-view-servlet:
+        enabled: false
+      # 生产环境启用 SQL 防火墙
+      filter:
+        wall:
+          enabled: true
+          config:
+            select-allow: true
+            delete-allow: false
+            update-allow: true
+            insert-allow: true
+      web-stat-filter:
+        enabled: false
+  
+  # 生产环境 Redis 配置（引用 app.cache.redis 配置）
+  redis:
+    host: ${app.cache.redis.host}
+    port: ${app.cache.redis.port}
+    password: ${app.cache.redis.password}
+    database: ${app.cache.redis.database}
+    timeout: ${app.cache.redis.timeout}ms
+    jedis:
+      pool:
+        max-active: ${app.cache.redis.pool.max-active}
+        max-wait: ${app.cache.redis.pool.max-wait}ms
+        max-idle: ${app.cache.redis.pool.max-idle}
+        min-idle: ${app.cache.redis.pool.min-idle}
+  
+  # 生产环境缓存配置
+  cache:
+    type: ${app.cache.local.type}
+    ehcache:
+      config: ${app.cache.local.ehcache-config}
+  
+  # Redisson 配置（生产环境使用集群模式）
+  redisson:
+    config: classpath:redis/redisson-cluster.yml
+  
+  # 生产环境邮件配置
+  mail:
+    # TODO: 修改为实际的邮件服务器配置
+    # SMTP服务器地址
+    host: smtp.163.com
+    # SMTP服务器端口（163邮箱SSL端口）
+    port: 465
+    # 发送邮件的邮箱账号
+    username: 18069853753@163.com
+    # 邮箱密码或授权码
+    password: WQbFDS7fdK92fKcU
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: false
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+  
+  # DevTools 配置（生产环境禁用）
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+
+############################################################
+#############  生产环境日志配置
+############################################################
+logging:
+  config: classpath:config/log/logback-spring.xml
+  level:
+    root: WARN
+    # 生产环境精简日志级别
+    com.jiuxi.admin: INFO
+    com.jiuxi.shared: INFO
+    com.jiuxi.module: INFO
+    # MyBatis 日志
+    org.mybatis: WARN
+    com.baomidou.mybatisplus: WARN
+    # 数据库连接池日志
+    com.alibaba.druid: WARN
+    # SQL 执行日志
+    org.apache.ibatis: WARN
+    org.springframework.jdbc: WARN
+    org.springframework.jdbc.core: WARN
+    org.springframework.transaction: WARN
+    org.springframework.jdbc.datasource: WARN
+    # 监控模块日志
+    com.jiuxi.monitor: INFO
+  file:
+    name: /opt/ps/logs/ps-bmp-backend.log
+    max-size: 100MB
+    max-history: 30
+    total-size-cap: 10GB
+
+############################################################
+#############  Actuator 监控配置（生产环境）
+############################################################
+management:
+  endpoints:
+    web:
+      exposure:
+        # 生产环境仅暴露必要的端点
+        include: health,prometheus
+  endpoint:
+    health:
+      # 生产环境不显示健康检查详情
+      show-details: never
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+############################################################
+#############  应用信息配置
+############################################################
+info:
+  app:
+    name: ps-be
+    description: PS-BMP Backend System (Production)
+    version: 2.2.2-SNAPSHOT
+    encoding: UTF-8
+    java:
+      version: ${java.version}
+
+############################################################
+#############  传统配置兼容（保持向后兼容性）
+############################################################
+topinfo:
+  mybatis:
+    datacenterId: ${app.database.mybatis.datacenter-id}
+    machineId: ${app.database.mybatis.machine-id}
+    datasource-config:
+      url: ${app.database.datasource.url}
+      username: ${app.database.datasource.username}
+      password: ${app.database.datasource.password}
+      minIdle: ${app.database.pool.min-idle}
+      maxActive: ${app.database.pool.max-active}
+      validationQuery: ${app.database.datasource.validation-query}
+    tenant: ${app.database.mybatis.tenant}
+    ignore-tenant-tables: ${app.database.mybatis.ignore-tenant-tables}
+  
+  # 安全配置
+  security:
+    # 启用鉴权控制
+    enable: true
+    # 密码传输是否加密，默认不加密
+    password-encryption: true
+    # 认证配置
+    authentication:
+      # 配置不需要认证的路径
+      excludePaths:
+        - /static/**
+        - /sys/captcha/**
+        - /sys/file/preview-pdf
+        - /sys/person/account-findpwd
+        - /sys/person/check-vcode
+        - /sys/**
+        - /sys/person/getUserInfo
+        # 图形验证
+        - /**
+        - /api/**
+        - /app/sys/captcha/verification-image
+        - /platform/captcha/get-slider-captcha
+        # 附件下载
+        - /sys/file/download
+        - /app/sys/file/download
+        - /app/**
+        - /api/**
+        - /platform/**
+        - /app/sys/file/upload
+        - /app/trainoffline/**
+        - /gdemergencyvehicle/sgddcreservation/**
+        - /common/clientlogin/getPhoneByLoginName
+        - /common/clientlogin/sendMsg
+        - /common/clientlogin/checkPhoneCode
+        - /taskcheck/siccheckpoint/**
+        - /taskcheck/sicchecktask/**
+        # 开发环境额外路径
+        - /druid/**
+        - /actuator/**
+
+      # 密码策略配置
+      password-policy:
+        # 密码长度配置
+        length:
+          min: 6                    # 开发环境降低要求，最小6位
+          max: 20                   # 最大20位
+        
+        # 密码复杂度配置
+        complexity:
+          enabled: true             # 启用复杂度验证
+          require-uppercase: false  # 开发环境不强制大写字母
+          require-lowercase: true   # 必须包含小写字母
+          require-digit: true       # 必须包含数字
+          require-special: false    # 开发环境不强制特殊字符
+          allowed-special-chars: "@$!%*?&" # 允许的特殊字符集
+          custom-regex: ""          # 自定义正则表达式（为空则使用复杂度规则）
+        
+        # 弱密码检测
+        weak-password:
+          enabled: true             # 启用弱密码检测
+          blacklist:                # 弱密码黑名单
+            - "123456"
+            - "password"
+            - "admin123"
+            - "12345678"
+            - "qwerty"
+          check-username-similarity: true  # 检查与用户名相似度
+          min-strength-level: 1     # 开发环境允许弱密码（1=弱，2=中，3=强）
+      
+      # 账户锁定策略配置
+      account-lockout:
+        enabled: true               # 启用账户锁定功能
+        max-attempts: 10            # 开发环境放宽限制，最大10次错误
+        lockout-duration: 10        # 锁定10分钟
+        max-total-attempts: 30      # 累计最大错误次数30次
+        reset-attempts-after: 60    # 错误次数重置时间60分钟
+        lockout-type: "temporary"   # 临时锁定（默认）temporary,超过 lockoutDuration 时间后自动解锁; 永久锁定 permanent, 需要管理员手动解锁;
+
+  
+  jdfs:
+    client:
+      # 模式： 本地模式（local）-默认，服务器模式（server）
+      model: local
+      local:
+        logical-disk:
+          # 逻辑盘名称
+          D1:
+            # 开发环境存储目录
+            dir: D:\upload\jdfs
+            # 盘的读写 rw
+            status: rw
+      # model: ${app.security.file-service.mode}
+      # server:
+      #   # TODO: 修改为实际的文件服务器地址
+      #   server-host: 192.168.1.102
+      #   netty-port: 8877
+      #   work-group: 24
+      #   max-frame-length: 1048576
+      #   tomcat-port: 8080
+      #   application-name: topinfo-platform-jdfs-storage
+
+############################################################
+#############  Keycloak 配置（生产环境）
+############################################################
+keycloak:
+  server-url: ${app.security.keycloak.server-url}
+  realm: ${app.security.keycloak.realm}
+  sso:
+    enabled: ${app.security.keycloak.sso.enabled}
+    server-url: ${app.security.keycloak.server-url}
+    realm: ${app.security.keycloak.realm}
+    client-id: ${app.security.keycloak.sso.client-id}
+    client-secret: ${app.security.keycloak.sso.client-secret}
+    redirect:
+      success-url: ${app.security.keycloak.sso.redirect.success-url}
+      error-url: ${app.security.keycloak.sso.redirect.error-url}
+      logout-url: ${app.security.keycloak.sso.redirect.logout-url}
+    jwt:
+      verify-expiration: ${app.security.jwt.verify-expiration}
+      verify-issuer: ${app.security.jwt.verify-issuer}
+      verify-audience: ${app.security.jwt.verify-audience}
+      cache-ttl: ${app.security.jwt.cache-ttl}
+    user-header:
+      user-id-header: ${app.security.keycloak.sso.user-header.user-id-header}
+      username-header: ${app.security.keycloak.sso.user-header.username-header}
+      email-header: ${app.security.keycloak.sso.user-header.email-header}
+      name-header: ${app.security.keycloak.sso.user-header.name-header}
+      roles-header: ${app.security.keycloak.sso.user-header.roles-header}
+      permissions-header: ${app.security.keycloak.sso.user-header.permissions-header}
+  admin:
+    client-id: ${app.security.keycloak.admin.client-id}
+    username: ${app.security.keycloak.admin.username}
+    password: ${app.security.keycloak.admin.password}
+
+############################################################
+#############  监控插件配置（生产环境）
+############################################################
+jiuxi:
+  platform:
+    plugin:
+      monitor:
+        server-url: ${app.monitor.server-url}
+        system-desc: ${app.monitor.system-desc}
+        client-id: ${app.monitor.client-id}
+        connection-timeout: ${app.monitor.connection-timeout}
+        read-timeout: ${app.monitor.read-timeout}
+        mail-config:
+          # 发件人邮箱
+          user: 18069853753@163.com
+          # 邮箱密码或授权码
+          password: WQbFDS7fdK92fKcU
+          # SMTP服务器地址
+          smtp: smtp.163.com
+          # SMTP端口
+          port: 465
+
+############################################################
+#############  验证码配置
+############################################################
+captcha:
+  image:
+    # 外部验证码图片根目录（可选配置）
+    # 如果配置了外部根目录，系统将优先使用外部目录中的验证码资源
+    # 如果外部目录不存在或为空，系统将回退到内部JAR资源
+    # 外部目录结构应与内部META-INF目录结构完全一致：
+    # external-dir/
+    # ├── cut-image/
+    # │   ├── slider/     # 滑块验证码（当前使用）
+    # │   ├── bgimage/    # 背景图片验证码
+    # │   ├── rotate/     # 旋转验证码
+    # │   └── template/   # 模板文件
+    # └── ...
+    external-dir: "/root/jiuxi/lab/ps/captcha-resources"  # Windows路径示例
+    # external-dir: "/opt/ps/captcha-resources"  # Linux路径示例
+    # external-dir: ""  # 留空则只使用内部资源

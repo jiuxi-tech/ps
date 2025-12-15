@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: 人员角色表
  * @Author pand
  * @Date 2020-11-18 11:05:17
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpPersonRoleMapper {
@@ -25,7 +25,7 @@ public interface TpPersonRoleMapper {
      * @param deptId
      * @param personId
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 17:55
      */
     int delete(@Param("deptId") String deptId, @Param("personId") String personId);
@@ -35,7 +35,7 @@ public interface TpPersonRoleMapper {
      *
      * @param roleId 角色id
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 17:55
      */
     int deleteByRoleId(@Param("roleId") String roleId);

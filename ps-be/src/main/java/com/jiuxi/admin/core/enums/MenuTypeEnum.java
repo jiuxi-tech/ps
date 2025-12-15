@@ -3,7 +3,7 @@ package com.jiuxi.admin.core.enums;
 /**
  * 菜单分类
  *
- * @author 杨占锐
+ * @author jiuxx
  * @date 2024/5/16 13:46
  */
 public enum MenuTypeEnum {

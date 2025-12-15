@@ -15,7 +15,7 @@ import java.util.List;
  * @Description: 人员基本信息表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface UserPersonMapper {
@@ -37,7 +37,7 @@ public interface UserPersonMapper {
      *
      * @param ascnId 单位id / 企业id
      * @return java.util.List<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/4 19:12
      */
     List<String> selectPersonIdByAscnId(@Param("ascnId") String ascnId);
@@ -60,7 +60,7 @@ public interface UserPersonMapper {
      * @param updator    操作人
      * @param updateTime 修改时间
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/28 17:20
      */
     int deletePersonDeptByAscnId(@Param("ascnId") String ascnId, @Param("updator") String updator, @Param("updateTime") String updateTime);

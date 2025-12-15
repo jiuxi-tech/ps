@@ -9,9 +9,9 @@ import org.springframework.scheduling.annotation.Async;
 /**
  * @Description: 登陆的自定义监听器
  * @ClassName: LoginApplicationLisenter
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-08 14:39
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class LoginApplicationLisenter implements ApplicationListener<LoginApplicationEvent> {
 

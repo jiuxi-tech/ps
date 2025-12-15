@@ -27,9 +27,9 @@ import java.util.Map;
 /**
  * @ClassName: FileUtils
  * @Description: 附件工具类 - 基于Hutool-FileUtil进行封装
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/28 10:52
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  *
  * 该类已过期，请使用：CommonFileUtil
  */
@@ -60,7 +60,7 @@ public class FileUtils {
 
     /**
      * 用于存放可读可写的目录名称 -- 过期，后续采用 文件服务器存储
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/31 13:55
      * @param null
      * @return
@@ -71,7 +71,7 @@ public class FileUtils {
 
     /**
      * 所有的目录 -- 过期，后续采用 文件服务器存储
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/31 13:55
      * @param null
      * @return
@@ -81,7 +81,7 @@ public class FileUtils {
 
     /**
      * 所有可读可写的目录 -- 过期，后续采用 文件服务器存储
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/31 13:55
      * @param null
      * @return
@@ -94,7 +94,7 @@ public class FileUtils {
      *
      * @param fileDirVOMap
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/28 11:05
      */
     @Deprecated
@@ -120,7 +120,7 @@ public class FileUtils {
      * @param fileName    这个是存磁盘的名称，可以通过 String fileName = createFileName() + ".jpg"; 生成
      * @return java.lang.String 返回相对路径 /yyyymm/xxxxxxxxxxx.jpg, 失败返回null
      * @description: 文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/28 11:11
      */
     public static String fileUploadBase64(String base64, String rootDir, String logicalDisk, String fileName) {
@@ -157,7 +157,7 @@ public class FileUtils {
      * @param logicalDisk 上传的逻辑盘的名称
      * @return java.lang.String 返回相对路径 /yyyymm/xxxxxxxxxxx.jpg, 失败返回null
      * @description: 文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/28 11:11
      */
     public static String fileUpload(FileItem fileItem, String rootDir, String logicalDisk) {
@@ -206,7 +206,7 @@ public class FileUtils {
      * @param logicalDisk   上传的逻辑盘的名称
      * @return java.lang.String 返回相对路径 /yyyymm/xxxxxxxxxxx.jpg, 失败返回null
      * @description: 文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/6/3 14:35
      */
     public static String fileUpload(MultipartFile multipartFile, String rootDir, String logicalDisk) {
@@ -249,7 +249,7 @@ public class FileUtils {
      * @param fileDirName 上传的逻辑盘的名称
      * @return java.lang.String 返回相对路径 /yyyymm/xxxxxxxxxxx.jpg, 失败返回null
      * @description: 文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/6/3 14:39
      */
     public static String fileUpload(InputStream is, String extName, String rootDir, String fileDirName) {
@@ -297,7 +297,7 @@ public class FileUtils {
      * 相对路径目录  /yyyy/MM/
      *
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/28 11:28
      */
     public static String createRelDir() {
@@ -311,7 +311,7 @@ public class FileUtils {
      * @param preDir 逻辑盘名称
      * @return java.lang.String
      * @description: 相对路径目录  /yyyy/MM/
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/28 11:29
      */
     public static String createRelDir(String preDir) {
@@ -329,7 +329,7 @@ public class FileUtils {
      * @param
      * @return java.lang.String
      * @description: 新目标文件的名称
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/28 11:11
      */
     public static String createFileName() {
@@ -343,7 +343,7 @@ public class FileUtils {
      * @param fileName     下载的文件名称
      * @param response
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/28 14:54
      */
     public static void downloadFile(String absolutePath, String fileName, HttpServletResponse response) throws Exception {
@@ -359,7 +359,7 @@ public class FileUtils {
      * @param response
      * @param typeEnum     下载文件内容的枚举类 下载：application/octet-stream; pdf： application/pdf;
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/28 15:12
      */
     public static void downloadFile(String absolutePath, String fileName, HttpServletResponse response, FileContentTypeEnum typeEnum) throws Exception {
@@ -405,7 +405,7 @@ public class FileUtils {
      * @param response
      * @param typeEnum     下载文件内容的枚举类 下载：application/octet-stream; pdf： application/pdf;
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/28 15:12
      */
     public static void downloadFile(InputStream inputStream, String fileName, HttpServletResponse response, FileContentTypeEnum typeEnum) throws Exception {
@@ -443,7 +443,7 @@ public class FileUtils {
      *
      * @param filePath 相对路径
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/28 14:49
      */
     public static String getAbsolutePath(String filePath) {
@@ -461,7 +461,7 @@ public class FileUtils {
      *
      * @param ext 传入后缀名， 如： .exe
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/28 15:07
      */
     public static void checkExt(String ext) throws IOException {
@@ -475,7 +475,7 @@ public class FileUtils {
      *
      * @param ext 传入后缀名， 如： .mp4
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/28 15:07
      */
     public static boolean isVideo(String ext) {
@@ -488,7 +488,7 @@ public class FileUtils {
 
     /**
      * 读取流
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 10:32
      * @param inStream
      * @return byte[]

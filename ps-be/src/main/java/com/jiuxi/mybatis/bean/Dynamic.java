@@ -5,9 +5,9 @@ import java.util.HashMap;
 /**
  * @ClassName: Dynamic
  * @Description: 动态数据源配置
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2022/2/22 14:37
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class Dynamic {
 

@@ -16,9 +16,9 @@ import java.util.Arrays;
  *
  * @ClassName: CorsConfiguration
  * @Description: CORS 跨域配置
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020/8/21 11:01
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Configuration
 public class CorsConfiguration {

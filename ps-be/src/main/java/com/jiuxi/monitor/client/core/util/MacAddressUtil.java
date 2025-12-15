@@ -9,9 +9,9 @@ import java.util.Formatter;
 /**
  * @ClassName: MacAddressUtil
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/14 17:47
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class MacAddressUtil {
 
@@ -24,7 +24,7 @@ public class MacAddressUtil {
      * 获取本机mac地址
      *
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/14 18:04
      */
     public static String getMacAddr() {

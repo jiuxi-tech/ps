@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  * @ClassName LocalLicenceCacheServiceImpl
  * packageName com.jiuxi.shared.infrastructure.persistence.service.impl
  * @Date 2025/1/10 14:46
- * @Copyright: 2025 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2025 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class LocalLicenceCacheServiceImpl implements LocalLicenceCacheService {
 
@@ -215,7 +215,7 @@ public class LocalLicenceCacheServiceImpl implements LocalLicenceCacheService {
      *
      * @param expiringDate 到期日期
      * @return boolean 过期返回：true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/12/6 9:38
      */
     private boolean isExpire(String expiringDate) {

@@ -22,7 +22,7 @@ import java.util.List;
  * @Description: 角色查询控制器 - CQRS查询端
  * @Author DDD重构
  * @Date 2025-09-15
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/role")

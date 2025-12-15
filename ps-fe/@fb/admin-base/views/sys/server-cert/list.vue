@@ -265,7 +265,7 @@
 			// 删除
 			handleDel(row) {
 				if (row.isInUse == 1) {
-					this.$message.warning('证书正在使用中，无法删除');
+					this.$message.warn('证书正在使用中，无法删除');
 					return;
 				}
 

@@ -26,9 +26,9 @@ import java.util.Set;
 /**
  * @ClassName: CommonHttpUtil
  * @Description: CommonHttpUtil工具类，封装了常用的 同步请求，异步请求，json请求，下载请求，预览请求，同时支持http,https等
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2021/12/24 9:35
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CommonHttpUtil {
 
@@ -125,7 +125,7 @@ public class CommonHttpUtil {
 
     /**
      * 同步的Get请求.
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:42
      * @param okHttpClient  客户端实例
      * @param url  请求路径
@@ -138,7 +138,7 @@ public class CommonHttpUtil {
 
     /**
      * 添加头信息
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/11 13:29
      * @param headersMap
      * @param requestBuilder
@@ -165,7 +165,7 @@ public class CommonHttpUtil {
 
     /**
      * 同步的Get请求.
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:42
      * @param okHttpClient  客户端实例
      * @param url  请求路径
@@ -211,7 +211,7 @@ public class CommonHttpUtil {
 
     /**
      * 添加 post 请求的参数
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/11 13:58
      * @param paramsMap
      * @param formBody
@@ -238,7 +238,7 @@ public class CommonHttpUtil {
 
     /**
      * 异步的Post请求. body方式
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/1/5 20:30
      * @param okHttpClient
      * @param url       请求路径
@@ -287,7 +287,7 @@ public class CommonHttpUtil {
 
     /**
      * 异步的Post请求. 表单
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/1/5 20:30
      * @param okHttpClient
      * @param url       请求路径
@@ -301,7 +301,7 @@ public class CommonHttpUtil {
 
     /**
      * 异步的Post请求. 表单
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/1/5 20:30
      * @param okHttpClient
      * @param url       请求路径
@@ -475,7 +475,7 @@ public class CommonHttpUtil {
 
     /**
      * 同步文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 11:25
      * @param okHttpClient
      * @param url       请求路径
@@ -489,7 +489,7 @@ public class CommonHttpUtil {
 
     /**
      * 同步文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 11:27
      * @param okHttpClient
      * @param url       请求路径
@@ -570,7 +570,7 @@ public class CommonHttpUtil {
 
     /**
      * 根据文件名猜测 MimeType
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 10:29
      * @param fileName
      * @return java.lang.String
@@ -586,7 +586,7 @@ public class CommonHttpUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -608,7 +608,7 @@ public class CommonHttpUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -680,7 +680,7 @@ public class CommonHttpUtil {
 
     /**
      * 预览文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -702,7 +702,7 @@ public class CommonHttpUtil {
 
     /**
      * 预览文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -783,7 +783,7 @@ public class CommonHttpUtil {
 
     /**
      * 下载文件 json
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -858,7 +858,7 @@ public class CommonHttpUtil {
 
     /**
      * 预览文件 json
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -942,7 +942,7 @@ public class CommonHttpUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -955,7 +955,7 @@ public class CommonHttpUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -994,7 +994,7 @@ public class CommonHttpUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/1/24 17:22
      * @param inputStream
      * @param fileName
@@ -1031,7 +1031,7 @@ public class CommonHttpUtil {
 
     /**
      * 预览文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/1/24 17:22
      * @param inputStream
      * @param fileName

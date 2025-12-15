@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 /**
  * @Description: 用户查询条件
  * @ClassName: TpPersonBasicQuery
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-11-24 16:44
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpPersonBasicQuery {
 

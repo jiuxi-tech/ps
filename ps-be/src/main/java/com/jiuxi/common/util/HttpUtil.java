@@ -29,9 +29,9 @@ import java.util.Set;
 /**
  * @ClassName: HttpUtil
  * @Description: HttpUtil工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2021/12/24 9:35
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  *
  * 该类已过期，请使用：CommonHttpUtil
  *
@@ -131,7 +131,7 @@ public class HttpUtil {
 
     /**
      * 同步的Get请求.
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:42
      * @param okHttpClient  客户端实例
      * @param url  请求路径
@@ -144,7 +144,7 @@ public class HttpUtil {
 
     /**
      * 同步的Get请求.
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:42
      * @param okHttpClient  客户端实例
      * @param url  请求路径
@@ -207,7 +207,7 @@ public class HttpUtil {
 
     /**
      * 异步的Post请求. 表单
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/1/5 20:30
      * @param okHttpClient
      * @param url       请求路径
@@ -221,7 +221,7 @@ public class HttpUtil {
 
     /**
      * 异步的Post请求. 表单
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/1/5 20:30
      * @param okHttpClient
      * @param url       请求路径
@@ -471,7 +471,7 @@ public class HttpUtil {
 
     /**
      * 同步文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 11:25
      * @param okHttpClient
      * @param url       请求路径
@@ -485,7 +485,7 @@ public class HttpUtil {
 
     /**
      * 同步文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 11:27
      * @param okHttpClient
      * @param url       请求路径
@@ -583,7 +583,7 @@ public class HttpUtil {
 
     /**
      * 根据文件名猜测 MimeType
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/22 10:29
      * @param fileName
      * @return java.lang.String
@@ -599,7 +599,7 @@ public class HttpUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -621,7 +621,7 @@ public class HttpUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -727,7 +727,7 @@ public class HttpUtil {
 
     /**
      * 下载文件 json
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -834,7 +834,7 @@ public class HttpUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -867,7 +867,7 @@ public class HttpUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/24 9:48
      * @param okHttpClient
      * @param url 下载地址
@@ -920,7 +920,7 @@ public class HttpUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/1/24 17:22
      * @param inputStream
      * @param fileName

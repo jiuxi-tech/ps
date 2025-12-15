@@ -5,9 +5,9 @@ import com.jiuxi.admin.core.bean.vo.TpMemVerificationCodeVO;
 /**
  * @Description: 发送短信
  * @ClassName: SmsVerificationCodeSendService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-04-22 17:00
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 
 public interface TpSmsSendService {

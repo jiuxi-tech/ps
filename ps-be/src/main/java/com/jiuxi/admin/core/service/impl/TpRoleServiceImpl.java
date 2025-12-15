@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
  * @Description: 角色表
  * @Author pand
  * @Date 2020-11-18 11:05:17
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpRoleService")
 public class TpRoleServiceImpl implements TpRoleService {
@@ -369,7 +369,7 @@ public class TpRoleServiceImpl implements TpRoleService {
      * @param set      所有角色集合
      * @param hasRoles 拥有的角色集合
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/4 20:06
      */
     private void setChecked(LinkedHashSet<TreeNode> set, LinkedHashSet<TreeNode> hasRoles) {

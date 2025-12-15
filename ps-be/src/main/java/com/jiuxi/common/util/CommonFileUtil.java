@@ -17,9 +17,9 @@ import java.net.URLEncoder;
 /**
  * @ClassName: CommonFileUtil
  * @Description: 文件工具类
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/13 9:58
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CommonFileUtil {
 
@@ -46,7 +46,7 @@ public class CommonFileUtil {
      *
      * @param ext 传入后缀名， 如： .exe
      * @return boolean
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/4/28 15:07
      */
     public static void checkWhiteExt(String ext) throws IOException {
@@ -57,7 +57,7 @@ public class CommonFileUtil {
 
     /**
      * 获得文件的扩展名（后缀名），扩展名带“.”
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 10:26
      * @param fileName 文件名
      * @return java.lang.String  扩展名带“.”，如： .exe
@@ -80,7 +80,7 @@ public class CommonFileUtil {
 
     /**
      * 随机创建文件名称
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 10:30
      * @param extName 扩展名带“.”，如： .exe
      * @return java.lang.String
@@ -92,7 +92,7 @@ public class CommonFileUtil {
 
     /**
      * 创建所给文件或目录的父目录，如果存在直接返回此文件夹
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 10:45
      * @param path 文件夹路径，使用POSIX格式，无论哪个平台，如：D:/upload/yyyymm/xxxxxxxxxxx.jpg
      * @return java.io.File 创建的目录
@@ -117,7 +117,7 @@ public class CommonFileUtil {
 
     /**
      * 文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 10:22
      * @param multipartFile
      * @param rootDir  上传的根目录，如：D:/upload
@@ -159,7 +159,7 @@ public class CommonFileUtil {
 
     /**
      * 文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 14:47
      * @param base64
      * @param extName 图片扩展名，带“.” ， 如:  .jpg
@@ -208,7 +208,7 @@ public class CommonFileUtil {
 
     /**
      * 文件上传
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:14
      * @param inputStream
      * @param extName 图片扩展名，带“.” ， 如:  .jpg
@@ -256,7 +256,7 @@ public class CommonFileUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:19
      * @param fileName 下载后的文件名称，如：QQ.exe
      * @param rootDir  上传的根目录，如：D:/upload
@@ -299,7 +299,7 @@ public class CommonFileUtil {
 
     /**
      * 下载文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:19
      * @param fileName 下载后的文件名称，如：QQ.exe
      * @param inputStream
@@ -337,7 +337,7 @@ public class CommonFileUtil {
 
     /**
      * 预览文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:19
      * @param fileName 下载后的文件名称，如：QQ.exe
      * @param rootDir  上传的根目录，如：D:/upload
@@ -390,7 +390,7 @@ public class CommonFileUtil {
 
     /**
      * 预览文件
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/13 15:19
      * @param fileName 下载后的文件名称，如：QQ.exe
      * @param inputStream

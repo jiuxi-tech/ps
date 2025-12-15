@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @ClassName: AuthenticationHandlerInterceptor
  * @Description: 认证，身份认证/登录，验证用户是不是拥有相应的身份；
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/22 15:52
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AuthenticationHandlerInterceptor implements HandlerInterceptor {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationHandlerInterceptor.class);
@@ -53,7 +53,7 @@ public class AuthenticationHandlerInterceptor implements HandlerInterceptor {
      * @param handler
      * @return boolean 返回值类型：boolean：true代表放行可以访问controller，false不可以访问controller
      * @description: 执行时机：在执行controller之前来执行
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/22 15:55
      */
     @Override
@@ -103,7 +103,7 @@ public class AuthenticationHandlerInterceptor implements HandlerInterceptor {
      * @param modelAndView
      * @return void
      * @description: 执行时机：controller执行完，视图解析器没有把视图解析成页面,对视图做统一的修改，主要体现在Model上
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/22 15:55
      */
     @Override
@@ -119,7 +119,7 @@ public class AuthenticationHandlerInterceptor implements HandlerInterceptor {
      * @param ex
      * @return void
      * @description: 执行时机：视图已经被解析完毕,类似try catch 后的finally, 这个方法的主要作用是用于清理资源的，当然这个方法也只能在当前这个Interceptor的preHandle方法的返回值为true时才会执行。
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/22 15:56
      */
     @Override

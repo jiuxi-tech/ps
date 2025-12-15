@@ -23,7 +23,7 @@ import java.util.List;
  * @Description: 第三方应用管理
  * @Author system
  * @Date 2025-01-28
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/third-party-app")

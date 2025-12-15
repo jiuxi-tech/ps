@@ -13,7 +13,7 @@ import java.util.List;
  * @Description: 行政区划表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpCityMapper {
@@ -97,7 +97,7 @@ public interface TpCityMapper {
 
     /**
      * 根据行政区划code查询行政区划
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/5/27 13:20
      * @param cityCode
      * @return com.jiuxi.admin.core.bean.vo.TpCityVO
@@ -110,7 +110,7 @@ public interface TpCityMapper {
      * @param cityCode  行政区划编码，不能为空
      * @param cityLevel 行政区划，为空时查询所有
      * @return java.util.List<com.jiuxi.plugin.api.bean.dto.TpCityDTO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/24 19:37
      */
     List<TpCityVO> listByCityCode(@Param("cityCode") String cityCode, @Param("cityLevel") List<String> cityLevel);
@@ -120,7 +120,7 @@ public interface TpCityMapper {
      *
      * @param cityId  行政区划id
      * @return List<TpCityVO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/24 19:37
      */
     List<TpCityVO> listByCityId(@Param("cityId") String cityId);

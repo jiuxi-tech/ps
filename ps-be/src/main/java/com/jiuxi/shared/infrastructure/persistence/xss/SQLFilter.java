@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 
 /**
  * @description: SQL过滤
- * @author 杨攀
+ * @author Ypp
  * @date 2020/6/12 15:01
  */
 public class SQLFilter {

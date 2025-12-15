@@ -15,9 +15,9 @@ import java.io.OutputStream;
 /**
  * @Description: 二维码生成控制器
  * @ClassName: QrCodeController
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-08-12 17:47
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Controller
 @RequestMapping("/platform/qr")

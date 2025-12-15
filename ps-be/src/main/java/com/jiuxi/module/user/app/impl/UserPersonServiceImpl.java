@@ -74,7 +74,7 @@ import java.util.stream.Collectors;
  * @Description: 人员基本信息表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("userPersonService")
 public class UserPersonServiceImpl implements UserPersonService {
@@ -745,7 +745,7 @@ public class UserPersonServiceImpl implements UserPersonService {
 
     /**
      * 根据人员id 获取人员基本信息
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 16:28
      * @param personId
      * @return com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO
@@ -790,7 +790,7 @@ public class UserPersonServiceImpl implements UserPersonService {
      * @param phone     手机号
      * @param personId  人员id（修改校验时必填）
      * @return boolean 存在返回 true, 不存在返回 false
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 15:49
      */
     @Override
@@ -806,7 +806,7 @@ public class UserPersonServiceImpl implements UserPersonService {
      *
      * @param ascnId 单位id
      * @return java.util.List<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/4 19:12
      */
     @Override
@@ -820,7 +820,7 @@ public class UserPersonServiceImpl implements UserPersonService {
      * @param ascnId 单位id
      * @param jwtpid 操作人id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/4 19:24
      */
     @Override
@@ -836,7 +836,7 @@ public class UserPersonServiceImpl implements UserPersonService {
      * @param phone    手机号
      * @param jwtpid   操作人id
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 17:10
      */
     @Override

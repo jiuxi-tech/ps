@@ -8,9 +8,9 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 /**
  * @Description: 自定义Condition注解实现
  * @ClassName: ConditionalAccountExinfo
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-14 11:34
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class ConditionalAccountExinfo implements Condition {
 

@@ -3,9 +3,9 @@ package com.jiuxi.core.bean;
 /**
  * @Description: 国密加密算法配置项
  * @ClassName: Sm
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-07 17:26
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class Secretkey {
 

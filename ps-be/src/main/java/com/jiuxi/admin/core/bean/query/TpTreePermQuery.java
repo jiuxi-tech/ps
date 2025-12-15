@@ -5,9 +5,9 @@ import java.util.List;
 /**
  * @ClassName: TpTreePermQuery
  * @Description: 数据权限部门树查询
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2023/11/6 9:07
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpTreePermQuery {
 

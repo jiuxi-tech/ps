@@ -28,7 +28,7 @@ import java.util.Optional;
  * @Description: 菜单修改历史记录服务实现类
  * @Author: AI Assistant
  * @Date: 2025-01-29
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpMenuHistoryService")
 public class TpMenuHistoryServiceImpl implements TpMenuHistoryService {

@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * @Description: 可以被替换掉，人员，账号相关接口
  * @ClassName: PersonAccountServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-18 14:29
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class PersonAccountApplicationServiceImpl implements PersonAccountApplicationService {
@@ -70,7 +70,7 @@ public class PersonAccountApplicationServiceImpl implements PersonAccountApplica
      * @param personId 人员id
      * @param phone    手机号
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 17:32
      */
     @Override

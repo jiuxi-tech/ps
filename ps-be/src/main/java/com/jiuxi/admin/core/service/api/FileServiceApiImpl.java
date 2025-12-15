@@ -17,9 +17,9 @@ import java.util.List;
 /**
  * @ClassName: FileServiceApiImpl
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/7/5 14:35
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class FileServiceApiImpl {
@@ -35,7 +35,7 @@ public class FileServiceApiImpl {
      * @param referType
      * @param referId
      * @return java.util.List<com.jiuxi.plugin.api.bean.dto.TpAttachinfoDTO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/5 14:37
      */
     public List<Object> uploadFile(MultipartFile[] files, String creator, String referType, String referId) throws TopinfoRuntimeException {
@@ -53,7 +53,7 @@ public class FileServiceApiImpl {
      * @param referType
      * @param referId
      * @return java.util.List<com.jiuxi.plugin.api.bean.dto.TpAttachinfoDTO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/5 14:37
      */
     public List<Object> uploadFile(String[] base64s, String[] base64sFileName, String creator, String referType, String referId) throws TopinfoRuntimeException {
@@ -69,7 +69,7 @@ public class FileServiceApiImpl {
      * @param request
      * @param response
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/5 14:37
      */
     public void download(String id, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -84,7 +84,7 @@ public class FileServiceApiImpl {
      * @param request
      * @param response
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/5 14:37
      */
     public void downloadByPath(String filePath, String downFileName, HttpServletRequest request, HttpServletResponse response) throws Exception {

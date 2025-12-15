@@ -18,9 +18,9 @@ import java.util.Objects;
  * @Description: 字段脱敏
  * 在属性上添加 ： @JsonSerialize(using = SensitiveInfoSerialize.class)
  * @ClassName: SensitiveInfoFormatter
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-08-28 16:34
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class SensitiveInfoSerialize extends JsonSerializer<String> implements ContextualSerializer {
 

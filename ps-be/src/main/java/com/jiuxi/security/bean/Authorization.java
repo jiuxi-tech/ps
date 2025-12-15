@@ -3,9 +3,9 @@ package com.jiuxi.security.bean;
 /**
  * @ClassName: Authorization
  * @Description: 鉴权
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/5/25 14:08
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class Authorization {
 

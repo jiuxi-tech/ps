@@ -15,15 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * @ClassName: MonitorServerSchedule
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/19 14:38
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Component
 public class MonitorServerSchedule {
@@ -37,6 +38,12 @@ public class MonitorServerSchedule {
     @Autowired
     private MonitorServerService monitorServerService;
 
+    @PostConstruct
+    public void init() {
+        LOGGER.info("[监控服务端] MonitorServerSchedule 定时任务调度器初始化完成");
+        LOGGER.info("[监控服务端] 离线检测定时任务将在5分钟后开始执行，执行频率: 每5分钟一次");
+    }
+
     /**
      * 定时发送系统离线消息
      *
@@ -46,7 +53,7 @@ public class MonitorServerSchedule {
      *     3. 计算是否离线，离线则发送邮件
      * </pre>
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 14:39
      */
     @Scheduled(initialDelay = 5 * 60 * 1000, fixedDelay = 5 * 60 * 1000)
@@ -98,7 +105,7 @@ public class MonitorServerSchedule {
      * @param clientVO
      * @param configVO
      * @return boolean 是否离线
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 14:57
      */
     private boolean computeOnOffLine(TpMonitorClientVO clientVO, TpMonitorConfigVO configVO) {

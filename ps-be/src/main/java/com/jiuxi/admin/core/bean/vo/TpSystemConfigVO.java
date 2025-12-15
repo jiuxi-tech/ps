@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @ClassName: TpSystemConfigVO
  * @Description: 系统配置视图对象
- * @Author: System
+ * @Author: Qdd
  * @Date: 2024-01-26
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

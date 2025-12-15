@@ -111,6 +111,18 @@
 						</fb-form-item>
 					</fb-col>
 				</fb-row>
+				
+				<fb-row>
+					<fb-col span="24">
+						<fb-form-item label="有效的注销后重定向 URI" prop="postLogoutRedirectUris">
+							<fb-textarea rows="3" v-model="postLogoutRedirectUrisText"
+										 type="text"
+										 placeholder="请输入注销后重定向URI，多个URI请用换行分隔"
+										 :disabled="readonly">
+							</fb-textarea>
+						</fb-form-item>
+					</fb-col>
+				</fb-row>
 
 				<fb-row v-if="!formData.publicClient">
 					<fb-col span="24">
@@ -174,12 +186,14 @@
 					baseUrl: '',
 					redirectUris: [],
 					webOrigins: [],
+					postLogoutRedirectUris: [],
 					secret: ''
 				},
 				isEdit: false,
 				readonly: false,
 				redirectUrisText: '',
-				webOriginsText: ''
+				webOriginsText: '',
+				postLogoutRedirectUrisText: ''
 			}
 		},
 
@@ -191,6 +205,10 @@
 			// 监听Web Origins文本变化
 			webOriginsText(newVal) {
 				this.formData.webOrigins = newVal ? newVal.split('\n').filter(origin => origin.trim()) : [];
+			},
+			// 监听注销后重定向URI文本变化
+			postLogoutRedirectUrisText(newVal) {
+				this.formData.postLogoutRedirectUris = newVal ? newVal.split('\n').filter(uri => uri.trim()) : [];
 			}
 		},
 
@@ -214,6 +232,22 @@
 				app.$svc.sys.sso.admin.client.get(clientId).then((result) => {
 					if (result.code == 1) {
 						const data = result.data;
+						
+						// 处理 postLogoutRedirectUris
+						let postLogoutUris = [];
+						if (data.postLogoutRedirectUris && Array.isArray(data.postLogoutRedirectUris)) {
+							// Keycloak 23+ 直接支持
+							postLogoutUris = data.postLogoutRedirectUris;
+						} else if (data.attributes && data.attributes['post.logout.redirect.uris']) {
+							// 旧版本从 attributes 中获取，使用 ## 分隔
+							const urisStr = data.attributes['post.logout.redirect.uris'];
+							if (typeof urisStr === 'string') {
+								postLogoutUris = urisStr.split('##').filter(uri => uri.trim());
+							} else if (Array.isArray(urisStr)) {
+								postLogoutUris = urisStr;
+							}
+						}
+						
 						this.formData = {
 							id: data.id,
 							clientId: data.clientId,
@@ -228,12 +262,14 @@
 							baseUrl: data.baseUrl || '',
 							redirectUris: data.redirectUris || [],
 							webOrigins: data.webOrigins || [],
+							postLogoutRedirectUris: postLogoutUris,
 							secret: data.secret || ''
 						};
 						
 						// 设置文本域内容
-						this.redirectUrisText = (data.redirectUris || []).join('\n');
-						this.webOriginsText = (data.webOrigins || []).join('\n');
+							this.redirectUrisText = (data.redirectUris || []).join('\n');
+							this.webOriginsText = (data.webOrigins || []).join('\n');
+							this.postLogoutRedirectUrisText = postLogoutUris.join('\n');
 					} else {
 						this.$message.error('获取应用信息失败: ' + result.message);
 					}

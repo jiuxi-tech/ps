@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * @ClassName: TpOperateLogQuery
  * @Description: 操作日志表查询对象
- * @Author: System
+ * @Author: Qdd
  * @Date: 2024-01-17
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

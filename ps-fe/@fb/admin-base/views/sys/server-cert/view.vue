@@ -222,7 +222,7 @@ export default {
         // 下载PEM证书文件
         downloadPemFile () {
             if (!this.formData.pemContent) {
-                this.$message.warning('证书文件不存在')
+                this.$message.warn('证书文件不存在')
                 return
             }
 
@@ -246,7 +246,7 @@ export default {
         // 下载私钥文件
         downloadKeyFile () {
             if (!this.formData.keyContent) {
-                this.$message.warning('私钥文件不存在')
+                this.$message.warn('私钥文件不存在')
                 return
             }
 
@@ -312,7 +312,7 @@ export default {
         // 删除证书
         handleDelete () {
             if (this.formData.isInUse == 1) {
-                this.$message.warning('证书正在使用中，无法删除')
+                this.$message.warn('证书正在使用中，无法删除')
                 return
             }
 

@@ -14,9 +14,9 @@ import java.time.format.DateTimeFormatter;
 /**
  * @Description: 账号拓展表接口基于redis实现 demo
  * @ClassName: AccountExinfoRedisServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-08 15:36
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AccountExinfoRedisServiceImpl implements LoginApplicationService {
 

@@ -5,9 +5,9 @@ import com.jiuxi.monitor.common.constant.MonitorCommonConstant;
 /**
  * @ClassName: MonitorClientConstant
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/15 13:37
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class MonitorClientConstant extends MonitorCommonConstant {
 

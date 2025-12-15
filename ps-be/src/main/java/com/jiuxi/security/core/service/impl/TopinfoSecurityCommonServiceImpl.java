@@ -32,9 +32,9 @@ import java.util.List;
 /**
  * @ClassName: TopinfoSecurityCommonServiceImpl
  * @Description: 安全组件 公共service
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/1 16:21
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TopinfoSecurityCommonServiceImpl implements TopinfoSecurityCommonService {
 
@@ -64,7 +64,7 @@ public class TopinfoSecurityCommonServiceImpl implements TopinfoSecurityCommonSe
      *
      * @param accountVO
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 16:23
      */
     @Override
@@ -94,7 +94,7 @@ public class TopinfoSecurityCommonServiceImpl implements TopinfoSecurityCommonSe
      * @param appKey
      * @param accountThirdVO
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 16:49
      */
     @Override
@@ -119,7 +119,7 @@ public class TopinfoSecurityCommonServiceImpl implements TopinfoSecurityCommonSe
      * @param deptId
      * @param jwtpid
      * @return com.jiuxi.security.core.entity.vo.AccountVO
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 17:09
      */
     @Override
@@ -182,7 +182,7 @@ public class TopinfoSecurityCommonServiceImpl implements TopinfoSecurityCommonSe
      * @param personId
      * @param deptId
      * @return com.jiuxi.security.core.entity.vo.SessionVO
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 16:46
      */
     private SessionVO createSession(String personId, String deptId) {
@@ -233,7 +233,7 @@ public class TopinfoSecurityCommonServiceImpl implements TopinfoSecurityCommonSe
      *
      * @param
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/10/23 14:44
      */
     @Override
@@ -265,7 +265,7 @@ public class TopinfoSecurityCommonServiceImpl implements TopinfoSecurityCommonSe
      * @param token   源token
      * @param version 目标token的版本号，版本号： 2.0、2.1、3.0
      * @return java.lang.String  目标版本的token
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 17:22
      */
     @Override

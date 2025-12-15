@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * @ClassName: TpDataPermissions
  * @Description: 人员数据权限表
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/1 14:54
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpDataPermissions implements Serializable {
 

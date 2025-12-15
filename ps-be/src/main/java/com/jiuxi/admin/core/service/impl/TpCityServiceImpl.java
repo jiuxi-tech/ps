@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  * @Description: 行政区划表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpCityService")
 public class TpCityServiceImpl implements TpCityService {
@@ -161,7 +161,7 @@ public class TpCityServiceImpl implements TpCityService {
      * 同步获取数据，故一次性读取所有的行政区划
      *
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/20 14:44
      */
     @Override
@@ -293,7 +293,7 @@ public class TpCityServiceImpl implements TpCityService {
      *
      * @param cityCode
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/6/27 15:52
      */
     @Override
@@ -445,7 +445,7 @@ public class TpCityServiceImpl implements TpCityService {
 
     /**
      * 根据行政区划code查询行政区划
-     * @author 杨攀
+     * @author Ypp
      * @date 2024/5/27 13:15
      * @param cityCode
      * @return com.jiuxi.admin.core.bean.vo.TpCityVO
@@ -467,7 +467,7 @@ public class TpCityServiceImpl implements TpCityService {
      *
      * @param cityCodes 多个行政区划编码
      * @return java.util.List<com.jiuxi.admin.core.bean.vo.TpCityVO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/12 14:12
      */
     @Override
@@ -484,7 +484,7 @@ public class TpCityServiceImpl implements TpCityService {
      * @param cityCode  行政区划编码，不能为空
      * @param cityLevel 行政区划，为空时查询所有
      * @return java.util.List<com.jiuxi.plugin.api.bean.dto.TpCityDTO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/24 19:37
      */
     @Override
@@ -497,7 +497,7 @@ public class TpCityServiceImpl implements TpCityService {
      *
      * @param cityId
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/16 9:14
      */
     @Override
@@ -511,7 +511,7 @@ public class TpCityServiceImpl implements TpCityService {
      *
      * @param cityId  行政区划id
      * @return List<TpCityVO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/24 19:37
      */
     @Override

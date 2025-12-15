@@ -3,9 +3,9 @@ package com.jiuxi.security.bean;
 /**
  * @Description: 验证码
  * @ClassName: ValidateCode
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-08-26 11:19
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class ValidateCode {
 

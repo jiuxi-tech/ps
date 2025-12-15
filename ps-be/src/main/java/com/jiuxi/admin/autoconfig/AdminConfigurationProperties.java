@@ -37,7 +37,7 @@ public class AdminConfigurationProperties {
 
     /**
      * 方法过期，附件统一采用文件服务器存储
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/31 13:49
      * @param
      * @return java.util.Map<java.lang.String,com.jiuxi.common.bean.LogicalDisk>

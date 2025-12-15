@@ -10,16 +10,16 @@ import java.util.Set;
 /**
  * @ClassName: TpDataPermissionsService
  * @Description: 数据权限服务
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2023/11/1 15:38
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TpDataPermissionsService {
 
     /**
      * 保存数据权限，删除原有的数据
      *
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 16:02
      */
     void add(TpDataPermissionsVO permissionsVO);
@@ -29,7 +29,7 @@ public interface TpDataPermissionsService {
      *
      * @param personId 人员id
      * @return java.util.List<com.jiuxi.admin.core.bean.vo.TpDataPermissionsVO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:59
      */
     List<TpDataPermissionsVO> listPerm(String personId);
@@ -39,7 +39,7 @@ public interface TpDataPermissionsService {
      *
      * @param personId 人员id
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:53
      */
     Set<String> listPermIds(String personId);
@@ -54,7 +54,7 @@ public interface TpDataPermissionsService {
      * </pre>
      * @param permQuery 当前登录人id、部门类型
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 17:00
      */
     List<TreeNode> treePerm(TpTreePermQuery permQuery);
@@ -65,7 +65,7 @@ public interface TpDataPermissionsService {
      * @param personId 人员id
      * @param deptId   部门id
      * @return 有权限返回true
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/2 13:09
      */
     boolean isExistsDataPermissions(String personId, String deptId);
@@ -76,7 +76,7 @@ public interface TpDataPermissionsService {
      * @param personId 人员id
      * @param deptId   部门id
      * @return java.util.Set<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/7 20:20
      */
     Set<String> listAllDeptDataPermissions(String personId, String deptId);

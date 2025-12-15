@@ -13,9 +13,9 @@ import java.util.List;
 /**
  * @ClassName: TpApiCommonService
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/5/27 18:08
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpApiCommonService")
 public class TpApiCommonService {
@@ -28,7 +28,7 @@ public class TpApiCommonService {
      * @param source 源数据
      * @param clazz  返回数据的对象类型
      * @return T    返回对象
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/27 18:10
      */
     public <T> T copy(Object source, Class<T> clazz) {

@@ -5,9 +5,9 @@ import com.jiuxi.admin.core.bean.entity.TpAccount;
 /**
  * @Description: 发布事件推送账号信息给别的系统
  * @ClassName: TpAccountEventService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-06-08 11:16
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TpAccountEventService {
 

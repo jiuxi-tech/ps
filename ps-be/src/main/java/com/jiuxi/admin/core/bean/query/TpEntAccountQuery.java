@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * @ClassName: TpEntBasicQuery
  * @Description: 企业账号列表查询
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021/09/13 13:43
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TpEntAccountQuery {
 

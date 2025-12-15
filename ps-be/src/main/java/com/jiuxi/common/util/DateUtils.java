@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * 时间工具类 1.8版本
  *
- * @author 杨攀
+ * @author Ypp
  * @date 2020/10/27 17:18
  */
 public class DateUtils {
@@ -62,7 +62,7 @@ public class DateUtils {
      * @Param []
      * @Return java.lang.String
      * @Date 2019/6/4 15:26
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static String getDay() {
         LocalDate date = LocalDate.now();
@@ -76,7 +76,7 @@ public class DateUtils {
      * @Param []
      * @Return java.lang.String
      * @Date 2019/6/4 15:28
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static String getDayTime() {
         LocalDateTime date = LocalDateTime.now();
@@ -90,7 +90,7 @@ public class DateUtils {
      * @Param [date]
      * @Return java.lang.String
      * @Date 2019/7/8 11:07
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static String getDateToString(Date date) {
         LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -104,7 +104,7 @@ public class DateUtils {
      * @Param [localDate]
      * @Return java.lang.String
      * @Date 2019/7/8 11:10
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static String getLocalDateToString(LocalDate localDate) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT_ORDER);
@@ -117,7 +117,7 @@ public class DateUtils {
      * @Param [year, month, day, hour, minute, second]
      * @Return java.time.LocalDateTime
      * @Date 2019/7/8 15:23
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDateTime getFixedTime(int year, int month, int day, int hour, int minute, int second) {
         return LocalDateTime.of(year, month, day, hour, minute, second);
@@ -129,7 +129,7 @@ public class DateUtils {
      * @Param [year, month, day, hour, minute, second]
      * @Return java.time.LocalDateTime
      * @Date 2019/7/8 15:29
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDateTime settingsTime(int year, int month, int day, int hour, int minute, int second) {
         return LocalDateTime.now().withYear(year).withMonth(month).withDayOfMonth(day).withHour(hour).withMinute(minute).withSecond(second);
@@ -141,7 +141,7 @@ public class DateUtils {
      * @Param []
      * @Return java.time.LocalDate
      * @Date 2019/7/8 15:31
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDate firstToMonth() {
         return localDate.with(TemporalAdjusters.firstDayOfMonth());
@@ -153,7 +153,7 @@ public class DateUtils {
      * @Param []
      * @Return java.time.LocalDate
      * @Date 2019/7/8 15:33
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDate lastToMonth() {
         return localDate.with(TemporalAdjusters.lastDayOfMonth());
@@ -165,7 +165,7 @@ public class DateUtils {
      * @Param []
      * @Return java.time.LocalDate
      * @Date 2019/7/8 15:35
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDate firstNextMonth() {
         return localDate.with(TemporalAdjusters.firstDayOfNextMonth());
@@ -177,7 +177,7 @@ public class DateUtils {
      * @Param []
      * @Return java.time.LocalDate
      * @Date 2019/7/8 15:36
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDate firstToYear() {
         return localDate.with(TemporalAdjusters.firstDayOfYear());
@@ -189,7 +189,7 @@ public class DateUtils {
      * @Param []
      * @Return java.time.LocalDate
      * @Date 2019/7/8 15:37
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDate lastToYear() {
         return localDate.with(TemporalAdjusters.lastDayOfYear());
@@ -203,7 +203,7 @@ public class DateUtils {
      * @Param [localTime, localTime1]
      * @Return long
      * @Date 2019/7/8 15:43
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long difference(LocalTime localTime, LocalTime localTime1) {
         return Duration.between(localTime, localTime1).getSeconds();
@@ -215,7 +215,7 @@ public class DateUtils {
      * @Param [oldDate, newDate]
      * @Return long
      * @Date 2019/7/8 15:47
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long aFewYearsApart(LocalDateTime oldDate, LocalDateTime newDate) {
         return ChronoUnit.YEARS.between(oldDate, newDate);
@@ -227,7 +227,7 @@ public class DateUtils {
      * @Param [oldDate, newDate]
      * @Return long
      * @Date 2019/7/8 15:49
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long aFewMonthsApart(LocalDateTime oldDate, LocalDateTime newDate) {
         return ChronoUnit.MONTHS.between(oldDate, newDate);
@@ -239,7 +239,7 @@ public class DateUtils {
      * @Param [oldDate, newDate]
      * @Return long
      * @Date 2019/7/8 15:50
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long aFewWEEKSApart(LocalDateTime oldDate, LocalDateTime newDate) {
         return ChronoUnit.WEEKS.between(oldDate, newDate);
@@ -251,7 +251,7 @@ public class DateUtils {
      * @Param [oldDate, newDate]
      * @Return long
      * @Date 2019/7/8 15:51
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long aFewDAYSApart(LocalDateTime oldDate, LocalDateTime newDate) {
         return ChronoUnit.DAYS.between(oldDate, newDate);
@@ -263,7 +263,7 @@ public class DateUtils {
      * @Param [oldDate, newDate]
      * @Return long
      * @Date 2019/7/8 15:52
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long aFewHOURSApart(LocalDateTime oldDate, LocalDateTime newDate) {
         return ChronoUnit.HOURS.between(oldDate, newDate);
@@ -275,7 +275,7 @@ public class DateUtils {
      * @Param [oldDate, newDate]
      * @Return long
      * @Date 2019/7/8 15:52
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long aFewMINUTESApart(LocalDateTime oldDate, LocalDateTime newDate) {
         return ChronoUnit.MINUTES.between(oldDate, newDate);
@@ -287,7 +287,7 @@ public class DateUtils {
      * @Param [oldDate, newDate]
      * @Return long
      * @Date 2019/7/8 15:54
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long aFewSECONDSApart(LocalDateTime oldDate, LocalDateTime newDate) {
         return ChronoUnit.SECONDS.between(oldDate, newDate);
@@ -299,7 +299,7 @@ public class DateUtils {
      * @Param [oldDate, newDate]
      * @Return long
      * @Date 2019/7/8 15:55
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long aFewMILLISApart(LocalDateTime oldDate, LocalDateTime newDate) {
         return ChronoUnit.MILLIS.between(oldDate, newDate);
@@ -311,7 +311,7 @@ public class DateUtils {
      * @Param [oldDate, newDate]
      * @Return long
      * @Date 2019/7/8 15:55
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long aFewNANOSApart(LocalDateTime oldDate, LocalDateTime newDate) {
         return ChronoUnit.NANOS.between(oldDate, newDate);
@@ -325,7 +325,7 @@ public class DateUtils {
      * @Param []
      * @Return long
      * @Date 2019/7/8 15:59
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long getTimestamp() {
         return Clock.systemDefaultZone().millis();
@@ -339,7 +339,7 @@ public class DateUtils {
      * @Param [date]
      * @Return java.time.LocalDateTime
      * @Date 2019/7/8 16:05
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDateTime dateToLocalDateTime(Date date) {
         // LocalDateTime.ofInstant(date.toInstant(),ZoneId.systemDefault());
@@ -352,7 +352,7 @@ public class DateUtils {
      * @Param [date]
      * @Return java.time.LocalDate
      * @Date 2019/7/8 16:08
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDate dateToLocalDate(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -364,7 +364,7 @@ public class DateUtils {
      * @Param [date]
      * @Return java.time.LocalTime
      * @Date 2019/7/8 16:08
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalTime dateToLocalTime(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
@@ -376,7 +376,7 @@ public class DateUtils {
      * @Param [localDateTime]
      * @Return java.util.Date
      * @Date 2019/7/8 16:10
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static Date localDateTimeToDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
@@ -388,7 +388,7 @@ public class DateUtils {
      * @Param [localDate]
      * @Return java.util.Date
      * @Date 2019/7/8 16:13
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static Date localDateToDate(LocalDate localDate) {
         return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -403,7 +403,7 @@ public class DateUtils {
      * @Param [ymd]
      * @Return java.time.LocalDate
      * @Date 2019/7/8 16:19
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDate stringConversionLocalDate(String ymd) {
         return LocalDate.parse(ymd, DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
@@ -415,7 +415,7 @@ public class DateUtils {
      * @Param [ymdhms]
      * @Return java.time.LocalDateTime
      * @Date 2019/7/8 16:22
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDateTime stringConversionLocalDateTime(String ymdhms) {
         return LocalDateTime.parse(ymdhms, DateTimeFormatter.ofPattern(DEFAULT_DATETIME_FORMAT));
@@ -427,7 +427,7 @@ public class DateUtils {
      * @Param [localDate]
      * @Return java.lang.String
      * @Date 2019/7/8 16:24
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static String localDateConversionString(LocalDate localDate) {
         return localDate.format(DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT));
@@ -439,7 +439,7 @@ public class DateUtils {
      * @Param [localDate]
      * @Return java.lang.String
      * @Date 2019/7/8 16:24
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static String localDateConversionString(LocalDate localDate, String yyyyMM) {
         return localDate.format(DateTimeFormatter.ofPattern(yyyyMM));
@@ -451,7 +451,7 @@ public class DateUtils {
      * @Param [localDateTime]
      * @Return java.lang.String
      * @Date 2019/7/8 16:25
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static String localDateTimeConversionString(LocalDateTime localDateTime) {
         return localDateTime.format(DateTimeFormatter.ofPattern(DEFAULT_DATETIME_FORMAT));
@@ -463,7 +463,7 @@ public class DateUtils {
      * @Param [localDateTime]
      * @Return java.lang.String
      * @Date 2019/7/8 16:28
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static String localDateTimeToString(LocalDateTime localDateTime) {
         return DateTimeFormatter.ofPattern(DEFAULT_DATETIME_FORMAT).format(localDateTime);
@@ -476,7 +476,7 @@ public class DateUtils {
      * @Param [timeMillis]
      * @Return java.time.LocalDateTime
      * @Date 2019/7/8 16:32
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static LocalDateTime timestampConversionLocalDateTime(long timeMillis) {
         Instant instant = Instant.ofEpochMilli(timeMillis);
@@ -489,7 +489,7 @@ public class DateUtils {
      * @Param [localDateTime]
      * @Return long
      * @Date 2019/7/8 16:34
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long localDateTimeConversiontimestamp(LocalDateTime localDateTime) {
         return localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
@@ -501,7 +501,7 @@ public class DateUtils {
      * @Param [localDate]
      * @Return java.lang.String
      * @Date 2019/7/8 17:08
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static String getWeek(LocalDate localDate) {
         String week = String.valueOf(localDate.getDayOfWeek());
@@ -537,7 +537,7 @@ public class DateUtils {
      * @Param [localDateTime]
      * @Return long
      * @Date 2019/7/9 8:39
-     * @Author 杨攀
+     * @Author Ypp
      */
     public static long localDateTimeChangeTen(LocalDateTime localDateTime) {
         long lon = localDateTimeConversiontimestamp(localDateTime) / 1000;
@@ -580,7 +580,7 @@ public class DateUtils {
 
     /**
      * 把 yyyy-MM-dd HH:mm:ss 格式化为 yyyyMMddHHmmss
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/6/8 18:15
      * @param dateTime yyyy-MM-dd HH:mm:ss
      * @return java.lang.String

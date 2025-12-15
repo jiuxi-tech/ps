@@ -7,9 +7,9 @@ import com.jiuxi.security.core.service.AccountService;
 /**
  * @Description: 用户名/密码登陆实现
  * @ClassName: PwdLoginServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-08-28 13:42
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class PwdLoginServiceImpl extends AbstractLoginService {
 

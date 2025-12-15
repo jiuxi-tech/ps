@@ -23,9 +23,9 @@ import java.util.concurrent.*;
 /**
  * @ClassName: MonitorHealthServiceComposite
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/21 9:16
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 @ConditionalOnProperty(prefix = "jiuxi.platform.plugin.monitor", name = "server-url")
@@ -45,7 +45,7 @@ public class MonitorHealthServiceComposite implements ApplicationContextAware {
      * 获取不健康的服务
      *
      * @return java.util.List<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/21 9:26
      */
     public List<String> getNotHealthServer(){
@@ -104,7 +104,7 @@ public class MonitorHealthServiceComposite implements ApplicationContextAware {
      *
      * @param applicationContext
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/3 18:01
      */
     @Override
@@ -124,7 +124,7 @@ public class MonitorHealthServiceComposite implements ApplicationContextAware {
      *
      * @param list 系统自动识别到的服务集合
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/25 10:11
      */
     private void removeExcludeSource(List<MonitorHealthService> list) {

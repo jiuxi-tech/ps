@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @Description: 消息、代办 已读表
  * @Author pand
  * @Date 2021-05-28 15:04:39
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpMessageReadMapper {

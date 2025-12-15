@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
 /**
  * @ClassName: TpOperateLogMapper
  * @Description: 操作日志表 - Mapper
- * @Author: System
+ * @Author: Qdd
  * @Date: 2024-01-17
  * @Copyright: www.jiuxi.com Inc. All rights reserved.
  */

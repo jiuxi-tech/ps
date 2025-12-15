@@ -306,7 +306,7 @@ export default {
     // 批量保存
     async handleBatchSave() {
       if (!this.batchForm.configText.trim()) {
-        this.$message.warning('请输入配置内容')
+        this.$message.warn('请输入配置内容')
         return
       }
       
@@ -326,7 +326,7 @@ export default {
         }
         
         if (Object.keys(configs).length === 0) {
-          this.$message.warning('没有找到有效的配置项')
+          this.$message.warn('没有找到有效的配置项')
           return
         }
         

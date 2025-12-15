@@ -19,7 +19,7 @@ import java.util.List;
  * @Description: 菜单修改历史记录控制器
  * @Author: AI Assistant
  * @Date: 2025-01-29
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/menu/history")

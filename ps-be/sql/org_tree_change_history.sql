@@ -41,7 +41,7 @@ CREATE INDEX `idx_operator_time` ON `org_tree_change_history`(`operator_id`, `op
 MySQL数据库连接配置:
 url: jdbc:mariadb://alilaoba.cn:13307/ps-bmp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
 username: root
-password: W4HV=QxtHz
+password: $D8BZ8Qmav
 */
 
 -- ========================================

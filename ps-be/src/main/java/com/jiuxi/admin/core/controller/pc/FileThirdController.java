@@ -23,9 +23,9 @@ import java.io.IOException;
 /**
  * @Description: 第三方附件接口附件接口
  * @ClassName: FileController
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020-10-13 17:34
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/third/file")
@@ -49,7 +49,7 @@ public class FileThirdController {
      * @param request
      * @param response
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/27 15:27
      */
     @RequestMapping(value = "/token")
@@ -85,7 +85,7 @@ public class FileThirdController {
      * @param request
      * @param response
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/27 15:04
      */
     @RequestMapping(value = "/download")
@@ -128,7 +128,7 @@ public class FileThirdController {
      * @param request
      * @param response
      * @return void
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/12/27 15:14
      */
     private void downloadFile(HttpServletRequest request, HttpServletResponse response) {

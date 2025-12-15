@@ -14,9 +14,9 @@ import java.util.List;
 /**
  * @ClassName: TpPersonApiServiceImpl
  * @Description: 人员 api
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/15 16:23
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service("tpPersonApiService")
 public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
@@ -33,7 +33,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      * @param personId 人员id
      * @param clazz    返回的目标对象类型
      * @return T
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 17:13
      */
     public <T> T getBaseInfo(String personId, Class<T> clazz) {
@@ -48,7 +48,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      *
      * @param personId
      * @return java.lang.String
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/15 14:51
      */
     public String getPersonName(String personId) {
@@ -65,7 +65,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      * @param idcard 身份证号
      * @param clazz
      * @return T
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 13:10
      */
     public <T> T getBaseInfoByIdCard(String idcard, Class<T> clazz) {
@@ -79,7 +79,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      * @param phone    手机号
      * @param personId 人员id（修改校验时必填）
      * @return boolean 存在返回 true, 不存在返回 false
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 15:49
      */
     /*
@@ -111,7 +111,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      * @param person 人员信息
      * @param jwtpid 当前操作人
      * @return 人员id
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 16:33
      */
     /*
@@ -129,7 +129,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      *
      * @param person 人员信息
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 16:34
      */
     /*
@@ -162,7 +162,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      * @param person 人员信息
      * @param jwtpid 操作人id
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 17:10
      */
     /*
@@ -180,7 +180,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      *
      * @param person 人员信息
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 16:34
      */
     /*
@@ -209,7 +209,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      * @param personId 人员id
      * @param jwtpid   操作人id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 17:20
      */
     public void delete(String deptId, String personId, String jwtpid) {
@@ -236,7 +236,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      * @param deptId   部门id
      * @param roleIds  角色id，多个使用逗号分割
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 18:04
      */
     public void auth(String personId, String deptId, String roleIds) {
@@ -248,7 +248,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      *
      * @param ascnId 单位id
      * @return java.util.List<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/4 19:12
      */
     /*
@@ -264,7 +264,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      * @param ascnId 单位id
      * @param jwtpid 操作人id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/4 19:24
      */
     /*
@@ -281,7 +281,7 @@ public class TpPersonApiServiceImpl /* implements TpPersonApiService */ {
      * @param phone    手机号
      * @param jwtpid   操作人id
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 17:10
      */
     /*

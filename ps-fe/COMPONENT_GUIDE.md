@@ -344,7 +344,7 @@ export default {
 this.$message.success('操作成功')
 
 // 警告消息
-this.$message.warning('请注意')
+this.$message.warn('请注意')
 
 // 错误消息
 this.$message.error('操作失败')

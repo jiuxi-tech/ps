@@ -14,7 +14,7 @@ import java.util.List;
  * @Description: 组织部门映射接口
  * @Author DDD重构
  * @Date 2025-09-12
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface OrganizationDepartmentMapper {
@@ -25,7 +25,7 @@ public interface OrganizationDepartmentMapper {
      * @param levelCode 层级code
      * @param category  部门类别
      * @return java.util.List<com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO>
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/20 14:37
      */
     List<TreeNode> selectDeptListByLevelCode(@Param("levelCode") String levelCode, @Param("category") int category);
@@ -36,7 +36,7 @@ public interface OrganizationDepartmentMapper {
      * @param deptId
      * @param category 部门类别
      * @return java.util.List<com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO>
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/20 14:57
      */
     List<TpDeptBasicinfoVO> selectDeptListByPId(@Param("deptId") String deptId, @Param("category") int category);
@@ -46,7 +46,7 @@ public interface OrganizationDepartmentMapper {
      *
      * @param deptId
      * @return com.jiuxi.admin.core.bean.vo.TpDeptBasicinfoVO
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/20 15:32
      */
     TpDeptBasicinfoVO selectDeptById(String deptId);
@@ -120,7 +120,7 @@ public interface OrganizationDepartmentMapper {
      *
      * @param ascnId
      * @return java.util.List<java.lang.String>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 10:03
      */
     List<TpDeptBasicinfoVO> listByEntId(String ascnId);

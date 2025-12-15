@@ -3,11 +3,13 @@ package com.jiuxi.admin.core.service.impl;
 import com.jiuxi.admin.core.bean.entity.TpKeycloakAccount;
 import com.jiuxi.admin.core.service.KeycloakSyncService;
 import com.jiuxi.admin.core.service.TpKeycloakAccountService;
+import com.jiuxi.admin.core.service.TpSystemConfigService;
 import com.jiuxi.admin.core.bean.vo.TpAccountVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO;
 import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.module.user.app.service.UserPersonService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -33,13 +35,16 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
     private TpKeycloakAccountService tpKeycloakAccountService;
 
     @Autowired
+    private TpSystemConfigService tpSystemConfigService;
+
+    @Autowired
     private RestTemplate restTemplate;
 
     @Autowired(required = false)
-    private UserAccountService userAccountService;
+    private ObjectProvider<UserAccountService> userAccountServiceProvider;
 
     @Autowired(required = false)
-    private UserPersonService userPersonService;
+    private ObjectProvider<UserPersonService> userPersonServiceProvider;
 
     @Value("${keycloak.server-url:http://localhost:8080}")
     private String keycloakServerUrl;
@@ -47,14 +52,26 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
     @Value("${keycloak.realm:ps-realm}")
     private String keycloakRealm;
 
-    @Value("${keycloak.admin.client-id:admin-cli}")
-    private String adminClientId;
+    /**
+     * 获取Keycloak管理员客户端ID
+     */
+    private String getAdminClientId() {
+        return tpSystemConfigService.getConfigValue("keycloak.admin.client-id", "admin-cli");
+    }
 
-    @Value("${keycloak.admin.username:admin}")
-    private String adminUsername;
+    /**
+     * 获取Keycloak管理员用户名
+     */
+    private String getAdminUsername() {
+        return tpSystemConfigService.getConfigValue("keycloak.admin.username", "admin");
+    }
 
-    @Value("${keycloak.admin.password:admin123}")
-    private String adminPassword;
+    /**
+     * 获取Keycloak管理员密码
+     */
+    private String getAdminPassword() {
+        return tpSystemConfigService.getConfigValue("keycloak.admin.password", "cotticotti");
+    }
 
     @Override
     public KeycloakSyncResult syncAccountToKeycloak(String accountId, String username, String password, String creator) {
@@ -317,9 +334,9 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
 
             MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
             params.add("grant_type", "password");
-            params.add("client_id", adminClientId);
-            params.add("username", adminUsername);
-            params.add("password", adminPassword);
+            params.add("client_id", getAdminClientId());
+            params.add("username", getAdminUsername());
+            params.add("password", getAdminPassword());
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
             ResponseEntity<Map> response = restTemplate.postForEntity(tokenUrl, request, Map.class);
@@ -538,6 +555,8 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
     private Map<String, Object> buildPersonExtras(String accountId) {
         Map<String, Object> result = new HashMap<>();
         try {
+            UserAccountService userAccountService = userAccountServiceProvider.getIfAvailable();
+            UserPersonService userPersonService = userPersonServiceProvider.getIfAvailable();
             if (userAccountService == null || userPersonService == null) {
                 log.warn("无法加载用户服务，跳过人员扩展信息构建: accountId={}", accountId);
                 return result;

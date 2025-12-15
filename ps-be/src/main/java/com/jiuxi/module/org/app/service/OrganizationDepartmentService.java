@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: 组织部门服务接口
  * @Author DDD重构
  * @Date 2025-09-12
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface OrganizationDepartmentService {
 
@@ -30,7 +30,7 @@ public interface OrganizationDepartmentService {
      *
      * @param deptId
      * @return com.jiuxi.common.bean.TreeNode
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/20 11:29
      */
     List<TreeNode> tree(String deptId, String jwtdid, int sync, int category);
@@ -54,7 +54,7 @@ public interface OrganizationDepartmentService {
      * @param sync   是否同步
      * @param expand 是否展开
      * @return com.jiuxi.common.bean.TreeNode
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/20 11:29
      */
     TreeNode deptCityTree(String jwtaid, int sync, boolean expand);
@@ -156,7 +156,7 @@ public interface OrganizationDepartmentService {
      * @param ascnId 单位id
      * @param jwtpid 操作人
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/30 10:09
      */
     void deleteDeptByAscnId(String ascnId, String jwtpid);

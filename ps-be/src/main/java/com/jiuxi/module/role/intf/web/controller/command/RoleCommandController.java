@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description: 角色命令控制器 - CQRS命令端
  * @Author DDD重构
  * @Date 2025-09-15
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/role")

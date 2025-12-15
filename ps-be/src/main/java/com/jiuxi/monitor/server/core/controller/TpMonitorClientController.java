@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Description: 监控服务控制器
  * @Author yangzr
  * @Date 2024-11-18 16:30:42
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/monitor")
@@ -46,7 +46,7 @@ public class TpMonitorClientController {
      * @param heartbeatInfo
      * @param request
      * @return com.jiuxi.common.bean.JsonResponse
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/18 9:48
      */
     @RequestMapping("/heartbeat")

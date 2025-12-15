@@ -13,9 +13,9 @@ import java.io.InputStream;
 /**
  * @ClassName: InputStreamHttpServletRequestWrapper
  * @Description:  输入流 HttpServletRequestWrapper 包装类，
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/1 10:27
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  *
  * 因为ServletInputStream被读取后无法第二次再读取了，所以要把读取过的内容存下来，
  * 然后需要的时候对外提供可被重复读取的ByteArrayInputStream，所以重写 ServletInputStream 的 getInputStream()方法
@@ -41,7 +41,7 @@ public class InputStreamHttpServletRequestWrapper extends HttpServletRequestWrap
 
     /**
      * 重新 getInputStream
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 10:30
      * @param
      * @return javax.servlet.ServletInputStream

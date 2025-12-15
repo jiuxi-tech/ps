@@ -3,9 +3,9 @@ package com.jiuxi.shared.security.holder;
 /**
  * @ClassName: TokenHolder
  * @Description: Token Holder
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/7/31 15:57
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TokenHolder {
 
@@ -15,7 +15,7 @@ public class TokenHolder {
 
     /**
      * 获取本地当前的值
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/7/31 15:58
      * @param
      * @return java.lang.String
@@ -27,7 +27,7 @@ public class TokenHolder {
 
     /**
      * 设置本地当前值
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/7/31 15:58
      * @param val
      * @return void
@@ -39,7 +39,7 @@ public class TokenHolder {
 
     /**
      * 删除本地当前值，在使用完成后，必须删除，避免内存溢出
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/7/31 15:59
      * @param
      * @return void

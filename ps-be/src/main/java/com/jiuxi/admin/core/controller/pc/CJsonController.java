@@ -22,7 +22,7 @@ import java.util.Map;
  * @Description: ""
  * @Author pand
  * @Date 2021-05-12 13:48:38
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/sys/c-json")

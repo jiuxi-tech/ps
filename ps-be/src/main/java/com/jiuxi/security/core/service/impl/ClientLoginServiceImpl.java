@@ -7,9 +7,9 @@ import com.jiuxi.security.core.service.AccountService;
 /**
  * @Description: 客户端获取token信息，根据用户名/密码（等同于 clientId和clientSecurity）生成token
  * @ClassName: ClientLoginServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-08-31 13:53
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class ClientLoginServiceImpl extends AbstractLoginService {
 

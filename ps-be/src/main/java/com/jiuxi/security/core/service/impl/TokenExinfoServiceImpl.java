@@ -6,9 +6,9 @@ import com.jiuxi.security.core.service.TokenExinfoService;
 /**
  * @Description: token扩展信息添加
  * @ClassName: TokenExinfoServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-11-09 10:33
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class TokenExinfoServiceImpl implements TokenExinfoService {
 

@@ -7,9 +7,9 @@ import java.util.Random;
 /**
  * @Description: 密码校验规则
  * @ClassName: PwdRegularUtils
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-04-19 20:13
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class PwdRegularUtils {
 

@@ -4,7 +4,7 @@
 ############################################################
 
 spring:
-  # 开发环境数据源配置
+  # 开发环境数据源配置 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://alilaoba.cn:13307/ps-bmp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai

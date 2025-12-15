@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * @author 杨攀
+ * @author Ypp
  * @description: XSS过滤处理
  * @date 2020/7/20 15:15
  */
@@ -29,7 +29,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 重写 getParameter 方法，将参数名与参数进行 xss 过滤
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/5/25 20:37
      * @param name
      * @return java.lang.String
@@ -45,7 +45,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 重写 getParameterValues 方法，将参数名与参数进行 xss 过滤
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/5/25 20:37
      * @param name
      * @return java.lang.String[]
@@ -65,7 +65,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 重写 getParameterMap 方法，将参数名与参数进行 xss 过滤
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/5/25 20:38
      * @param
      * @return java.util.Map<java.lang.String,java.lang.String[]>
@@ -86,7 +86,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 重写 getHeader 方法，将参数名与参数进行 xss 过滤
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/5/25 20:38
      * @param name
      * @return java.lang.String
@@ -106,7 +106,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 获取最原始的request
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/5/25 20:39
      * @param
      * @return javax.servlet.http.HttpServletRequest
@@ -117,7 +117,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 获取最原始的request
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/5/25 20:39
      * @param request
      * @return javax.servlet.http.HttpServletRequest

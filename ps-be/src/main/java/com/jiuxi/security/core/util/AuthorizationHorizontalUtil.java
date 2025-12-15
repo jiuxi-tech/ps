@@ -20,9 +20,9 @@ import java.io.IOException;
 /**
  * @ClassName: AuthorizationHorizontalUtil
  * @Description: 横向越权 工具
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/11/21 13:50
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class AuthorizationHorizontalUtil {
 
@@ -33,7 +33,7 @@ public class AuthorizationHorizontalUtil {
 
     /**
      * 横向越权校验
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/21 13:52
      * @param businessKey
      * @param request
@@ -73,7 +73,7 @@ public class AuthorizationHorizontalUtil {
 
     /**
      * 处理 get  post 请求
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/21 13:47
      * @param businessKey
      * @param request
@@ -90,7 +90,7 @@ public class AuthorizationHorizontalUtil {
 
     /**
      * 处理 json 请求
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/21 13:43
      * @param businessKey
      * @param request
@@ -139,7 +139,7 @@ public class AuthorizationHorizontalUtil {
 
     /**
      * 校验 横向越权
-     * @author 杨攀
+     * @author Ypp
      * @date 2023/11/1 13:35
      * @param businessKey 业务主键
      * @param businessKeyVal 业务主键的值

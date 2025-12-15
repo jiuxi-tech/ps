@@ -3,9 +3,9 @@ package com.jiuxi.monitor.server.bean;
 /**
  * @ClassName: EmailConfig
  * @Description: 邮件配置
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/20 16:00
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class MailConfig {
 

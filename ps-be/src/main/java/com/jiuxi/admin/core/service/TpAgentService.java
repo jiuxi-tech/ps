@@ -12,7 +12,7 @@ import java.util.List;
  * @Description:
  * @Author yangp
  * @Date 2021-03-24 16:04:29
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TpAgentService {
 

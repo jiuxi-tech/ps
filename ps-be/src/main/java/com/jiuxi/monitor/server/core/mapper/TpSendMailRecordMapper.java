@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @Description: 邮件发送记录表
  * @Author yangzr
  * @Date 2024-11-20 10:36:59
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpSendMailRecordMapper {
@@ -24,7 +24,7 @@ public interface TpSendMailRecordMapper {
      * @param page
      * @param query
      * @return com.baomidou.mybatisplus.core.metadata.IPage<com.jiuxi.monitor.server.core.bean.vo.TpSendMailRecordVO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/27 17:54
      */
     IPage<TpSendMailRecordVO> getPage(Page<TpSendMailRecordVO> page, @Param("query") TpSendMailRecordQuery query);
@@ -34,7 +34,7 @@ public interface TpSendMailRecordMapper {
      *
      * @param bean
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/27 17:54
      */
     int add(TpSendMailRecord bean);
@@ -44,7 +44,7 @@ public interface TpSendMailRecordMapper {
      *
      * @param recordId
      * @return com.jiuxi.monitor.server.core.bean.vo.TpSendMailRecordVO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/27 17:54
      */
     TpSendMailRecordVO view(String recordId);
@@ -54,7 +54,7 @@ public interface TpSendMailRecordMapper {
      *
      * @param recordId
      * @return com.jiuxi.monitor.server.core.bean.vo.TpSendMailRecordVO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/27 17:54
      */
     int delete(@Param("recordId") String recordId, @Param("updateTime") String updateTime, @Param("updator") String updator);

@@ -20,9 +20,9 @@ import java.util.List;
 /**
  * @ClassName: TpAttachinfoApiServiceImpl
  * @Description: 附件接口
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/6/5 15:06
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class TpAttachinfoApiServiceImpl /* implements TpAttachinfoApiService */ {
@@ -39,7 +39,7 @@ public class TpAttachinfoApiServiceImpl /* implements TpAttachinfoApiService */ 
      * @param referId    业务id
      * @param referType  附件类型
      * @return TpAttachinfoDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 15:32
      */
     public List<Object> selectByReferIdAndType(String referId, String referType) {
@@ -62,7 +62,7 @@ public class TpAttachinfoApiServiceImpl /* implements TpAttachinfoApiService */ 
      * @param referId 业务id
      * @param pid     操作人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 15:20
      */
     // public void band(TpAttachinfoRefDTO vo, String referId, String pid) {
@@ -80,7 +80,7 @@ public class TpAttachinfoApiServiceImpl /* implements TpAttachinfoApiService */ 
      * @param referType 附件类型
      * @param pid       操作人员id
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 15:21
      */
     public int deleteByReferIdAndReferType(String referId, String referType, String pid) {
@@ -98,7 +98,7 @@ public class TpAttachinfoApiServiceImpl /* implements TpAttachinfoApiService */ 
      * @param attachId 附件id
      * @param pid      操作人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 15:34
      */
     public void deleteByAttachId(String attachId, String pid) {
@@ -115,7 +115,7 @@ public class TpAttachinfoApiServiceImpl /* implements TpAttachinfoApiService */ 
      * @param referId   业务id
      * @param pid       操作人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 15:29
      */
     public void modifyReferId(List<String> attachIds, String referId, String pid) {
@@ -132,7 +132,7 @@ public class TpAttachinfoApiServiceImpl /* implements TpAttachinfoApiService */ 
      *
      * @param attachinfoDTO
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/21 8:50
      */
     /*@Override
@@ -146,7 +146,7 @@ public class TpAttachinfoApiServiceImpl /* implements TpAttachinfoApiService */ 
      *
      * @param attachId 附件id
      * @return com.jiuxi.plugin.api.bean.dto.TpAttachinfoDTO
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/24 16:35
      */
     /*@Override
@@ -159,7 +159,7 @@ public class TpAttachinfoApiServiceImpl /* implements TpAttachinfoApiService */ 
      *
      * @param attachId
      * @return boolean
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/22 14:51
      */
     public boolean exists(String attachId) {
@@ -171,7 +171,7 @@ public class TpAttachinfoApiServiceImpl /* implements TpAttachinfoApiService */ 
      *
      * @param attachinfoDTO
      * @return int
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/22 14:57
      */
     /*@Override

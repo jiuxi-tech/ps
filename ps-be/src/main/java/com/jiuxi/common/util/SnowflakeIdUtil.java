@@ -6,9 +6,9 @@ import cn.hutool.core.util.IdUtil;
 /**
  * @ClassName: SnowflakeIdUtil
  * @Description: 雪花算法
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/6/10 17:37
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class SnowflakeIdUtil {
 

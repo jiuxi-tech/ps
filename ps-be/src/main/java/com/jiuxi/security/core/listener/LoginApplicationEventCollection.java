@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * @Description: 事件集合
  * @ClassName: LoginApplicationEventService
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-10-20 15:52
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class LoginApplicationEventCollection {
 

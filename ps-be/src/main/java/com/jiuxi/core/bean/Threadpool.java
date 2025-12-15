@@ -3,9 +3,9 @@ package com.jiuxi.core.bean;
 /**
  * @Description: 线程池配置项
  * @ClassName: Threadpool
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-11-23 09:42
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class Threadpool {
 

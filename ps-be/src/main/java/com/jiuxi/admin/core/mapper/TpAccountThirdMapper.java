@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
  * @Description: 合作方管理表
  * @Author pand
  * @Date 2022-04-20 15:02:39
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpAccountThirdMapper {

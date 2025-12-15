@@ -3,9 +3,9 @@ package com.jiuxi.common.enums;
 /**
  * @ClassName: OperateType
  * @Description: 操作类型
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2023/10/20 16:55
- * @Copyright: 2023 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2023 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public enum OperateType {
 

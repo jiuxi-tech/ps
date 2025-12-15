@@ -11,7 +11,7 @@ import java.util.List;
  * @Description: 附件表
  * @Author pand
  * @Date 2020-11-18 11:05:18
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface TpAttachinfoService {
 
@@ -53,7 +53,7 @@ public interface TpAttachinfoService {
 
     /**
      * 根据 referId 删除附件
-     * @author 杨攀
+     * @author Ypp
      * @date 2022/11/25 16:49
      * @param referId
      * @param referType
@@ -85,7 +85,7 @@ public interface TpAttachinfoService {
      * @param referId   业务id
      * @param pid       操作人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 15:29
      */
     void modifyReferId(List<String> attachIds, String referId, String pid);
@@ -96,7 +96,7 @@ public interface TpAttachinfoService {
      * @param attachId 附件id
      * @param pid      操作人员id
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/6/5 15:34
      */
     void deleteByAttachId(String attachId, String pid);
@@ -105,7 +105,7 @@ public interface TpAttachinfoService {
      *
      * @param attachId
      * @return boolean
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/7/22 14:51
      */
     boolean exists(String attachId);

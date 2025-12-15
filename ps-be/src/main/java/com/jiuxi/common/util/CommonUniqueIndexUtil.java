@@ -23,9 +23,9 @@ import cn.hutool.core.util.StrUtil;
  *         1. 一个表如果存在多个唯一索引，则删除数据时，每个字段都需要修改（添加时间后缀）
  *         2. 唯一索引字段的长度需能够满足增加15位字符
  * </pre>
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/5/29 18:46
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class CommonUniqueIndexUtil {
 
@@ -39,7 +39,7 @@ public class CommonUniqueIndexUtil {
      *
      * @param code 唯一索引字段
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 18:59
      */
     public static String addDeleteTime(String code) {
@@ -52,7 +52,7 @@ public class CommonUniqueIndexUtil {
      *
      * @param code 唯一索引字段
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/5/29 18:59
      */
     public static String removeDeleteTime(String code){

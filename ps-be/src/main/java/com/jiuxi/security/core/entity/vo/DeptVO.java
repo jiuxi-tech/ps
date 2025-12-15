@@ -5,9 +5,9 @@ import com.jiuxi.shared.common.base.vo.BaseVO;
 /**
  * @ClassName: DeptVO
  * @Description: 部门VO
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/7/21 14:50
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class DeptVO extends BaseVO {
 

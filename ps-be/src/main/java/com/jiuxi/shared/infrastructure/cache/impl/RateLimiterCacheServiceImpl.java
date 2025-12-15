@@ -12,9 +12,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Description: 限流缓存实现
  * @ClassName: RateLimiterCacheServiceImpl
- * @Author: pand
+ * @Author: pdd
  * @Date: 2022-12-13 16:34
- * @Copyright: 2022 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2022 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class RateLimiterCacheServiceImpl implements RateLimiterCacheService {
 

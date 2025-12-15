@@ -3,9 +3,9 @@ package com.jiuxi.monitor.client.core.bean;
 /**
  * @ClassName: ServerHealth
  * @Description: 服务健康信息
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/21 9:29
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class ServerHealth {
 

@@ -9,9 +9,9 @@ import java.util.Map;
 /**
  * @ClassName: Constant
  * @Description: 常量
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2020/11/20 15:05
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  * 
  * @deprecated 请使用 {@link BusinessConstants} 和 {@link SystemConstants} 替代
  */
@@ -22,7 +22,7 @@ public class TpConstant {
     /**
      * tree
      *
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/11/27 14:34
      * @return
      * @deprecated 请使用 {@link BusinessConstants.TreeNode} 替代

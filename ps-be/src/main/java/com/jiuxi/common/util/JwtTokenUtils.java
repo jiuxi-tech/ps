@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * @Description: JwtToken的生成和解析
- * @Author:杨攀
+ * @Author:Ypp
  * @Since:2018年8月21日上午11:18:39
  *
  * 已过期，框架2.0.0以前试用这个，2.1.0以后试用 JwtUtil
@@ -66,7 +66,7 @@ public class JwtTokenUtils {
 
     /**
      * 生成临时token，自定义时间
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/9/2 15:48
      * @param personId
      * @param exinfo  扩展信息
@@ -102,7 +102,7 @@ public class JwtTokenUtils {
      * @return
      * @throws Exception
      * @Description: JWT生成Token
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年8月21日上午10:48:26
      */
     public static String createToken(String tenantId, String ascnId, String personId, String deptIds, String cityCode, String roleIds, String exinfo) {
@@ -137,7 +137,7 @@ public class JwtTokenUtils {
      * @return
      * @throws Exception
      * @Description: JWT生成Token
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2020年8月21日上午10:48:26
      */
     public static String createToken(String tenantId, String ascnId, String personId, String deptIds, String cityCode, String roleIds, String exinfo, int field, int amount) {
@@ -227,7 +227,7 @@ public class JwtTokenUtils {
      * @param token
      * @return
      * @Description: 解密Token
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2018年8月21日上午10:59:00
      */
     public static Map<String, Claim> verifyToken(String token) {
@@ -250,7 +250,7 @@ public class JwtTokenUtils {
      * @param token
      * @return
      * @Description: 解密Token
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2018年8月21日上午10:59:00
      */
     public static Boolean checkToken(String token) throws TokenExpiredException {
@@ -279,7 +279,7 @@ public class JwtTokenUtils {
      * @param token
      * @return
      * @Description: 获得token中的TenantId
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2018年8月30日上午9:49:09
      */
     public static String getTenantId(String token) {
@@ -295,7 +295,7 @@ public class JwtTokenUtils {
      * @param token
      * @return
      * @Description: 获得token中的TenantId
-     * @Author:杨攀
+     * @Author:Ypp
      * @Since: 2018年8月30日上午9:49:09
      */
     public static String getAscnId(String token) {
@@ -311,7 +311,7 @@ public class JwtTokenUtils {
      * @param token
      * @return java.lang.String
      * @description: 获取人员id
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/26 17:20
      */
     public static String getPersonId(String token) {
@@ -328,7 +328,7 @@ public class JwtTokenUtils {
      * @param token
      * @return java.lang.String
      * @description: 获取角色ids
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/28 15:49
      */
     public static String getRoles(String token) {
@@ -347,7 +347,7 @@ public class JwtTokenUtils {
      * @param token
      * @return java.lang.String
      * @description: 获取用户所在部门s
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/28 15:52
      */
     public static String getExinfo(String token) {
@@ -364,7 +364,7 @@ public class JwtTokenUtils {
      * @param token
      * @return java.lang.String
      * @description: 获取用户所在部门s
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/28 15:52
      */
     public static String getDepts(String token) {
@@ -380,7 +380,7 @@ public class JwtTokenUtils {
      * @param token
      * @return java.lang.String
      * @description: 获取当前用户所在部门的行政区划code
-     * @author 杨攀
+     * @author Ypp
      * @date 2020/5/28 15:52
      */
     public static String getCityCode(String token) {

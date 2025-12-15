@@ -11,7 +11,7 @@ import java.util.List;
  * @Description: 签约表 企业-中介，政府-中介签约绑定表，多对多关系
  * @Author pand
  * @Date 2020-11-30 20:53:39
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Mapper
 public interface TpSignupMapper {

@@ -5,9 +5,9 @@ import java.io.Serializable;
 /**
  * @ClassName: LogicalDisk
  * @Description: 上传附件的VO
- * @Author: 杨攀
+ * @Author: Ypp
  * @Date: 2021/4/28 9:55
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class LogicalDisk implements Serializable {
 

@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * @ClassName: TpDataPermissionsController
  * @Description: 数据权限
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2023/11/1 15:39
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/app/sys/data-perm")
@@ -40,7 +40,7 @@ public class TpDataPermissionsControllerApp {
      *
      * @param jwtpid 当前登录人id
      * @return java.util.List<com.jiuxi.common.bean.TreeNode>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2023/11/1 17:00
      */
     @RequestMapping(value = "/treePerm")

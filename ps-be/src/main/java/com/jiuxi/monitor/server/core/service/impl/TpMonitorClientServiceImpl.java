@@ -36,7 +36,7 @@ import java.util.Set;
  * @Description: 客户端基本信息
  * @Author yangzr
  * @Date 2024-11-18 16:30:42
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @Service
 public class TpMonitorClientServiceImpl implements TpMonitorClientService {
@@ -106,7 +106,7 @@ public class TpMonitorClientServiceImpl implements TpMonitorClientService {
      * @param clientVOS
      * @param status
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 17:24
      */
     private void filterStatus(List<TpMonitorClientVO> clientVOS, int status) {
@@ -118,7 +118,7 @@ public class TpMonitorClientServiceImpl implements TpMonitorClientService {
      *
      * @param clientVOS
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 17:00
      */
     private void setHeartbeatInfo(List<TpMonitorClientVO> clientVOS) {
@@ -147,7 +147,7 @@ public class TpMonitorClientServiceImpl implements TpMonitorClientService {
      * @param vo
      * @param heartbeat
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 18:11
      */
     private void addAlarmMsg(TpMonitorClientVO vo, ClientHeartbeatInfo heartbeat) {
@@ -175,7 +175,7 @@ public class TpMonitorClientServiceImpl implements TpMonitorClientService {
      * 查询所有客户端信息
      *
      * @return java.util.List<com.jiuxi.monitor.server.core.bean.vo.TpMonitorClientVO>
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 14:53
      */
     @Override
@@ -218,7 +218,7 @@ public class TpMonitorClientServiceImpl implements TpMonitorClientService {
      * @param info
      * @param ip
      * @return void
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/19 13:27
      */
     @Override

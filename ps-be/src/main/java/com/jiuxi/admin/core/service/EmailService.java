@@ -5,7 +5,7 @@ package com.jiuxi.admin.core.service;
  * @ClassName: EmailService
  * @Author: Trae AI
  * @Date: 2024/12/19
- * @Copyright: 2024 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2024 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public interface EmailService {
 

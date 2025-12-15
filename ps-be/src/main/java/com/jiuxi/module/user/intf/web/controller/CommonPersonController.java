@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @ClassName: CommonPersonBasicinfoController
  * @Description: 业务系统使用-人员信息查询
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2025/6/10 17:44
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 @RestController
 @RequestMapping("/common/person")

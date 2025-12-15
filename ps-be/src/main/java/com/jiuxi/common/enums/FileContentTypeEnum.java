@@ -3,9 +3,9 @@ package com.jiuxi.common.enums;
 /**
  * @Description: http附件请求类型枚举类
  * @ClassName: HttpContentTypeEnum
- * @Author: pand
+ * @Author: pdd
  * @Date: 2021-04-28 16:54
- * @Copyright: 2021 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2021 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public enum FileContentTypeEnum {
 

@@ -159,10 +159,22 @@ export function setServiceReqRes(_this) {
 		loadingCount = 0;
 		
 		if (e.response && e.response.status === 500) {
-			//message.error(`服务器异常，错误码：${e.response.status}`)
-			if (e.response && e.response.data && e.response.data.message) {
-				message.error(e.response.data.message)
+			// 尝试从多个可能的字段提取错误信息
+			let errorMsg = '服务器内部错误,请稍后重试';
+			
+			if (e.response && e.response.data) {
+				const data = e.response.data;
+				// 优先级: message > error > msg > errmsg > 默认提示
+				errorMsg = data.message || data.error || data.msg || data.errmsg || data.errMsg || errorMsg;
+				
+				// 如果data是字符串,直接使用
+				if (typeof data === 'string' && data.length > 0) {
+					errorMsg = data;
+				}
 			}
+			
+			message.error(errorMsg);
+			console.error('500错误详情:', e.response);
 		}
 		
 
@@ -201,7 +213,7 @@ function showIpAccessDeniedPage(errorMessage) {
 			width: 100%;
 			height: 100%;
 			z-index: 9999;
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			background: linear-gradient(180deg,#fde7d8,#d10000,#ffad99 35%,#fbe6d7 65%,#fdf4ed);
 			display: flex;
 			align-items: center;
 			justify-content: center;

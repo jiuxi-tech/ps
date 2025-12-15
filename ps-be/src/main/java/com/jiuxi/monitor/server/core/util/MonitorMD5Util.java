@@ -9,9 +9,9 @@ import java.security.NoSuchAlgorithmException;
 /**
  * @ClassName: MonitorMD5Util
  * @Description:
- * @Author 杨占锐
+ * @Author jiuxx
  * @Date 2024/11/18 9:58
- * @Copyright: www.tuxun.net Inc. All rights reserved.
+ * @Copyright: Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class MonitorMD5Util {
 
@@ -22,7 +22,7 @@ public class MonitorMD5Util {
      *
      * @param str
      * @return java.lang.String
-     * @author 杨占锐
+     * @author jiuxx
      * @date 2024/11/18 10:02
      */
     public static String createMd5(String str) {

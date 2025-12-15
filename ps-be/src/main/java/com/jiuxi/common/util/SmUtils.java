@@ -20,9 +20,9 @@ import java.security.KeyPair;
  * 2、sm3摘要算法，用来加密密码
  * 3、sm4对称加密，用来加密数据传输
  * @ClassName: SmUtils
- * @Author: pand
+ * @Author: pdd
  * @Date: 2020-09-07 14:35
- * @Copyright: 2020 www.tuxun.net Inc. All rights reserved.
+ * @Copyright: 2020 Hangzhou Jiuxi Inc. All rights reserved.
  */
 public class SmUtils {
 
@@ -73,7 +73,7 @@ public class SmUtils {
      * 生成SM2公钥，私钥，公钥Q，私钥D <br/>
      * 通常由于js端提供的 SM2代码实现的方案，都是直接使用的私钥的d值和公钥的q值直接进行的加解密，
      * 所以后端返回的是从公钥里面提取的q值，以q值做为js端的加密公钥，从私钥提取d值，作为js端的解密私钥
-     * @author 杨攀
+     * @author Ypp
      * @date 2021/5/13 16:29
      * @param
      * @return void
