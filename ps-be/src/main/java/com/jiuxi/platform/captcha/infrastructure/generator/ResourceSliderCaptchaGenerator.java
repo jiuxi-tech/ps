@@ -4,6 +4,8 @@ import com.jiuxi.platform.captcha.domain.entity.CaptchaChallenge;
 import com.jiuxi.platform.captcha.domain.service.CaptchaGenerator;
 import com.jiuxi.platform.captcha.domain.valueobject.CaptchaCoordinate;
 import com.jiuxi.platform.captcha.domain.valueobject.CaptchaType;
+import com.jiuxi.platform.captcha.infrastructure.config.CaptchaProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -46,6 +48,14 @@ public class ResourceSliderCaptchaGenerator implements CaptchaGenerator {
 
     private final Random random = new Random();
 
+    // 注入验证码配置
+    private final CaptchaProperties captchaProperties;
+    
+    @Autowired
+    public ResourceSliderCaptchaGenerator(CaptchaProperties captchaProperties) {
+        this.captchaProperties = captchaProperties;
+    }
+
     // 图片资源路径配置
     @Value("${captcha.image.external-dir:}")
     private String externalRootDir;  // 外部根目录，对应META-INF同级
@@ -62,6 +72,8 @@ public class ResourceSliderCaptchaGenerator implements CaptchaGenerator {
         }
 
         CaptchaChallenge challenge = new CaptchaChallenge(captchaType);
+        // 从配置中读取最大尝试次数
+        challenge.setMaxAttempts(captchaProperties.getMaxAttempts());
 
         try {
             // 获取可用的图片资源

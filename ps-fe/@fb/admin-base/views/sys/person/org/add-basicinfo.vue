@@ -27,7 +27,9 @@
                             <fb-col span="24">
                                 <!--								<fb-form-item label="证件号" prop="idcard"-->
                                 <!--											  :rule="formData.idtype === 'Y2401' ? [{required: true}, {type: 'idcard'}] : {required: false}">-->
-                                <fb-form-item label="证件号" prop="idcard">
+                                <fb-form-item label="证件号" prop="idcard"
+                                 :rule="formData.idtype === 'Y2401' ? [{required: true}, {type: 'idcard'}] : {required: false}"
+                                >
                                     <fb-input
                                         v-model="formData.idcard"
                                         placeholder="请输入证件号"
@@ -115,8 +117,7 @@
                         </fb-form-item>
                     </fb-col>
                     <fb-col span="12">
-                        <!--						<fb-form-item label="手机号码" prop="phone" :rule="[{required: true}, {type: 'mobile'}]">-->
-                        <fb-form-item label="手机号码" prop="phone">
+                        <fb-form-item label="手机号码" prop="phone" :rule="[{ pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }]">
                             <fb-input v-model="formData.phone" placeholder="请输入手机号码"></fb-input>
                         </fb-form-item>
                     </fb-col>
@@ -329,6 +330,7 @@ export default {
                             // 判断code
                             if (result.code == 1) {
                                 this.$message.success('修改成功')
+                                this.handleClose()
                             } else {
                                 // 服务器返回失败
                                 this.$message.error('修改失败:' + result.data.message)
@@ -346,6 +348,9 @@ export default {
                                 let personId = result.data.personId
                                 this.formData.personId = personId
                                 this.setPageParam(personId)
+
+                                
+                                this.handleClose()
                             } else {
                                 // 服务器返回失败
                                 //console.log(result.data.message);

@@ -156,8 +156,8 @@ public class TopinfoCaptchaPlatformAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(name = "concatCaptchaGenerator")
-    public ConcatCaptchaGenerator concatCaptchaGenerator() {
-        return new ConcatCaptchaGenerator();
+    public ConcatCaptchaGenerator concatCaptchaGenerator(CaptchaProperties captchaProperties) {
+        return new ConcatCaptchaGenerator(captchaProperties);
     }
 
     /**
@@ -165,8 +165,8 @@ public class TopinfoCaptchaPlatformAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(name = "rotateCaptchaGenerator")
-    public RotateCaptchaGenerator rotateCaptchaGenerator() {
-        return new RotateCaptchaGenerator();
+    public RotateCaptchaGenerator rotateCaptchaGenerator(CaptchaProperties captchaProperties) {
+        return new RotateCaptchaGenerator(captchaProperties);
     }
 
     /**
@@ -174,8 +174,8 @@ public class TopinfoCaptchaPlatformAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(name = "sliderCaptchaGenerator")
-    public SliderCaptchaGenerator sliderCaptchaGenerator() {
-        return new SliderCaptchaGenerator();
+    public SliderCaptchaGenerator sliderCaptchaGenerator(CaptchaProperties captchaProperties) {
+        return new SliderCaptchaGenerator(captchaProperties);
     }
 
     /**
@@ -184,8 +184,8 @@ public class TopinfoCaptchaPlatformAutoConfiguration {
     @Bean
     @Primary
     @ConditionalOnMissingBean(name = "resourceSliderCaptchaGenerator")
-    public ResourceSliderCaptchaGenerator resourceSliderCaptchaGenerator() {
-        return new ResourceSliderCaptchaGenerator();
+    public ResourceSliderCaptchaGenerator resourceSliderCaptchaGenerator(CaptchaProperties captchaProperties) {
+        return new ResourceSliderCaptchaGenerator(captchaProperties);
     }
 
     /**

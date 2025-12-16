@@ -4,8 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.jiuxi.admin.core.service.TpSystemConfigService;
 import com.jiuxi.admin.core.service.TpTimeRuleService;
+import com.jiuxi.admin.security.credential.CredentialIdentifier;
+import com.jiuxi.admin.security.credential.CredentialType;
 import com.jiuxi.common.util.CommonDateUtil;
 import com.jiuxi.common.util.SmUtils;
+import com.jiuxi.common.util.PhoneEncryptionUtils;
 import com.jiuxi.shared.common.exception.TopinfoRuntimeException;
 import com.jiuxi.security.autoconfig.SecurityConfigurationProperties;
 import com.jiuxi.security.core.entity.vo.AccountExinfoVO;
@@ -58,6 +61,9 @@ public class PwdAccountServiceImpl implements AccountService {
     @Autowired(required = false)
     private TpTimeRuleService tpTimeRuleService; // 时间规则服务
 
+    @Autowired
+    private CredentialIdentifier credentialIdentifier; // 凭据识别器
+
     @PostConstruct
     public void init() {
         loginApplicationEventCollection.addEvent(accountExinfoDBService);
@@ -76,6 +82,10 @@ public class PwdAccountServiceImpl implements AccountService {
 
     private static final String loginSql = "SELECT account_id, tenant_id, person_id, userpwd, locked, EXTEND01 as restPwd, expired_time, last_password_change_time FROM tp_account WHERE username = ?  AND enabled = '1' AND actived = '1' LIMIT 1";
 
+    private static final String loginByPhoneSql = "SELECT account_id, tenant_id, person_id, userpwd, locked, EXTEND01 as restPwd, expired_time, last_password_change_time FROM tp_account WHERE phone = ?  AND enabled = '1' AND actived = '1' LIMIT 1";
+
+    private static final String loginByIdCardSql = "SELECT account_id, tenant_id, person_id, userpwd, locked, EXTEND01 as restPwd, expired_time, last_password_change_time FROM tp_account WHERE idcard = ?  AND enabled = '1' AND actived = '1' LIMIT 1";
+
     private static final String personSql = "select CATEGORY from tp_person_basicinfo where PERSON_ID = ?";
 
     /**
@@ -84,14 +94,34 @@ public class PwdAccountServiceImpl implements AccountService {
     private static final String accountExinfoSql = "select account_id, err_count, last_err_time, last_login_time from tp_account_exinfo where account_id = ?";
 
     /**
-     * 账号是否被禁用
+     * 账号是否被禁用（用户名）
      */
     private static final String isEnabledSql = "SELECT count(1) FROM tp_account WHERE   1=1 and username = ? AND enabled = '0'   LIMIT 1";
 
+    /**
+     * 账号是否被禁用（手机号）
+     */
+    private static final String isEnabledByPhoneSql = "SELECT count(1) FROM tp_account WHERE phone = ? AND enabled = '0' LIMIT 1";
+
+    /**
+     * 账号是否被禁用（身份证号）
+     */
+    private static final String isEnabledByIdCardSql = "SELECT count(1) FROM tp_account WHERE idcard = ? AND enabled = '0' LIMIT 1";
+
      /**
-     * 账号是否被锁定
+     * 账号是否被锁定（用户名）
      */
     private static final String isLockedSql = "SELECT count(1) FROM tp_account WHERE 1=1 and username = ? AND locked = '1'   LIMIT 1";
+
+    /**
+     * 账号是否被锁定（手机号）
+     */
+    private static final String isLockedByPhoneSql = "SELECT count(1) FROM tp_account WHERE phone = ? AND locked = '1' LIMIT 1";
+
+    /**
+     * 账号是否被锁定（身份证号）
+     */
+    private static final String isLockedByIdCardSql = "SELECT count(1) FROM tp_account WHERE idcard = ? AND locked = '1' LIMIT 1";
 
     /**
      * <p>
@@ -174,32 +204,69 @@ public class PwdAccountServiceImpl implements AccountService {
     @Override
     public AccountVO queryAccount(AccountVO vo) {
 
-        String userName = vo.getUserName();
+        String credential = vo.getUserName();
         String passWord = vo.getUserpwd();
         if (jdbcTemplate == null) {
             throw new RuntimeException("在执行认证时，jdbcTemplate为null，请先在项目中引入了连接池的配置...");
         }
 
+        // 识别凭据类型
+        CredentialType credentialType = credentialIdentifier.identify(credential);
+        LOGGER.info("识别登录凭据类型: {}, 凭据: {}", credentialType.getDescription(), credential);
+
+        // 根据凭据类型选择不同的SQL
+        String checkEnabledSql;
+        String checkLockedSql;
+        String querySql;
+        String queryCredential = credential; // 用于查询的凭据值（手机号需要加密）
+        
+        switch (credentialType) {
+            case PHONE:
+                checkEnabledSql = isEnabledByPhoneSql;
+                checkLockedSql = isLockedByPhoneSql;
+                querySql = loginByPhoneSql;
+                // 手机号需要加密后查询
+                try {
+                    queryCredential = PhoneEncryptionUtils.encrypt(credential);
+                    LOGGER.debug("手机号加密后查询: {} -> {}", credential, queryCredential);
+                } catch (Exception e) {
+                    LOGGER.error("手机号加密失败: {}", credential, e);
+                    throw new TopinfoRuntimeException(-1, "登录失败，手机号处理异常");
+                }
+                break;
+            case IDCARD:
+                checkEnabledSql = isEnabledByIdCardSql;
+                checkLockedSql = isLockedByIdCardSql;
+                querySql = loginByIdCardSql;
+                break;
+            case USERNAME:
+            default:
+                checkEnabledSql = isEnabledSql;
+                checkLockedSql = isLockedSql;
+                querySql = loginSql;
+                break;
+        }
+
         // 检查账号是否被禁用
-        Integer disabledCount = jdbcTemplate.queryForObject(isEnabledSql, new Object[]{userName}, Integer.class);
+        Integer disabledCount = jdbcTemplate.queryForObject(checkEnabledSql, new Object[]{queryCredential}, Integer.class);
         if (disabledCount != null && disabledCount > 0) {
-            LOGGER.error("登录失败，账号已被禁用，当前登录用户名:{}", userName);
+            LOGGER.error("登录失败，账号已被禁用，当前登录凭据:{}", credential);
             throw new TopinfoRuntimeException(-1, "登录失败，账号已停用");
         }
         
 
         // 检查账号是否被锁定
-        Integer lockedCount = jdbcTemplate.queryForObject(isLockedSql, new Object[]{userName}, Integer.class);
+        Integer lockedCount = jdbcTemplate.queryForObject(checkLockedSql, new Object[]{queryCredential}, Integer.class);
         if (lockedCount != null && lockedCount > 0) {
-            LOGGER.error("登录失败，账号已被锁定，当前登录用户名:{}", userName);
+            LOGGER.error("登录失败，账号已被锁定，当前登录凭据:{}", credential);
             throw new TopinfoRuntimeException(-1, "登录失败，账号已被锁定");
         }
 
 
         // BeanPropertyRowMapper 字段转换时，注意数据库字段与实体属性的对应
-        List<AccountVO> list = jdbcTemplate.query(loginSql, new Object[]{userName}, new BeanPropertyRowMapper<>(AccountVO.class));
+        List<AccountVO> list = jdbcTemplate.query(querySql, new Object[]{queryCredential}, new BeanPropertyRowMapper<>(AccountVO.class));
         if (list != null && list.size() != 1) {
-            LOGGER.error("登录失败，请检查用户名是否正确或用户是否有效，当前登录用户名:{}", userName);
+            LOGGER.error("登录失败，请检查{}是否正确或用户是否有效，当前登录凭据:{}", credentialType.getDescription(), credential);
             throw new TopinfoRuntimeException(-1, "登录失败，用户名或密码错误");
         }
 
@@ -214,7 +281,7 @@ public class PwdAccountServiceImpl implements AccountService {
         if (LOCKED.equals(accountVO.getLocked())) {
             AccountExinfoVO accountExinfoVO = jdbcTemplate.queryForObject(accountExinfoSql, new BeanPropertyRowMapper<>(AccountExinfoVO.class), accountVO.getAccountId());
             if (null == accountExinfoVO) {
-                LOGGER.error("登录失败，用户被冻结，当前登录用户名:{}", userName);
+                LOGGER.error("登录失败，用户被冻结，当前登录凭据:{}", credential);
                 throw new TopinfoRuntimeException(-1, "登录失败，用户被冻结");
             }
 
@@ -227,7 +294,7 @@ public class PwdAccountServiceImpl implements AccountService {
             LocalDateTime delockingTime = lastErrTime.plusMinutes(lockoutDuration);
             LocalDateTime now = LocalDateTime.now();
             if (delockingTime.isAfter(now)) {
-                LOGGER.error("账号被冻结 {} 分钟内登录失败，当前登录用户名:{}", lockoutDuration, userName);
+                LOGGER.error("账号被冻结 {} 分钟内登录失败，当前登录凭据:{}", lockoutDuration, credential);
                 Duration between = Duration.between(now, delockingTime);
                 String timeStr = between.toMinutes() > 0 ? between.toMinutes() + "分钟" : between.toMillis() / 1000 + "秒";
                 throw new TopinfoRuntimeException(-1, "登录信息错误次数超限，请" + timeStr + "后再试！");
@@ -236,7 +303,7 @@ public class PwdAccountServiceImpl implements AccountService {
             // 2。锁定时长外但是登陆错误次数大于最大累计次数，抛账号被冻结异常
             int maxTotalAttempts = properties.getAuthentication().getAccountLockout().getMaxTotalAttempts();
             if (errCount > maxTotalAttempts) {
-                LOGGER.error("尝试登陆错误次数超过 {} 次登录失败，当前登录用户名:{}", maxTotalAttempts, userName);
+                LOGGER.error("尝试登陆错误次数超过 {} 次登录失败，当前登录凭据:{}", maxTotalAttempts, credential);
                 throw new TopinfoRuntimeException(-1, "登录信息错误次数超限，该账号已被冻结，请联系管理员解冻！");
             }
 
@@ -249,7 +316,7 @@ public class PwdAccountServiceImpl implements AccountService {
                 // 通过上下文对象发布监听
                 applicationContext.publishEvent(new LoginApplicationEvent("登陆失败监听", loginApplicationEventCollection, false, accountVO.getAccountId()));
             }
-            LOGGER.error("登录失败，密码错误，当前登录用户名:{}", userName);
+            LOGGER.error("登录失败，密码错误，当前登录凭据:{}", credential);
             throw new TopinfoRuntimeException(-1, "登录失败，用户名或密码错误");
         }
 
@@ -259,14 +326,14 @@ public class PwdAccountServiceImpl implements AccountService {
             String roleQuerySql = "SELECT ROLE_ID FROM tp_person_role WHERE PERSON_ID = ?";
             List<String> roleIdsList = jdbcTemplate.queryForList(roleQuerySql, String.class, accountVO.getPersonId());
             
-            LOGGER.debug("用户 {} 的角色列表: {}", userName, roleIdsList);
+            LOGGER.debug("用户 {} 的角色列表: {}", credential, roleIdsList);
             
             // 验证登录时间
             TpTimeRuleService.LoginTimeValidationResult validationResult = 
                 tpTimeRuleService.validateLoginTimeWithReason(accountVO.getPersonId(), roleIdsList);
             
             if (!validationResult.isAllowed()) {
-                LOGGER.error("登录失败，时间规则验证不通过，用户名:{}, 原因:{}", userName, validationResult.getReason());
+                LOGGER.error("登录失败，时间规则验证不通过，凭据:{}, 原因:{}", credential, validationResult.getReason());
                 throw new TopinfoRuntimeException(-1, validationResult.getReason());
             }
         }
@@ -274,7 +341,7 @@ public class PwdAccountServiceImpl implements AccountService {
         // 查询人员是政府人员还是企业人员的标示
         Integer category = jdbcTemplate.queryForObject(personSql, new Object[]{accountVO.getPersonId()}, Integer.class);
         if (null == category) {
-            LOGGER.error("登录失败，用户信息有问题，当前登录用户名:{}", userName);
+            LOGGER.error("登录失败，用户信息有问题，当前登录凭据:{}", credential);
             throw new TopinfoRuntimeException(-1, "登录失败，用户信息查询失败");
         }
         accountVO.setCategory(category);

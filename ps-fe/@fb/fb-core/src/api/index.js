@@ -63,7 +63,7 @@ const requsetLog = {
 const instance = axios.create({
     method: 'post',
     baseURL: "/",
-    timeout: 10000,
+     
     withCredentials: true
 });
 

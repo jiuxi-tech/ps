@@ -11,6 +11,10 @@ import com.jiuxi.admin.core.service.TpTimeRuleService;
 import com.jiuxi.admin.core.service.TpKeycloakAccountService;
 import com.jiuxi.admin.core.service.TpSystemConfigService;
 import com.jiuxi.admin.core.bean.entity.TpKeycloakAccount;
+import com.jiuxi.admin.security.credential.CredentialIdentifier;
+import com.jiuxi.admin.security.credential.CredentialType;
+import com.jiuxi.module.user.app.service.UserAccountService;
+import com.jiuxi.admin.core.bean.vo.TpAccountVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -70,6 +74,12 @@ public class SsoController {
     
     @Autowired
     private TpSystemConfigService tpSystemConfigService;
+    
+    @Autowired
+    private CredentialIdentifier credentialIdentifier;
+    
+    @Autowired
+    private UserAccountService userAccountService;
     
     public SsoController() {
         System.out.println("SsoController 已创建！");
@@ -547,12 +557,66 @@ public class SsoController {
             
             logger.info("从Keycloak获取到用户信息: username={}, email={}", keycloakUsername, userPrincipal.getEmail());
             
-            // 3. 在ps-be系统中校验用户名是否存在
+            // 3. 在ps-be系统中校验用户名是否存在（支持多凭据）
             AccountVO accountVO = null;
             try {
-                accountVO = accountService.queryAccountByUsername(keycloakUsername);
+                // 3.1 从 Keycloak 用户属性中获取 credentialType（优先级最高）
+                CredentialType credentialType = null;
+                if (userPrincipal.getAttributes() != null) {
+                    Object credentialTypeAttr = userPrincipal.getAttributes().get("credentialType");
+                    if (credentialTypeAttr != null) {
+                        try {
+                            // credentialType 存储为 List<String>，取第一个值
+                            if (credentialTypeAttr instanceof List) {
+                                List<?> list = (List<?>) credentialTypeAttr;
+                                if (!list.isEmpty() && list.get(0) != null) {
+                                    credentialType = CredentialType.valueOf(list.get(0).toString());
+                                    logger.info("从 Keycloak 属性获取 credentialType: {}", credentialType);
+                                }
+                            } else {
+                                credentialType = CredentialType.valueOf(credentialTypeAttr.toString());
+                                logger.info("从 Keycloak 属性获取 credentialType: {}", credentialType);
+                            }
+                        } catch (IllegalArgumentException e) {
+                            logger.warn("无效的 credentialType 值: {}", credentialTypeAttr);
+                        }
+                    }
+                }
+                
+                // 3.2 如果 Keycloak 没有 credentialType 属性，则使用正则表达式识别
+                if (credentialType == null) {
+                    credentialType = credentialIdentifier.identify(keycloakUsername);
+                    logger.info("通过正则表达式识别凭据类型: {} -> {}", keycloakUsername, credentialType);
+                }
+                
+                // 3.3 根据凭据类型查询账号
+                switch (credentialType) {
+                    case PHONE:
+                        // 手机号查询
+                        logger.info("使用手机号查询账号: {}", keycloakUsername);
+                        TpAccountVO tpAccountByPhone = userAccountService.getTpAccountByPhone(keycloakUsername);
+                        if (tpAccountByPhone != null) {
+                            accountVO = convertToAccountVO(tpAccountByPhone);
+                        }
+                        break;
+                    case IDCARD:
+                        // 身份证号查询
+                        logger.info("使用身份证号查询账号: {}", keycloakUsername);
+                        TpAccountVO tpAccountByIdCard = userAccountService.getTpAccountByIdCard(keycloakUsername);
+                        if (tpAccountByIdCard != null) {
+                            accountVO = convertToAccountVO(tpAccountByIdCard);
+                        }
+                        break;
+                    case USERNAME:
+                    default:
+                        // 用户名查询
+                        logger.info("使用用户名查询账号: {}", keycloakUsername);
+                        accountVO = accountService.queryAccountByUsername(keycloakUsername);
+                        break;
+                }
+                
                 if (accountVO == null) {
-                    logger.warn("用户名 {} 在ps-be系统中不存在", keycloakUsername);
+                    logger.warn("凭据 {} (类型: {}) 在ps-be系统中不存在", keycloakUsername, credentialType);
                     String errorUrl = buildErrorUrl(properties.getRedirect().getErrorUrl(), 
                         "用户名在系统中不存在: " + keycloakUsername);
                     response.sendRedirect(errorUrl);
@@ -817,4 +881,13 @@ public class SsoController {
         
         return clients;
     }
+    
+    /**
+     * 转AccountVO到AccountVO
+     */
+    private AccountVO convertToAccountVO(TpAccountVO tpAccountVO) {
+        // 使用username查询完整的AccountVO（包含角色信息）
+        return accountService.queryAccountByUsername(tpAccountVO.getUsername());
+    }
+    
 }

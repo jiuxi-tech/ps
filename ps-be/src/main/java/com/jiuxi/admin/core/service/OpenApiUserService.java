@@ -41,4 +41,30 @@ public interface OpenApiUserService {
      * @return 脱敏后的用户列表
      */
     IPage<OpenApiUserVO> searchUsers(String keyword, String deptId, Integer page, Integer size);
+
+    /**
+     * 修改用户信息
+     * 
+     * @param personId 人员ID
+     * @param updateParams 更新参数（包含personName、phone、email、tel等字段）
+     * @return 是否更新成功
+     */
+    boolean updateUser(String personId, java.util.Map<String, Object> updateParams);
+
+    /**
+     * 重置用户密码
+     * 
+     * @param personId 人员ID
+     * @param newPassword 新密码
+     * @return 是否重置成功
+     */
+    boolean resetPassword(String personId, String newPassword);
+
+    /**
+     * 同步用户到SSO
+     * 
+     * @param personId 人员ID
+     * @return 是否同步成功
+     */
+    boolean syncToSso(String personId);
 }

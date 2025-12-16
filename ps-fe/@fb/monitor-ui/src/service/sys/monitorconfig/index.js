@@ -10,7 +10,7 @@ export default {
 			data: formData,
 			headers: {'Content-Type': 'application/json'},
 			responseType: 'json',
-			timeout: 5000,
+			 
 			loading: true,
 		})
 	},

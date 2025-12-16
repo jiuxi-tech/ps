@@ -21,7 +21,7 @@ export default {
 			data: formData,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 			responseType: 'json',
-			timeout: 5000,
+			 
 			loading: true,
 		})
 	},

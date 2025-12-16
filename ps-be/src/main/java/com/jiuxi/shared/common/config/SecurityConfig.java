@@ -28,6 +28,11 @@ public class SecurityConfig {
     private Authentication authentication = new Authentication();
 
     /**
+     * 凭据验证配置
+     */
+    private Credential credential = new Credential();
+
+    /**
      * Keycloak配置
      */
     private Keycloak keycloak = new Keycloak();
@@ -54,6 +59,10 @@ public class SecurityConfig {
 
     public Authentication getAuthentication() {
         return authentication;
+    }
+
+    public Credential getCredential() {
+        return credential;
     }
 
     public Keycloak getKeycloak() {
@@ -151,6 +160,19 @@ public class SecurityConfig {
          * 验证码有效期（秒）
          */
         private int captchaExpiry = 300;
+    }
+
+    /**
+     * 凭据验证配置
+     */
+    @Data
+    public static class Credential {
+        /**
+         * 身份证号校验位验证开关
+         * true: 严格验证符合GB11643-1999标准
+         * false: 仅验证格式，允许校验位错误
+         */
+        private boolean idcardCheckcodeValidation = false;
     }
 
     public static class Keycloak {

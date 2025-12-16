@@ -167,7 +167,7 @@
 					params: {"tagId": tagId, "passKey": passKey},
 					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 					responseType: 'json',
-					timeout: 5000,
+					 
 				}).then((result) => {
 					if (result.code == 1) {
 						this.$message.success('删除成功');

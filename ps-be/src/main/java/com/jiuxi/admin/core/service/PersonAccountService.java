@@ -27,4 +27,6 @@ public interface PersonAccountService {
     boolean selectByPhone(String phone);
     
     void updatePhone(String personId, String phone);
+    
+    void updateIdCard(String personId, String idCard);
 }

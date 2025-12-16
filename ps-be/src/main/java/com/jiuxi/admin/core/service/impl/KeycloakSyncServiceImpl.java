@@ -6,6 +6,8 @@ import com.jiuxi.admin.core.service.TpKeycloakAccountService;
 import com.jiuxi.admin.core.service.TpSystemConfigService;
 import com.jiuxi.admin.core.bean.vo.TpAccountVO;
 import com.jiuxi.admin.core.bean.vo.TpPersonBasicinfoVO;
+import com.jiuxi.admin.security.credential.CredentialType;
+import com.jiuxi.common.util.PhoneEncryptionUtils;
 import com.jiuxi.module.user.app.service.UserAccountService;
 import com.jiuxi.module.user.app.service.UserPersonService;
 import lombok.extern.slf4j.Slf4j;
@@ -575,6 +577,8 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
             String personName = person.getPersonName();
             String personNo = person.getPersonNo();
             String username = accountVO.getUsername();
+            String phone = accountVO.getPhone();
+            String idcard = accountVO.getIdcard();
 
             result.put("email", email);
             result.put("firstName", personName);
@@ -591,6 +595,21 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
             }
             if (StringUtils.hasText(username)) {
                 attributes.put("USERNAME", Collections.singletonList(username));
+            }
+            // 添加手机号（需要解密）
+            if (StringUtils.hasText(phone)) {
+                try {
+                    String decryptedPhone = PhoneEncryptionUtils.safeDecrypt(phone);
+                    if (StringUtils.hasText(decryptedPhone)) {
+                        attributes.put("PHONE", Collections.singletonList(decryptedPhone));
+                    }
+                } catch (Exception ex) {
+                    log.warn("手机号解密失败，跳过手机号属性: accountId={}", accountId);
+                }
+            }
+            // 添加身份证号
+            if (StringUtils.hasText(idcard)) {
+                attributes.put("IDCARD", Collections.singletonList(idcard));
             }
             result.put("attributes", attributes);
         } catch (Exception e) {
@@ -667,5 +686,443 @@ public class KeycloakSyncServiceImpl implements KeycloakSyncService {
             log.error("删除Keycloak用户失败: userId={}, error={}", userId, e.getMessage(), e);
         }
         return false;
+    }
+
+    // ==================== 多凭据同步方法 ====================
+
+    @Override
+    public MultiCredentialSyncResult syncMultipleCredentials(String accountId, String password, String creator) {
+        try {
+            log.info("开始多凭据同步: accountId={}", accountId);
+
+            // 1. 查询账号信息
+            UserAccountService userAccountService = userAccountServiceProvider.getIfAvailable();
+            if (userAccountService == null) {
+                return MultiCredentialSyncResult.failure("无法加载用户服务");
+            }
+
+            TpAccountVO account = userAccountService.selectByAccountId(accountId);
+            if (account == null) {
+                return MultiCredentialSyncResult.failure("账号不存在: accountId=" + accountId);
+            }
+
+            // 2. 获取管理员token
+            String adminToken = getAdminAccessToken();
+            if (!StringUtils.hasText(adminToken)) {
+                return MultiCredentialSyncResult.failure("获取Keycloak管理员令牌失败");
+            }
+
+            // 3. 构建人员扩展信息
+            Map<String, Object> personExtras = buildPersonExtras(accountId);
+            String email = (String) personExtras.getOrDefault("email", null);
+            String firstName = (String) personExtras.getOrDefault("firstName", null);
+
+            // 4. 构建公共attributes
+            Map<String, Object> commonAttributes = buildCommonAttributes(account, personExtras);
+
+            // 5. 收集需要同步的凭据
+            List<CredentialInfo> credentials = collectCredentials(account);
+            log.info("账号凭据收集完成: accountId={}, 凭据数量={}", accountId, credentials.size());
+
+            // 6. 批量创建Keycloak用户
+            MultiCredentialSyncResult result = new MultiCredentialSyncResult();
+            result.setTotalCredentials(credentials.size());
+
+            for (CredentialInfo credentialInfo : credentials) {
+                try {
+                    // 6.1 添加凭据类型到attributes
+                    Map<String, Object> attributes = new HashMap<>(commonAttributes);
+                    attributes.put("credentialType",
+                            Collections.singletonList(credentialInfo.getType().name()));
+
+                    // 6.2 检查用户是否已存在
+                    String existingUserId = findUserByUsername(adminToken, credentialInfo.getValue());
+                    if (StringUtils.hasText(existingUserId)) {
+                        // 用户已存在，更新信息
+                        log.info("Keycloak用户已存在，执行更新: type={}, username={}",
+                                credentialInfo.getType(), maskCredential(credentialInfo.getValue(), credentialInfo.getType()));
+                        boolean updated = updateKeycloakUserInfo(adminToken, existingUserId,
+                                credentialInfo.getValue(), password, email, firstName, attributes);
+                        result.addDetail(new CredentialSyncDetail(
+                                credentialInfo.getType(),
+                                maskCredential(credentialInfo.getValue(), credentialInfo.getType()),
+                                updated,
+                                existingUserId,
+                                updated ? "用户已存在，更新成功" : "用户已存在，更新失败",
+                                null
+                        ));
+                    } else {
+                        // 创建新用户
+                        log.info("创建Keycloak用户: type={}, username={}",
+                                credentialInfo.getType(), maskCredential(credentialInfo.getValue(), credentialInfo.getType()));
+                        String userId = createKeycloakUser(adminToken,
+                                credentialInfo.getValue(),
+                                password,
+                                email,
+                                firstName,
+                                attributes);
+
+                        result.addDetail(new CredentialSyncDetail(
+                                credentialInfo.getType(),
+                                maskCredential(credentialInfo.getValue(), credentialInfo.getType()),
+                                StringUtils.hasText(userId),
+                                userId,
+                                StringUtils.hasText(userId) ? "用户创建成功" : "用户创建失败",
+                                null
+                        ));
+                    }
+                } catch (Exception e) {
+                    log.error("同步凭据失败: type={}, error={}", credentialInfo.getType(), e.getMessage(), e);
+                    result.addDetail(new CredentialSyncDetail(
+                            credentialInfo.getType(),
+                            maskCredential(credentialInfo.getValue(), credentialInfo.getType()),
+                            false,
+                            null,
+                            "同步失败: " + e.getMessage(),
+                            e
+                    ));
+                }
+            }
+
+            // 7. 统计结果
+            result.calculateStatistics();
+            log.info("多凭据同步完成: accountId={}, 总数={}, 成功={}, 失败={}",
+                    accountId, result.getTotalCredentials(), result.getSuccessCount(), result.getFailureCount());
+            return result;
+
+        } catch (Exception e) {
+            log.error("多凭据同步失败: accountId={}, error={}", accountId, e.getMessage(), e);
+            return MultiCredentialSyncResult.failure("同步失败: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public MultiCredentialSyncResult updatePasswordForAllCredentials(String accountId, String newPassword, String updater) {
+        try {
+            log.info("开始更新所有凭据密码: accountId={}", accountId);
+
+            // 1. 查询账号信息
+            UserAccountService userAccountService = userAccountServiceProvider.getIfAvailable();
+            if (userAccountService == null) {
+                return MultiCredentialSyncResult.failure("无法加载用户服务");
+            }
+
+            TpAccountVO account = userAccountService.selectByAccountId(accountId);
+            if (account == null) {
+                return MultiCredentialSyncResult.failure("账号不存在: accountId=" + accountId);
+            }
+
+            // 2. 获取管理员token
+            String adminToken = getAdminAccessToken();
+            if (!StringUtils.hasText(adminToken)) {
+                return MultiCredentialSyncResult.failure("获取Keycloak管理员令牌失败");
+            }
+
+            // 3. 收集所有凭据
+            List<CredentialInfo> credentials = collectCredentials(account);
+            log.info("收集凭据完成: accountId={}, 凭据数量={}", accountId, credentials.size());
+
+            // 4. 批量更新密码
+            MultiCredentialSyncResult result = new MultiCredentialSyncResult();
+            result.setTotalCredentials(credentials.size());
+
+            for (CredentialInfo credentialInfo : credentials) {
+                try {
+                    // 4.1 查找Keycloak用户
+                    String userId = findUserByUsername(adminToken, credentialInfo.getValue());
+                    if (!StringUtils.hasText(userId)) {
+                        log.warn("Keycloak用户不存在，跳过密码更新: username={}",
+                                maskCredential(credentialInfo.getValue(), credentialInfo.getType()));
+                        result.addDetail(new CredentialSyncDetail(
+                                credentialInfo.getType(),
+                                maskCredential(credentialInfo.getValue(), credentialInfo.getType()),
+                                false,
+                                null,
+                                "Keycloak用户不存在",
+                                null
+                        ));
+                        continue;
+                    }
+
+                    // 4.2 重置密码
+                    boolean updated = resetKeycloakUserPassword(adminToken, userId, newPassword);
+                    result.addDetail(new CredentialSyncDetail(
+                            credentialInfo.getType(),
+                            maskCredential(credentialInfo.getValue(), credentialInfo.getType()),
+                            updated,
+                            userId,
+                            updated ? "密码更新成功" : "密码更新失败",
+                            null
+                    ));
+                } catch (Exception e) {
+                    log.error("更新凭据密码失败: type={}, error={}", credentialInfo.getType(), e.getMessage(), e);
+                    result.addDetail(new CredentialSyncDetail(
+                            credentialInfo.getType(),
+                            maskCredential(credentialInfo.getValue(), credentialInfo.getType()),
+                            false,
+                            null,
+                            "更新失败: " + e.getMessage(),
+                            e
+                    ));
+                }
+            }
+
+            // 5. 统计结果
+            result.calculateStatistics();
+            log.info("所有凭据密码更新完成: accountId={}, 总数={}, 成功={}, 失败={}",
+                    accountId, result.getTotalCredentials(), result.getSuccessCount(), result.getFailureCount());
+            return result;
+
+        } catch (Exception e) {
+            log.error("更新所有凭据密码失败: accountId={}, error={}", accountId, e.getMessage(), e);
+            return MultiCredentialSyncResult.failure("更新失败: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public MultiCredentialSyncResult deleteAllCredentials(String accountId) {
+        return performOperationOnAllCredentials(accountId, "delete", "删除");
+    }
+
+    @Override
+    public MultiCredentialSyncResult enableAllCredentials(String accountId) {
+        return performOperationOnAllCredentials(accountId, "enable", "启用");
+    }
+
+    @Override
+    public MultiCredentialSyncResult disableAllCredentials(String accountId) {
+        return performOperationOnAllCredentials(accountId, "disable", "禁用");
+    }
+
+    /**
+     * 对所有凭据执行操作（删除/启用/禁用）
+     */
+    private MultiCredentialSyncResult performOperationOnAllCredentials(String accountId, String operation, String operationName) {
+        try {
+            log.info("开始{}所有凭据: accountId={}", operationName, accountId);
+
+            // 1. 查询账号信息
+            UserAccountService userAccountService = userAccountServiceProvider.getIfAvailable();
+            if (userAccountService == null) {
+                return MultiCredentialSyncResult.failure("无法加载用户服务");
+            }
+
+            TpAccountVO account = userAccountService.selectByAccountId(accountId);
+            if (account == null) {
+                return MultiCredentialSyncResult.failure("账号不存在: accountId=" + accountId);
+            }
+
+            // 2. 获取管理员token
+            String adminToken = getAdminAccessToken();
+            if (!StringUtils.hasText(adminToken)) {
+                return MultiCredentialSyncResult.failure("获取Keycloak管理员令牌失败");
+            }
+
+            // 3. 收集所有凭据
+            List<CredentialInfo> credentials = collectCredentials(account);
+            log.info("收集凭据完成: accountId={}, 凭据数量={}", accountId, credentials.size());
+
+            // 4. 批量执行操作
+            MultiCredentialSyncResult result = new MultiCredentialSyncResult();
+            result.setTotalCredentials(credentials.size());
+
+            for (CredentialInfo credentialInfo : credentials) {
+                try {
+                    // 4.1 查找Keycloak用户
+                    String userId = findUserByUsername(adminToken, credentialInfo.getValue());
+                    if (!StringUtils.hasText(userId)) {
+                        log.warn("Keycloak用户不存在，跳过{}操作: username={}",
+                                operationName, maskCredential(credentialInfo.getValue(), credentialInfo.getType()));
+                        result.addDetail(new CredentialSyncDetail(
+                                credentialInfo.getType(),
+                                maskCredential(credentialInfo.getValue(), credentialInfo.getType()),
+                                false,
+                                null,
+                                "Keycloak用户不存在",
+                                null
+                        ));
+                        continue;
+                    }
+
+                    // 4.2 执行操作
+                    boolean success = false;
+                    switch (operation) {
+                        case "delete":
+                            success = deleteKeycloakUserById(adminToken, userId);
+                            break;
+                        case "enable":
+                            success = setKeycloakUserEnabled(adminToken, userId, true);
+                            break;
+                        case "disable":
+                            success = setKeycloakUserEnabled(adminToken, userId, false);
+                            break;
+                    }
+
+                    result.addDetail(new CredentialSyncDetail(
+                            credentialInfo.getType(),
+                            maskCredential(credentialInfo.getValue(), credentialInfo.getType()),
+                            success,
+                            userId,
+                            success ? operationName + "成功" : operationName + "失败",
+                            null
+                    ));
+                } catch (Exception e) {
+                    log.error("{}凭据失败: type={}, error={}", operationName, credentialInfo.getType(), e.getMessage(), e);
+                    result.addDetail(new CredentialSyncDetail(
+                            credentialInfo.getType(),
+                            maskCredential(credentialInfo.getValue(), credentialInfo.getType()),
+                            false,
+                            null,
+                            operationName + "失败: " + e.getMessage(),
+                            e
+                    ));
+                }
+            }
+
+            // 5. 统计结果
+            result.calculateStatistics();
+            log.info("{}所有凭据完成: accountId={}, 总数={}, 成功={}, 失败={}",
+                    operationName, accountId, result.getTotalCredentials(), result.getSuccessCount(), result.getFailureCount());
+            return result;
+
+        } catch (Exception e) {
+            log.error("{}所有凭据失败: accountId={}, error={}", operationName, accountId, e.getMessage(), e);
+            return MultiCredentialSyncResult.failure(operationName + "失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 收集账号的所有凭据
+     */
+    private List<CredentialInfo> collectCredentials(TpAccountVO account) {
+        List<CredentialInfo> credentials = new ArrayList<>();
+
+        // 1. 账号名（必有）
+        if (StringUtils.hasText(account.getUsername())) {
+            credentials.add(new CredentialInfo(
+                    CredentialType.USERNAME,
+                    account.getUsername()
+            ));
+        }
+
+        // 2. 手机号（需要解密）
+        if (StringUtils.hasText(account.getPhone())) {
+            try {
+                String decryptedPhone = PhoneEncryptionUtils.safeDecrypt(account.getPhone());
+                if (StringUtils.hasText(decryptedPhone)) {
+                    credentials.add(new CredentialInfo(
+                            CredentialType.PHONE,
+                            decryptedPhone
+                    ));
+                }
+            } catch (Exception e) {
+                log.warn("手机号解密失败，跳过手机号凭据: accountId={}", account.getAccountId());
+            }
+        }
+
+        // 3. 身份证号
+        if (StringUtils.hasText(account.getIdcard())) {
+            credentials.add(new CredentialInfo(
+                    CredentialType.IDCARD,
+                    account.getIdcard()
+            ));
+        }
+
+        return credentials;
+    }
+
+    /**
+     * 构建公共attributes
+     */
+    private Map<String, Object> buildCommonAttributes(TpAccountVO account, Map<String, Object> personExtras) {
+        Map<String, Object> attributes = new HashMap<>();
+
+        // 基本信息
+        if (StringUtils.hasText(account.getAccountId())) {
+            attributes.put("accountId", Collections.singletonList(account.getAccountId()));
+        }
+        if (StringUtils.hasText(account.getPersonId())) {
+            attributes.put("personId", Collections.singletonList(account.getPersonId()));
+        }
+        if (StringUtils.hasText(account.getTenantId())) {
+            attributes.put("tenantId", Collections.singletonList(account.getTenantId()));
+        }
+
+        // 凭据信息（用于追溯）
+        if (StringUtils.hasText(account.getUsername())) {
+            attributes.put("USERNAME", Collections.singletonList(account.getUsername()));
+        }
+        if (StringUtils.hasText(account.getPhone())) {
+            try {
+                String decryptedPhone = PhoneEncryptionUtils.safeDecrypt(account.getPhone());
+                if (StringUtils.hasText(decryptedPhone)) {
+                    attributes.put("PHONE", Collections.singletonList(decryptedPhone));
+                }
+            } catch (Exception e) {
+                log.warn("手机号解密失败，跳过手机号属性: accountId={}", account.getAccountId());
+            }
+        }
+        if (StringUtils.hasText(account.getIdcard())) {
+            attributes.put("IDCARD", Collections.singletonList(account.getIdcard()));
+        }
+
+        // 人员信息
+        Map<String, Object> personAttrs = (Map<String, Object>) personExtras.getOrDefault("attributes", Collections.emptyMap());
+        attributes.putAll(personAttrs);
+
+        return attributes;
+    }
+
+    /**
+     * 凭据脱敏
+     */
+    private String maskCredential(String credential, CredentialType type) {
+        if (!StringUtils.hasText(credential)) {
+            return "";
+        }
+
+        switch (type) {
+            case PHONE:
+                // 手机号：138****1234
+                if (credential.length() == 11) {
+                    return credential.substring(0, 3) + "****" + credential.substring(7);
+                }
+                return credential;
+
+            case IDCARD:
+                // 身份证号：420106********1234
+                if (credential.length() == 18) {
+                    return credential.substring(0, 6) + "********" + credential.substring(14);
+                } else if (credential.length() == 15) {
+                    return credential.substring(0, 6) + "*******" + credential.substring(13);
+                }
+                return credential;
+
+            case USERNAME:
+            default:
+                // 账号名不脱敏
+                return credential;
+        }
+    }
+
+    /**
+     * 凭据信息类
+     */
+    private static class CredentialInfo {
+        private final CredentialType type;
+        private final String value;
+
+        public CredentialInfo(CredentialType type, String value) {
+            this.type = type;
+            this.value = value;
+        }
+
+        public CredentialType getType() {
+            return type;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

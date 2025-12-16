@@ -208,7 +208,7 @@
 					data: {databaseName: 'ps-bmp'},
 					headers: {'Content-Type': 'application/json'},
 					responseType: 'json',
-					timeout: 5000,
+					 
 				}).then((result) => {
 					if (result.code == 1) {
 						this.$message.success('备份任务已开始，请稍后查看备份结果');
@@ -224,7 +224,7 @@
 				app.service.request('/sys/database-backup/check-config', {
 					method: 'get',
 					responseType: 'json',
-					timeout: 5000,
+					 
 				}).then((result) => {
 					if (result.code == 1) {
 						const isValid = result.data.isValid;
@@ -255,7 +255,7 @@
 					data: {"backupId": backupId, "passKey": passKey},
 					headers: {'Content-Type': 'application/json'},
 					responseType: 'json',
-					timeout: 5000,
+					 
 				}).then((result) => {
 					if (result.code == 1) {
 						this.$message.success('备份任务已停止');
@@ -285,7 +285,7 @@
 //					data: {"backupId": backupId, "passKey": passKey},
 //					headers: {'Content-Type': 'application/json'},
 //					responseType: 'json',
-//					timeout: 5000,
+//					 
 //				}).then((result) => {
 //					if (result.code == 1) {
 //						this.$message.success('恢复成功');
@@ -308,7 +308,7 @@
 					data: {"backupId": backupId, "passKey": passKey},
 					headers: {'Content-Type': 'application/json'},
 					responseType: 'json',
-					timeout: 5000,
+					 
 				}).then((result) => {
 					if (result.code == 1) {
 						this.$message.success('删除成功');
@@ -332,7 +332,7 @@
 					method: 'get',
 					params: {databaseName: 'ps-bmp', days: 30},
 					responseType: 'json',
-					timeout: 5000,
+					 
 				}).then((result) => {
 					if (result.code == 1) {
 						console.log('备份统计信息:', result.data);

@@ -31,7 +31,10 @@
                         </fb-row>
                         <fb-row>
                             <fb-col span="24">
-                                <fb-form-item label="证件号" prop="idcard" :rule="[{ required: true, message: '请输入证件号', trigger: 'blur' }]">
+                                <fb-form-item label="证件号" prop="idcard"  
+                                  :rule="formData.idtype === 'Y2401' ? [{required: true}, {type: 'idcard'}] : {required: false}"
+                              
+                                >
                                     <fb-input v-model="formData.idcard" placeholder="请输入证件号"
                                         @on-blur="birthdayFormat"></fb-input>
                                 </fb-form-item>
@@ -53,7 +56,7 @@
 
                 <fb-row>
                     <fb-col span="12">
-                        <fb-form-item label="出生日期" prop="birthday">
+                        <fb-form-item label="出生日期" prop="birthday" >
                             <tp-datepicker v-model="formData.birthday" format="YYYY-MM-DD" value-format="YYYYMMDD"
                                 clearable></tp-datepicker>
                         </fb-form-item>
@@ -68,8 +71,7 @@
 
                 <fb-row>
                     <fb-col span="12">
-                        <!-- :rule="[{ pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }]" -->
-                        <fb-form-item label="手机号" prop="phone" >
+                        <fb-form-item label="手机号" prop="phone" :rule="[{ pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }]">
                             <fb-input v-model="formData.phone" placeholder="请输入手机号"></fb-input>
                         </fb-form-item>
                     </fb-col>

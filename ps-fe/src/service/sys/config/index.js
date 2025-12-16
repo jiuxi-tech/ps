@@ -40,7 +40,7 @@ export default {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			data: formData,
-			timeout: 5000
+			 
 		})
 	},
 
@@ -51,7 +51,7 @@ export default {
 			method: 'put',
 			headers: { 'Content-Type': 'application/json' },
 			data: formData,
-			timeout: 5000
+			 
 		})
 	},
 

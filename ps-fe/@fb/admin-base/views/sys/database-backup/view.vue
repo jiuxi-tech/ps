@@ -189,7 +189,7 @@ export default {
                     'passKey': this.param.passKey,
                 },
                 responseType: 'json',
-                timeout: 5000,
+                 
             }).then((result) => {
                 if (result.code == 1) {
                     this.formData = Object.assign(this.formData, result.data)
@@ -219,7 +219,7 @@ export default {
                 },
                 headers: {'Content-Type': 'application/json'},
                 responseType: 'json',
-                timeout: 5000,
+                 
             }).then((result) => {
                 if (result.code == 1) {
                     this.$message.success('备份任务已停止')

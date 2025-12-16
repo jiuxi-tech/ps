@@ -3601,7 +3601,7 @@
   	locate: function (options) {
 
   		options = this._locateOptions = extend({
-  			timeout: 10000,
+  			 
   			watch: false
   			// setView: false
   			// maxZoom: <Number>

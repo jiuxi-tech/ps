@@ -4,6 +4,8 @@ import com.jiuxi.platform.captcha.domain.entity.CaptchaChallenge;
 import com.jiuxi.platform.captcha.domain.service.CaptchaGenerator;
 import com.jiuxi.platform.captcha.domain.valueobject.CaptchaCoordinate;
 import com.jiuxi.platform.captcha.domain.valueobject.CaptchaType;
+import com.jiuxi.platform.captcha.infrastructure.config.CaptchaProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
@@ -35,6 +37,14 @@ public class ConcatCaptchaGenerator implements CaptchaGenerator {
     
     private final Random random = new Random();
     
+    // 注入验证码配置
+    private final CaptchaProperties captchaProperties;
+    
+    @Autowired
+    public ConcatCaptchaGenerator(CaptchaProperties captchaProperties) {
+        this.captchaProperties = captchaProperties;
+    }
+    
     // 图像主题类型枚举
     private enum ImageThemeType {
         NATURE, GEOMETRIC, ABSTRACT, COLORFUL
@@ -47,6 +57,8 @@ public class ConcatCaptchaGenerator implements CaptchaGenerator {
         }
         
         CaptchaChallenge challenge = new CaptchaChallenge(captchaType);
+        // 从配置中读取最大尝试次数
+        challenge.setMaxAttempts(captchaProperties.getMaxAttempts());
         
         try {
             // 根据时间随机生成难度级别

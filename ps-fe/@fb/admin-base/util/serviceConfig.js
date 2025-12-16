@@ -7,6 +7,7 @@ let loadingCount = 0;
 export function setServiceReqRes(_this) {
 	_this = _this || app
 
+	// 超时时间设置为5分钟
 	_this.service.timeout = 1000 * 60 * 5
 	// 请求的全局连接
 	_this.service.setRequestInterceptor((req) => {

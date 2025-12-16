@@ -31,6 +31,10 @@
                         </div>
                     </div>
                     <div class="header-actions">
+                        <fb-button type="default" size="large" @on-click="updatePwd" class="edit-btn" style="margin-right: 12px">
+                            <fb-icon name="lock"></fb-icon>
+                            修改密码
+                        </fb-button>
                         <fb-button type="primary" size="large" @on-click="editProfile" class="edit-btn">
                             <fb-icon name="edit"></fb-icon>
                             编辑资料
@@ -467,6 +471,16 @@ export default {
             }
 
             this.$refs.TpDialog.show(import('./profile_edit.vue'), param, '编辑个人信息', options)
+        },
+
+        // 修改密码
+        updatePwd () {
+            let param = {}
+            let options = {
+                'height': 300,
+                'top': '15vh',
+            }
+            this.$refs.TpDialog.show(import('../../main/components/UpdatePwd.vue'), param, '修改密码', options)
         },
 
         // 处理保存成功

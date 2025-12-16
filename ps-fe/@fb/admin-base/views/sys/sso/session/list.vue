@@ -206,7 +206,7 @@
 					data: { sessionId: sessionId },
 					headers: {'Content-Type': 'application/json'},
 					responseType: 'json',
-					timeout: 10000,
+					 
 				}).then((result) => {
 					if (result.code == 1) {
 						this.$message.success('会话注销成功');

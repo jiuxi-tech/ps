@@ -9,6 +9,7 @@
         <result property="username" column="USERNAME"/>
         <result property="userpwd" column="USERPWD"/>
         <result property="phone" column="PHONE"/>
+        <result property="idcard" column="IDCARD"/>
         <result property="expiredTime" column="EXPIRED_TIME"/>
         <result property="locked" column="LOCKED"/>
         <result property="enabled" column="ENABLED"/>
@@ -28,13 +29,13 @@
 
     <insert id="save" parameterType="com.jiuxi.admin.core.bean.entity.TpAccount">
         INSERT INTO tp_account
-            (ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+            (ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, LAST_PASSWORD_CHANGE_TIME, EXTEND01, EXTEND02, EXTEND03)
 		VALUES
-			(#{accountId}, #{username}, #{userpwd}, #{phone}, #{expiredTime}, #{locked}, #{enabled}, #{personId}, #{tenantId}, #{weixin}, #{dingding}, #{threeId}, 1, #{createTime}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+			(#{accountId}, #{username}, #{userpwd}, #{phone}, #{idcard}, #{expiredTime}, #{locked}, #{enabled}, #{personId}, #{tenantId}, #{weixin}, #{dingding}, #{threeId}, 1, #{createTime}, #{updateTime}, #{lastPasswordChangeTime}, #{extend01}, #{extend02}, #{extend03})
     </insert>
 
     <select id="viewByPersonId" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
-        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
         from tp_account
         where PERSON_ID = #{personId}
         and
@@ -42,7 +43,7 @@
     </select>
 
     <select id="selectByAccountId" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
-        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
         from tp_account
         where ACCOUNT_ID = #{accountId}
         and
@@ -64,6 +65,7 @@
                 <if test="null != username and '' != username">USERNAME = #{username},</if>
                 <if test="null != userpwd and '' != userpwd">USERPWD = #{userpwd},</if>
                 <if test="null != phone">PHONE = #{phone},</if>
+                <if test="null != idcard">IDCARD = #{idcard},</if>
                 <if test="null != expiredTime">EXPIRED_TIME = #{expiredTime},</if>
                 <if test="null != locked">LOCKED = #{locked},</if>
                 <if test="null != enabled">ENABLED = #{enabled},</if>
@@ -134,7 +136,7 @@
 
     <!-- 根据手机号查询账户信息 -->
     <select id="getTpAccountByPhone"  parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
-        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
         from tp_account
         where PHONE = #{phone}
           and ACTIVED = 1
@@ -143,7 +145,7 @@
     <!-- 根据用户名查询账号信息 -->
     <select id="getTpAccountByUsername" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO"
             parameterType="java.lang.String">
-        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
         from tp_account
         where USERNAME = #{username}
           and ACTIVED = 1
@@ -151,7 +153,7 @@
 
     <!-- 根据邮箱查询账号信息 -->
     <select id="getTpAccountByEmail" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
-        select ta.ACCOUNT_ID, ta.USERNAME, ta.USERPWD, ta.PHONE, ta.EXPIRED_TIME, ta.LOCKED, ta.ENABLED, ta.PERSON_ID, ta.TENANT_ID, ta.WEIXIN, ta.DINGDING, ta.THREE_ID, ta.ACTIVED, ta.CREATE_TIME, ta.UPDATE_TIME, ta.EXTEND01, ta.EXTEND02, ta.EXTEND03
+        select ta.ACCOUNT_ID, ta.USERNAME, ta.USERPWD, ta.PHONE, ta.IDCARD, ta.EXPIRED_TIME, ta.LOCKED, ta.ENABLED, ta.PERSON_ID, ta.TENANT_ID, ta.WEIXIN, ta.DINGDING, ta.THREE_ID, ta.ACTIVED, ta.CREATE_TIME, ta.UPDATE_TIME, ta.EXTEND01, ta.EXTEND02, ta.EXTEND03
         from tp_account ta
         inner join tp_person_basicinfo tpb on ta.PERSON_ID = tpb.PERSON_ID
         where tpb.EMAIL = #{email}
@@ -168,6 +170,24 @@
           and tpb.ACTIVED = 1
     </select>
 
+    <!-- 根据身份证号查询账户信息 -->
+    <select id="getTpAccountByIdCard" parameterType="String" resultType="com.jiuxi.admin.core.bean.vo.TpAccountVO">
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        from tp_account
+        where IDCARD = #{idCard}
+          and ACTIVED = 1
+          and ENABLED = 1
+    </select>
+
+    <!-- 根据身份证号查询账户列表 -->
+    <select id="selectByIdCard" resultType="com.jiuxi.admin.core.bean.entity.TpAccount">
+        select ACCOUNT_ID, VERIFICATION_CODE, USERNAME, PERSON_ID, IDCARD
+        from tp_account
+        where IDCARD = #{idCard}
+          and ACTIVED = 1
+          and ENABLED = 1
+    </select>
+
     <!-- 更新账号的Keycloak ID -->
     <update id="updateKeycloakId">
         UPDATE tp_account
@@ -180,9 +200,9 @@
     <!-- 以下方法为了兼容TpAccountMapper适配器而添加 -->
     <insert id="insert" parameterType="com.jiuxi.admin.core.bean.entity.TpAccount">
         INSERT INTO tp_account
-            (ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03)
+            (ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, LAST_PASSWORD_CHANGE_TIME, EXTEND01, EXTEND02, EXTEND03)
 		VALUES
-			(#{accountId}, #{username}, #{userpwd}, #{phone}, #{expiredTime}, #{locked}, #{enabled}, #{personId}, #{tenantId}, #{weixin}, #{dingding}, #{threeId}, 1, #{createTime}, #{updateTime}, #{extend01}, #{extend02}, #{extend03})
+			(#{accountId}, #{username}, #{userpwd}, #{phone}, #{idcard}, #{expiredTime}, #{locked}, #{enabled}, #{personId}, #{tenantId}, #{weixin}, #{dingding}, #{threeId}, 1, #{createTime}, #{updateTime}, #{lastPasswordChangeTime}, #{extend01}, #{extend02}, #{extend03})
     </insert>
     
     <update id="updateByPrimaryKey" parameterType="com.jiuxi.admin.core.bean.entity.TpAccount">
@@ -190,6 +210,7 @@
         set USERNAME = #{username},
             USERPWD = #{userpwd},
             PHONE = #{phone},
+            IDCARD = #{idcard},
             EXPIRED_TIME = #{expiredTime},
             LOCKED = #{locked},
             ENABLED = #{enabled},
@@ -214,21 +235,21 @@
     </update>
     
     <select id="selectByPrimaryKey" resultType="com.jiuxi.admin.core.bean.entity.TpAccount">
-        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, VERIFICATION_CODE, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, VERIFICATION_CODE, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
         from tp_account 
         where ACCOUNT_ID = #{accountId} 
         and ACTIVED = 1
     </select>
     
     <select id="selectByPersonId" resultType="com.jiuxi.admin.core.bean.entity.TpAccount">
-        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, VERIFICATION_CODE, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, VERIFICATION_CODE, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
         from tp_account 
         where PERSON_ID = #{personId} 
         and ACTIVED = 1
     </select>
     
     <select id="selectByCondition" resultType="com.jiuxi.admin.core.bean.entity.TpAccount">
-        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, VERIFICATION_CODE, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
+        select ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, VERIFICATION_CODE, ACTIVED, CREATE_TIME, UPDATE_TIME, EXTEND01, EXTEND02, EXTEND03
         from tp_account 
         where ACTIVED = 1
         <if test="username != null and username != ''">

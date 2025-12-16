@@ -7,7 +7,7 @@
 			<div v-if="!showScanCode" class="login-form">
 				<div class="login-form__caption">
 					<fb-tabs v-model="currentTab">
-						<fb-tab label="账号密码登录" name="pass"></fb-tab>
+						<fb-tab label="欢迎登录" name="pass"></fb-tab>
 						<!-- <fb-tab label="手机号码登录" name="phone"></fb-tab> -->
 					</fb-tabs>
 				</div>
@@ -95,7 +95,7 @@
 <script>
 
 import LoginFormCode from "./LoginFormCode";
-import LoginFormDragImg from "./LoginFormDragImg";
+import LoginFormDragImg from "./LoginFormDragImg.vue";
 import LoginFormPhone from "./LoginFormPhone";
 import SystemScancode from "./SystemScancode";
 import SystemScancodeDd from "./SystemScancodeDd";

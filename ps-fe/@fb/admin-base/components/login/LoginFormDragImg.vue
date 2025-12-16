@@ -2,13 +2,13 @@
 <template>
 	<fb-form :model="loginForm" ref="loginForm" autocomplete="off">
 
-		<fb-form-item prop="userName" label="用户名" :showLabel="false"
-					  :rule="[{required: true, whitespace: true}]">
+		<fb-form-item prop="userName" label="账号" :showLabel="false"
+					  :rule="[{required: true, whitespace: true, }]">
 			<fb-input v-model="loginForm.userName"
 					  size="l"
 					  prepend-icon="user"
 					  clearable
-					  placeholder="用户名"
+					  placeholder="账号/手机号/身份证号"
 					  autocomplete="off"
 			/>
 		</fb-form-item>

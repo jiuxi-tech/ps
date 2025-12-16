@@ -48,7 +48,7 @@
 					responseType: 'json', // 默认的
 					// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 					// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-					timeout: 5000,
+					 
 					// 是否显示loading, 默认true,
 					loading: false,
 				}).then(response => {
@@ -70,7 +70,7 @@
 					responseType: 'json', // 默认的
 					// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 					// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-					timeout: 5000,
+					 
 					// 是否显示loading, 默认true,
 					loading: false,
 				}).then(response => {

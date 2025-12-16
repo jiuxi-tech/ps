@@ -23,11 +23,11 @@
 
             <!-- 查询条件区域 -->
             <template slot="query">
-                <!-- 查询表单：用户名、手机号、性别筛选 -->
+                <!-- 查询表单：人员姓名、手机号、性别筛选 -->
                 <fb-form ref="query-form" mode="query">
                     <fb-row>
                         <fb-col span="8">
-                            <fb-form-item label="用户名">
+                            <fb-form-item label="人员姓名">
                                 <fb-input v-model="formData.personName"></fb-input>
                             </fb-form-item>
                         </fb-col>
@@ -251,7 +251,7 @@ export default {
                 // 层级标识：0-本级，1-本级及下级
                 levelFlag: 0,
                 deptLevelcode: '', // 部门层级编码
-                personName: '', // 用户名筛选
+                personName: '', // 人员姓名筛选
                 sex: '', // 性别筛选
                 phone: '', // 手机号筛选
                 office: '', // 职务
@@ -269,10 +269,10 @@ export default {
                 primaryKey: 'id',
                 // 表格列配置：定义显示的字段和操作
                 columns: [
-                    // 用户名列：支持点击查看详情
+                    // 人员姓名列：支持点击查看详情
                     {
                         name: 'personName',
-                        label: '用户名称',
+                        label: '人员姓名',
                         sortable: false,
                         slot: 'view',
                         width: 120,

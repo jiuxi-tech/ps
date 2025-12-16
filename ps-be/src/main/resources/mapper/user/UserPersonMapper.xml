@@ -55,7 +55,7 @@
             and tpb.SEX = #{query.sex}
         </if>
         <if test="query.phone != null and query.phone != ''">
-            and tpb.PHONE like CONCAT(#{query.phone}, '%')
+            and tpb.PHONE = #{query.phone}
         </if>
         <if test="query.category != null">
             and tpb.CATEGORY = #{query.category}

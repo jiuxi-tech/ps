@@ -18,7 +18,7 @@ service: [
     target: process.env.VUE_APP_URL,
     baseURL: '/chemicalpark-manage-app',
     method: 'post',
-    timeout: 10000,
+     
     withCredentials: true
   },
   // 日志服务
@@ -27,7 +27,7 @@ service: [
     target: process.env.VUE_APP_LOG_URL,
     baseURL: '/log-center',
     method: 'post',
-    timeout: 10000,
+     
     withCredentials: true
   },
   // 报表服务
@@ -36,7 +36,7 @@ service: [
     target: process.env.VUE_APP_REPORT_URL,
     baseURL: '/report',
     method: 'get',
-    timeout: 10000,
+     
     withCredentials: true
   }
 ]

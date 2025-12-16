@@ -93,4 +93,26 @@ public class PersonAccountApplicationServiceImpl implements PersonAccountApplica
         bean.setUpdateTime(CommonDateUtil.now());
         userAccountMapper.update(bean);
     }
+
+    /**
+     * 修改身份证号
+     *
+     * @param personId 人员id
+     * @param idCard   身份证号
+     * @return void
+     * @author Qoder AI
+     * @date 2024/12/15
+     */
+    @Override
+    public void updateIdCard(String personId, String idCard) {
+        TpAccountVO tpAccountVO = userAccountMapper.viewByPersonId(personId);
+        if (tpAccountVO == null) {
+            return;
+        }
+        TpAccount bean = new TpAccount();
+        bean.setAccountId(tpAccountVO.getAccountId());
+        bean.setIdcard(idCard);
+        bean.setUpdateTime(CommonDateUtil.now());
+        userAccountMapper.update(bean);
+    }
 }

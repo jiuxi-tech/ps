@@ -52,4 +52,15 @@ public interface PersonAccountApplicationService {
      * @date 2024/6/5 17:32
      */
     void updatePhone(String personId, String phone);
+
+    /**
+     * 修改身份证号
+     *
+     * @param personId 人员id
+     * @param idCard   身份证号
+     * @return void
+     * @author Qoder AI
+     * @date 2024/12/15
+     */
+    void updateIdCard(String personId, String idCard);
 }

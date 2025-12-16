@@ -91,6 +91,26 @@ public interface UserAccountMapper {
     TpAccountVO getTpAccountByEmail(@Param("email") String email);
 
     /**
+     * 根据身份证号查询账户信息
+     *
+     * @param idCard 身份证号
+     * @return com.jiuxi.admin.core.bean.vo.TpAccountVO
+     * @author Qoder AI
+     * @date 2024-12-15
+     */
+    TpAccountVO getTpAccountByIdCard(@Param("idCard") String idCard);
+
+    /**
+     * 根据身份证号查询账户列表
+     *
+     * @param idCard 身份证号
+     * @return List<TpAccount>
+     * @author Qoder AI
+     * @date 2024-12-15
+     */
+    List<TpAccount> selectByIdCard(@Param("idCard") String idCard);
+
+    /**
      * 根据邮箱查询账户列表（用于找回密码）
      *
      * @param email 邮箱地址

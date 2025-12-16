@@ -12,7 +12,7 @@ export default {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			data: configData,
-			timeout: 5000
+			 
 		})
 	},
 
@@ -33,7 +33,7 @@ export default {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			data: testData,
-			timeout: 5000
+			 
 		})
 	},
 
@@ -43,7 +43,7 @@ export default {
 			url: '/sys/ipaccess/logs/clean',
 			method: 'delete',
 			params: { days },
-			timeout: 10000
+			 
 		})
 	}
 }

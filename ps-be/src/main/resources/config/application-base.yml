@@ -155,6 +155,11 @@ app:
       captcha-enabled: true
       captcha-expiry: 300
     
+    # 凭据验证配置
+    credential:
+      # 身份证号校验位验证开关(true=严格验证符合GB11643-1999标准, false=仅格式验证)
+      idcard-checkcode-validation: false
+    
     keycloak:
       server-url: http://localhost:18080
       realm: ps-realm
@@ -284,3 +289,10 @@ logging:
   level:
     root: INFO
     com.jiuxi: INFO
+
+############################################################
+#############  验证码配置
+############################################################
+captcha:
+  # 验证码最大尝试次数（默认3次，线上环境设置为5次）
+  max-attempts: 5

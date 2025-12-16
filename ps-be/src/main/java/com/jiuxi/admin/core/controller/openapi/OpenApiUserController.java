@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 开放API - 用户信息查询接口
+ * 开放API - 用户信息查询和管理接口
  * 
  * 所有接口需要通过API Key验证，在拦截器中处理
  * 返回的数据均已脱敏处理
@@ -115,5 +115,115 @@ public class OpenApiUserController {
         data.put("records", result.getRecords());
 
         return JsonResponse.buildSuccess(data);
+    }
+
+    /**
+     * 修改用户信息
+     * 
+     * 接口路径: PUT /open-api/v1/users/{personId}
+     * 
+     * @param personId 人员ID
+     * @param updateParams 更新参数
+     * @return 更新结果
+     */
+    @PutMapping("/{personId}")
+    public JsonResponse updateUser(
+            @PathVariable("personId") String personId,
+            @RequestBody Map<String, Object> updateParams) {
+        
+        logger.info("开放API - 修改用户信息: personId={}, params={}", personId, updateParams);
+
+        if (!StringUtils.hasText(personId)) {
+            return JsonResponse.buildFailure("人员ID不能为空");
+        }
+
+        try {
+            boolean result = openApiUserService.updateUser(personId, updateParams);
+            if (result) {
+                return JsonResponse.buildSuccess("更新成功");
+            } else {
+                return JsonResponse.buildFailure("用户更新失败");
+            }
+        } catch (IllegalArgumentException e) {
+            logger.warn("用户信息更新验证失败: {}", e.getMessage());
+            return JsonResponse.buildFailure("用户更新失败: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("用户信息更新错误: {}", e.getMessage(), e);
+            return JsonResponse.buildFailure("用户更新失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 重置用户密码
+     * 
+     * 接口路径: PUT /open-api/v1/users/{personId}/reset-password
+     * 
+     * @param personId 人员ID
+     * @param passwordParams 密码参数
+     * @return 重置结果
+     */
+    @PutMapping("/{personId}/reset-password")
+    public JsonResponse resetPassword(
+            @PathVariable("personId") String personId,
+            @RequestBody Map<String, Object> passwordParams) {
+        
+        logger.info("开放API - 重置用户密码: personId={}", personId);
+
+        if (!StringUtils.hasText(personId)) {
+            return JsonResponse.buildFailure("人员ID不能为空");
+        }
+
+        String newPassword = (String) passwordParams.get("newPassword");
+        if (!StringUtils.hasText(newPassword)) {
+            return JsonResponse.buildFailure("新密码不能为空");
+        }
+
+        try {
+            boolean result = openApiUserService.resetPassword(personId, newPassword);
+            if (result) {
+                return JsonResponse.buildSuccess("密码重置成功");
+            } else {
+                return JsonResponse.buildFailure("密码重置失败");
+            }
+        } catch (IllegalArgumentException e) {
+            logger.warn("密码重置验证失败: {}", e.getMessage());
+            return JsonResponse.buildFailure("密码重置失败: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("密码重置错误: {}", e.getMessage(), e);
+            return JsonResponse.buildFailure("密码重置失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 同步用户到SSO
+     * 
+     * 接口路径: POST /open-api/v1/users/{personId}/sync-sso
+     * 
+     * @param personId 人员ID
+     * @return 同步结果
+     */
+    @PostMapping("/{personId}/sync-sso")
+    public JsonResponse syncToSso(@PathVariable("personId") String personId) {
+        
+        logger.info("开放API - 同步用户到SSO: personId={}", personId);
+
+        if (!StringUtils.hasText(personId)) {
+            return JsonResponse.buildFailure("人员ID不能为空");
+        }
+
+        try {
+            boolean result = openApiUserService.syncToSso(personId);
+            if (result) {
+                return JsonResponse.buildSuccess("同步SSO任务已提交，正在后台处理");
+            } else {
+                return JsonResponse.buildFailure("SSO同步失败");
+            }
+        } catch (IllegalArgumentException e) {
+            logger.warn("SSO同步验证失败: {}", e.getMessage());
+            return JsonResponse.buildFailure("SSO同步失败: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("SSO同步错误: {}", e.getMessage(), e);
+            return JsonResponse.buildFailure("SSO同步失败: " + e.getMessage());
+        }
     }
 }

@@ -142,6 +142,18 @@ public class UserPersonServiceImpl implements UserPersonService {
             boolean isPhysicalDeleteEnabled = tpSystemConfigService.isPhysicalDeleteEnabled();
             query.setIncludeInactive(isPhysicalDeleteEnabled);
 
+            // 如果查询条件中有手机号，需要先加密后再查询（因为数据库存储的是加密后的手机号）
+            if (StrUtil.isNotBlank(query.getPhone())) {
+                try {
+                    String encryptedPhone = PhoneEncryptionUtils.encrypt(query.getPhone());
+                    query.setPhone(encryptedPhone);
+                    LOGGER.debug("手机号查询条件加密完成，原始手机号: {}", query.getPhone());
+                } catch (Exception e) {
+                    LOGGER.error("手机号查询条件加密失败: {}", e.getMessage(), e);
+                    // 加密失败时使用原值继续查询
+                }
+            }
+
             Integer pageNum = Optional.ofNullable(query.getCurrent()).orElse(1);
             Integer pageSize = Optional.ofNullable(query.getSize()).orElse(10);
 
@@ -448,11 +460,20 @@ public class UserPersonServiceImpl implements UserPersonService {
                     tpPersonDeptMapper.update(personDeptBean);
                 }
             }
-            // 如果手机号有更改，需要将账号表的手机号更新掉
+            // 如果手机号或身份证号有更改，需要将账号表的对应字段更新掉
             TpAccountVO tpAccountVO = userAccountService.accountView(personId);
-            if (null != tpAccountVO && !StrUtil.equals(tpAccountVO.getPhone(), phone)) {
-                // 更新该人员账号的手机号，使用PersonAccountService来保持一致性
-                personAccountService.updatePhone(personId, vo.getPhone());
+            if (null != tpAccountVO) {
+                // 同步手机号（如果人员表中存在且账号表中没有或不一致）
+                if (StrUtil.isNotBlank(phone) && !StrUtil.equals(tpAccountVO.getPhone(), phone)) {
+                    // 更新该人员账号的手机号，使用PersonAccountService来保持一致性
+                    personAccountService.updatePhone(personId, vo.getPhone());
+                    LOGGER.info("同步手机号到账号表，personId: {}, phone: {}", personId, phone);
+                }
+                // 同步身份证号（如果人员表中存在且账号表中没有或不一致）
+                if (StrUtil.isNotBlank(vo.getIdcard()) && !StrUtil.equals(tpAccountVO.getIdcard(), vo.getIdcard())) {
+                    personAccountService.updateIdCard(personId, vo.getIdcard());
+                    LOGGER.info("同步身份证号到账号表，personId: {}, idcard: {}", personId, vo.getIdcard());
+                }
             }
 
             // 附件绑定

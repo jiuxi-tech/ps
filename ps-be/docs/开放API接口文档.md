@@ -7,8 +7,8 @@
 
 ### 1.2 版本信息
 - **API版本**: v1
-- **文档版本**: 1.0.0
-- **更新日期**: 2025-11-30
+- **文档版本**: 2.0.0
+- **更新日期**: 2025-12-16
 
 ### 1.3 基本信息
 - **基础路径**: `/ps-be/open-api/v1`
@@ -333,6 +333,251 @@ curl --location 'http://localhost:10801/ps-be/open-api/v1/users/search' \
 
 ---
 
+### 4.4 修改用户信息
+
+#### 接口描述
+根据人员ID修改用户基本信息，支持修改姓名、手机号、邮箱、固定电话等字段。
+
+#### 接口地址
+```
+PUT /open-api/v1/users/{personId}
+```
+
+#### 请求参数
+
+**路径参数**
+
+| 参数名 | 类型 | 必填 | 说明 |
+|--------|------|------|------|
+| personId | String | 是 | 人员ID（19位数字） |
+
+**Body参数（JSON格式）**
+
+| 参数名 | 类型 | 必填 | 说明 |
+|--------|------|------|------|
+| personName | String | 否 | 姓名 |
+| phone | String | 否 | 手机号 |
+| email | String | 否 | 邮箱地址 |
+| tel | String | 否 | 固定电话 |
+
+**注意**：至少需要提供一个待更新的字段。
+
+#### 请求示例
+
+```bash
+curl --location --request PUT 'http://localhost:10801/ps-be/open-api/v1/users/1234567890123456789' \
+--header 'Authorization: b4a4b6a002b64502b2cc715a6ddec8cc' \
+--header 'Content-Type: application/json' \
+--data '{
+  "personName": "张三",
+  "phone": "13800138000",
+  "email": "zhangsan@example.com",
+  "tel": "010-12345678"
+}'
+```
+
+#### 响应示例
+
+**成功响应**
+
+```json
+{
+  "success": true,
+  "code": 0,
+  "message": "操作成功",
+  "data": "更新成功"
+}
+```
+
+**失败响应**
+
+```json
+{
+  "success": false,
+  "code": -1,
+  "message": "用户更新失败: 用户不存在"
+}
+```
+
+#### 响应字段说明
+
+| 字段名 | 类型 | 说明 |
+|--------|------|------|
+| success | Boolean | 是否成功 |
+| code | Integer | 响应码：0-成功，-1-失败 |
+| message | String | 响应消息 |
+| data | String | 响应数据 |
+
+#### 注意事项
+
+- 此接口属于**敏感操作**，需谨慎授权
+- 修改后的信息会同步到Keycloak SSO系统
+- 支持部分字段更新，未传入的字段不会被修改
+- 手机号和邮箱需符合格式要求
+
+---
+
+### 4.5 重置用户密码
+
+#### 接口描述
+重置用户登录密码，自动同步到Keycloak多凭据（用户名、手机号、身份证号）。
+
+#### 接口地址
+```
+PUT /open-api/v1/users/{personId}/reset-password
+```
+
+#### 请求参数
+
+**路径参数**
+
+| 参数名 | 类型 | 必填 | 说明 |
+|--------|------|------|------|
+| personId | String | 是 | 人员ID（19位数字） |
+
+**Body参数（JSON格式）**
+
+| 参数名 | 类型 | 必填 | 说明 |
+|--------|------|------|------|
+| newPassword | String | 是 | 新密码，需符合密码强度要求 |
+
+**密码强度要求**：
+- 长度至少8位
+- 包含大写字母、小写字母、数字
+- 可包含特殊字符
+
+#### 请求示例
+
+```bash
+curl --location --request PUT 'http://localhost:10801/ps-be/open-api/v1/users/1234567890123456789/reset-password' \
+--header 'Authorization: b4a4b6a002b64502b2cc715a6ddec8cc' \
+--header 'Content-Type: application/json' \
+--data '{
+  "newPassword": "NewPassword@123"
+}'
+```
+
+#### 响应示例
+
+**成功响应**
+
+```json
+{
+  "success": true,
+  "code": 0,
+  "message": "操作成功",
+  "data": "密码重置成功"
+}
+```
+
+**失败响应**
+
+```json
+{
+  "success": false,
+  "code": -1,
+  "message": "密码重置失败: 密码不符合安全等级要求"
+}
+```
+
+#### 响应字段说明
+
+| 字段名 | 类型 | 说明 |
+|--------|------|------|
+| success | Boolean | 是否成功 |
+| code | Integer | 响应码：0-成功，-1-失败 |
+| message | String | 响应消息 |
+| data | String | 响应数据 |
+
+#### 重要说明
+
+- 此接口属于**高度敏感操作**，仅向可信第三方应用授权
+- 密码会自动同步到Keycloak的**三种凭据**：
+  - **USERNAME凭据**：使用用户名登录的Keycloak账号
+  - **PHONE凭据**：使用手机号登录的Keycloak账号
+  - **IDCARD凭据**：使用身份证号登录的Keycloak账号
+- 用户可以使用新密码通过任意凭据类型登录
+- 密码修改操作会记录详细的审计日志
+
+---
+
+### 4.6 同步用户到SSO
+
+#### 接口描述
+同步用户账号到Keycloak SSO系统，支持多凭据（USERNAME、PHONE、IDCARD）同步，等同于账号管理的“同步SSO”功能。
+
+#### 接口地址
+```
+POST /open-api/v1/users/{personId}/sync-sso
+```
+
+#### 请求参数
+
+**路径参数**
+
+| 参数名 | 类型 | 必填 | 说明 |
+|--------|------|------|------|
+| personId | String | 是 | 人员ID（19位数字） |
+
+**Body参数**
+
+无需请求体参数，仅需路径参数。
+
+#### 请求示例
+
+```bash
+curl --location --request POST 'http://localhost:10801/ps-be/open-api/v1/users/1234567890123456789/sync-sso' \
+--header 'Authorization: b4a4b6a002b64502b2cc715a6ddec8cc' \
+--header 'Content-Type: application/json'
+```
+
+#### 响应示例
+
+**成功响应**
+
+```json
+{
+  "success": true,
+  "code": 0,
+  "message": "操作成功",
+  "data": "同步SSO任务已提交，正在后台处理"
+}
+```
+
+**失败响应**
+
+```json
+{
+  "success": false,
+  "code": -1,
+  "message": "SSO同步失败: 用户账号不存在"
+}
+```
+
+#### 响应字段说明
+
+| 字段名 | 类型 | 说明 |
+|--------|------|------|
+| success | Boolean | 是否成功 |
+| code | Integer | 响应码：0-成功，-1-失败 |
+| message | String | 响应消息 |
+| data | String | 响应数据 |
+
+#### 重要说明
+
+- 此接口属于**敏感操作**，需谨慎授权
+- SSO同步是**异步操作**，接口立即返回，实际同步在后台执行
+- 同步会创建或更新Keycloak中的**三种凭据用户**：
+  - **USERNAME凭据用户**：使用用户名登录的Keycloak账号
+  - **PHONE凭据用户**：使用手机号登录的Keycloak账号
+  - **IDCARD凭据用户**：使用身份证号登录的Keycloak账号
+- 同步策略：
+  - 如果凭据对应的Keycloak用户已存在，则**更新**用户信息
+  - 如果凭据对应的Keycloak用户不存在，则**创建**新用户
+- 可以通过查看后台日志或Keycloak管理控制台获取实际同步结果
+
+---
+
 ## 5. 数据脱敏规则
 
 为保护用户隐私，所有开放API返回的数据都经过脱敏处理：
@@ -484,6 +729,7 @@ b4a4b6a002b64502b2cc715a6ddec8cc
 | 版本 | 日期 | 变更内容 | 作者 |
 |------|------|----------|------|
 | 1.0.0 | 2025-11-30 | 初始版本，包含用户查询相关接口 | System |
+| 2.0.0 | 2025-12-16 | 新增用户管理接口：用户信息修改、密码重置、SSO同步 | System |
 
 ---
 
@@ -535,6 +781,25 @@ def search_users(keyword, dept_id=None, page=1, size=20):
     response = requests.post(url, headers=headers, json=data)
     return response.json()
 
+# 4. 修改用户信息
+def update_user(person_id, update_params):
+    url = f"{BASE_URL}/users/{person_id}"
+    response = requests.put(url, headers=headers, json=update_params)
+    return response.json()
+
+# 5. 重置用户密码
+def reset_password(person_id, new_password):
+    url = f"{BASE_URL}/users/{person_id}/reset-password"
+    data = {"newPassword": new_password}
+    response = requests.put(url, headers=headers, json=data)
+    return response.json()
+
+# 6. 同步用户到SSO
+def sync_to_sso(person_id):
+    url = f"{BASE_URL}/users/{person_id}/sync-sso"
+    response = requests.post(url, headers=headers)
+    return response.json()
+
 # 使用示例
 if __name__ == "__main__":
     # 查询单个用户
@@ -548,6 +813,22 @@ if __name__ == "__main__":
     # 搜索用户
     search_result = search_users("张三")
     print("搜索结果:", json.dumps(search_result, indent=2, ensure_ascii=False))
+    
+    # 修改用户信息
+    update_result = update_user("1234567890123456789", {
+        "personName": "张三",
+        "phone": "13800138000",
+        "email": "zhangsan@example.com"
+    })
+    print("修改结果:", json.dumps(update_result, indent=2, ensure_ascii=False))
+    
+    # 重置密码
+    reset_result = reset_password("1234567890123456789", "NewPassword@123")
+    print("密码重置:", json.dumps(reset_result, indent=2, ensure_ascii=False))
+    
+    # 同步SSO
+    sync_result = sync_to_sso("1234567890123456789")
+    print("SSO同步:", json.dumps(sync_result, indent=2, ensure_ascii=False))
 ```
 
 ---
@@ -635,6 +916,68 @@ public class OpenApiClient {
         }
     }
     
+    /**
+     * 修改用户信息
+     */
+    public String updateUser(String personId, Map<String, Object> updateParams) throws IOException {
+        String url = BASE_URL + "/users/" + personId;
+        
+        String json = gson.toJson(updateParams);
+        RequestBody body = RequestBody.create(json, JSON);
+        
+        Request request = new Request.Builder()
+            .url(url)
+            .header("Authorization", API_KEY)
+            .put(body)
+            .build();
+        
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
+    }
+    
+    /**
+     * 重置用户密码
+     */
+    public String resetPassword(String personId, String newPassword) throws IOException {
+        String url = BASE_URL + "/users/" + personId + "/reset-password";
+        
+        Map<String, Object> data = new HashMap<>();
+        data.put("newPassword", newPassword);
+        
+        String json = gson.toJson(data);
+        RequestBody body = RequestBody.create(json, JSON);
+        
+        Request request = new Request.Builder()
+            .url(url)
+            .header("Authorization", API_KEY)
+            .put(body)
+            .build();
+        
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
+    }
+    
+    /**
+     * 同步用户到SSO
+     */
+    public String syncToSso(String personId) throws IOException {
+        String url = BASE_URL + "/users/" + personId + "/sync-sso";
+        
+        RequestBody body = RequestBody.create("{}", JSON);
+        
+        Request request = new Request.Builder()
+            .url(url)
+            .header("Authorization", API_KEY)
+            .post(body)
+            .build();
+        
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
+    }
+    
     public static void main(String[] args) {
         OpenApiClient client = new OpenApiClient();
         
@@ -650,6 +993,22 @@ public class OpenApiClient {
             // 搜索用户
             String searchResult = client.searchUsers("张三", null, 1, 10);
             System.out.println("搜索结果: " + searchResult);
+            
+            // 修改用户信息
+            Map<String, Object> updateParams = new HashMap<>();
+            updateParams.put("personName", "张三");
+            updateParams.put("phone", "13800138000");
+            updateParams.put("email", "zhangsan@example.com");
+            String updateResult = client.updateUser("1234567890123456789", updateParams);
+            System.out.println("修改结果: " + updateResult);
+            
+            // 重置密码
+            String resetResult = client.resetPassword("1234567890123456789", "NewPassword@123");
+            System.out.println("密码重置: " + resetResult);
+            
+            // 同步SSO
+            String syncResult = client.syncToSso("1234567890123456789");
+            System.out.println("SSO同步: " + syncResult);
             
         } catch (IOException e) {
             e.printStackTrace();

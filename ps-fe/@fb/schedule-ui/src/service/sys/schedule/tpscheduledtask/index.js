@@ -25,7 +25,7 @@ export default {
 			data: formData,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 			responseType: 'json',
-			timeout: 5000,
+			 
 			loading: true,
 		})
 	},
@@ -48,7 +48,7 @@ export default {
 			data: formData,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 			responseType: 'json',
-			timeout: 5000,
+			 
 			loading: true,
 		})
 	},
@@ -88,7 +88,7 @@ export default {
 			responseType: 'blob', // 返回服务器返回的数据类型为流
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		}).then(response => {
 			app.download(response)
 		}, err => {

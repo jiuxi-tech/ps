@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "ps-open-api-collection",
+		"name": "业务中台开放API接口",
+		"description": "业务中台系统对外提供的开放API接口，包含用户查询、用户管理等功能",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "ps-open-api"
+	},
+	"item": [
+		{
+			"name": "用户信息接口",
+			"item": [
+				{
+					"name": "查询单个用户信息",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{API_KEY}}",
+								"type": "text",
+								"description": "第三方应用的API密钥"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/users/:personId",
+							"host": ["{{BASE_URL}}"],
+							"path": ["users", ":personId"],
+							"variable": [
+								{
+									"key": "personId",
+									"value": "1234567890123456789",
+									"description": "人员ID（19位数字）"
+								}
+							]
+						},
+						"description": "根据人员ID查询单个用户的详细信息，返回的数据已进行脱敏处理。"
+					},
+					"response": []
+				},
+				{
+					"name": "分页查询用户列表",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{API_KEY}}",
+								"type": "text",
+								"description": "第三方应用的API密钥"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/users?deptId=&page=1&size=20",
+							"host": ["{{BASE_URL}}"],
+							"path": ["users"],
+							"query": [
+								{
+									"key": "deptId",
+									"value": "",
+									"description": "部门ID（可选）"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "页码，从1开始"
+								},
+								{
+									"key": "size",
+									"value": "20",
+									"description": "每页条数，最大100"
+								}
+							]
+						},
+						"description": "分页查询用户列表，可选择按部门筛选，返回的数据已进行脱敏处理。"
+					},
+					"response": []
+				},
+				{
+					"name": "搜索用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{API_KEY}}",
+								"type": "text",
+								"description": "第三方应用的API密钥"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"keyword\": \"张三\",\n  \"deptId\": \"\",\n  \"page\": 1,\n  \"size\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/search",
+							"host": ["{{BASE_URL}}"],
+							"path": ["users", "search"]
+						},
+						"description": "根据关键词搜索用户，支持按姓名、工号模糊查询，可选择按部门筛选。"
+					},
+					"response": []
+				},
+				{
+					"name": "修改用户信息",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{API_KEY}}",
+								"type": "text",
+								"description": "第三方应用的API密钥"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"personName\": \"张三\",\n  \"phone\": \"13800138000\",\n  \"email\": \"zhangsan@example.com\",\n  \"tel\": \"010-12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/:personId",
+							"host": ["{{BASE_URL}}"],
+							"path": ["users", ":personId"],
+							"variable": [
+								{
+									"key": "personId",
+									"value": "1234567890123456789",
+									"description": "人员ID（19位数字）"
+								}
+							]
+						},
+						"description": "根据人员ID修改用户基本信息，支持修改姓名、手机号、邮箱、固定电话等字段。此接口属于敏感操作，需谨慎授权。"
+					},
+					"response": []
+				},
+				{
+					"name": "重置用户密码",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{API_KEY}}",
+								"type": "text",
+								"description": "第三方应用的API密钥"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"newPassword\": \"NewPassword@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/:personId/reset-password",
+							"host": ["{{BASE_URL}}"],
+							"path": ["users", ":personId", "reset-password"],
+							"variable": [
+								{
+									"key": "personId",
+									"value": "1234567890123456789",
+									"description": "人员ID（19位数字）"
+								}
+							]
+						},
+						"description": "重置用户登录密码，自动同步到Keycloak多凭据（USERNAME、PHONE、IDCARD）。密码要求：长度至少8位，包含大写字母、小写字母、数字。"
+					},
+					"response": []
+				},
+				{
+					"name": "同步用户到SSO",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{API_KEY}}",
+								"type": "text",
+								"description": "第三方应用的API密钥"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/:personId/sync-sso",
+							"host": ["{{BASE_URL}}"],
+							"path": ["users", ":personId", "sync-sso"],
+							"variable": [
+								{
+									"key": "personId",
+									"value": "1234567890123456789",
+									"description": "人员ID（19位数字）"
+								}
+							]
+						},
+						"description": "同步用户账号到Keycloak SSO系统，支持多凭据（USERNAME、PHONE、IDCARD）同步。SSO同步是异步操作，接口立即返回，实际同步在后台执行。"
+					},
+					"response": []
+				}
+			],
+			"description": "用户信息相关接口，包括查询、修改、密码重置和SSO同步功能"
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{API_KEY}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:10801/ps-be/open-api/v1",
+			"type": "string",
+			"description": "API基础路径"
+		},
+		{
+			"key": "API_KEY",
+			"value": "b4a4b6a002b64502b2cc715a6ddec8cc",
+			"type": "string",
+			"description": "第三方应用的API密钥（测试环境）"
+		}
+	]
+}

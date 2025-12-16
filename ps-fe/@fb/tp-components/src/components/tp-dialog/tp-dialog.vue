@@ -113,7 +113,7 @@ export default {
             delay: 1000,
             // 如果提供了超时时间且组件加载也超时了，
             // 则使用加载失败时使用的组件。默认值是：`Infinity`
-            timeout: 10000
+             
           })
         } else if (typeof url === 'function') {
           // 函数模式：直接使用，Vue 会自动处理 Promise
@@ -125,7 +125,7 @@ export default {
             loading: {template: '<div><fb-spin></fb-spin></div>'},
             error: {template: '<div>加载组件失败</div>'},
             delay: 1000,
-            timeout: 10000
+             
           })
         }
 

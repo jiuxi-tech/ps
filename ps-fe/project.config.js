@@ -49,7 +49,7 @@ module.exports = {
 			baseURL: '/ps-be',
 			mock: 'http://192.168.0.46:3000/api/open/plugin/export-full?type=json&pid=11&status=all&token=c305cf2dbd1f7fb9deb6769886ea5446862e875ced1a3829b0cbb5580c2e4873',
 			method: 'post',
-			timeout: 10000,
+			 
 			withCredentials: true,
 		},
 		 
@@ -60,7 +60,7 @@ module.exports = {
 		// 	baseURL: '/log-center',
 		// 	mock: '',
 		// 	method: 'post',
-		// 	timeout: 10000,
+		// 	 
 		// 	withCredentials: true,
 		// },
 		// 报表服务
@@ -70,7 +70,7 @@ module.exports = {
 		// 	baseURL: '/report',
 		// 	mock: '',
 		// 	method: 'get',
-		// 	timeout: 10000,
+		// 	 
 		// 	withCredentials: true,
 		// },
 	],

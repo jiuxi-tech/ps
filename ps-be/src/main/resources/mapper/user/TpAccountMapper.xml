@@ -182,9 +182,9 @@
     <!-- 以下方法为了兼容TpAccountMapper接口而添加 -->
     <insert id="insert" parameterType="com.jiuxi.admin.core.bean.entity.TpAccount">
         INSERT INTO tp_account
-            (ACCOUNT_ID, USERNAME, USERPWD, PHONE, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, LAST_PASSWORD_CHANGE_TIME, EXTEND01, EXTEND02, EXTEND03)
+            (ACCOUNT_ID, USERNAME, USERPWD, PHONE, IDCARD, EXPIRED_TIME, LOCKED, ENABLED, PERSON_ID, TENANT_ID, WEIXIN, DINGDING, THREE_ID, ACTIVED, CREATE_TIME, UPDATE_TIME, LAST_PASSWORD_CHANGE_TIME, EXTEND01, EXTEND02, EXTEND03)
 		VALUES
-			(#{accountId}, #{username}, #{userpwd}, #{phone}, #{expiredTime}, #{locked}, #{enabled}, #{personId}, #{tenantId}, #{weixin}, #{dingding}, #{threeId}, 1, #{createTime}, #{updateTime}, #{lastPasswordChangeTime}, #{extend01}, #{extend02}, #{extend03})
+			(#{accountId}, #{username}, #{userpwd}, #{phone}, #{idcard}, #{expiredTime}, #{locked}, #{enabled}, #{personId}, #{tenantId}, #{weixin}, #{dingding}, #{threeId}, 1, #{createTime}, #{updateTime}, #{lastPasswordChangeTime}, #{extend01}, #{extend02}, #{extend03})
     </insert>
     
     <update id="updateByPrimaryKey" parameterType="com.jiuxi.admin.core.bean.entity.TpAccount">

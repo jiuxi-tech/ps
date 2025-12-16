@@ -200,6 +200,16 @@ public interface UserAccountService {
     TpAccountVO getTpAccountByUsername(String username);
 
     /**
+     * 根据身份证号查询账户信息
+     *
+     * @param idCard 身份证号
+     * @return com.jiuxi.admin.core.bean.vo.TpAccountVO
+     * @author Qoder AI
+     * @date 2024/12/15
+     */
+    TpAccountVO getTpAccountByIdCard(String idCard);
+
+    /**
      * 根据邮箱查询账户信息
      *
      * @param email 邮箱地址

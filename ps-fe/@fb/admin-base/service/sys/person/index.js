@@ -71,7 +71,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 
@@ -118,7 +118,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 
@@ -150,7 +150,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 	updatePwd(originalFormData) {
@@ -197,7 +197,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 
@@ -226,7 +226,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 	accountEnabled(formData) {
@@ -254,7 +254,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 	view(formData) {
@@ -298,7 +298,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 	delete(formData) {
@@ -325,7 +325,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 
@@ -363,7 +363,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		}).catch(error => {
 			console.error('授权请求失败:', error);
 			return Promise.reject(error);
@@ -394,7 +394,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 
@@ -422,7 +422,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 
@@ -450,7 +450,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 
@@ -479,7 +479,7 @@ export default {
 			responseType: 'json', // 默认的
 			// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
 			// 如果请求话费了超过 `timeout` 的时间，请求将被中断
-			timeout: 5000,
+			 
 		})
 	},
 
@@ -550,7 +550,7 @@ export default {
 			data: formData,
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			responseType: 'json',
-			timeout: 10000,
+			 
 		})
 	},
 }

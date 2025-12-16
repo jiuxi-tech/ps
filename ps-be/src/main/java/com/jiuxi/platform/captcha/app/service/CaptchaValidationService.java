@@ -84,6 +84,9 @@ public class CaptchaValidationService {
         System.out.println("  容差: " + tolerance);
         System.out.println("  距离: " + userAnswer.distanceTo(correctAnswer));
         
+        // 在验证前获取剩余次数（因为verifyAnswer会把attemptCount+1）
+        int remainingBeforeAttempt = challenge.getRemainingAttempts();
+        
         boolean isCorrect = challenge.verifyAnswer(userAnswer);
         System.out.println("  验证结果: " + isCorrect);
         
@@ -107,8 +110,9 @@ public class CaptchaValidationService {
             return ValidationResult.success(ticket);
         } else {
             // 验证失败
-            logger.warn("验证码验证失败: {} from IP: {}, 剩余尝试次数: {}", 
-                challengeId, clientIp, challenge.getRemainingAttempts());
+            int remainingAttempts = challenge.getRemainingAttempts();
+            logger.warn("验证码验证失败: {} from IP: {}, 本次尝试前剩余: {}, 本次尝试后剩余: {}", 
+                challengeId, clientIp, remainingBeforeAttempt, remainingAttempts);
             
             cacheRepository.recordVerificationFailure(clientIp);
             
@@ -121,8 +125,8 @@ public class CaptchaValidationService {
                 return ValidationResult.failure("验证失败，验证码已失效");
             }
             
-            return ValidationResult.failure(String.format("验证失败，还有 %d 次尝试机会", 
-                challenge.getRemainingAttempts()));
+            // 显示本次失败后还剩几次机会
+            return ValidationResult.failure("验证失败，请重试！");
         }
     }
     

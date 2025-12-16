@@ -35,6 +35,10 @@ public class TpAccount implements Serializable {
      */
     private String phone;
     /**
+     * 身份证号
+     */
+    private String idcard;
+    /**
      * 账号过期时间
      */
     private String expiredTime;
@@ -129,6 +133,14 @@ public class TpAccount implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
     }
 
     public String getExpiredTime() {

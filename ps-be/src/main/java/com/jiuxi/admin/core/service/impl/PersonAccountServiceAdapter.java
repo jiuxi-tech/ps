@@ -64,4 +64,9 @@ public class PersonAccountServiceAdapter implements PersonAccountService {
     public void updatePhone(String personId, String phone) {
         personAccountApplicationService.updatePhone(personId, phone);
     }
+    
+    @Override
+    public void updateIdCard(String personId, String idCard) {
+        personAccountApplicationService.updateIdCard(personId, idCard);
+    }
 }
